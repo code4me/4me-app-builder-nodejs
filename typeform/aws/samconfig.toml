@@ -1,0 +1,10 @@
+version = 0.1
+[staging]
+[staging.deploy]
+[staging.deploy.parameters]
+stack_name = "app-builder-typeform"
+s3_prefix = "app-builder-typeform"
+region = "eu-west-1"
+profile = "staging"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"

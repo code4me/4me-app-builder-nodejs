@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Ask customer to complete survey",
+    "trigger": "on note added",
+    "condition": "completed and was_not_completed",
+    "expressions": [
+      {
+        "name": "completed",
+        "value": "status = completed"
+      },
+      {
+        "name": "was_not_completed",
+        "value": "status_was != completed"
+      },
+      {
+        "name": "url",
+        "value": "rule_integration_instance.custom_fields.form_url"
+      }
+    ],
+    "actions": [
+      {
+        "name": "a1",
+        "value": "add note 'Please complete our [survey at: {{url}}]({{url}})'"
+      }
+    ],
+    "generic": "request"
+  }
+]

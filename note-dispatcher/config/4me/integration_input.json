@@ -1,0 +1,8 @@
+{
+  "name": "Log Note Dispatcher Integration",
+  "reference": "note-dispatcher",
+  "description": "Dispatch notes added to request to an external URL.",
+  "features": "Fun translations",
+  "compliance": "Kind of bad as all notes are logged",
+  "policyJwtAlg": "rs512"
+}

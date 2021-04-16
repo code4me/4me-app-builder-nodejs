@@ -1,0 +1,6 @@
+{
+  "name": "AWS S3 Bucket - 4me Integrations",
+  "label": "s3-4me-integrations-1",
+  "status": "in_production",
+  "remarks": "Store data for 4me integrations hosted on AWS"
+}

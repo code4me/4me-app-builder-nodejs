@@ -1,0 +1,6 @@
+{
+  "name": "Note Dispatcher integration webhook",
+  "label": "lambda-note-dispatcher-1",
+  "remarks": "Receives call from 4me automation rules",
+  "status": "being_tested"
+}

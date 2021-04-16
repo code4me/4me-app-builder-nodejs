@@ -1,0 +1,28 @@
+For this integration you need to have an active <a href="https://www.typeform.com">Typeform</a> account, and create a form there.
+The responses provided to this form will be tracked in 4me.
+
+<div class="section" id="typeform">
+  <span class="section-header">Typeform Parameters</span>
+  Form of which responses should be tracked. Please provide the URL as used by customer's to fill it in.
+  <div class="row vertical">
+    <label for="form_url" title="Form ID">Form URL</label>
+    <input id="form_url" type="text" autocomplete="off" class="required">
+  </div>
+
+  We need a token to access your data in Typeform.
+  Instructions on how to obtain this token can be found in their
+  <a href="https://developer.typeform.com/get-started/personal-access-token/">support documentation</a>.
+  <div class="row vertical">
+    <label for="typeform_token" title="Typeform token">Typeform token</label>
+    <input id="typeform_token" type="text" autocomplete="off" class="required" data-secret>
+  </div>
+</div>
+
+<div class="section" id="result_parameters">
+  <span class="section-header">Result Parameters</span>
+  Each response will be added, as a note, to the request specified here.
+  <div class="row vertical">
+    <label for="request_id" title="Request ID">Request ID</label>
+    <input id="request_id" type="number" autocomplete="off" class="required">
+  </div>
+</div>

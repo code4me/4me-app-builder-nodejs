@@ -1,0 +1,123 @@
+{
+  "resource": "/integration",
+  "path": "/integration/",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept": "*/*",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "IE",
+    "Content-Type": "application/json; charset=utf-8",
+    "Host": "h6hg02l4w6.execute-api.eu-west-1.amazonaws.com",
+    "Link": "<https://wdc.4me-staging.com/automation_rules/114>; rel=\"canonical\", <https://api.4me-staging.com/v1/automation_rules/114>; rel=\"resource\"",
+    "User-Agent": "4me/1.0 (https://developer.4me.com/v1/webhooks)",
+    "Via": "1.1 82bacd1af934cd2afa8b1ccc8f096b22.cloudfront.net (CloudFront)",
+    "X-4me-Delivery": "37d6acba-1a74-4c3e-90cd-855010ad01f9",
+    "X-Amz-Cf-Id": "KBOUedj9AqdqI8YneOp61Zo0szEOjOUOYtnlZcOF4B6wDdnAVovcAQ==",
+    "X-Amzn-Trace-Id": "Root=1-605e28be-2d4c0b6d7c8038ec05c0f64d",
+    "X-Forwarded-For": "52.211.219.96, 70.132.15.131",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "*/*"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "IE"
+    ],
+    "Content-Type": [
+      "application/json; charset=utf-8"
+    ],
+    "Host": [
+      "h6hg02l4w6.execute-api.eu-west-1.amazonaws.com"
+    ],
+    "Link": [
+      "<https://wdc.4me-staging.com/automation_rules/114>; rel=\"canonical\", <https://api.4me-staging.com/v1/automation_rules/114>; rel=\"resource\""
+    ],
+    "User-Agent": [
+      "4me/1.0 (https://developer.4me.com/v1/webhooks)"
+    ],
+    "Via": [
+      "1.1 82bacd1af934cd2afa8b1ccc8f096b22.cloudfront.net (CloudFront)"
+    ],
+    "X-4me-Delivery": [
+      "37d6acba-1a74-4c3e-90cd-855010ad01f9"
+    ],
+    "X-Amz-Cf-Id": [
+      "KBOUedj9AqdqI8YneOp61Zo0szEOjOUOYtnlZcOF4B6wDdnAVovcAQ=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-605e28be-2d4c0b6d7c8038ec05c0f64d"
+    ],
+    "X-Forwarded-For": [
+      "52.211.219.96, 70.132.15.131"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": {
+    "account": "wdc"
+  },
+  "multiValueQueryStringParameters": {
+    "account": [
+      "wdc"
+    ]
+  },
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "7b4n43",
+    "resourcePath": "/integration",
+    "httpMethod": "POST",
+    "extendedRequestId": "cztNwGwdDoEF_bQ=",
+    "requestTime": "26/Mar/2021:18:32:30 +0000",
+    "path": "/Prod/integration/",
+    "accountId": "123456789012",
+    "protocol": "HTTP/1.1",
+    "stage": "Prod",
+    "domainPrefix": "h6hg02l4w6",
+    "requestTimeEpoch": 1616783550344,
+    "requestId": "8c9d3e47-71a7-4abf-9828-39868d9257f4",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "52.211.219.96",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "4me/1.0 (https://developer.4me.com/v1/webhooks)",
+      "user": null
+    },
+    "domainName": "h6hg02l4w6.execute-api.eu-west-1.amazonaws.com",
+    "apiId": "h6hg02l4w6"
+  },
+  "body": "{\"jwt\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzUxMiJ9.eyJkYXRhIjp7IndlYmhvb2tfaWQiOjIsIndlYmhvb2tfbm9kZUlEIjoiTkcxbExYTjBZV2RwYm1jdVkyOXRMMWRsWW1odmIyc3ZNZyIsImFjY291bnRfaWQiOiJ3ZGMiLCJhY2NvdW50IjoiaHR0cHM6Ly93ZGMuNG1lLXN0YWdpbmcuY29tIiwibmFtZSI6IkxvZyBOb3RlcyBBZGRlZCBJbnRlZ3JhdGlvbiIsImV2ZW50IjoiYXV0b21hdGlvbl9ydWxlIiwib2JqZWN0X2lkIjoxMTQsIm9iamVjdF9ub2RlSUQiOiJORzFsTFhOMFlXZHBibWN1WTI5dEwwRjFkRzl0WVhScGIyNVNkV3hsTHpFeE5BIiwicGVyc29uX2lkIjo2LCJwZXJzb25fbm9kZUlEIjoiTkcxbExYTjBZV2RwYm1jdVkyOXRMMUJsY25OdmJpODIiLCJwZXJzb25fbmFtZSI6Ikhvd2FyZCBUYW5uZXIiLCJwYXlsb2FkIjp7InRleHQiOiJhIG5ldyBub3RlIiwidXJsIjoiaHR0cHM6Ly93ZWJob29rLnNpdGUvYzA3YTk5NWYtMmRiMy00Y2MwLWE5YzktMTdmOGQ5MzdkNTA2In19LCJqdGkiOiIzNGZiZjJmMmU4ZWJlMDM4MjhhZmJhZjFjZThiMjk1NDQxZjZlNGQwMDk5ZWVmZmViY2NkNzQ2MjhkNTQ0MmMzIiwic3ViIjoiMiIsImlzcyI6Imh0dHBzOi8vd2RjLjRtZS1zdGFnaW5nLmNvbSIsIm5iZiI6MTYxNjc4MzU0OSwiaWF0IjoxNjE2NzgzNTQ5fQ.Bk5MOhHu7bVI_uVw5ui2kgExIBevQtoPquSutE41Gs-ZHetKzhQ1Wmi6tzGk0sqFYDuaomajqMUpBrOaugeRhzP2va9a8Z1zjhlgRN0rZyi-gAI_1Cq46qaW-F-GztuzCT4HpHmj3iRH57tSUb2ZtSik2PB_qFoYM4sBpfLiIYAY3O07weHe4SRowuwyF4RSJHmi-f4B-L7BMPlFw2EMmhqOW2DJN1Qro2KLKtnCla9oGlOtccDpnIeVESwRCKqBmF2sD8OutbwT8putX0ZbuMg9vr7gXGDRZo99p-7Lfh4opry_pLrBIa3Gs8h0dLM_FqYpJ77X93PN3IcrmDphKA\"}",
+  "isBase64Encoded": false
+}

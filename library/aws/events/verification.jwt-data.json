@@ -1,0 +1,16 @@
+{
+  "webhook_id": 1,
+  "webhook_nodeID": "NG1lLXN0YWdpbmcuY29tL1dlYmhvb2svMQ",
+  "account_id": "wdc",
+  "account": "https://wdc.4me-staging.com",
+  "name": "integration_instance.secrets-update",
+  "event": "webhook.verify",
+  "object_id": 1,
+  "object_nodeID": "NG1lLXN0YWdpbmcuY29tL1dlYmhvb2svMQ",
+  "person_id": 591,
+  "person_nodeID": "NG1lLXN0YWdpbmcuY29tL1BlcnNvbi81OTE",
+  "person_name": "Pluggable Integrations",
+  "payload": {
+    "callback": "https://wdc.4me-staging.com/webhooks/1/verify?code=FThErZe2Rr8wVBns-7lalATP&expires_at=1614686831"
+  }
+}

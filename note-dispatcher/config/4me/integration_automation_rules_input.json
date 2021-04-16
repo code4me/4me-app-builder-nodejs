@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Trigger webhook for each note added",
+    "trigger": "on note added",
+    "condition": "true",
+    "expressions": [
+      {
+        "name": "text",
+        "value": "notes[last].text"
+      },
+      {
+        "name": "url",
+        "value": "rule_integration_instance.custom_fields.url"
+      }
+    ],
+    "actions": [
+      {
+        "name": "a1",
+        "value": "call webhook '{integration_webhook}' with payload 'text url'"
+      }
+    ],
+    "generic": "request"
+  }
+]

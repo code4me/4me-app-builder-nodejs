@@ -1,0 +1,119 @@
+{
+  "resource": "/integration",
+  "path": "/integration/",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept-Encoding": "gzip",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "US",
+    "Content-Type": "application/json",
+    "Host": "neoggj3hrk.execute-api.eu-central-1.amazonaws.com",
+    "Typeform-Signature": "sha256=8+PhJSkQYGkuG4IpmfkJnWFx4v+LZ3JXP6SmF1HritE=",
+    "User-Agent": "Typeform Webhooks",
+    "Via": "1.1 b26814b9dbe71dc1916d211eeeec7ffd.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "o6YiM1uNNAczWC-EPr0wzmpZ5inlGSJAY_YrowjcAevIP23Ov_Gt7g==",
+    "X-Amzn-Trace-Id": "Root=1-60785f9f-4d8d9152217840241eea0268",
+    "X-Forwarded-For": "35.169.151.81, 130.176.133.144",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept-Encoding": [
+      "gzip"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "US"
+    ],
+    "Content-Type": [
+      "application/json"
+    ],
+    "Host": [
+      "neoggj3hrk.execute-api.eu-central-1.amazonaws.com"
+    ],
+    "Typeform-Signature": [
+      "sha256=8+PhJSkQYGkuG4IpmfkJnWFx4v+LZ3JXP6SmF1HritE="
+    ],
+    "User-Agent": [
+      "Typeform Webhooks"
+    ],
+    "Via": [
+      "1.1 b26814b9dbe71dc1916d211eeeec7ffd.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "o6YiM1uNNAczWC-EPr0wzmpZ5inlGSJAY_YrowjcAevIP23Ov_Gt7g=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-60785f9f-4d8d9152217840241eea0268"
+    ],
+    "X-Forwarded-For": [
+      "35.169.151.81, 130.176.133.144"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": {
+    "account": "wdc"
+  },
+  "multiValueQueryStringParameters": {
+    "account": [
+      "wdc"
+    ]
+  },
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "j06m0h",
+    "resourcePath": "/integration",
+    "httpMethod": "POST",
+    "extendedRequestId": "d1Pg4GXZFiAFUeg=",
+    "requestTime": "15/Apr/2021:15:45:35 +0000",
+    "path": "/Prod/integration/",
+    "accountId": "886414568685",
+    "protocol": "HTTP/1.1",
+    "stage": "Prod",
+    "domainPrefix": "neoggj3hrk",
+    "requestTimeEpoch": 1618501535199,
+    "requestId": "265bdca6-f3c3-4b4d-afd2-5050637f9b35",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "35.169.151.81",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Typeform Webhooks",
+      "user": null
+    },
+    "domainName": "neoggj3hrk.execute-api.eu-central-1.amazonaws.com",
+    "apiId": "neoggj3hrk"
+  },
+  "body": "{\"event_id\":\"01F3B3B0SASV6BPAKRTTQBBRJ6\",\"event_type\":\"form_response\",\"form_response\":{\"form_id\":\"jnJEPQKD\",\"token\":\"rg3gw7ap0jmng3pirg3gypirreqmiwu5\",\"landed_at\":\"2021-04-15T15:45:26Z\",\"submitted_at\":\"2021-04-15T15:45:34Z\",\"definition\":{\"id\":\"jnJEPQKD\",\"title\":\"PSO_Feedback\",\"fields\":[{\"id\":\"JqilkkcHD6oQ\",\"title\":\"What is the answer to the Ultimate Question of Life, the Universe, and Everything?\",\"type\":\"multiple_choice\",\"ref\":\"8492f6e2-7169-465c-854b-21c6d1947df6\",\"properties\":{},\"choices\":[{\"id\":\"0yrFQZVQXFHE\",\"label\":\"God\"},{\"id\":\"2mZlSZLDsORw\",\"label\":\"<3\"},{\"id\":\"1jAeLhbMw9zu\",\"label\":\"42\"},{\"id\":\"yAhE0s2n7Rfv\",\"label\":\"The End\"}]},{\"id\":\"B0OL9xAHFxSZ\",\"title\":\"Are You Not Entertained?\",\"type\":\"yes_no\",\"ref\":\"1ee52fd3-1052-4717-a3c5-3cebfc493bcf\",\"properties\":{}},{\"id\":\"U1MF4QpmqckE\",\"title\":\"How dead are you on the inside after that question?\",\"type\":\"rating\",\"ref\":\"1898523a-360e-4a61-a765-a8e4ca012d80\",\"properties\":{}}]},\"answers\":[{\"type\":\"choice\",\"choice\":{\"label\":\"42\"},\"field\":{\"id\":\"JqilkkcHD6oQ\",\"type\":\"multiple_choice\",\"ref\":\"8492f6e2-7169-465c-854b-21c6d1947df6\"}},{\"type\":\"boolean\",\"boolean\":true,\"field\":{\"id\":\"B0OL9xAHFxSZ\",\"type\":\"yes_no\",\"ref\":\"1ee52fd3-1052-4717-a3c5-3cebfc493bcf\"}},{\"type\":\"number\",\"number\":4,\"field\":{\"id\":\"U1MF4QpmqckE\",\"type\":\"rating\",\"ref\":\"1898523a-360e-4a61-a765-a8e4ca012d80\"}}]}}\n",
+  "isBase64Encoded": false
+}

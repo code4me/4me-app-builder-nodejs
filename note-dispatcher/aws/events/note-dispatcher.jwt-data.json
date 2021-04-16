@@ -1,0 +1,17 @@
+{
+  "webhook_id": 2,
+  "webhook_nodeID": "NG1lLXN0YWdpbmcuY29tL1dlYmhvb2svMg",
+  "account_id": "wdc",
+  "account": "https://wdc.4me-staging.com",
+  "name": "Log Note Dispatcher Integration",
+  "event": "automation_rule",
+  "object_id": 114,
+  "object_nodeID": "NG1lLXN0YWdpbmcuY29tL0F1dG9tYXRpb25SdWxlLzExNA",
+  "person_id": 6,
+  "person_nodeID": "NG1lLXN0YWdpbmcuY29tL1BlcnNvbi82",
+  "person_name": "Howard Tanner",
+  "payload": {
+    "text": "a new note",
+    "url": "https://webhook.site/c07a995f-2db3-4cc0-a9c9-17f8d937d506"
+  }
+}

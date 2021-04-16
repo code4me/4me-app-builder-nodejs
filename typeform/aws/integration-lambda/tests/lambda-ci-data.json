@@ -1,0 +1,38 @@
+{
+  "configurationItems": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "id": "NG1lLXN0YWdpbmcuY29tL0NpLzEwMjYwOQ",
+        "name": "Typeform integration Typeform webhook",
+        "label": "lambda-typeform-1",
+        "systemID": "arn:aws:lambda:eu-west-1:022816459076:function:app-builder-typeform-IntegrationFunction-1URR7LBIEMI4E",
+        "product": {
+          "id": "NG1lLXN0YWdpbmcuY29tL1Byb2R1Y3QvMjY2",
+          "name": "AWS Lambda"
+        },
+        "serviceInstances": {
+          "nodes": [
+            {
+              "id": "NG1lLXN0YWdpbmcuY29tL1NlcnZpY2VJbnN0YW5jZS84Mw",
+              "name": "Mainframe 1"
+            }
+          ]
+        },
+        "location": "Amazon: eu-west-1",
+        "status": "being_tested",
+        "remarks": "Receives call from Typeform each time a customer’s form is filled in",
+        "customFields": [
+          {
+            "id": "api_url",
+            "value": "https://sadasda.execute-api.eu-west-1.amazonaws.com/Prod/integration/"
+          },
+          {
+            "id": "cloudformation_stack",
+            "value": "app-builder-typeform-bucket"
+          }
+        ]
+      }
+    ]
+  }
+}

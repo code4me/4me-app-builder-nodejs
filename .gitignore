@@ -1,0 +1,5 @@
+.idea
+node_modules
+.aws-sam
+.vscode
+.DS_Store

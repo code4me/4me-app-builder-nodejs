@@ -1,0 +1,6 @@
+{
+  "name": "AWS Lambda UI Extension",
+  "title": "Lambda parameters",
+  "category": "product",
+  "activate": true
+}

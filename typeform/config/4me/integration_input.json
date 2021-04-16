@@ -1,0 +1,15 @@
+{
+  "name": "Typeform Integration",
+  "reference": "typeform",
+  "description": "Very cool integration!",
+  "features": "Everything and the kitchen sink",
+  "compliance": "So compliant",
+  "newScopes": [
+    {
+      "actions": [
+        "request:Read",
+        "request:Update"
+      ]
+    }
+  ]
+}

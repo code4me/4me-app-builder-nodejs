@@ -1,0 +1,120 @@
+{
+  "resource": "/integration",
+  "path": "/integration/",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept-Encoding": "gzip",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "US",
+    "Content-Type": "application/json",
+    "Host": "ufru4nvmzf.execute-api.eu-west-1.amazonaws.com",
+    "Typeform-Signature": "sha256=60tDohE1q/MNqqtgc0RGwuX9yl5U1R1ucsOObokayE0=",
+    "User-Agent": "Typeform Webhooks",
+    "Via": "1.1 3072c658bb2e308b174aea92028efcd7.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "tBhs0l1HMz8npiRwy2Ew92SWh9a6Q6FPN5NmKG_JPsaYMrl1BsIrBg==",
+    "X-Amzn-Trace-Id": "Root=1-604b8df6-0328d9b42d9efafb1e0815d9",
+    "X-Forwarded-For": "52.70.187.49, 64.252.151.134",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept-Encoding": [
+      "gzip"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "US"
+    ],
+    "Content-Type": [
+      "application/json"
+    ],
+    "Host": [
+      "ufru4nvmzf.execute-api.eu-west-1.amazonaws.com"
+    ],
+    "Typeform-Signature": [
+      "sha256=60tDohE1q/MNqqtgc0RGwuX9yl5U1R1ucsOObokayE0="
+    ],
+    "User-Agent": [
+      "Typeform Webhooks"
+    ],
+    "Via": [
+      "1.1 3072c658bb2e308b174aea92028efcd7.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "tBhs0l1HMz8npiRwy2Ew92SWh9a6Q6FPN5NmKG_JPsaYMrl1BsIrBg=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-604b8df6-0328d9b42d9efafb1e0815d9"
+    ],
+    "X-Forwarded-For": [
+      "52.70.187.49, 64.252.151.134"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": {
+    "type": "typeform",
+    "account": "test-account"
+  },
+  "multiValueQueryStringParameters": {
+    "type": [
+      "typeform"
+    ]
+  },
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "iczlry",
+    "resourcePath": "/integration",
+    "httpMethod": "POST",
+    "extendedRequestId": "cFMemE98DoEFpiA=",
+    "requestTime": "12/Mar/2021:15:51:18 +0000",
+    "path": "/Prod/integration/",
+    "accountId": "123456789012",
+    "protocol": "HTTP/1.1",
+    "stage": "Prod",
+    "domainPrefix": "ufru4nvmzf",
+    "requestTimeEpoch": 1615564278980,
+    "requestId": "85336aca-893c-4516-bf9f-344786785c66",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "52.70.187.49",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Typeform Webhooks",
+      "user": null
+    },
+    "domainName": "ufru4nvmzf.execute-api.eu-west-1.amazonaws.com",
+    "apiId": "ufru4nvmzf"
+  },
+  "body": "{\"event_id\":\"01F0KGZX8T5N8THAFESVJRHBH2\",\"event_type\":\"form_response\",\"form_response\":{\"form_id\":\"zGUeqRpS\",\"token\":\"su83tplcv1jdyvsu835kzl01tkfc7nvr\",\"landed_at\":\"2021-03-12T15:30:55Z\",\"submitted_at\":\"2021-03-12T15:31:00Z\",\"definition\":{\"id\":\"zGUeqRpS\",\"title\":\"Customer Satisfaction Survey\",\"fields\":[{\"id\":\"IGPl3q68P5W3\",\"title\":\"Overall, how likely are you to recommend our products to a friend or colleague?\",\"type\":\"opinion_scale\",\"ref\":\"4f1861efe534f62e\",\"properties\":{}},{\"id\":\"7XSUv9oMULvu\",\"title\":\"And finally, could you kindly tell us why you chose {{field:4f1861efe534f62e}}?\",\"type\":\"long_text\",\"ref\":\"2ab61a7d34d366cc\",\"properties\":{}}]},\"answers\":[{\"type\":\"number\",\"number\":6,\"field\":{\"id\":\"IGPl3q68P5W3\",\"type\":\"opinion_scale\",\"ref\":\"4f1861efe534f62e\"}},{\"type\":\"text\",\"text\":\"asdasd\",\"field\":{\"id\":\"7XSUv9oMULvu\",\"type\":\"long_text\",\"ref\":\"2ab61a7d34d366cc\"}}]}}\n",
+  "isBase64Encoded": false
+}
