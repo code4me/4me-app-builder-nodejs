@@ -115,11 +115,7 @@ Over time when a new version of the integration becomes available the provider c
 
 When the customer no longer wishes to use the integration they can disable or remove the integration via the 4me Apps section.
 
-<object data="./images/topology.pdf" type="application/pdf" width="100%" height="56%">
-    <embed src="./images/topology.pdf">
-        <p>This browser does not support PDFs. Please look at the images/topology.pdf file.</p>
-    </embed>
-</object>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/topology.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/topology.png"/></a>
 
 ### Secrets Webhook
 
@@ -298,11 +294,7 @@ Next to that it provides helpers that can be used by the actual integrations:
 
 The [bootstrap usage section](#bootstrap) describes how to run the bootstrap script.
 
-<object data="./images/framework-bootstrap-js.pdf" type="application/pdf" width="100%" height="56%">
-    <embed src="./images/framework-bootstrap-js.pdf">
-        <p>This browser does not support PDFs. Please look at the images/framework-bootstrap-js.pdf file.</p>
-    </embed>
-</object>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/framework-bootstrap-js.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/framework-bootstrap-js.png"/></a>
 
 **Step 1** Gathering user input
 
@@ -519,11 +511,7 @@ This example explains the use of the [integration webhook and automation rules](
 
 Make sure to understand the [bootstrap.js](#bootstrapjs) script as that is a prerequisite for this example.
 
-<object data="./images/framework-note-dispatcher.pdf" type="application/pdf" width="100%" height="56%">
-    <embed src="./images/framework-note-dispatcher.pdf">
-        <p>This browser does not support PDFs. Please look at the images/framework-note-dispatcher.pdf file.</p>
-    </embed>
-</object>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/framework-note-dispatcher.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/framework-note-dispatcher.png"/></a>
 
 #### Note-Dispatcher Deploy Script
 
@@ -603,11 +591,7 @@ This example explains the use of the [scopes and 4me application token](#scopes-
 
 Make sure to understand the [bootstrap.js](#bootstrapjs) script as that is a prerequisite for this example.
 
-<object data="./images/framework-typeform.pdf" type="application/pdf" width="100%" height="56%">
-    <embed src="./images/framework-typeform.pdf">
-        <p>This browser does not support PDFs. Please look at the images/framework-typeform.pdf file.</p>
-    </embed>
-</object>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/framework-typeform.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/framework-typeform.png"/></a>
 
 #### Typeform Preparation
 
