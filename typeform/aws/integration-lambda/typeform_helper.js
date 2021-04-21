@@ -18,14 +18,20 @@ class TypeformHelper {
       const title = questions[field].title;
       if (type === 'opinion_scale') {
         note += `\n - "${title}": ${answer.number}`;
-      } else if (type === 'long_text') {
+      } else if (type === 'long_text' || type === 'short_text') {
         note += `\n - "${title}": ${answer.text}`;
-      } else if (type === 'multiple_choice') {
+      } else if (type === 'multiple_choice' || type === 'picture_choice') {
         note += `\n - "${title}": ${answer.choice.label}`;
       } else if (type === 'yes_no') {
         note += `\n - "${title}": ${answer.boolean ? 'Yes' : 'No'}`;
       } else if (type === 'rating') {
         note += `\n - "${title}": ${answer.number}`;
+      } else if (type === 'phone_number') {
+        note += `\n - "${title}": ${answer.phone_number}`;
+      } else if (type === 'email') {
+        note += `\n - "${title}": ${answer.email}`;
+      } else if (type === 'date') {
+        note += `\n - "${title}": ${answer.date}`;
       } else {
         this.log(`Unexpected answer type ${type} for ${title}`);
       }

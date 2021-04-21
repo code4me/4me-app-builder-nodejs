@@ -48,7 +48,13 @@ it('creates note for more complex form response', () => {
   expect(note).toEqual('Received answer for "PSO_Feedback":\n' +
                          ' - "What is the answer to the Ultimate Question of Life, the Universe, and Everything?": 42\n' +
                          ' - "Are You Not Entertained?": Yes\n' +
-                         ' - "How dead are you on the inside after that question?": 4'
+                         ' - "How dead are you on the inside after that question?": 3\n' +
+                         ' - "Call me? Please?": +48512345678\n' +
+                         ' - "Type "I\'m Batman" - with correct voice in your head": qweasd\n' +
+                         ' - "Type something long. Not the p word...": qweqweqweqwe\n' +
+                         ' - "Choose wisely": DC\n' +
+                         ' - "Where do you want all the spam?": qeqwe@weqw.pl\n' +
+                         ' - "When i the cake time?": 1212-12-12'
   )
   ;
 });
