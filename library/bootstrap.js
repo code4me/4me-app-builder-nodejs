@@ -257,6 +257,10 @@ class Bootstrap {
     console.error('Error retrieving service instance: %j', si.error)
     process.exit(-2);
   }
+  if (!si.supportTeam) {
+    console.error(`No support team found for service instance: ${input.serviceInstanceName}. Please configure one`)
+    process.exit(-3);
+  }
 
   // Upsert products for AWS Lambda and S3
   const s3Product = await bootstrap.syncProduct('s3_product', {supportTeamId: si.supportTeam.id});
