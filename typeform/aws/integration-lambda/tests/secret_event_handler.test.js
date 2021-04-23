@@ -113,7 +113,7 @@ it('handles initial secrets, no typeform secret yet', async () => {
   let unsuspendCalled = false;
   InstanceHelper.mockImplementation(() => {
     return {
-      retrieveInstance: async (js4meHelper, token, reference, customerAccount) => {
+      retrieveInstanceWithRetry: async (js4meHelper, token, reference, customerAccount) => {
         expect(js4meHelper).not.toBeNull();
         expect(token).toBe(providerAccessToken);
         expect(reference).toBe(process.env.PARAM_INTEGRATION_REFERENCE);
@@ -188,7 +188,7 @@ it('does not continue if no integration instance is found', async () => {
 
   InstanceHelper.mockImplementation(() => {
     return {
-      retrieveInstance: async (js4meHelper, token, reference, customerAccount) => {
+      retrieveInstanceWithRetry: async (js4meHelper, token, reference, customerAccount) => {
         return {"error": "Unable to query 'get instance details'"};
       },
       suspendInstance: async (js4meHelper, accessToken, description, instanceId, suspensionComment) => {
@@ -254,7 +254,7 @@ it('does not store secrets if typeform call fails', async () => {
   let actualSuspensionComment = null;
   InstanceHelper.mockImplementation(() => {
     return {
-      retrieveInstance: async (js4meHelper, token, reference, customerAccount) => {
+      retrieveInstanceWithRetry: async (js4meHelper, token, reference, customerAccount) => {
         return config;
       },
       suspendInstance: async (js4meHelper, accessToken, description, instanceId, suspensionComment) => {

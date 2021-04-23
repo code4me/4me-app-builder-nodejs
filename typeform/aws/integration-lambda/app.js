@@ -62,10 +62,10 @@ async function createTypeformWebhook(options) {
 
   // find which form to create webhook for
   const instanceHelper = new InstanceHelper();
-  const config = await instanceHelper.retrieveInstance(provider4meHelper,
-                                                       accessToken,
-                                                       integrationReference,
-                                                       customerAccount);
+  let config = await instanceHelper.retrieveInstanceWithRetry(provider4meHelper,
+                                                              accessToken,
+                                                              integrationReference,
+                                                              customerAccount);
 
   if (config.error) {
     console.log('Unable to query instance. Too quick after integration installation?');

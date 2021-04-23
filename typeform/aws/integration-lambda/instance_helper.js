@@ -1,6 +1,19 @@
 'use strict';
 
 class InstanceHelper {
+  static RETRY_WAIT = parseInt(process.env.INSTANCE_RETRY_TIMEOUT, 10) || 2000;
+
+  async retrieveInstanceWithRetry(js4meHelper, accessToken, reference, customerAccount) {
+    let config = await this.retrieveInstance(js4meHelper, accessToken, reference, customerAccount);
+
+    if (config.error) {
+      const timeout = InstanceHelper.RETRY_WAIT;
+      console.log('Unable to query instance. Too quick after integration installation? Will retry in %sms.', timeout);
+      await new Promise(resolve => setTimeout(resolve, timeout));
+      config = await this.retrieveInstance(js4meHelper, accessToken, reference, customerAccount);
+    }
+    return config;
+  }
 
   async retrieveInstance(js4meHelper, accessToken, reference, customerAccount) {
     const instance = await this.queryInstanceCustomFields(js4meHelper, accessToken, reference, customerAccount);
@@ -83,7 +96,7 @@ class InstanceHelper {
                                                        reference: reference,
                                                      });
     if (result.error) {
-      this.error('%j', result);
+      console.error('%j', result);
       return result;
     } else {
       const nodes = result.integrationInstances.nodes;

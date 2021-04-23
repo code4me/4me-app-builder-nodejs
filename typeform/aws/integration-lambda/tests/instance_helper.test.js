@@ -9,6 +9,16 @@ const integrationReference = 'my_ref';
 const customerAccount = 'abc';
 const instanceHelper = new InstanceHelper();
 
+let defaultRetryTimeout;
+beforeEach(() => {
+  defaultRetryTimeout = InstanceHelper.RETRY_WAIT;
+  InstanceHelper.RETRY_WAIT = 1;
+});
+
+afterEach(() => {
+  InstanceHelper.RETRY_WAIT = InstanceHelper.RETRY_WAIT;
+});
+
 it('can retrieve data from custom fields', async () => {
   const graphQLResult = {
     integrationInstances: {
@@ -58,6 +68,100 @@ it('can retrieve data from custom fields', async () => {
                formUrl: 'https://mysite.typeform.com/to/u6nXL7',
                requestId: 'def',
              });
+});
+
+it('can retry on failure', async () => {
+  const graphQLErrorResult = {"error": "Unable to query Update integration instance"};
+
+  const graphQLSuccessResult = {
+    integrationInstances: {
+      nodes: [
+        {
+          id: 'tadsasd',
+          suspended: false,
+          customFields: [
+            {
+              "id": "form_url",
+              "value": "https://mysite.typeform.com/to/u6nXL7"
+            },
+            {
+              "id": "typeform_token",
+              "value": "***"
+            },
+            {
+              "id": "request_id",
+              "value": "def"
+            },
+          ]
+        }
+      ]
+    }
+  };
+
+  let callCounter = 0;
+  Js4meHelper.mockImplementation(() => {
+    return {
+      getGraphQLQuery: async (descr, token, query, vars) => {
+        callCounter++;
+        expect(token).toBe(accessToken);
+        expect(vars).toEqual(
+          {
+            customerAccount: customerAccount,
+            reference: integrationReference,
+          }
+        );
+        if (callCounter === 2) {
+          return graphQLSuccessResult;
+        } else {
+          return graphQLErrorResult;
+        }
+      },
+    };
+  });
+
+  const js4meHelper = new Js4meHelper();
+
+  expect(await instanceHelper.retrieveInstanceWithRetry(js4meHelper,
+                                                        accessToken,
+                                                        integrationReference,
+                                                        customerAccount))
+    .toEqual({
+               instanceId: 'tadsasd',
+               suspended: false,
+               formUrl: 'https://mysite.typeform.com/to/u6nXL7',
+               requestId: 'def',
+             });
+  expect(callCounter).toBe(2);
+});
+
+it('retries only once', async () => {
+  const graphQLErrorResult = {"error": "Unable to query Update integration instance"};
+
+  let callCounter = 0;
+  Js4meHelper.mockImplementation(() => {
+    return {
+      getGraphQLQuery: async (descr, token, query, vars) => {
+        callCounter++;
+        expect(token).toBe(accessToken);
+        expect(vars).toEqual(
+          {
+            customerAccount: customerAccount,
+            reference: integrationReference,
+          }
+        );
+        return graphQLErrorResult;
+      },
+    };
+  });
+
+  const js4meHelper = new Js4meHelper();
+
+  expect(await instanceHelper.retrieveInstanceWithRetry(js4meHelper,
+                                                        accessToken,
+                                                        integrationReference,
+                                                        customerAccount))
+    .toEqual(graphQLErrorResult);
+  expect(callCounter).toBe(2);
 });
 
 it('can suspend instance', async () => {
