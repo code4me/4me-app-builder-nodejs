@@ -1,7 +1,6 @@
 'use strict';
 
 class InstanceHelper {
-  static RETRY_WAIT = parseInt(process.env.INSTANCE_RETRY_TIMEOUT, 10) || 2000;
 
   async retrieveInstanceWithRetry(js4meHelper, accessToken, reference, customerAccount) {
     let config = await this.retrieveInstance(js4meHelper, accessToken, reference, customerAccount);
@@ -127,5 +126,7 @@ class InstanceHelper {
   }
 
 }
+
+InstanceHelper.RETRY_WAIT = parseInt(process.env.INSTANCE_RETRY_TIMEOUT, 10) || 2000;
 
 module.exports = InstanceHelper;
