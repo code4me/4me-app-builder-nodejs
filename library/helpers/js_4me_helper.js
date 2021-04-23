@@ -105,7 +105,7 @@ class Js4meHelper {
       const responseBody = itrpResponse.data;
       const errors = responseBody.errors;
       if (errors) {
-        console.log("Errors from GraphQL call:\n%O", errors);
+        console.log("Errors from GraphQL call:\n%j", errors);
         return { error: `Unable to query ${descr}` };
       } else {
         return responseBody.data;

@@ -34,7 +34,6 @@ class InstanceHelper {
         console.error('Unable to suspend %s:\n%j',
                       description, instance.error);
       } else {
-        console.info('Suspended %s', description);
         return {instanceId: instance.id};
       }
     } catch (e) {

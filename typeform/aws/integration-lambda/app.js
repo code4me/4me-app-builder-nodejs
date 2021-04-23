@@ -66,6 +66,12 @@ async function createTypeformWebhook(options) {
                                                        accessToken,
                                                        integrationReference,
                                                        customerAccount);
+
+  if (config.error) {
+    console.log('Unable to query instance. Too quick after integration installation?');
+    return config;
+  }
+
   const formId = extractFormId(config.formUrl);
   if (!formId) {
     await suspendInstance(instanceHelper, provider4meHelper, accessToken, description,

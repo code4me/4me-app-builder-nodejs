@@ -159,6 +159,58 @@ it('handles initial secrets, no typeform secret yet', async () => {
   expect(unsuspendCalled).toBe(true);
 });
 
+it('does not continue if no integration instance is found', async () => {
+  const event = require('../../events/secret-create.event.json');
+  const accessToken = {access_token: 'howard.tanner'};
+  const customerSecrets = {
+    application: {
+      client_id: 'a',
+      client_secret: 'secret',
+    },
+    secrets: {
+      typeform_token: 'my-typeform-token',
+    },
+  };
+  const lambdaContextMocker = new LambdaContextMocker('test-account', customerSecrets);
+
+  SecretsHelper.mockImplementation(() => {
+    return {
+      getSecrets: lambdaContextMocker.mockedGetSecrets,
+    };
+  });
+
+  Js4meHelper.mockImplementation(() => {
+    return {
+      getToken: async () => accessToken,
+      getGraphQLQuery: async () => ciProductData,
+    };
+  });
+
+  InstanceHelper.mockImplementation(() => {
+    return {
+      retrieveInstance: async (js4meHelper, token, reference, customerAccount) => {
+        return {"error": "Unable to query 'get instance details'"};
+      },
+      suspendInstance: async (js4meHelper, accessToken, description, instanceId, suspensionComment) => {
+        fail('suspendInstance should not be called, since no instanceId is known...');
+      },
+    };
+  });
+
+  expect(await app.lambdaHandler(event, context))
+    .toEqual({
+               'statusCode': 500,
+               'body': JSON.stringify({
+                                        message: 'Unable to create Typeform webhook',
+                                      })
+             });
+
+  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_INTEGRATION_REFERENCE}`;
+  expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
+  lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
+  expect(TypeformClient.mock.calls.length).toBe(0);
+});
+
 it('does not store secrets if typeform call fails', async () => {
   const event = require('../../events/secret-create.event.json');
   const accessToken = {access_token: 'howard.tanner'};
