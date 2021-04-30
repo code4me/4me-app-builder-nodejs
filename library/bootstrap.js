@@ -26,12 +26,11 @@ class Bootstrap {
     const serviceInstanceName = await promptly.prompt('Which service instance (for integration engine): ',
                                                       {default: 'Mainframe 1'});
 
-    const clientID = await promptly.prompt('Your client ID: ',
-                                           {default: null});
+    const clientID = await promptly.prompt('Your client ID: ');
     const token = await promptly.password('Your application token: ',
                                           {
                                             replace: '*',
-                                            default: null
+                                            default: undefined,
                                           });
     return {
       domain: domain,
