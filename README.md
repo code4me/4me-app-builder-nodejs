@@ -757,14 +757,18 @@ We installed NodeJS using [Node Version Manager](https://github.com/nvm-sh/nvm),
 
 Once installed go to the directory where you cloned this repository and run:
 
+```
     nvm install `cat .nvmrc`
     nvm use
+```
 
 ##### Install required packages
 
 Once NodeJS is installed and configured we can use Node Package Manager (NPM) to download and install the dependencies required for these examples. Open a terminal, or command prompt, ensure you are in the directory where you cloned this repository and run:
 
+```
     npm install
+```
 
 #### Install AWS (SAM) command line interface
 
@@ -803,7 +807,9 @@ Once these tools are installed you are ready to go!
 The [bootstrap process](#bootstrapjs) populates some generic records in the provider's 4me account and performs initial configuration in their AWS account so that [specific integrations can be set up](#deploy-integration).
 In these examples the bootstrap process is implemented in `bootstrap.js`. To run it open a terminal, or command prompt:
 
+```
     npm run bootstrap
+```
 
 The process will prompt you for the following parameters to configure it:
  * `4me domain`: which 4me instance should be used, typical values would be either '4me-demo.com' or '4me.qa'
@@ -828,8 +834,9 @@ This repository contains some example integrations that can be installed after t
  * `typeform` which allows customers to gather information from their customers using a form they manage in [Typeform](https://typeform.com). The responses provided are added as notes to a 4me Request.
  * `note-dispatcher` which allows customers to have notes that are added to their requests translated using [Fun Translations](https://funtranslations.com) (that offers translations not normally provided by 4me such as 'Yoda', 'Minion', 'Pirate', 'Gungan', or 'Morse') and dispatched to an external server.
 
-
+```
     npm run deploy-<integration-name>
+```
 
 The process for either example will prompt you for the following parameters to configure it:
 * `4me domain`: which 4me instance should be used, typical values would be either '4me-demo.com' or '4me.qa'
