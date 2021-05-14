@@ -24,7 +24,7 @@ const context = {invokedFunctionArn: 'arn:aws:lambda:eu-west-1:123456789012:func
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_BOOTSTRAP_ACCOUNT = 'test-provider';
 process.env.PARAM_4ME_DOMAIN = '4me-test-domain';
-process.env.PARAM_INTEGRATION_REFERENCE = 'my-typeform';
+process.env.PARAM_OFFERING_REFERENCE = 'my-typeform';
 
 it('handles receiving form filled event', async () => {
   const providerAccessToken = {access_token: 'howard.tanner'};
@@ -64,7 +64,7 @@ it('handles receiving form filled event', async () => {
       retrieveInstance: async (js4meHelper, token, reference, customerAccount) => {
         expect(js4meHelper).not.toBeNull();
         expect(token).toBe(providerAccessToken);
-        expect(reference).toBe(process.env.PARAM_INTEGRATION_REFERENCE);
+        expect(reference).toBe(process.env.PARAM_OFFERING_REFERENCE);
         expect(customerAccount).toBe('test-account');
         return config;
       }
@@ -110,7 +110,7 @@ it('handles receiving form filled event', async () => {
                                       })
              });
 
-  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_INTEGRATION_REFERENCE}`;
+  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
@@ -156,7 +156,7 @@ it('rejects message with incorrect hash', async () => {
                                       })
              });
 
-  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_INTEGRATION_REFERENCE}`;
+  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
   expect(actualSecret).toBe(customerSecrets.typeform_secret);

@@ -57,18 +57,18 @@ async function createTypeformWebhook(options) {
 
   const customerContext = options.lambda4meContext.customerContext;
   const customerAccount = customerContext.account;
-  const integrationReference = options.lambda4meContext.integrationReference;
-  const description = `instance of ${integrationReference} for ${customerAccount}`;
+  const offeringReference = options.lambda4meContext.offeringReference;
+  const description = `instance of ${offeringReference} for ${customerAccount}`;
 
   // find which form to create webhook for
   const instanceHelper = new InstanceHelper();
   let config = await instanceHelper.retrieveInstanceWithRetry(provider4meHelper,
                                                               accessToken,
-                                                              integrationReference,
+                                                              offeringReference,
                                                               customerAccount);
 
   if (config.error) {
-    console.log('Unable to query instance. Too quick after integration installation?');
+    console.log('Unable to query instance. Too quick after app offering installation?');
     return config;
   }
 
@@ -172,7 +172,7 @@ async function handleAny(event, context) {
     applicationName: process.env.PARAM_BOOTSTRAP_APP,
     providerAccount: process.env.PARAM_BOOTSTRAP_ACCOUNT,
     env4me: process.env.PARAM_4ME_DOMAIN,
-    integrationReference: process.env.PARAM_INTEGRATION_REFERENCE,
+    offeringReference: process.env.PARAM_OFFERING_REFERENCE,
   };
   if (event.source === 'aws.secretsmanager') {
     // no verification of message required, as event.source is set by AWS

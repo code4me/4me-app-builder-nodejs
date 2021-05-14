@@ -15,7 +15,7 @@ Parameters:
   BootstrapSecretAccountParameter:
     Type: String
     Default: wdc
-  IntegrationReferenceParameter:
+  offeringReferenceParameter:
     Type: String
     Default: note-dispatcher
 
@@ -36,7 +36,7 @@ Resources:
       Environment: 
         Variables:
           PARAM_4ME_DOMAIN: !Ref 4MeDomainParameter
-          PARAM_INTEGRATION_REFERENCE: !Ref IntegrationReferenceParameter
+          PARAM_OFFERING_REFERENCE: !Ref offeringReferenceParameter
           PARAM_BOOTSTRAP_APP: !Ref BootstrapSecretApplicationParameter
           PARAM_BOOTSTRAP_ACCOUNT: !Ref BootstrapSecretAccountParameter
       Events:
@@ -52,7 +52,7 @@ Resources:
           Effect: Allow
           Action:
           - secretsmanager:GetSecretValue
-          Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${BootstrapSecretApplicationParameter}/${IntegrationReferenceParameter}/${4MeDomainParameter}/instances/*"
+          Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${BootstrapSecretApplicationParameter}/${offeringReferenceParameter}/${4MeDomainParameter}/instances/*"
     Metadata:
       DockerTag: nodejs14.x-v1
       DockerContext: ./integration-lambda

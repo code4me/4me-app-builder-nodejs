@@ -8,7 +8,7 @@ class Lambda4meContextHelper {
     this.applicationName = options.applicationName;
     this.providerAccount = options.providerAccount;
     this.env4me = options.env4me;
-    this.integrationReference = options.integrationReference;
+    this.offeringReference = options.offeringReference;
   }
 
   async assemble(customerAccount) {
@@ -31,7 +31,7 @@ class Lambda4meContextHelper {
     const context = {
       env4me: this.env4me,
       applicationName: this.applicationName,
-      integrationReference: this.integrationReference,
+      offeringReference: this.offeringReference,
     };
     if (providerContext) {
       context.providerContext = providerContext;
@@ -43,7 +43,7 @@ class Lambda4meContextHelper {
   }
 
   async getCustomerContext(customerAccount) {
-    const secretsApplicationName = `${this.applicationName}/${this.integrationReference}`;
+    const secretsApplicationName = `${this.applicationName}/${this.offeringReference}`;
     const secretsAccountKey = `instances/${customerAccount}`;
 
     const secretsHelper = new SecretsHelper(null, this.env4me, secretsApplicationName);

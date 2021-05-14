@@ -33,7 +33,7 @@ const mockedSecrets = {
 
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_4ME_DOMAIN = '4me-test-domain';
-process.env.PARAM_INTEGRATION_REFERENCE = 'my-typeform';
+process.env.PARAM_OFFERING_REFERENCE = 'my-typeform';
 
 it('handles note dispatcher event', async () => {
   const event = require('../../events/note-dispatcher.event.json');

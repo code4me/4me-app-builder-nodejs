@@ -1,6 +1,6 @@
 {
   "name": "Note dispatcher configuration",
   "title": "Note dispatcher configuration",
-  "category": "integration",
+  "category": "app_offering",
   "activate": true
 }

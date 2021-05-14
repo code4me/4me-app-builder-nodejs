@@ -18,11 +18,11 @@ const event = {
     path: "/secrets/",
     httpMethod: 'POST',
     headers: {
-        "Content-Type": "application/json; charset=utf-8",
-        "Host": "cr0pj0mkoh.execute-api.eu-west-1.amazonaws.com",
-        "Link": "<https://wdc.4me-staging.com/integration_instances/1>; rel=\"canonical\", <https://api.4me-staging.com/v1/integration_instances/1>; rel=\"resource\"",
-        "User-Agent": "4me/1.0 (https://developer.4me.com/v1/webhooks)",
-        "X-4me-Delivery": "00c7bb4a-b3ba-4744-8126-1e7ef87ef90a",
+      "Content-Type": "application/json; charset=utf-8",
+      "Host": "cr0pj0mkoh.execute-api.eu-west-1.amazonaws.com",
+      "Link": "<https://wdc.4me-staging.com/app_instances/1>; rel=\"canonical\", <https://api.4me-staging.com/v1/app_instances/1>; rel=\"resource\"",
+      "User-Agent": "4me/1.0 (https://developer.4me.com/v1/webhooks)",
+      "X-4me-Delivery": "00c7bb4a-b3ba-4744-8126-1e7ef87ef90a",
     },
     body: "{\"jwt\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7IndlYmhvb2tfaWQiOjcsIndlYmhvb2tfbm9kZUlEIjoiTkcxbExYTjBZV2RwYm1jdVkyOXRMMWRsWW1odmIyc3ZOdyIsImFjY291bnRfaWQiOiJ3ZGMiLCJhY2NvdW50IjoiaHR0cHM6Ly93ZGMuNG1lLXN0YWdpbmcuY29tIiwibmFtZSI6ImludGVncmF0aW9uX2luc3RhbmNlLnNlY3JldHMtdXBkYXRlIiwiZXZlbnQiOiJpbnRlZ3JhdGlvbl9pbnN0YW5jZS5zZWNyZXRzLXVwZGF0ZSIsIm9iamVjdF9pZCI6MSwib2JqZWN0X25vZGVJRCI6Ik5HMWxMWE4wWVdkcGJtY3VZMjl0TDBsdWRHVm5jbUYwYVc5dVNXNXpkR0Z1WTJVdk1RIiwicGVyc29uX2lkIjo2LCJwZXJzb25fbm9kZUlEIjoiTkcxbExYTjBZV2RwYm1jdVkyOXRMMUJsY25OdmJpODIiLCJwZXJzb25fbmFtZSI6Ikhvd2FyZCBUYW5uZXIiLCJwYXlsb2FkIjp7ImF1ZGl0X2xpbmVfaWQiOjQ4Mjg5LCJhdWRpdF9saW5lX25vZGVJRCI6Ik5HMWxMWE4wWVdkcGJtY3VZMjl0TDBGMVpHbDBUR2x1WlM4ME9ESTRPUSIsImludGVncmF0aW9uIjp7InJlZmVyZW5jZSI6IndkY19zaWViZWwiLCJpZCI6MSwibm9kZUlEIjoiTkcxbExYTjBZV2RwYm1jdVkyOXRMMGx1ZEdWbmNtRjBhVzl1THpFIn0sImN1c3RvbWVyX2FjY291bnRfaWQiOiJ3ZGMiLCJhcHBsaWNhdGlvbiI6eyJub2RlSUQiOiJORzFsTFhOMFlXZHBibWN1WTI5dEwwOWhkWFJvUVhCd2JHbGpZWFJwYjI0dk1nIiwiY2xpZW50X2lkIjoiS0RpdFRzM3JrZmg2WVF4dTlwa05hd1J6eUpDWTQ4MHRmZXNUc0lpUDZFajMyM1ZuIiwiY2xpZW50X3NlY3JldCI6IjY5RTRXQU5pUmRwS0F2N3dzNVpzTlk3TkkwdHRHNUJ0eDZWQkg1S2ZWMDNacmtLcE4wTkduNEVVQjBEYmlwUHkifX19LCJqdGkiOiJkNmM5NmIxMzdlMTdhYjZiMTMwZjlhYjdjOGFmOTJhNGZhOTAxMmYyODNlYmRiOTUyMTU2YWM5NDRlNWZlNTVmIiwic3ViIjoiNyIsImlzcyI6Imh0dHBzOi8vd2RjLjRtZS1zdGFnaW5nLmNvbSIsIm5iZiI6MTYxNDY4MDYzOCwiaWF0IjoxNjE0NjgwNjM4LCJhdWQiOiJpbnRlZ3JhdGlvbnMgcHJvdmlkZWQgYnkgd2RjQDRtZS1zdGFnaW5nLmNvbSJ9.kX2WUj0tiOvUOTVi6NdAP5edQFCJSb5-GRPIReeJilPdmP40JuDeSTfrnk4s2yhPx25pwKDhDXqYeBYmT6A8_ENq_6fNwrk6EVRMwrmL-48s9izkLcsn_wLMm9NngqrCaSHYlJpjJJ0VyJPkgmnQs287rH7skUQU_mTKepw4Gj5EMZnzj_BAPGRleh53HHX5AEcxhCZIpvBNprPDmvnDRhdkII7z20pioJS-3q_T-6Kuj4iwL3kH8CU6R11oqB0hPc-kCafrBC-44fHxdXVk3MVJ8OZv7Get-M-44oTHJDjVibI6tDVRruIG4rQ-agYFj0Ingjy8ILmwqRq27zmX_g\"}",
 };

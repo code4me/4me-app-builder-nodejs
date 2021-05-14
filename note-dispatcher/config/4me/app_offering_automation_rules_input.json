@@ -10,13 +10,13 @@
       },
       {
         "name": "url",
-        "value": "rule_integration_instance.custom_fields.url"
+        "value": "rule_app_instance.custom_fields.url"
       }
     ],
     "actions": [
       {
         "name": "a1",
-        "value": "call webhook '{integration_webhook}' with payload 'text url'"
+        "value": "call webhook '{app_offering_webhook}' with payload 'text url'"
       }
     ],
     "generic": "request"

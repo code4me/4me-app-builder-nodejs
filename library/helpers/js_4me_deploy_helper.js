@@ -8,12 +8,12 @@ const AwsDeployHelper = require('./aws_deploy_helper');
 class Js4meDeployHelper {
   constructor() {
     this.secretApplicationName = '4me-app-builder';
-    this.bootstrapSource = '4me-integration-bootstrap';
+    this.bootstrapSource = '4me-app-bootstrap';
 
     this.mutationErrorResponseFields = 'errors { path  message }';
 
-    this.defaultIntegrationResponseFields = `
-      integration {
+    this.defaultOfferingResponseFields = `
+      appOffering {
         id
         reference
         uiExtensionVersion { id uiExtension { id } }
@@ -57,12 +57,12 @@ class Js4meDeployHelper {
                                          stackName,
                                          domain,
                                          account,
-                                         integrationReference) {
+                                         offeringReference) {
     const parameterOverrides = [
       `4MeDomainParameter=${domain}`,
       `BootstrapSecretApplicationParameter=${this.secretApplicationName}`,
       `BootstrapSecretAccountParameter=${account}`,
-      `IntegrationReferenceParameter=${integrationReference}`,
+      `OfferingReferenceParameter=${offeringReference}`,
     ];
     const stackOutputs = await this.deployLambda(clientConfig, profile, samPath, stackName, parameterOverrides)
 
@@ -113,11 +113,11 @@ class Js4meDeployHelper {
     return nodes[0];
   }
 
-  async findIntegration(js4meHelper, accessToken, reference) {
-    const result = await js4meHelper.getGraphQLQuery('Integration',
+  async findOffering(js4meHelper, accessToken, reference) {
+    const result = await js4meHelper.getGraphQLQuery('App Offering',
                                                      accessToken, `
        query($reference: String) {
-         integrations(first: 1, filter: { published: false, reference: { values: [$reference] } } ) {
+         appOfferings(first: 1, filter: { published: false, reference: { values: [$reference] } } ) {
            nodes {
              id
              name
@@ -132,7 +132,7 @@ class Js4meDeployHelper {
       console.error('%j', result);
       return result;
     } else {
-      const nodes = result.integrations.nodes;
+      const nodes = result.appOfferings.nodes;
       if (!nodes || nodes.length === 0) {
         return null;
       }
@@ -140,58 +140,58 @@ class Js4meDeployHelper {
     }
   }
 
-  async createIntegration(js4meHelper, accessToken, integrationInput, integrationMutationResponseFields) {
-    const result = await js4meHelper.executeGraphQLMutation('Create integration',
+  async createOffering(js4meHelper, accessToken, offeringInput, offeringMutationResponseFields) {
+    const result = await js4meHelper.executeGraphQLMutation('Create app offering',
                                                             accessToken, `
-      mutation($input: IntegrationCreateInput!) {
-        integrationCreate(input: $input) {
+      mutation($input: AppOfferingCreateInput!) {
+        appOfferingCreate(input: $input) {
           ${this.mutationErrorResponseFields}
-          ${integrationMutationResponseFields}
+          ${offeringMutationResponseFields}
         }
       }`,
                                                             {
-                                                              input: integrationInput,
+                                                              input: offeringInput,
                                                             });
     if (result.error) {
-      console.error('Unable to create integration: %j', result.error);
+      console.error('Unable to create app offering: %j', result.error);
       return result;
     }
-    return result.integration;
+    return result.appOffering;
   }
 
-  async updateIntegration(js4meHelper, accessToken, integrationInput, integrationMutationResponseFields) {
-    const result = await js4meHelper.executeGraphQLMutation('Update integration',
+  async updateOffering(js4meHelper, accessToken, offeringInput, offeringMutationResponseFields) {
+    const result = await js4meHelper.executeGraphQLMutation('Update app offering',
                                                             accessToken, `
-      mutation($input: IntegrationUpdateInput!) {
-        integrationUpdate(input: $input) {
+      mutation($input: AppOfferingUpdateInput!) {
+        appOfferingUpdate(input: $input) {
           ${this.mutationErrorResponseFields}
-          ${integrationMutationResponseFields}
+          ${offeringMutationResponseFields}
         }
       }`,
                                                             {
-                                                              input: integrationInput,
+                                                              input: offeringInput,
                                                             });
     if (result.error) {
-      console.error('Unable to update integration: %j', result.error);
+      console.error('Unable to update app offering: %j', result.error);
       return result;
     }
-    return result.integration;
+    return result.appOffering;
   }
 
-  async upsertIntegration(js4meHelper,
-                          accessToken,
-                          integrationInput,
-                          integrationMutationResponseFields = this.defaultIntegrationResponseFields) {
-    let integration = await this.findIntegration(js4meHelper, accessToken, integrationInput.reference);
-    if (!integration) {
-      integration = await this.createIntegration(js4meHelper,
-                                                 accessToken,
-                                                 integrationInput,
-                                                 integrationMutationResponseFields);
-    } else if (integration && !integration.error) {
-      const updateInput = {...integrationInput, id: integration.id};
+  async upsertOffering(js4meHelper,
+                       accessToken,
+                       offeringInput,
+                       offeringMutationResponseFields = this.defaultOfferingResponseFields) {
+    let offering = await this.findOffering(js4meHelper, accessToken, offeringInput.reference);
+    if (!offering) {
+      offering = await this.createOffering(js4meHelper,
+                                           accessToken,
+                                           offeringInput,
+                                           offeringMutationResponseFields);
+    } else if (offering && !offering.error) {
+      const updateInput = {...offeringInput, id: offering.id};
 
-      const currentScopes = integration.scopes || [];
+      const currentScopes = offering.scopes || [];
       for (let i = 0; i < currentScopes.length; i++) {
         if (i < updateInput.newScopes.length) {
           updateInput.newScopes[i].id = currentScopes[i].id;
@@ -203,126 +203,126 @@ class Js4meDeployHelper {
         }
       }
 
-      integration = await this.updateIntegration(js4meHelper,
-                                                 accessToken,
-                                                 updateInput,
-                                                 integrationMutationResponseFields);
+      offering = await this.updateOffering(js4meHelper,
+                                           accessToken,
+                                           updateInput,
+                                           offeringMutationResponseFields);
     }
 
-    if (integration.error) {
-      this.deploymentFailed('Failed to upsert integration: %j', integration.error)
+    if (offering.error) {
+      this.deploymentFailed('Failed to upsert app offering: %j', offering.error)
     }
-    if (!integration.id) {
-      this.deploymentFailed('No integration created!');
+    if (!offering.id) {
+      this.deploymentFailed('No app offering created!');
     }
 
-    return integration;
+    return offering;
   }
 
-  async createIntegrationAutomationRule(js4meHelper,
-                                        accessToken,
-                                        integrationRuleInput,
-                                        integrationAutomationRuleMutationResponseFields) {
-    const result = await js4meHelper.executeGraphQLMutation('Create integration automation rule',
+  async createOfferingAutomationRule(js4meHelper,
+                                     accessToken,
+                                     offeringRuleInput,
+                                     offeringAutomationRuleMutationResponseFields) {
+    const result = await js4meHelper.executeGraphQLMutation('Create app offering automation rule',
                                                             accessToken, `
-      mutation($input: IntegrationAutomationRuleCreateInput!) {
-        integrationAutomationRuleCreate(input: $input) {
+      mutation($input: AppOfferingAutomationRuleCreateInput!) {
+        appOfferingAutomationRuleCreate(input: $input) {
           ${this.mutationErrorResponseFields}
-          ${integrationAutomationRuleMutationResponseFields}
+          ${offeringAutomationRuleMutationResponseFields}
         }
       }`,
                                                             {
-                                                              input: integrationRuleInput,
+                                                              input: offeringRuleInput,
                                                             });
     if (result.error) {
-      console.error('Unable to create integration automation rule: %j', result.error);
+      console.error('Unable to create app offering automation rule: %j', result.error);
       return result;
     }
-    return result.integrationAutomationRule;
+    return result.appOfferingAutomationRule;
   }
 
-  async updateIntegrationAutomationRule(js4meHelper,
-                                        accessToken,
-                                        integrationRuleInput,
-                                        integrationAutomationRuleMutationResponseFields) {
-    const result = await js4meHelper.executeGraphQLMutation('Update integration automation rule',
+  async updateOfferingAutomationRule(js4meHelper,
+                                     accessToken,
+                                     offeringRuleInput,
+                                     offeringAutomationRuleMutationResponseFields) {
+    const result = await js4meHelper.executeGraphQLMutation('Update app offering automation rule',
                                                             accessToken, `
-      mutation($input: IntegrationAutomationRuleUpdateInput!) {
-        integrationAutomationRuleUpdate(input: $input) {
+      mutation($input: AppOfferingAutomationRuleUpdateInput!) {
+        appOfferingAutomationRuleUpdate(input: $input) {
           ${this.mutationErrorResponseFields}
-          ${integrationAutomationRuleMutationResponseFields}
+          ${offeringAutomationRuleMutationResponseFields}
         }
       }`,
                                                             {
-                                                              input: integrationRuleInput,
+                                                              input: offeringRuleInput,
                                                             });
     if (result.error) {
-      console.error('Unable to update integration automation rule: %j', result.error);
+      console.error('Unable to update app offering automation rule: %j', result.error);
       return result;
     }
-    return result.integrationAutomationRule;
+    return result.appOfferingAutomationRule;
   }
 
-  async upsertIntegrationAutomationRule(js4meHelper,
-                                        accessToken,
-                                        ruleId,
-                                        integrationRuleInput,
-                                        integrationAutomationRuleMutationResponseFields) {
+  async upsertOfferingAutomationRule(js4meHelper,
+                                     accessToken,
+                                     ruleId,
+                                     offeringRuleInput,
+                                     offeringAutomationRuleMutationResponseFields) {
     let rule;
     if (!ruleId) {
-      rule = await this.createIntegrationAutomationRule(js4meHelper,
-                                                        accessToken,
-                                                        integrationRuleInput,
-                                                        integrationAutomationRuleMutationResponseFields);
+      rule = await this.createOfferingAutomationRule(js4meHelper,
+                                                     accessToken,
+                                                     offeringRuleInput,
+                                                     offeringAutomationRuleMutationResponseFields);
     } else {
-      const updateInput = {...integrationRuleInput, id: ruleId};
-      delete updateInput.integrationId;
-      rule = await this.updateIntegrationAutomationRule(js4meHelper,
-                                                        accessToken,
-                                                        updateInput,
-                                                        integrationAutomationRuleMutationResponseFields);
+      const updateInput = {...offeringRuleInput, id: ruleId};
+      delete updateInput.appOfferingId;
+      rule = await this.updateOfferingAutomationRule(js4meHelper,
+                                                     accessToken,
+                                                     updateInput,
+                                                     offeringAutomationRuleMutationResponseFields);
     }
     return rule;
   }
 
-  async deleteIntegrationAutomationRule(js4meHelper, accessToken, ruleId) {
-    return await js4meHelper.deleteRecord(accessToken, 'integration_automation_rules', ruleId);
+  async deleteOfferingAutomationRule(js4meHelper, accessToken, ruleId) {
+    return await js4meHelper.deleteRecord(accessToken, 'app_offering_automation_rules', ruleId);
   }
 
-  async syncIntegrationAutomationRules(js4meHelper,
-                                       accessToken,
-                                       existingRules,
-                                       integrationRuleInputs,
-                                       integrationAutomationRuleMutationResponseFields = 'integrationAutomationRule { id name }') {
+  async syncOfferingAutomationRules(js4meHelper,
+                                    accessToken,
+                                    existingRules,
+                                    offeringRuleInputs,
+                                    offeringAutomationRuleMutationResponseFields = 'appOfferingAutomationRule { id name }') {
     const results = [];
     const currentRules = existingRules || [];
     for (let i = 0; i < currentRules.length; i++) {
       const ruleId = currentRules[i].id;
-      if (i < integrationRuleInputs.length) {
-        const newRule = integrationRuleInputs[i];
-        const upsertResult = await this.upsertIntegrationAutomationRule(js4meHelper,
-                                                                        accessToken,
-                                                                        ruleId,
-                                                                        newRule,
-                                                                        integrationAutomationRuleMutationResponseFields);
+      if (i < offeringRuleInputs.length) {
+        const newRule = offeringRuleInputs[i];
+        const upsertResult = await this.upsertOfferingAutomationRule(js4meHelper,
+                                                                     accessToken,
+                                                                     ruleId,
+                                                                     newRule,
+                                                                     offeringAutomationRuleMutationResponseFields);
         if (upsertResult.error) {
           this.deploymentFailed('Unable to sync rule %j: %j', i, upsertResult.error);
         } else {
           results.push(upsertResult);
         }
       } else {
-        const deleteResult = await this.deleteIntegrationAutomationRule(js4meHelper, accessToken, ruleId);
+        const deleteResult = await this.deleteOfferingAutomationRule(js4meHelper, accessToken, ruleId);
         if (deleteResult.error) {
           this.deploymentFailed('Unable to delete rule %j: %j', i, deleteResult.error);
         }
       }
     }
-    for (let i = currentRules.length; i < integrationRuleInputs.length; i++) {
-      const newRule = integrationRuleInputs[i];
-      const createResult = await this.createIntegrationAutomationRule(js4meHelper,
-                                                                      accessToken,
-                                                                      newRule,
-                                                                      integrationAutomationRuleMutationResponseFields);
+    for (let i = currentRules.length; i < offeringRuleInputs.length; i++) {
+      const newRule = offeringRuleInputs[i];
+      const createResult = await this.createOfferingAutomationRule(js4meHelper,
+                                                                   accessToken,
+                                                                   newRule,
+                                                                   offeringAutomationRuleMutationResponseFields);
       if (createResult.error) {
         this.deploymentFailed('Unable to create rule %j: %j', i, createResult.error);
       } else {
@@ -614,12 +614,12 @@ class Js4meDeployHelper {
 
   async upsertUiExtensionVersion(js4meHelper,
                                  accessToken,
-                                 integration,
+                                 offering,
                                  uiExtensionInput,
                                  uiExtensionMutationResponseFields) {
     let uiExtension = null;
-    if (integration.uiExtensionVersion) {
-      uiExtension = integration.uiExtensionVersion.uiExtension;
+    if (offering.uiExtensionVersion) {
+      uiExtension = offering.uiExtensionVersion.uiExtension;
     }
     const result = await this.upsertUiExtension(js4meHelper,
                                                 accessToken,
@@ -669,25 +669,25 @@ class Js4meDeployHelper {
 
   async syncUiExtensionVersion(js4meHelper,
                                accessToken,
-                               integration,
+                               offering,
                                uiExtensionInput,
                                uiExtensionMutationResponseFields = 'uiExtension { id name activeVersion { id } }') {
     const uiExtensionVersion = await this.upsertUiExtensionVersion(js4meHelper,
                                                                    accessToken,
-                                                                   integration,
+                                                                   offering,
                                                                    uiExtensionInput,
                                                                    uiExtensionMutationResponseFields);
 
     this.validateQueryResult(uiExtensionVersion, 'UI Extension Version');
 
-    if (!integration.uiExtensionVersion || integration.uiExtensionVersion.id !== uiExtensionVersion.id) {
-      const integrationWithUiExtension = await this.updateIntegration(js4meHelper, accessToken, {
-                                                                        id: integration.id,
-                                                                        uiExtensionVersionId: uiExtensionVersion.id,
-                                                                      },
-                                                                      'integration { id }');
-      if (integrationWithUiExtension.error) {
-        this.deploymentFailed('Failed to link UI Extension to integration: %j', integrationWithUiExtension.error);
+    if (!offering.uiExtensionVersion || offering.uiExtensionVersion.id !== uiExtensionVersion.id) {
+      const offeringWithUiExtension = await this.updateOffering(js4meHelper, accessToken, {
+                                                                  id: offering.id,
+                                                                  uiExtensionVersionId: uiExtensionVersion.id,
+                                                                },
+                                                                'appOffering { id }');
+      if (offeringWithUiExtension.error) {
+        this.deploymentFailed('Failed to link UI Extension to app offering: %j', offeringWithUiExtension.error);
       }
     }
 

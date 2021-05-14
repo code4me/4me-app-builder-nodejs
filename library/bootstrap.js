@@ -203,7 +203,7 @@ class Bootstrap {
     const result = await this.js4meHelper
       .executeGraphQLMutation('Create webhook', this.accessToken, `
         mutation($uri: String!, $policyId: ID!) {
-          webhookCreate(input: { event: "integration_instance.secrets-update", uri: $uri, webhookPolicyId: $policyId }) {
+          webhookCreate(input: { event: "app_instance.secrets-update", uri: $uri, webhookPolicyId: $policyId }) {
             errors {
                 path
                 message

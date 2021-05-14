@@ -7,7 +7,7 @@ class InstanceHelper {
 
     if (config.error) {
       const timeout = InstanceHelper.RETRY_WAIT;
-      console.log('Unable to query instance. Too quick after integration installation? Will retry in %sms.', timeout);
+      console.log('Unable to query instance. Too quick after app offering installation? Will retry in %sms.', timeout);
       await new Promise(resolve => setTimeout(resolve, timeout));
       config = await this.retrieveInstance(js4meHelper, accessToken, reference, customerAccount);
     }
@@ -41,7 +41,7 @@ class InstanceHelper {
       suspensionComment: suspensionComment,
     }
     try {
-      const instance = await this.updateIntegrationInstance(js4meHelper, accessToken, instanceInput);
+      const instance = await this.updateAppInstance(js4meHelper, accessToken, instanceInput);
       if (instance.error) {
         console.error('Unable to suspend %s:\n%j',
                       description, instance.error);
@@ -61,7 +61,7 @@ class InstanceHelper {
       suspended: false,
     }
     try {
-      const instance = await this.updateIntegrationInstance(js4meHelper, accessToken, instanceInput);
+      const instance = await this.updateAppInstance(js4meHelper, accessToken, instanceInput);
       if (instance.error) {
         console.error('Unable to unsuspend %s:\n%j',
                       description, instance.error);
@@ -77,12 +77,12 @@ class InstanceHelper {
   }
 
   async queryInstanceCustomFields(js4meHelper, accessToken, reference, customerAccount) {
-    const result = await js4meHelper.getGraphQLQuery('get instance details',
+    const result = await js4meHelper.getGraphQLQuery('get app instance details',
                                                      accessToken, `
       query($reference: String, $customerAccount: String!) {
-        integrationInstances(first: 1, filter: { 
+        appInstances(first: 1, filter: { 
                                           customerAccount: { values: [$customerAccount] },
-                                          integrationReference: { values: [$reference] } } ) {
+                                          offeringReference: { values: [$reference] } } ) {
           nodes {
             id
             suspended
@@ -98,7 +98,7 @@ class InstanceHelper {
       console.error('%j', result);
       return result;
     } else {
-      const nodes = result.integrationInstances.nodes;
+      const nodes = result.appInstances.nodes;
       if (!nodes || nodes.length === 0) {
         return {error: `No instances of ${reference} for ${customerAccount}`};
       }
@@ -106,23 +106,23 @@ class InstanceHelper {
     }
   }
 
-  async updateIntegrationInstance(js4meHelper, accessToken, instanceInput) {
-    const result = await js4meHelper.executeGraphQLMutation('Update integration instance',
+  async updateAppInstance(js4meHelper, accessToken, instanceInput) {
+    const result = await js4meHelper.executeGraphQLMutation('Update app instance',
                                                             accessToken, `
-      mutation($input: IntegrationInstanceUpdateInput!) {
-        integrationInstanceUpdate(input: $input) {
+      mutation($input: AppInstanceUpdateInput!) {
+        appInstanceUpdate(input: $input) {
           errors { path  message }
-          integrationInstance { id }
+          appInstance { id }
         }
       }`,
                                                             {
                                                               input: instanceInput,
                                                             });
     if (result.error) {
-      console.error('Unable to update integration instance: %j', result.error);
+      console.error('Unable to update app instance: %j', result.error);
       return result;
     }
-    return result.integrationInstance;
+    return result.appInstance;
   }
 
 }

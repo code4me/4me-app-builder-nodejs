@@ -5,7 +5,7 @@ const Js4meHelper = require('../../../../library/helpers/js_4me_helper');
 jest.mock('../../../../library/helpers/js_4me_helper');
 
 const accessToken = {access_token: 'howard.tanner'};
-const integrationReference = 'my_ref';
+const offeringReference = 'my_ref';
 const customerAccount = 'abc';
 const instanceHelper = new InstanceHelper();
 
@@ -21,7 +21,7 @@ afterEach(() => {
 
 it('can retrieve data from custom fields', async () => {
   const graphQLResult = {
-    integrationInstances: {
+    appInstances: {
       nodes: [
         {
           id: 'tadsasd',
@@ -52,7 +52,7 @@ it('can retrieve data from custom fields', async () => {
         expect(vars).toEqual(
           {
             customerAccount: customerAccount,
-            reference: integrationReference,
+            reference: offeringReference,
           }
         );
         return graphQLResult;
@@ -61,7 +61,7 @@ it('can retrieve data from custom fields', async () => {
   });
   const js4meHelper = new Js4meHelper();
 
-  expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, integrationReference, customerAccount))
+  expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
     .toEqual({
                instanceId: 'tadsasd',
                suspended: false,
@@ -71,10 +71,10 @@ it('can retrieve data from custom fields', async () => {
 });
 
 it('can retry on failure', async () => {
-  const graphQLErrorResult = {"error": "Unable to query Update integration instance"};
+  const graphQLErrorResult = {"error": "Unable to query Update app instance"};
 
   const graphQLSuccessResult = {
-    integrationInstances: {
+    appInstances: {
       nodes: [
         {
           id: 'tadsasd',
@@ -107,7 +107,7 @@ it('can retry on failure', async () => {
         expect(vars).toEqual(
           {
             customerAccount: customerAccount,
-            reference: integrationReference,
+            reference: offeringReference,
           }
         );
         if (callCounter === 2) {
@@ -123,7 +123,7 @@ it('can retry on failure', async () => {
 
   expect(await instanceHelper.retrieveInstanceWithRetry(js4meHelper,
                                                         accessToken,
-                                                        integrationReference,
+                                                        offeringReference,
                                                         customerAccount))
     .toEqual({
                instanceId: 'tadsasd',
@@ -135,7 +135,7 @@ it('can retry on failure', async () => {
 });
 
 it('retries only once', async () => {
-  const graphQLErrorResult = {"error": "Unable to query Update integration instance"};
+  const graphQLErrorResult = {"error": "Unable to query Update app instance"};
 
   let callCounter = 0;
   Js4meHelper.mockImplementation(() => {
@@ -146,7 +146,7 @@ it('retries only once', async () => {
         expect(vars).toEqual(
           {
             customerAccount: customerAccount,
-            reference: integrationReference,
+            reference: offeringReference,
           }
         );
         return graphQLErrorResult;
@@ -158,7 +158,7 @@ it('retries only once', async () => {
 
   expect(await instanceHelper.retrieveInstanceWithRetry(js4meHelper,
                                                         accessToken,
-                                                        integrationReference,
+                                                        offeringReference,
                                                         customerAccount))
     .toEqual(graphQLErrorResult);
   expect(callCounter).toBe(2);
@@ -170,7 +170,7 @@ it('can suspend instance', async () => {
   const descr = 'instance of wdc_test for wdc';
 
   const graphQLResult = {
-    integrationInstance: {
+    appInstance: {
       id: instanceId,
     }
   };
@@ -206,7 +206,7 @@ it('handles suspend instance error', async () => {
   const descr = 'instance of wdc_test for wdc';
 
   const graphQLResult = {
-    error: [{path: ['integrationInstanceUpdate', 'input'], message: 'somethings wrong'}],
+    error: [{path: ['appInstanceUpdate', 'input'], message: 'somethings wrong'}],
   };
 
   Js4meHelper.mockImplementation(() => {
@@ -239,7 +239,7 @@ it('can unsuspend instance', async () => {
   const descr = 'instance of wdc_test for wdc';
 
   const graphQLResult = {
-    integrationInstance: {
+    appInstance: {
       id: instanceId,
     }
   };
@@ -273,7 +273,7 @@ it('handles unsuspend instance error', async () => {
   const descr = 'instance of wdc_test for wdc';
 
   const graphQLResult = {
-    error: [{path: ['integrationInstanceUpdate', 'input'], message: 'somethings wrong'}],
+    error: [{path: ['appInstanceUpdate', 'input'], message: 'somethings wrong'}],
   };
 
   Js4meHelper.mockImplementation(() => {

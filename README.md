@@ -1,25 +1,29 @@
 # 4me App Builder Framework
 
-4me supports the creation of custom integrations with external applications. Once an integration is published it will become available in the Apps section of all 4me accounts with a trust to the provider account.
+4me supports the creation of app offerings to provide custom integrations with external applications. Once an app
+offering is published it will become available in the Apps section of all 4me accounts with a trust to the provider
+account.
 
-Building the actual integration is not trivial. This repository contains a couple of sample integrations based on a shared framework that can be used to jump-start the development.
+Building the actual app/integration is not trivial. This repository contains a couple of sample integrations based on a
+shared framework that can be used to jump-start the development.
 
-This documentation explains the nitty-gritty details and is therefore intended for developers and software architects. It contains the following topics:
+This documentation explains the nitty-gritty details and is therefore intended for developers and software architects.
+It contains the following topics:
 * [Glossary](#glossary)
 * [App Building](#app-building)
 * [Technology stack](#technology-stack)
 * [Topology](#topology)
   * [Secrets webhook](#secrets-webhook)
-  * [Integration](#integration)
+  * [App offering](#app-offering)
     * [UI extension](#ui-extension)
     * [Scopes and 4me application token](#scopes-and-4me-application-token)
-    * [Integration webhook and automation rules](#integration-webhook-and-automation-rules)
-  * [Integration instance](#integration-instance)
+    * [App webhook and automation rules](#app-webhook-and-automation-rules)
+  * [App instance](#app-instance)
   * [Integration engine](#integration-engine)
     * [4me Secrets webhook listener](#4me-secrets-webhook-listener)
     * [4me Integration webhook listener](#4me-integration-webhook-listener)
     * [External application webhook listener](#external-application-webhook-listener)
-    * [Integration added or updated listener](#integration-added-or-updated-listener)
+    * [App added or updated listener](#app-added-or-updated-listener)
 * [Framework](#framework)
   * [library](#library)
     * [bootstrap.js](#bootstrapjs)
@@ -48,7 +52,7 @@ This documentation explains the nitty-gritty details and is therefore intended f
   * [Bootstrap](#bootstrap)
   * [Deploy integration](#deploy-integration)
   * [Test the integration](#test-the-integration)
-  * [Publish the integration](#publish-the-integration)
+  * [Publish the app](#publish-the-app)
   * [Integration in use by customers](#integration-in-use-by-customers)
 
 ## Glossary
@@ -57,17 +61,22 @@ This documentation explains the nitty-gritty details and is therefore intended f
 * `4me domain` The 4me domain to install the integration in, e.g. `4me.com`, `4me.qa` or `4me-demo.com`.
 * `customer` The customer of the integration.
 * `customer account` The 4me account of the customer.
-* `customer secrets` Secret tokens for a single integration instance, allowing access to the customer's data. See the [secrets-lambda](#secrets-lambda).
+* `customer secrets` Secret tokens for a single app instance, allowing access to the customer's data. See
+  the [secrets-lambda](#secrets-lambda).
 * `external application` The external application that is being integrated with 4me.
 * `framework` This repository containing the document you are reading, all provisioning scripts and examples.
-* `integration` The 4me integration record defined in the provider account.
-* `integration engine` The (serverless) engine managed by the provider that connects 4me and the external application(s).
-* `integration instance` The installed 4me App in the customer account.
-* `lambda` A [serverless compute service](https://aws.amazon.com/lambda/) that lets you run code without provisioning or managing servers.
-* `provider` The provider of the integration.
+* `app offering` The 4me app offering record defined in the provider account.
+* `integration engine` The (serverless) engine managed by the provider that connects 4me and the external application(s)
+  .
+* `app instance` The installed 4me App in the customer account.
+* `lambda` A [serverless compute service](https://aws.amazon.com/lambda/) that lets you run code without provisioning or
+  managing servers.
+* `provider` The provider of the app/integration.
 * `provider account` The 4me account of the provider.
-* `provider secrets` Secret tokens shared by all integrations, allowing access to the provider's data. See the [bootstrap.js script](#bootstrap.js).
-* `SAM` [AWS Serverless Application Model (SAM)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html), used to provision the integration engine.
+* `provider secrets` Secret tokens shared by all apps, allowing access to the provider's data. See
+  the [bootstrap.js script](#bootstrap.js).
+* `SAM` [AWS Serverless Application Model (SAM)](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html)
+  , used to provision the integration engine.
 * `scope` Used to define which actions are allowed or denied in the customer account when using the 4me application token.
 * `webhook` A function that sends a `webhook message` to the `webhook endpoint` when a certain condition is met.
 * `webhook endpoint` Internet address (URI) where webhooks messages are received by the integration engine.
@@ -76,9 +85,11 @@ This documentation explains the nitty-gritty details and is therefore intended f
 
 ## App Building
 
-The Apps section in 4me make it possible for customers to install integrations build by providers.
-When an App is installed by a customer the complete setup of the integration for that particular customer should be automated so that the functionality of the App is immediately exposed.
-To accomplish this the provider has to register the integration in their 4me account and they need to build, deploy and maintain an integration engine that reacts to 4me whenever an App is installed to ensure that the customer 4me account is connected to the external application.
+The Apps section in 4me make it possible for customers to install integrations build by providers, app offerings. When
+an App is installed by a customer the complete setup of the integration for that particular customer should be automated
+so that the functionality of the App is immediately exposed. To accomplish this the provider has to register the
+integration in their 4me account and they need to build, deploy and maintain an integration engine that reacts to 4me
+whenever an App is installed to ensure that the customer 4me account is connected to the external application.
 
 This setup makes it very easy for 4me customers to add predefined integrations to their 4me account.
 
@@ -102,68 +113,86 @@ When building a secure integration between 4me and an external application sever
 This section outlines these components, their connections and explains some details of each component.
 
 From a high level point of view the following steps are taken:
-1. The provider creates a [integration_instance.secrets-update](#secrets-webhook) webhook
-1. The provider creates a [integration](#integration) record
+
+1. The provider creates an [app_instance.secrets-update](#secrets-webhook) webhook
+1. The provider creates an [App Offering](#app-offering) record
 1. The provider builds and deploys the [integration engine](#integration-engine)
-1. The provider installs the draft integration in the provider account for testing purposes
-1. The provider publishes the integration so that it becomes available to the customers
-1. The customer installs the integration in the Apps section
+1. The provider installs the draft app offering in the provider account for testing purposes
+1. The provider publishes the app offering so that it becomes available to the customers
+1. The customer installs the app via the Apps section
 1. The integration engine does some initial provisioning for the specific customer
-1. Regular operations of the integration start: based on events, in either 4me or the external application, the integration engine performs actions
+1. Regular operations of the integration start: based on events, in either 4me or the external application, the
+   integration engine performs actions
 
-Over time when a new version of the integration becomes available the provider can publish the new version and the customers have the opportunity to update the integration to the latest version in the 4me Apps section.
+Over time when a new version of the app offering becomes available the provider can publish the new version and the
+customers have the opportunity to update the app to the latest version in the 4me Apps section.
 
-When the customer no longer wishes to use the integration they can disable or remove the integration via the 4me Apps section.
+When the customer no longer wishes to use the integration they can disable or remove the app via the 4me Apps section.
 
 <a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/topology.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/topology.png"/></a>
 
 ### Secrets Webhook
 
-To ensure maximum security 4me will share customer secrets, required by the integration, using the special `integration_instance.secrets-update` [webhook](https://developer.4me.com/v1/webhooks/), and not keep these in the 4me database.
+To ensure maximum security 4me will share customer secrets, required by the integration, using the
+special `app_instance.secrets-update` [webhook](https://developer.4me.com/v1/webhooks/), and not keep these in the 4me
+database.
 
-A provider must define a *single* secrets 4me webhook that points to the integration engine. This webhook's URI should point to the [4me secrets webhook listener](#4me-secrets-webhook-listener) that is able to store all received customer secrets in a secrets store.
+A provider must define a *single* secrets 4me webhook that points to the integration engine. This webhook's URI should
+point to the [4me secrets webhook listener](#4me-secrets-webhook-listener) that is able to store all received customer
+secrets in a secrets store.
 
 It is **important** to define a webhook policy, and use https, on the secrets webhook to ensure that the messages are encrypted and the provider can verify that the incoming messages originate from 4me.
 
 The following customer secrets are passed using webhook messages from 4me to the [integration engine](#integration-engine) through this webhook:
+
 * The secret values provided by the customer in the [UI Extension](#ui-extension) related to the integration.
-* The webhook policy details of the [integration webhook](#integration-webhook-and-automation-rules) related to the integration.
+* The webhook policy details of the [app webhook](#app-webhook-and-automation-rules) related to the integration.
 * The [4me application token](#scopes-and-4me-application-token) required to access data in the 4me customer account.
 
 The framework provides a [default implementation of the secrets webhook](#secrets-lambda) making use of the [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/).
 
-### Integration
+### App Offering
 
-The 4me integration record is defined by the provider and consists of the following data:
+The 4me app offering record is defined by the provider and consists of the following data:
 * `Name` [required] Name shown to the customers in the Apps section.
 * `Reference` [required] Unique and immutable reference.
 * `Service instance` [required] The [service instance](https://developer.4me.com/graphql/object/serviceinstance/) supporting this integration.
 * `Description` Short description shown to the customers in the Apps section.
-* `Features` Longer description of the features of the integration.
+* `Features` Longer description of the features of the app.
 * `Compliance` Longer description regarding security and compliance.
-* `UI extension` A custom form shown to the customer when installing an integration.
-* `Scopes` The scopes required to interact with [4me GraphQL API](https://developer.4me.com/graphql/) in the customer account.
-* `Webhook` The endpoint, and associated policy, for webhook messages to relay 4me data from the customer account to the integration engine.
-* `Automation rules` Automation rules created in the customer account on installation of the integration.
+* `UI extension` A custom form shown to the customer when installing an app.
+* `Scopes` The scopes required to interact with [4me GraphQL API](https://developer.4me.com/graphql/) in the customer
+  account.
+* `Webhook` The endpoint, and associated policy, for webhook messages to relay 4me data from the customer account to the
+  integration engine.
+* `Automation rules` Automation rules created in the customer account on installation of the app.
 
-Depending on the type of integration the [UI extension](#ui-extension), [scopes and application token](#scopes-and-4me-application-token), and/or [integration webhook and automation rules](#integration-webhook-and-automation-rules) need to be defined.
+Depending on the type of integration the [UI extension](#ui-extension)
+, [scopes and application token](#scopes-and-4me-application-token),
+and/or [app webhook and automation rules](#app-webhook-and-automation-rules) need to be defined.
 
 This framework provides several [example integrations](#example-integrations) showing when and how to use them.
 
 #### UI Extension
 
-The UI extension is used to define custom fields that the customer needs to fill out when installing an integration.
+The UI extension is used to define custom fields that the customer needs to fill out when installing an app.
 
-When a customer installs an integration an `integration_instance` record will be created in the provider account.
-If a UI extension was added to the integration the data provided by the customer is accessible in the `custom_fields` value of that integration instance.
+When a customer installs an integration an `app_instance` record will be created in the provider account. If a UI
+extension was added to the app offering the data provided by the customer is accessible in the `custom_fields` value of
+that app instance.
 
-Besides the `integration_instance.secrets-update` webhook it is possible to define a `integration_instance.create`, `integration_instance.update` and `integration_instance.delete` webhook in the provider account to listen to changes made by the customer in the custom fields.
+Besides the `app_instance.secrets-update` webhook it is possible to define `app_instance.create`, `app_instance.update`
+and `app_instance.delete` webhook in the provider account to listen to changes made by the customer in the custom
+fields.
 
-Another option, used in the [example integrations](#example-integrations) below, is to query the custom data of the integration instance from the integration engine using the 4me GraphQL API at the moment the data is required.
-This ensures the most recent data is always used without the need to keep a copy in sync.
+Another option, used in the [example integrations](#example-integrations) below, is to query the custom data of the
+integration instance from the integration engine using the 4me GraphQL API at the moment the data is required. This
+ensures the most recent data is always used without the need to keep a copy in sync.
 
-Note that there is a special `secret` field type available in UI extension for integrations. When such a field is filled out by the customer a webhook message will be sent to the integration engine using the [integration_instance.secrets-update](#secrets-webhook) webhook.
-4me does not store the secrets so it is imperative to process those messages in the integration engine and store the customer's secrets in a trusted secrets store.
+Note that there is a special `secret` field type available in UI extension for app offerings. When such a field is
+filled out by the customer a webhook message will be sent to the integration engine using
+the [app_instance.secrets-update](#secrets-webhook) webhook. 4me does not store the secrets so it is imperative to
+process those messages in the integration engine and store the customer's secrets in a trusted secrets store.
 
 The [Framework](#secrets-lambda) already provides a full implementation for this functionality using the AWS services.
 
@@ -174,35 +203,44 @@ This can be done by defining scopes.
 
 Scopes typically contain information like 'Allow: CI — Read, Update'.
 
-The customer is able to review the scopes before installing the application.
+The customer is able to review the scopes before installing the app.
 
-When the integration is installed a 4me application token will be created in the customer account with the defined scopes.
-The created token, required to access the [4me GraphQL API](https://developer.4me.com/graphql/) in the customer account, will be sent to the integration engine using the [integration_instance.secrets-update](#secrets-webhook) webhook.
+When the app is installed a 4me application token will be created in the customer account with the defined scopes. The
+created token, required to access the [4me GraphQL API](https://developer.4me.com/graphql/) in the customer account,
+will be sent to the integration engine using the [app_instance.secrets-update](#secrets-webhook) webhook.
 
-4me does not store the secret 4me application token so it is imperative to process those messages in the integration engine and store the 4me application token in the secrets store.
+4me does not store the secret 4me application token so it is imperative to process those messages in the integration
+engine and store the 4me application token in the secrets store.
 
 The [Framework](#secrets-lambda) already provides a full implementation for this functionality using the AWS services.
 
-#### Integration Webhook and Automation Rules
+#### App Webhook and Automation Rules
 
-In case the integration needs to be notified of updates to records in the 4me customer account the integration should define a webhook and one or more automation rules.
+In case the app needs to be notified of updates to records in the 4me customer account the app offering should define a
+webhook and one or more automation rules.
 
-When a customer installs the integration a webhook policy and a webhook are created in the customer account based on the webhook details defined in the integration.
-The public key of the generated webhook policy will be sent to the integration engine using the [integration_instance.secrets-update](#secrets-webhook) webhook.
-The key should be stored in the customer secrets store so the integration engine can validate incoming messages originate from 4me.
+When a customer installs the app a webhook policy and a webhook are created in the customer account based on the webhook
+details defined in the app offering. The public key of the generated webhook policy will be sent to the integration
+engine using the [app_instance.secrets-update](#secrets-webhook) webhook. The key should be stored in the customer
+secrets store so the integration engine can validate incoming messages originate from 4me.
 
-The next step is to define automation rules that need to be created in the customer account on installation of the integration.
-Those automation rules can then be used to pass data from the customer account to the integration engine using actions that execute the webhook with specific data captured in the automation rule.
+The next step is to define automation rules that need to be created in the customer account on installation of the app.
+Those automation rules can then be used to pass data from the customer account to the integration engine using actions
+that execute the webhook with specific data captured in the automation rule.
 
-*Please note:* These automation rules are not limited to the scopes provided to the integration, but have full access to the customer's data.
+*Please note:* These automation rules are not limited to the scopes provided to the app offering, but have full access
+to the customer's data.
 
-The [Framework](#integration-lambdas) already provides a full implementation for this functionality using the AWS services.
+The [Framework](#integration-lambdas) already provides a full implementation for this functionality using the AWS
+services.
 
-### Integration Instance
+### App Instance
 
-When a customer installs an integration from the Apps section, an `integration_instance` record is created in the provider account.
+When a customer installs an app offering from the Apps section, an `app_instance` record is created in the provider
+account.
 
-It is possible to add a [UI extension](#ui-extension) to the integration to collect additional information from the customer on installation.
+It is possible to add a [UI extension](#ui-extension) to the app offering to collect additional information from the
+customer on installation.
 
 ### Integration Engine
 
@@ -213,14 +251,18 @@ The integration engine exposes a single serverless lambda function shared over a
 
 And it exposes some serverless lambda functions for *each* integration hosted by the integration engine:
 * A [4me integration webhook listener](#4me-integration-webhook-listener) to process incoming data from 4me.
-* An [external application webhook listener](#external-application-webhook-listener) processing data coming in from the external application.
-* An [integration added or updated listener](#integration-added-or-updated-listener) to configure the external application when a customer installs the App.
+* An [external application webhook listener](#external-application-webhook-listener) processing data coming in from the
+  external application.
+* An [app added or updated listener](#app-added-or-updated-listener) to configure the external application when a
+  customer installs the App.
 
 #### 4me Secrets Webhook Listener
 
-This serverless function is responsible to accept and process the [webhook messages containing secrets](#secrets-webhook) for all integrations.
+This serverless function is responsible to accept and process
+the [webhook messages containing secrets](#secrets-webhook) for all app offerings.
 
-It is **important** to first validate the incoming message using the defined webhook policy to ensure they originate from 4me.
+It is **important** to first validate the incoming message using the defined webhook policy to ensure they originate
+from 4me.
 
 The listener typically stores each customer secret in the secrets manager grouped by the customer account so that they can be used by the [4me integration webhook listener](#4me-integration-webhook-listener) and the [external application webhook listener](#external-application-webhook-listener).
 
@@ -228,25 +270,30 @@ The framework provides a [default implementation of the secrets webhook](#secret
 
 #### 4me Integration Webhook Listener
 
-This listener receives webhook messages containing customer data based on the [integration webhook and automation rules](#integration-webhook-and-automation-rules).
+This listener receives webhook messages containing customer data based on
+the [app webhook and automation rules](#app-webhook-and-automation-rules).
 
-It is **important** to first validate the incoming message using the webhook policy that was received by the [4me secrets webhook listener](#4me-secrets-webhook-listener) at the moment the customer installed the application. This ensures the message indeed comes from the automation webhook in the customer's 4me account.
+It is **important** to first validate the incoming message using the webhook policy that was received by
+the [4me secrets webhook listener](#4me-secrets-webhook-listener) at the moment the customer installed the application.
+This ensures the message indeed comes from the automation webhook in the customer's 4me account.
 
 Once this is verified the data sent (defined in the automation rule) can be used to perform some integration action.
 
-Some [example integrations](#example-integrations) below automatically provision integration webhook listeners.
+The [note dispatcher](#note-dispatcher) below automatically provisions an integration webhook listener.
 
 #### External Application Webhook Listener
 
 This listener receives webhook messages from the external application.
 
-Some [example integrations](#example-integrations) below provision external application webhook listeners.
+The [Typeform integration](#typeform) below provisions an external application webhook listener.
 
-In most cases the webhooks can also be provisioned automatically in the external application. See the [integration added or updated listener](#integration-added-or-updated-listener) for more information on this topic.
+In most cases the webhooks can also be provisioned automatically in the external application. See
+the [app added or updated listener](#app-added-or-updated-listener) for more information on this topic.
 
-#### Integration Added or Updated Listener
+#### App Added or Updated Listener
 
-After a customer installs the integration some initial steps are probably needed to configure the engine's connection to the external application for this customer.
+After a customer installs the app some initial steps are probably needed to configure the engine's connection to the
+external application for this customer.
 
 Some use cases for this listener:
 * To register a webhook in the external application, see [Typeform installation changed handler](#typeform-installation-changed-handler)
@@ -254,12 +301,16 @@ Some use cases for this listener:
 
 There are two ways to trigger this listener.
 
-One is to define `integration_instance.create`, `integration_instance.update` and `integration_instance.delete` webhooks in the provider account.
-Then a *single* `generic-installation-changed-lambda` lambda function has to be provisioned that is available to all integrations, similar to the [secrets lambda](#secrets-lambda) triggered by the [integration_instance.secrets-update](#secrets-webhook) webhook.
-This generic lambda should check which integration is involved and pass a message/event to the specific [installation-changed-lambda](#installation-changed-lambda) to configure the connection to the external application for this customer.
+One is to define `app_instance.create`, `app_instance.update` and `app_instance.delete` webhooks in the provider
+account. Then a *single* `generic-installation-changed-lambda` lambda function has to be provisioned that is available
+to all integrations, similar to the [secrets lambda](#secrets-lambda) triggered by
+the [app_instance.secrets-update](#secrets-webhook) webhook. This generic lambda should check which app is involved and
+pass a message/event to the specific [installation-changed-lambda](#installation-changed-lambda) to configure the
+connection to the external application for this customer.
 
-Another approach used in the [Typeform installation changed handler](#typeform-installation-changed-handler) is to trigger the [installation-changed-lambda](#installation-changed-lambda) based on an event from the [4me secrets webhook listener](#4me-secrets-webhook-listener).
-The advantage of this approach is that:
+Another approach, used in the [Typeform installation changed handler](#typeform-installation-changed-handler), is to
+trigger the [installation-changed-lambda](#installation-changed-lambda) based on an event from
+the [4me secrets webhook listener](#4me-secrets-webhook-listener). The advantage of this approach is that:
 * The `installation changed handler` is triggered after the customer's secrets for the integration have been stored in the AWS Secrets Manager (i.e. the engine is guaranteed that these are available).
 * There is no need for a `generic-installation-changed-lambda` shared by all integrations.
 
@@ -308,9 +359,13 @@ Those default values will then used when pressing `enter` on the command prompt.
 * `application token` The secret token of the Application in 4me used to update the configuration in the 4me provider account and at runtime by the engine to access data in that account.
 * `AWS profile` The profile to be used to access AWS, should be defined in `~/.aws/config`, e.g. `default`.
 
-*Please note:* The usage of the same provider token for both integration deployment and runtime of all integrations is done here to keep the configuration of these examples a bit simpler. An actual provider is recommended to use separate tokens for deployment and integration runtime (e.g. a personal access token to setup the integration and an application per lambda deployed).
+*Please note:* The usage of the same provider token for both app offering deployment and runtime of all integrations is
+done here to keep the configuration of these examples a bit simpler. An actual provider is recommended to use separate
+tokens for deployment and integration runtime (e.g. a personal access token to setup the app offering and an application
+per lambda deployed).
 
-All provider secrets will be stored in the [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) using the `4me-app-builder/<4me domain>/<provider account>` key.
+All provider secrets will be stored in the [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) using
+the `4me-app-builder/<4me domain>/<provider account>` key.
 
 **Step 2** Store `clientID` and `token` provided on the command prompt as the provider secrets in the secrets manager (so the engine can use these later at integration runtime):
 
@@ -349,9 +404,11 @@ All provider secrets will be stored in the [AWS Secrets Manager](https://aws.ama
 
 **Step 10** Create the `s3-4me-integrations-1` configuration item in 4me, linked to the `AWS S3 Bucket` product defined in step 5.
 
-**Step 11** Create the `lambda-secrets-1` configuration item in 4me, linked to the `AWS Lambda` product defined in step 6.
+**Step 11** Create the `lambda-secrets-1` configuration item in 4me, linked to the `AWS Lambda` product defined in step
+6.
 
-**Step 12** Create the [integration_instance.secrets-update](#secrets-webhook) webhook in 4me that connects to the secrets lambda defined in step 9.
+**Step 12** Create the [app_instance.secrets-update](#secrets-webhook) webhook in 4me that connects to the secrets
+lambda defined in step 9.
 
 **Step 13** Add the `webhook` details in the provider secrets:
 
@@ -368,7 +425,7 @@ All provider secrets will be stored in the [AWS Secrets Manager](https://aws.ama
       },
       "webhook": {
         "id": "NG1l...svMQ",
-        "name": "integration_instance.secrets-update",
+        "name": "app_instance.secrets-update",
         "uri": "https://cr...oh.execute-api.eu-west-1.amazonaws.com/Prod/secrets/"
       },
     }
@@ -402,9 +459,13 @@ Based on the [Typeform example](#typeform) the secret may look something like th
 
 The `secrets` hash contains all customer secrets retrieved from secret fields defined in the [UI extension](#ui-extension).
 
-The `application` hash contains the [secret 4me application token](#scopes-and-4me-application-token) used to access the 4me GraphQL API in the customer account.
+The `application` hash contains the [secret 4me application token](#scopes-and-4me-application-token) used to access the
+4me GraphQL API in the customer account.
 
-Not present in this example is the `policy` hash (as the this integration does not define any webhooks from the customer account). The `policy` hash would contain the details of webhook policy generated in the customer's account. These should be used to validate webhook messages related to the [integration webhook and automation rules](#integration-webhook-and-automation-rules). It would look something like:
+Not present in this example is the `policy` hash (as the this integration does not define any webhooks from the customer
+account). The `policy` hash would contain the details of webhook policy generated in the customer's account. These
+should be used to validate webhook messages related to
+the [app webhook and automation rules](#app-webhook-and-automation-rules). It would look something like:
 ```
 "policy": {
   "nodeID": "NG1l.kvMg",
@@ -459,9 +520,13 @@ The `get4meData` method is available to validate webhook messages coming from 4m
 
 #### js_4me_installation_handler
 
-This helper comes in handy in case the installation changes as described in [integration added or updated listener](#integration-added-or-updated-listener) are implemented using an [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html).
+This helper comes in handy in case the installation changes as described
+in [app added or updated listener](#app-added-or-updated-listener) are implemented using
+an [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html).
 
-Simply construct the helper using the [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) and the helper will inform the caller of the customer and type of installation change.
+Simply construct the helper using
+the [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) and
+the helper will inform the caller of the customer and type of installation change.
 
 See the [Typeform installation changed handler](#typeform-installation-changed-handler) for an example of how it works.
 
@@ -473,7 +538,9 @@ It contains a lot of helper methods to provision 4me and AWS.
 
 ### installation-changed-lambda
 
-For each integration that requires configuration in the external application or 4me when an [integration instance](#integration-instance) is installed or updated by the customer this lambda has to be provisioned, see [integration added or updated listener](#integration-added-or-updated-listener).
+For each integration that requires configuration in the external application or 4me when
+an [app instance](#app-instance) is installed or updated by the customer this lambda has to be provisioned,
+see [app added or updated listener](#app-added-or-updated-listener).
 
 Some use cases for this lambda:
 * To register a webhook in the external application, see [Typeform installation changed handler](#typeform-installation-changed-handler)
@@ -481,9 +548,11 @@ Some use cases for this lambda:
 
 ### 4me-integration-lambda
 
-For each integration that is to receive webhooks from 4me an implementation of this lambda has to be provisioned. It may be combined with the [external-application-lambda](#external-application-lambda) into one lambda.
+For each integration that is to receive webhooks from 4me an implementation of this lambda has to be provisioned. It may
+be combined with the [external-application-lambda](#external-application-lambda) into one lambda.
 
-Typically this lambda will use the [4me integration webhook listener](#4me-integration-webhook-listener) that processes incoming [webhook messates from 4me](#4me-integration-webhook-and-automation-rules).
+Typically this lambda will use the [4me integration webhook listener](#4me-integration-webhook-listener) that processes
+incoming [webhook messages from 4me](#app-webhook-and-automation-rules).
 
 These serverless functions contain the actual glue between 4me and the external application.
 
@@ -505,9 +574,10 @@ Two example integrations are included in this demo repository. They are relative
 
 ### Note-Dispatcher
 
-When a customer installs the Note-Dispatcher app all notes added to requests in the 4me customer account will be dispatched to an external site. Before they are sent there the note will also be translated in a fun language.
+When a customer installs the Note-Dispatcher app all notes added to requests in the 4me customer account will be
+dispatched to an external site. Before they are sent there the note will also be translated in a fun language.
 
-This example explains the use of the [integration webhook and automation rules](#integration-webhook-and-automation-rules) in detail.
+This example explains the use of the [app webhook and automation rules](#app-webhook-and-automation-rules) in detail.
 
 Make sure to understand the [bootstrap.js](#bootstrapjs) script as that is a prerequisite for this example.
 
@@ -538,33 +608,43 @@ Those default values will then used when pressing `enter` on the command prompt.
 
 **Step 5** Lookup the AWS Lambda product created earlier in the [bootstrap.js](#bootstrapjs) script.
 
-**Step 6** Create the `lambda-note-dispatcher-1` configuration item in 4me, linked to the `AWS Lambda` product found in step 5.
+**Step 6** Create the `lambda-note-dispatcher-1` configuration item in 4me, linked to the `AWS Lambda` product found in
+step 5.
 
-**Step 7** Create the [Integration record](#integration) in 4me that includes the integration webhook URI pointing to the lambda created in step 6.
+**Step 7** Create the [App offering record](#app-offering) in 4me that includes the integration webhook URI pointing to
+the lambda created in step 6.
 
-**Step 8** Create the [Integration automation rules](#integration-webhook-and-automation-rules) in 4me in the integration record created in step 7.
+**Step 8** Create the [App offering automation rules](#app-webhook-and-automation-rules) in 4me in the app offering
+record created in step 7.
 
-**Step 9** Create the [UI Extension](#ui-extension) in 4me linked to the integration record created in step 7.
+**Step 9** Create the [UI Extension](#ui-extension) in 4me linked to the app offering record created in step 7.
 
 #### Note-Dispatcher App Installation
 
-After the deployment is ready the provider can **manually** publish the integration in 4me.
+After the deployment is ready the provider can **manually** publish the app offering in 4me.
 
 Once that is done the Note-Dispatcher app becomes available in the Apps section of all trusted accounts in 4me.
 
 The App installation process consists of a number of (mostly automated) steps:
 
-**Step 10** A 4me customer **manually** clicks on the `Add` button of the Note Dispatcher app in the Apps section in 4me.
+**Step 10** A 4me customer **manually** clicks on the `Add` button of the Note Dispatcher app in the Apps section in
+4me.
 
-**Step 11** An [integration instance](#integration-instance) record is created in the provider account.
+**Step 11** An [app instance](#app-instance) record is created in the provider account.
 
-**Step 12** The customer had to fill out the (required) `target URL` field from the UI Extensions created in step 9 above. The target URL points to the target application where the translated request notes need to be sent to. The value provided by the customer is be stored in the `custom_fields` of the integration instance created in step 11.
+**Step 12** The customer had to fill out the (required) `target URL` field from the UI Extensions created in step 9
+above. The target URL points to the target application where the translated request notes need to be sent to. The value
+provided by the customer is be stored in the `custom_fields` of the integration instance created in step 11.
 
-**Step 13** A new [webhook policy](#4me-integration-webhook-listener) is created in the customer account, the details of the policy are shared with the integration using the [secrets-lambda](#secrets-lambda) that was provisioned in the [bootstrap.js script](#bootstrapjs). These policy details are used in the [note-dispatcher lambda](#note-dispatcher-lambda) to validate the incoming webhook messages from 4me.
+**Step 13** A new [webhook policy](#4me-integration-webhook-listener) is created in the customer account, the details of
+the policy are shared with the integration using the [secrets-lambda](#secrets-lambda) that was provisioned in
+the [bootstrap.js script](#bootstrapjs). These policy details are used in
+the [note-dispatcher lambda](#note-dispatcher-lambda) to validate the incoming webhook messages from 4me.
 
-**Step 14** An [integration webhook](#integration-webhook-and-automation-rules) record is created in the customer account.
+**Step 14** A [webhook](#app-webhook-and-automation-rules) record is created in the customer account.
 
-**Step 15** An [automation rule](#integration-webhook-and-automation-rules) is created in the customer account, that uses the webhook defined in step 14 to push data to the [note-dispatcher lambda](#note-dispatcher-lambda).
+**Step 15** An [automation rule](#app-webhook-and-automation-rules) is created in the customer account, that uses the
+webhook defined in step 14 to push data to the [note-dispatcher lambda](#note-dispatcher-lambda).
 
 #### Note-Dispatcher lambda
 
@@ -573,11 +653,15 @@ The App installation process consists of a number of (mostly automated) steps:
 
 Now that the customer has installed the Note-Dispatcher app, the request automation rule created in step 15 has become active in the customer account.
 
-The trigger of the request automation rule is `On note added`, so the rule will be executed each time the customer adds a note to a request. This results in the following actions:
+The trigger of the request automation rule is `On note added`, so the rule will be executed each time the customer adds
+a note to a request. This results in the following actions:
 
-**Step 16** The [automation rule](#integration-webhook-and-automation-rules) in the customer account is triggered and collects the `note text` from the request and the `target URL` from the integration instance and sends the data to the [note-dispatcher lambda](#note-dispatcher-lambda).
+**Step 16** The [automation rule](#app-webhook-and-automation-rules) in the customer account is triggered and collects
+the `note text` from the request and the `target URL` from the app instance and sends the data to
+the [note-dispatcher lambda](#note-dispatcher-lambda).
 
-**Step 17** The webhook message is validated using the [webhook policy](#4me-integration-webhook-listener) created in step 13.
+**Step 17** The webhook message is validated using the [webhook policy](#4me-integration-webhook-listener) created in
+step 13.
 
 **Step 18** The translation service is used to translate the note text to a fun language.
 
@@ -598,8 +682,10 @@ Make sure to understand the [bootstrap.js](#bootstrapjs) script as that is a pre
 Prepare a sample Typeform customer environment.
 
 * Setup a (free) [Typeform](https://www.typeform.com) account.
-* Create a sample form (based on one of their templates) and locate it's `Form ID` in your form URL. For example, in the URL `https://mysite.typeform.com/to/u6nXL7` the `Form ID` is `u6nXL7`.
-* Generate a Typeform personal access token. Instructions on how to obtain this token can be found in their [support documentation](https://developer.typeform.com/get-started/personal-access-token/).
+* Create a sample form (based on one of their templates) and locate it's URL. For
+  example `https://mysite.typeform.com/to/u6nXL7`.
+* Generate a Typeform personal access token. Instructions on how to obtain this token can be found in
+  their [support documentation](https://developer.typeform.com/get-started/personal-access-token/).
 
 #### Typeform Deploy Script
 
@@ -610,9 +696,11 @@ The [deploy integration section](#deploy-integration) describes how to run this 
 
 **Step 1** Gathering user input
 
-First the script will gather user input from the command prompt that informs the script how to access AWS and the 4me provider account.
-Normally this script is not run very frequently, only when the integration needs to be updated. In case it needs to be run more frequently, e.g. when testing enhancements to the script, the `gatherInput` function can be extended with default values.
-Those default values will then used when pressing `enter` on the command prompt. The input gathered is:
+First the script will gather user input from the command prompt that informs the script how to access AWS and the 4me
+provider account. Normally this script is not run very frequently, only when the app offering needs to be updated. In
+case it needs to be run more frequently, e.g. when testing enhancements to the script, the `gatherInput` function can be
+extended with default values. Those default values will then used when pressing `enter` on the command prompt. The input
+gathered is:
 * `4me domain` The 4me domain to install the integration in, e.g. `4me.com`, `4me.qa` or `4me-demo.com`.
 * `4me account` The provider account, e.g. `wdc` in demo.
 * `service instance` The name of the service instance representing this integration, e.g. `Mainframe 1` in demo.
@@ -626,17 +714,21 @@ Those default values will then used when pressing `enter` on the command prompt.
 
 **Step 5** Lookup the AWS Lambda product created earlier in the [bootstrap.js](#bootstrapjs) script.
 
-**Step 6** Create the `lambda-typeform-1` configuration item in 4me, linked to the `AWS Lambda` product found in step 5. It includes the `Typeform webhook URL` custom field pointing to the [Typeform lambda](#typeform-webhook-handler) provisioned in step 3.
+**Step 6** Create the `lambda-typeform-1` configuration item in 4me, linked to the `AWS Lambda` product found in step 5.
+It includes the `Typeform webhook URL` custom field pointing to the [Typeform lambda](#typeform-webhook-handler)
+provisioned in step 3.
 
-**Step 7** Create the [Integration record](#integration) in 4me that includes the scopes for the application token required to access the 4me customer account.
+**Step 7** Create the [App offering record](#app-offering) in 4me that includes the scopes for the application token
+required to access the 4me customer account.
 
-**Step 8** Create the [Integration automation rules](#integration-webhook-and-automation-rules) in 4me in the integration record created in step 7.
+**Step 8** Create the [App offering automation rules](#app-webhook-and-automation-rules) in 4me in the app offering
+record created in step 7.
 
-**Step 9** Create the [UI Extension](#ui-extension) in 4me linked to the integration record created in step 7.
+**Step 9** Create the [UI Extension](#ui-extension) in 4me linked to the app offering record created in step 7.
 
 #### Typeform App Installation
 
-After the deployment is ready the provider can **manually** publish the integration in 4me.
+After the deployment is ready the provider can **manually** publish the app offering in 4me.
 
 Once that is done the Typeform app becomes available in the Apps section of all trusted accounts in 4me.
 
@@ -644,32 +736,51 @@ The App installation process consists of a number of (mostly automated) steps:
 
 **Step 10** A 4me customer **manually** clicks on the `Add` button of the Typeform app in the Apps section in 4me.
 
-**Step 11** An [integration instance](#integration-instance) record is created in the provider account.
+**Step 11** An [app instance](#app-instance) record is created in the provider account.
 
-**Step 12** The customer filled out the 3 custom fields `Typeform token`, `Form ID` and `Request ID` from the UI Extensions created in step 9 above. The secret `Typeform token` is sent to the [secrets lambda](#secrets-lambda). The other values provided by the customer are stored in the `custom_fields` of the integration instance created in step 11.
+**Step 12** The customer filled out the 3 custom fields `Form URL`, `Typeform token` and `Request ID` from the UI
+Extensions created in step 9 above. The secret `Typeform token` is sent to the [secrets lambda](#secrets-lambda). The
+other values provided by the customer are stored in the `custom_fields` of the app instance created in step 11.
 
-**Step 13** A new [application](#scopes-and-4me-application-token) is created in the customer account based on the scopes defined in step 7. The secret `application token` is shared with the integration using the [secrets-lambda](#secrets-lambda) that was provisioned in the [bootstrap.js script](#bootstrapjs).
+**Step 13** A new [application](#scopes-and-4me-application-token) is created in the customer account based on the
+scopes defined in step 7. The secret `application token` is shared with the integration using
+the [secrets-lambda](#secrets-lambda) that was provisioned in the [bootstrap.js script](#bootstrapjs).
 
-**Step 14** An [automation rule](#integration-webhook-and-automation-rules) is created in the customer account, that will add a note to completed requests with a link to the survey. The `Form ID` in the link is taken from the custom fields provided by the customer in step 12.
+**Step 14** An [automation rule](#app-webhook-and-automation-rules) is created in the customer account, that will add a
+note to completed requests with a link to the survey. The link to the form is taken from the custom fields provided by
+the customer in step 12.
 
-**Step 15** When the `Typeform token` is added to the customer secrets store in step 12, an [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) is sent to the [Typeform installation changed handler](#typeform-installation-changed-handler). Note that this event is also triggered when the `application token` is stored in the customer secrets store in step 13. The [Typeform installation changed handler](#typeform-installation-changed-handler) will ensure it only continues when the `Typeform token` is present.
+**Step 15** When the `Typeform token` is added to the customer secrets store in step 12,
+an [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) is sent
+to the [Typeform installation changed handler](#typeform-installation-changed-handler). Note that this event is also
+triggered when the `application token` is stored in the customer secrets store in step 13.
+The [Typeform installation changed handler](#typeform-installation-changed-handler) will ensure it only continues when
+the `Typeform token` is present.
 
 #### Typeform Installation Changed Handler
 
 * `Script location`: `/typeform/aws/integration-lambda/app.js`
 * `Functionality`: Processes incoming events from the [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html) and create the Typeform Webhook.
 
-An example implementation of the [integration added or updated listener](#integration-added-or-updated-listener).
+An example implementation of the [app added or updated listener](#app-added-or-updated-listener).
 
-In this case the code to configure the external application is triggered using an [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html), see step 15 above.
+In this case the code to configure the external application is triggered using
+an [AWS CloudWatchEvent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html), see
+step 15 above.
 
-The SAM definition is located in the `/typeform/aws/template.yaml` file under the `SecretsEventListener` event for the lambda function.
+The SAM definition is located in the `/typeform/aws/template.yaml` file under the `SecretsEventListener` event for the
+lambda function.
 
-**Step 16** The `Form ID` is retrieved from the custom fields provided in step 12 using the provider token to access 4me.
+**Step 16** The `Form URL` is retrieved from the custom fields provided in step 12 using the provider token to access
+4me.
 
-**Step 17** A `Webhook secret` is generated and stored in customer secrets store. It will be used later on to verify the incoming webhook messages from Typeform.
+**Step 17** A `Webhook secret` is generated and stored in customer secrets store. It will be used later on to verify the
+incoming webhook messages from Typeform.
 
-**Step 18** The Typeform webhook is added to the Typeform Form with the `Form ID` retrieved in step 16. The `Webhook secret` from step 17 is shared with Typeform and the `Typeform webhook URL` is retrieved from 4me (step 6) so that messages can be sent to the [Typeform webhook handler](#typeform-webhook-handler). Note that the `Typeform token` provided in step 12 is used to access the Typeform API.
+**Step 18** The Typeform webhook is added to the Typeform Form (the `Form ID` is extracted from the URL retrieved in
+step 16). The `Webhook secret` from step 17 is shared with Typeform and the `Typeform webhook URL` is retrieved from
+4me (step 6) so that messages can be sent to the [Typeform webhook handler](#typeform-webhook-handler). Note that
+the `Typeform token` provided in step 12 is used to access the Typeform API.
 
 The setup is now complete and the actual integration will start once a request is completed in the customer account.
 
@@ -682,9 +793,11 @@ An example implementation of the [external application webhook listener](#extern
 
 Now that the customer has installed the Typeform app, the request automation rule created in step 14 has become active in the customer account.
 
-The trigger of the request automation rule is `On status changed` with a condition on `status = completed`, so the rule will be executed each time the customer completes a request. This results in the following actions:
+The trigger of the request automation rule is `On status changed` with a condition on `status = completed`, so the rule
+will be executed each time the customer completes a request. This results in the following actions:
 
-**Step 19** The [automation rule](#integration-webhook-and-automation-rules) in the customer account is triggered and collects the `Form ID` from the integration instance and adds a note with the survey link to the completed request.
+**Step 19** The [automation rule](#app-webhook-and-automation-rules) in the customer account is triggered and collects
+the `Form URL` from the app instance and adds a note with the survey link to the completed request.
 
 **Step 20** The requester clicks on the survey link and fills out the survey form.
 
@@ -700,21 +813,29 @@ The trigger of the request automation rule is `On status changed` with a conditi
 
 After cloning or downloading this repository some more configuration is required before you can see them in action.
 
-To run the provider side of the examples in this repository you need a development environment to work with AWS and nodeJS. Furthermore you will need an AWS account and a 4me (demo or test) account.
-For each customer that will install an example integration (i.e. each integration instance) you will create an environment for that customer in an external application so that an actual data exchange can occur.
+To run the provider side of the examples in this repository you need a development environment to work with AWS and
+nodeJS. Furthermore you will need an AWS account and a 4me (demo or test) account. For each customer that will install
+an example integration (i.e. each app instance) you will create an environment for that customer in an external
+application so that an actual data exchange can occur.
 
-This section will first guide you through the process of setting up the integration in the provider's 4me account and on AWS. Once those steps are completed we will configure the sample customer environment and enable the integration so that you can see it in action.
+This section will first guide you through the process of setting up the app offering in the provider's 4me account and
+on AWS. Once those steps are completed we will configure the sample customer environment and enable the app offering so
+that you can see it in action.
 
-The development environment for these examples can be either MacOS, Linux or Windows. We created them on MacOS. On Windows we recommend the usage of [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/).
+The development environment for these examples can be either MacOS, Linux or Windows. We created them on MacOS. On
+Windows we recommend the usage of [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/).
 
 ### Prerequisites
 
 #### Accounts
 
-To provide a 4me integration you need a 4me environment to work with. For these examples a demo account is probably best, but you can of course also use the QA environment.
-If you don't have a 4me (demo) account yet, you can request one at: https://www.4me.com/trial/.
+To provide a 4me app offering you need a 4me environment to work with. For these examples a demo account is probably
+best, but you can of course also use the QA environment. If you don't have a 4me (demo) account yet, you can request one
+at: https://www.4me.com/trial/.
 
-These examples are all based on cloud services that are part of Amazon Web Services (AWS). To use these you'll need an AWS account to work with. If you don't have one already follow the steps at https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/.
+These examples are all based on cloud services that are part of Amazon Web Services (AWS). To use these you'll need an
+AWS account to work with. If you don't have one already follow the steps
+at https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/.
 
 #### Setup AWS permissions
 
@@ -735,13 +856,13 @@ To allow the examples to access data in the provider's 4me account an applicatio
    * And a scope that allows:
      * Service (Read)
      * Team (Read)
+     * App Instance (Update, Read)
+     * App Offering (Create, Update, Read)
+     * App Offering Automation Rule (Update, Create, Read, Delete)
+     * App Offering Scope (Update, Create, Read)
+     * Configuration Item (Create, Read, Update)
      * Service Instance (Update, Read)
      * Product (Create, Read, Update)
-     * Configuration Item (Create, Read, Update)
-     * Integration (Create, Update, Read)
-     * Integration Automation Rule (Update, Create, Read, Delete)
-     * Integration Scope (Update, Create, Read)
-     * Integration Instance (Update, Read)
      * UI Extension (Create, Update, Read)
      * Webhook (Read, Create, Update)
      * Webhook Policy (Update, Read, Create)
@@ -804,8 +925,9 @@ Once these tools are installed you are ready to go!
 
 ### Bootstrap
 
-The [bootstrap process](#bootstrapjs) populates some generic records in the provider's 4me account and performs initial configuration in their AWS account so that [specific integrations can be set up](#deploy-integration).
-In these examples the bootstrap process is implemented in `bootstrap.js`. To run it open a terminal, or command prompt:
+The [bootstrap process](#bootstrapjs) populates some generic records in the provider's 4me account and performs initial
+configuration in their AWS account so that [specific app offerings can be set up](#deploy-integration). In these
+examples the bootstrap process is implemented in `bootstrap.js`. To run it open a terminal, or command prompt:
 
 ```
     npm run bootstrap
@@ -822,10 +944,14 @@ The process will prompt you for the following parameters to configure it:
 
 Based on this input the Integration engine of these examples is installed using the steps described in the [bootstrap.js section above](#bootstrapjs).
 
-After this script has completed you can review the created secret (`4me-app-builder/<domain>/<provider-account>`) and lambda (`app-builder-engine-SecretsFunction-<version>`) in the AWS console. The lambda's logs are stored in the CloudWatch (when on the lambda's page: activate the 'Monitor' tab and click 'View logs in CloudWatch').
+After this script has completed you can review the created secret (`4me-app-builder/<domain>/<provider-account>`) and
+lambda (`app-builder-engine-SecretsFunction-<version>`) in the AWS console. The lambda's logs are stored in the
+CloudWatch (when on the lambda's page: activate the 'Monitor' tab and click 'View logs in CloudWatch').
 (Be sure to switch to correct region and role so you have access to them.)
 
-We are using the provider secrets (via the 4me helper) to set up the integration (and related records) in the provider's 4me account during the bootstrap process to keep the sample a bit simpler. A separate token (e.g. a personal access token) could be used by prompting for it, and assigning it to `accessToken` field in `bootstrap.js`.
+We are using the provider secrets (via the 4me helper) to set up the app offering (and related records) in the
+provider's 4me account during the bootstrap process to keep the sample a bit simpler. A separate token (e.g. a personal
+access token) could be used by prompting for it, and assigning it to `accessToken` field in `bootstrap.js`.
 
 ### Deploy Integration
 
@@ -845,27 +971,42 @@ The process for either example will prompt you for the following parameters to c
 * `AWS profile`: the name of the AWS profile, in your `~/.aws/config`, that contains the correct parameters (e.g. region, role, MFA device) to access your AWS account.
 * `MFA code`: the current authentication code of the multi-factor authentication device used to protect your AWS account. (You probably will be asked this code twice: once for the secrets configuration and once for the lambda deployment; please ensure you enter the next token for the second prompt as each token can only be used once.)
 
-Based on this input the example is installed using the steps described in either the [Note-dispatcher section](#note-dispatcher-deploy-script) or [Typeform section](#typeform-deploy-script) above.
+Based on this input the example is installed using the steps described in either
+the [Note-dispatcher section](#note-dispatcher-deploy-script) or [Typeform section](#typeform-deploy-script) above.
 
-We are using the provider's secrets (via the 4me deploy helper) to set up the integration (and related records) in the provider's 4me account during the deploy process to keep the sample a bit simpler. A separate token (e.g. a personal access token) could be used by prompting for it, assigning it to `accessToken` field in `deploy_integration.js` and creating a `Js4meHelper` for the correct domain and account, instead of calling `Js4meDeployHelper.logInto4meUsingAwsClientConfig()`.
+We are using the provider's secrets (via the 4me deploy helper) to set up the app offering (and related records) in the
+provider's 4me account during the deploy process to keep the sample a bit simpler. A separate token (e.g. a personal
+access token) could be used by prompting for it, assigning it to `accessToken` field in `deploy_integration.js` and
+creating a `Js4meHelper` for the correct domain and account, instead of
+calling `Js4meDeployHelper.logInto4meUsingAwsClientConfig()`.
 
 ### Test the integration
 
-Once an integration (or both) is deployed you can check its behaviour.
-Let's first review it by looking it up in the Integrations console (in the Settings section of your 4me account). A link to this record should be visible in your terminal, something like:
+Once an integration (or both) is deployed you can check its behaviour. Let's first review it by looking it up in the App
+Offerings console (in the Settings section of your 4me account). A link to this record should be visible in your
+terminal, something like:
 
-    Success. Integration is available at: https://wdc.4me-demo.com/integrations/NG1lLXASDFSDGH84fDSF
+    Success. App Offering is available at: https://wdc.4me-demo.com/app_offering/NG1lLXASDFSDGH84fDSF
 
-You'll see the integration's configuration, matching the configuration files contained in `<integration-name>/config/4me`. When you navigate to the service instance that represents your integration you'll see that a new Configuration Item, representing the lambda, is linked to it.
+You'll see the app offering's configuration, matching the configuration files contained
+in `<integration-name>/config/4me`. When you navigate to the service instance that represents your integration you'll
+see that a new Configuration Item, representing the lambda, is linked to it.
 
-At this time the integration will not yet be visible in the Apps section (as that only shows published and enabled Integrations). But to test it you can add an Instance to your (provider) account. This is done by pressing the 'Add Integration Instance' which will take you to the same form as your customers will see when adding the Integration to their accounts, via the Apps section. The Configuration tab will be opened which will show the UI extension linked to the Integration, so the customer can fill in the correct parameters.
+At this time the app offering will not yet be visible in the Apps section (as that only shows published and enabled app
+offerings). But to test it you can add an Instance to your (provider) account. This is done by pressing the 'Add App
+Instance' which will take you to the same form as your customers will see when adding the app to their accounts, via the
+Apps section. The Configuration tab will be opened which will show the UI extension linked to the app offering, so the
+customer can fill in the correct parameters.
 
-Once you filled the required fields you can create the Integration Instance in your account by pressing 'Save'. Which values should be provided, of course, depends on the integration. The next paragraphs will go into details for each of the sample integrations.
+Once you filled the required fields you can create the app instance in your account by pressing 'Save'. Which values
+should be provided, of course, depends on the integration. The next paragraphs will go into details for each of the
+sample integrations.
 
 #### Log Note Dispatcher Integration Configuration
 
-The Log Note Dispatcher Integration is quite simple and only requires a single URL to be configured. This is the location where the translated notes will be sent to.
-We will create a dummy location before configuring a Log Note Dispatcher Integration Instance to use that location.
+The Log Note Dispatcher Integration is quite simple and only requires a single URL to be configured. This is the
+location where the translated notes will be sent to. We will create a dummy location before configuring a Log Note
+Dispatcher App Instance to use that location.
 
 ##### Setup Target
 
@@ -877,13 +1018,16 @@ A simple setup so we can see this Integration in action is to create a dummy tar
 
 Now the target has been created we can fill in its address in 4me.
 
- * Switch back to 4me and open the 'Log Note Dispatcher Integration' in the Integrations console.
- * Press the 'Add Integration Instance' button.
- * Paste the URL copied on Webhook.site above to the `URL` field of the Configuration tab of the form.
- * Press 'Save'. You will be taken to the screen showing the Integration and see a message that integration was added to your account.
- * Follow the link in that success message to see what the Integration looks like to a customer once it has added the App. (You can also navigate to that screen via the Apps section. Now it is installed the Integration Instance will be listed in your account as one of the Installed Apps.)
+* Switch back to 4me and open the 'Log Note Dispatcher Integration' in the app offering console.
+* Press the 'Add App Instance' button.
+* Paste the URL copied on Webhook.site above to the `URL` field of the Configuration tab of the form.
+* Press 'Save'. You will be taken to the screen showing the app offering and see a message that integration was added to
+  your account.
+* Follow the link in that success message to see what the app instance looks like to a customer once it has added the
+  App. (You can also navigate to that screen via the Apps section. Now it is installed the app instance will be listed
+  in your account as one of the Installed Apps.)
 
-Now the Integration is installed in your account you can see it in action.
+Now the app is installed in your account you can see it in action.
 
  * Open any Request, for instance [Request 70414](https://wdc.4me-demo.com/requests/70414) from the inbox, and add a Note.
  * Go to [Webhook.site](https://webhook.site) and see that it received a message at the URL you configured. If you check 'Format JSON' the 'Raw Content' field will show something like
@@ -946,15 +1090,19 @@ Quite a few steps, but now we have a Typeform account, a form in it and a token 
 
 Now the Typeform form has been created we can fill its details 4me.
 
- * Switch back to 4me and open the 'Typeform Integration' in the Integrations console.
- * Press the 'Add Integration Instance' button.
- * Fill the Form URL (copied above at 'Share your typeform').
- * Enter the token you created for your Typeform account above as the 'Typeform token'.
- * Fill the 'Request ID' field with the ID of a request in your account. In the 'wdc' account in 4me-demo you could use '70454'.
- * Press 'Save'. You will be taken back to the screen showing the Integration and see a message that integration was added to your account.
- * Follow the link in that success message to see what the Integration looks like to a customer once it has added the App. (You can also navigate to that screen via the Apps section. Now it is installed the Integration Instance will be listed in your account as one of the Installed Apps.)
+* Switch back to 4me and open the 'Typeform Integration' in the app offering console.
+* Press the 'Add App Instance' button.
+* Fill the Form URL (copied above at 'Share your typeform').
+* Enter the token you created for your Typeform account above as the 'Typeform token'.
+* Fill the 'Request ID' field with the ID of a request in your account. In the 'wdc' account in 4me-demo you could use '
+  70454'.
+* Press 'Save'. You will be taken back to the screen showing the app offering and see a message that integration was
+  added to your account.
+* Follow the link in that success message to see what the app instance looks like to a customer once it has added the
+  App. (You can also navigate to that screen via the Apps section. Now it is installed the app instance will be listed
+  in your account as one of the Installed Apps.)
 
-Now the Integration is installed in your account you can see it in action.
+Now the app is installed in your account you can see it in action.
 
 Let's test the flow:
  * Complete a request, for instance [request #70486](https://wdc.4me-demo.com/requests/70486).
@@ -977,18 +1125,28 @@ You can also view the webhook created by the integration in Typeform.
  * Click the 'Edit' button to see the webhook is configured to be your lambda's API URL, and that a secret has been filled.
  * Click 'Cancel' and click 'View deliveries' to see the single request that was sent to the lambda (you should be able to match this to an invocation of the lambda in the AWS console).
 
-### Publish the integration
+### Publish the app
 
-Once you are satisfied with your Integration you can make it available to potential customers (all accounts you have a trust relationship with). To make it available:
- * Open the Integration in the 4me Integration console.
- * Press the green 'Publish' button.
- * Confirm that the Integration is ready for use by customers by pressing 'Publish' in the popup.
+Once you are satisfied with your app offering you can make it available to potential customers (all accounts you have a
+trust relationship with). To make it available:
 
-You're all set: the integration can now be installed by customers via the 4me Apps console. Your customers will see it under the 'Recommend Apps' header. You will now find the Integration in both the 'Draft' and 'Published' lists of your account's Integration console. This is intentional.
+* Open the offering in the 4me app offering console.
+* Press the green 'Publish' button.
+* Confirm that the app offering is ready for use by customers by pressing 'Publish' in the popup.
 
-The Draft version allows you to change all parameters of the Integration and try them out in your own account. The changes will only be accessible to customers after you publish updated version. After the upgrade the customers that already have it installed are not immediately switched to the new version. They can 'Update' their instance to the new version, so they can review the changed settings before accepting them. This also means you have to be prepared to support the older version until all your customer have updated their Integration Instance!
+You're all set: the integration can now be installed by customers via the 4me Apps console. Your customers will see it
+under the 'Recommend Apps' header. You will now find the app offering in both the 'Draft' and 'Published' lists of your
+account's app offering console. This is intentional.
 
-In the 'Published' list you will see the latest Published version of the Integrations and any versions still in use by Customers. You can make small changes to these published versions (e.g. fix a typo in the Description), which will take effect without a need for customers to explicitly update.
+The Draft version allows you to change all parameters of the offering and try them out in your own account. The changes
+will only be accessible to customers after you publish updated version. After the upgrade the customers that already
+have it installed are not immediately switched to the new version. They can 'Update' their instance to the new version,
+so they can review the changed settings before accepting them. This also means you have to be prepared to support the
+older version until all your customer have updated their app instance!
+
+In the 'Published' list you will see the latest Published version of the offering and any versions still in use by
+Customers. You can make small changes to these published versions (e.g. fix a typo in the Description), which will take
+effect without a need for customers to explicitly update.
 
 ### Integration in use by customers
 
@@ -996,8 +1154,11 @@ In a demo environment you can try out the real customer experience.
 
  * Log into another account that has a trust relation with the provider account (e.g. 'wna-it' if you used 'wdc' as provider account).
  * Go to the Apps console, in the Settings section (e.g. https://wna-it.4me-demo.com/apps).
- * Locate the example integration under the 'Recommended Apps' header and click it (do not use the 'Add' button just yet).
- * Click the various tabs to see the information you configured for the Integration. There is no 'Configuration' tab yet, as the App is not yet installed. On the 'Security & Compliance' tab the customer can see the details of the scopes, automation rules, webhook of the Integration as well as the 'Compliance' statement.
+ * Locate the example integration under the 'Recommended Apps' header and click it (do not use the 'Add' button just
+   yet).
+ * Click the various tabs to see the information you configured for the app. There is no 'Configuration' tab yet, as the
+   App is not yet installed. On the 'Security & Compliance' tab the customer can see the details of the scopes,
+   automation rules, webhook of the offering as well as the 'Compliance' statement.
  * Click 'Install App' to be taken to the form to fill the configuration parameters for this customer.
  * From here on the process is identical as described above for the [Log Note Dispatcher Integration Configuration](#log-note-dispatcher-integration-configuration) or [Typeform Integration Configuration](#typeform-integration-configuration).
 

@@ -14,7 +14,7 @@
       },
       {
         "name": "url",
-        "value": "rule_integration_instance.custom_fields.form_url"
+        "value": "rule_app_instance.custom_fields.form_url"
       }
     ],
     "actions": [

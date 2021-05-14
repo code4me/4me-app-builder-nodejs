@@ -71,10 +71,10 @@ class TypeformLambdaHandler {
 
     const customerAccount = lambda4meContext.customerContext.account;
     const instanceHelper = new InstanceHelper();
-    const integrationReference = lambda4meContext.integrationReference;
+    const offeringReference = lambda4meContext.offeringReference;
     const config = await instanceHelper.retrieveInstance(provider4meHelper,
                                                          providerToken,
-                                                         integrationReference,
+                                                         offeringReference,
                                                          customerAccount);
     if (config.error || !config.requestId) {
       this.error('Unable to determine request to work with. Got config: %j', config);

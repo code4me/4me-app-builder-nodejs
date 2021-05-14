@@ -55,14 +55,14 @@ class DeployIntegration {
 
   async deployLambda(clientConfig, profile, domain, account) {
     const samPath = path.resolve(__dirname, 'aws');
-    const integrationReference = this.getIntegrationInput().reference;
+    const offeringReference = this.getOfferingInput().reference;
     return await this.js4meDeployHelper.deployLambdaWithBootstrapSecrets(clientConfig,
                                                                          profile,
                                                                          samPath,
                                                                          this.stackName,
                                                                          domain,
                                                                          account,
-                                                                         integrationReference);
+                                                                         offeringReference);
   }
 
   async findS3BucketConfigurationItem(s3Bucket) {
@@ -76,36 +76,36 @@ class DeployIntegration {
                                                             serviceInstanceFilter);
   }
 
-  getIntegrationInput() {
-    return this.readFromFile('integration_input');
+  getOfferingInput() {
+    return this.readFromFile('app_offering_input');
   }
 
-  async createIntegration(serviceInstance) {
-    const integrationInput = this.getIntegrationInput();
-    integrationInput.serviceInstanceId = serviceInstance.id;
+  async createOffering(serviceInstance) {
+    const offeringInput = this.getOfferingInput();
+    offeringInput.serviceInstanceId = serviceInstance.id;
 
-    return await this.js4meDeployHelper.upsertIntegration(this.js4meHelper,
-                                                          this.accessToken,
-                                                          integrationInput);
+    return await this.js4meDeployHelper.upsertOffering(this.js4meHelper,
+                                                       this.accessToken,
+                                                       offeringInput);
   }
 
-  async createIntegrationAutomationRules(integration) {
-    const existingRules = integration.automationRules.nodes;
-    const integrationRuleInputs = this.readFromFile('integration_automation_rules_input');
-    integrationRuleInputs.forEach((rule) => rule.integrationId = integration.id);
+  async createOfferingAutomationRules(offering) {
+    const existingRules = offering.automationRules.nodes;
+    const offeringRuleInputs = this.readFromFile('app_offering_automation_rules_input');
+    offeringRuleInputs.forEach((rule) => rule.appOfferingId = offering.id);
 
-    await this.js4meDeployHelper.syncIntegrationAutomationRules(this.js4meHelper,
-                                                                this.accessToken,
-                                                                existingRules,
-                                                                integrationRuleInputs);
+    await this.js4meDeployHelper.syncOfferingAutomationRules(this.js4meHelper,
+                                                             this.accessToken,
+                                                             existingRules,
+                                                             offeringRuleInputs);
   }
 
-  async createUiExtension(integration) {
+  async createUiExtension(offering) {
     const uiExtensionInput = this.configFileHelper.readUiExtensionFromFiles('ui_extension_input');
 
     return await this.js4meDeployHelper.syncUiExtensionVersion(this.js4meHelper,
                                                                this.accessToken,
-                                                               integration,
+                                                               offering,
                                                                uiExtensionInput);
   }
 }
@@ -146,9 +146,9 @@ class DeployIntegration {
                                                    ],
                                                  });
 
-  const integration = await deployIntegration.createIntegration(serviceInstance);
-  await deployIntegration.createIntegrationAutomationRules(integration);
-  await deployIntegration.createUiExtension(integration);
+  const offering = await deployIntegration.createOffering(serviceInstance);
+  await deployIntegration.createOfferingAutomationRules(offering);
+  await deployIntegration.createUiExtension(offering);
 
-  console.log(`Success. Integration is available at: https://${account}.${domain}/integrations/${integration.id}`);
+  console.log(`Success. App Offering is available at: https://${account}.${domain}/app_offerings/${offering.id}`);
 })();

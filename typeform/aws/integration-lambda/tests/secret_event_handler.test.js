@@ -24,7 +24,7 @@ const LambdaContextMocker = require("../../../../library/aws/secrets-lambda/test
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_BOOTSTRAP_ACCOUNT = 'test-provider';
 process.env.PARAM_4ME_DOMAIN = '4me-test-domain';
-process.env.PARAM_INTEGRATION_REFERENCE = 'my-typeform';
+process.env.PARAM_OFFERING_REFERENCE = 'my-typeform';
 
 it('handles event when typeform secret is present', async () => {
   const event = require('../../events/secret-update.event.json');
@@ -51,7 +51,7 @@ it('handles event when typeform secret is present', async () => {
                                       })
              });
 
-  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_INTEGRATION_REFERENCE}`;
+  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
   expect(InstanceHelper).not.toBeCalled();
@@ -116,7 +116,7 @@ it('handles initial secrets, no typeform secret yet', async () => {
       retrieveInstanceWithRetry: async (js4meHelper, token, reference, customerAccount) => {
         expect(js4meHelper).not.toBeNull();
         expect(token).toBe(providerAccessToken);
-        expect(reference).toBe(process.env.PARAM_INTEGRATION_REFERENCE);
+        expect(reference).toBe(process.env.PARAM_OFFERING_REFERENCE);
         expect(customerAccount).toBe('test-account');
         return config;
       },
@@ -149,7 +149,7 @@ it('handles initial secrets, no typeform secret yet', async () => {
                                       })
              });
 
-  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_INTEGRATION_REFERENCE}`;
+  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
   expect(Js4meHelper.mock.calls.length).toBe(2);
@@ -159,7 +159,7 @@ it('handles initial secrets, no typeform secret yet', async () => {
   expect(unsuspendCalled).toBe(true);
 });
 
-it('does not continue if no integration instance is found', async () => {
+it('does not continue if no app instance is found', async () => {
   const event = require('../../events/secret-create.event.json');
   const accessToken = {access_token: 'howard.tanner'};
   const customerSecrets = {
@@ -189,7 +189,7 @@ it('does not continue if no integration instance is found', async () => {
   InstanceHelper.mockImplementation(() => {
     return {
       retrieveInstanceWithRetry: async (js4meHelper, token, reference, customerAccount) => {
-        return {"error": "Unable to query 'get instance details'"};
+        return {"error": "Unable to query 'get app instance details'"};
       },
       suspendInstance: async (js4meHelper, accessToken, description, instanceId, suspensionComment) => {
         fail('suspendInstance should not be called, since no instanceId is known...');
@@ -205,7 +205,7 @@ it('does not continue if no integration instance is found', async () => {
                                       })
              });
 
-  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_INTEGRATION_REFERENCE}`;
+  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
   expect(TypeformClient.mock.calls.length).toBe(0);
@@ -280,7 +280,7 @@ it('does not store secrets if typeform call fails', async () => {
                                       })
              });
 
-  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_INTEGRATION_REFERENCE}`;
+  const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
   expect(TypeformClient).toBeCalledWith('my-typeform-token');

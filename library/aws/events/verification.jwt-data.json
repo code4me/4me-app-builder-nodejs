@@ -3,7 +3,7 @@
   "webhook_nodeID": "NG1lLXN0YWdpbmcuY29tL1dlYmhvb2svMQ",
   "account_id": "wdc",
   "account": "https://wdc.4me-staging.com",
-  "name": "integration_instance.secrets-update",
+  "name": "app_instance.secrets-update",
   "event": "webhook.verify",
   "object_id": 1,
   "object_nodeID": "NG1lLXN0YWdpbmcuY29tL1dlYmhvb2svMQ",

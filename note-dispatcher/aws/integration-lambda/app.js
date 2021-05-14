@@ -56,7 +56,7 @@ exports.lambdaHandler = async (event, context) => {
   const options = {
     applicationName: process.env.PARAM_BOOTSTRAP_APP,
     env4me: process.env.PARAM_4ME_DOMAIN,
-    integrationReference: process.env.PARAM_INTEGRATION_REFERENCE,
+    offeringReference: process.env.PARAM_OFFERING_REFERENCE,
   };
   const handler = new Js4meWebhookLambdaHandler(handleRequestNoteAdded, options);
   return await handler.handleCustomerEvent(event, context);
