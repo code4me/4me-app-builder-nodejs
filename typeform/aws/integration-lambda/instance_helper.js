@@ -82,7 +82,7 @@ class InstanceHelper {
       query($reference: String, $customerAccount: String!) {
         appInstances(first: 1, filter: { 
                                           customerAccount: { values: [$customerAccount] },
-                                          offeringReference: { values: [$reference] } } ) {
+                                          appOfferingReference: { values: [$reference] } } ) {
           nodes {
             id
             suspended
