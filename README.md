@@ -937,8 +937,8 @@ The process will prompt you for the following parameters to configure it:
  * `4me domain`: which 4me instance should be used, typical values would be either '4me-demo.com' or '4me.qa'
  * `4me account`: the account of the provider in the selected 4me domain, in '4me-demo.com' you could for instance use 'wdc'
 * `service instance`: the name of the Service instance in the provider account that will represent the integration engine in 4me.
- * `client ID`: the client ID that will be used (with the token) to access the provider's account, you received this value when you [created the Application](#create-4m-provider-application-token)
-* `application token`: the token that will be used (with the client ID) to access the provider's account, you received this value when you [created the Application](#create-4m-provider-application-token)
+ * `client ID`: the client ID that will be used (with the token) to access the provider's account, you received this value when you [created the Application](#create-4me-provider-application-token)
+* `application token`: the token that will be used (with the client ID) to access the provider's account, you received this value when you [created the Application](#create-4me-provider-application-token)
 * `AWS profile`: the name of the AWS profile, in your `~/.aws/config`, that contains the correct parameters (e.g. region, role, MFA device) to access your AWS account.
 * `MFA code`: the current authentication code of the multi-factor authentication device used to protect your AWS account. (You probably will be asked this code twice: once for the secrets configuration and once for the lambda deployment; please ensure you enter the next token for the second prompt as each token can only be used once.)
 
