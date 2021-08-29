@@ -944,6 +944,42 @@ The process will prompt you for the following parameters to configure it:
 
 Based on this input the Integration engine of these examples is installed using the steps described in the [bootstrap.js section above](#bootstrapjs).
 
+When deploying multiple times (e.g. when debugging) it might be convenient to store defaults for these questions. This can be done by creating a file called `default_input.json` and placing it next to `bootstrap.js`. By adding a key `skipQuestionWithDefault` with value `true` you can prevent the script from displaying prompts for any inputs that have a default.
+```
+{
+  "skipQuestionWithDefault": true,
+  "domain": "4me.qa",
+  "account": "wna-it",
+  "serviceInstanceName": "Email",
+  "clientID": "gs...",
+  "token": "a....",
+  "profile": "qa"
+}
+```
+If you place secrets such as your client ID or token in this file: be sure not to add it to version control!
+
+Defaults to be used for both bootstrap and integrations, or multiple integrations, can be placed in a `default_input.json` in their parent's directory. The scripts will search up the directory hierarchy for these files.
+Environment specific settings can be used by setting an environment variable `ENV_4ME` (e.g. giving it the value`qa`) and using nested values inside the defaults.
+```
+{
+  "skipQuestionWithDefault": true,
+  "account": "wna-it",
+  "serviceInstanceName": "Email",
+  "demo": {
+    "clientID": "ba...",
+    "token": "b....",
+    "domain": "4me-demo.com",
+    "profile": "demo"
+  },
+  "qa": {
+    "clientID": "gs...",
+    "token": "a....",
+    "domain": "4me.qa",
+    "profile": "qa"
+  }
+}
+```
+
 After this script has completed you can review the created secret (`4me-app-builder/<domain>/<provider-account>`) and
 lambda (`app-builder-engine-SecretsFunction-<version>`) in the AWS console. The lambda's logs are stored in the
 CloudWatch (when on the lambda's page: activate the 'Monitor' tab and click 'View logs in CloudWatch').
@@ -973,6 +1009,36 @@ The process for either example will prompt you for the following parameters to c
 
 Based on this input the example is installed using the steps described in either
 the [Note-dispatcher section](#note-dispatcher-deploy-script) or [Typeform section](#typeform-deploy-script) above.
+
+When deploying multiple times (e.g. when debugging) it might be convenient to store defaults for these questions. This can be done by creating a file called `default_input.json` and placing it next to the integration's deploy script (i.e. `note-dispatcher/deploy_integration.js` or `typeform/deploy_integration.js`). By adding a key `skipQuestionWithDefault` with value `true` you can prevent the script from displaying prompts for any inputs that have a default.
+```
+{
+  "skipQuestionWithDefault": true,
+  "domain": "4me.qa",
+  "account": "wna-it",
+  "serviceInstanceName": "Email",
+  "profile": "qa"
+}
+```
+If you place secrets such as your client ID or token in these files: be sure not to add them to version control!
+
+Defaults to be used for both bootstrap and integrations, or multiple integrations, can be placed in a `default_input.json` in their parent's directory. The scripts will search up the directory hierarchy for these files.
+Environment specific settings can be used by setting an environment variable `ENV_4ME` (e.g. giving it the value`qa`) and using nested values inside the defaults.
+```
+{
+  "skipQuestionWithDefault": true,
+  "account": "wna-it",
+  "serviceInstanceName": "Email",
+  "demo": {
+    "domain": "4me-demo.com",
+    "profile": "demo"
+  },
+  "qa": {
+    "domain": "4me.qa",
+    "profile": "qa"
+  }
+}
+```
 
 We are using the provider's secrets (via the 4me deploy helper) to set up the app offering (and related records) in the
 provider's 4me account during the deploy process to keep the sample a bit simpler. A separate token (e.g. a personal

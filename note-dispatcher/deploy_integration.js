@@ -1,7 +1,7 @@
 'use strict';
 
 const AwsConfigHelper = require("../library/helpers/aws_config_helper");
-const promptly = require('promptly');
+const CliInputHelper = require("../library/helpers/cli_input_helper");
 const ConfigFileHelper = require('../library/helpers/config_file_helper');
 const Js4meDeployHelper = require('../library/helpers/js_4me_deploy_helper');
 
@@ -13,15 +13,17 @@ class DeployIntegration {
   constructor(stackName) {
     this.stackName = stackName;
     this.js4meDeployHelper = new Js4meDeployHelper();
+    this.cliInputHelper = new CliInputHelper(__dirname);
     this.configFileHelper = new ConfigFileHelper(__dirname, 'config', '4me');
   }
 
   async gatherInput() {
-    const domain = await promptly.prompt('Which 4me domain: ', {default: '4me-demo.com'});
-    const account = await promptly.prompt('Which 4me account: ', {default: 'wdc'});
-    const serviceInstanceName = await promptly.prompt('Which service instance: ', {default: 'Mainframe 1'});
-    const profile = await promptly.prompt('Which AWS profile: ', {default: 'staging'});
-    return {domain: domain, account: account, serviceInstanceName: serviceInstanceName, profile: profile};
+    return this.cliInputHelper.gatherInput({
+                                             domain: {'Which 4me domain': {default: '4me-demo.com'}},
+                                             account: {'Which 4me account': {default: 'wdc'}},
+                                             serviceInstanceName: {'Which service instance': {default: 'Mainframe 1'}},
+                                             profile: {'Which AWS profile': {default: 'staging'}},
+                                           });
   }
 
   readFromFile(filename) {

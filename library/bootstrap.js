@@ -1,12 +1,12 @@
 'use strict';
 
-const promptly = require('promptly');
 const AwsConfigHelper = require("./helpers/aws_config_helper");
 const {SecretsManagerClient} = require("@aws-sdk/client-secrets-manager");
 const SecretsHelper = require('./helpers/secrets_helper');
 const Js4meHelper = require('./helpers/js_4me_helper');
 const Js4meDeployHelper = require('./helpers/js_4me_deploy_helper');
 const ConfigFileHelper = require('./helpers/config_file_helper');
+const CliInputHelper = require("./helpers/cli_input_helper");
 const path = require('path')
 
 const stackName = 'app-builder-engine';
@@ -14,6 +14,7 @@ const secretsPolicyAlg = 'es512';
 
 class Bootstrap {
   constructor() {
+    this.cliInputHelper = new CliInputHelper(__dirname);
     this.configFileHelper = new ConfigFileHelper(__dirname, 'config_4me');
     this.js4meDeployHelper = new Js4meDeployHelper();
     this.secretApplicationName = this.js4meDeployHelper.secretApplicationName;
@@ -21,24 +22,14 @@ class Bootstrap {
   }
 
   async gatherInput() {
-    const domain = await promptly.prompt('Which 4me domain: ', {default: '4me-demo.com'});
-    const account = await promptly.prompt('Which 4me account: ', {default: 'wdc'});
-    const serviceInstanceName = await promptly.prompt('Which service instance (for integration engine): ',
-                                                      {default: 'Mainframe 1'});
-
-    const clientID = await promptly.prompt('Your client ID: ');
-    const token = await promptly.password('Your application token: ',
-                                          {
-                                            replace: '*',
-                                            default: undefined,
-                                          });
-    return {
-      domain: domain,
-      account: account,
-      clientID: clientID,
-      token: token,
-      serviceInstanceName: serviceInstanceName
-    };
+    return this.cliInputHelper.gatherInput({
+      domain: {'Which 4me domain': {default: '4me-demo.com'}},
+      account: {'Which 4me account': {default: 'wdc'}},
+      serviceInstanceName: {'Which service instance (for integration engine)': {default: 'Mainframe 1'}},
+      clientID: 'Your client ID',
+      token: {'Your application token': {silent: true, trim: false, replace: '*'}},
+      profile: {'Which AWS profile': {default: 'staging'}},
+    });
   }
 
   async upsertSecrets(secretsClient, domain, account, secrets) {
@@ -230,15 +221,16 @@ class Bootstrap {
 (async () => {
   const bootstrap = new Bootstrap();
   const input = await bootstrap.gatherInput();
+  const profile = input.profile;
   const domain = input.domain;
   const account = input.account;
   var secrets = {...input};
+  delete secrets.profile;
   delete secrets.domain;
   delete secrets.account;
   delete secrets.serviceInstanceName;
 
   // Create a secrets manager client and use it to store user supplied values
-  const profile = await promptly.prompt('Which AWS profile: ', {default: 'staging'});
   const clientConfig = await new AwsConfigHelper(profile).getClientConfig();
   const secretsClient = new SecretsManagerClient(clientConfig);
 

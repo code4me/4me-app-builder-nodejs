@@ -3,3 +3,4 @@ node_modules
 .aws-sam
 .vscode
 .DS_Store
+default_input.json
