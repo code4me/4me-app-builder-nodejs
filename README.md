@@ -57,7 +57,7 @@ It contains the following topics:
 
 ## Glossary
 
-* `4me application token` The application (token) generated in the customer account to provide access to customer data using the [4me GraphQL API](https://developer.4me.com/graphql/).
+* `4me application token` The OAuth application (token) generated in the customer account to provide access to customer data using the [4me GraphQL API](https://developer.4me.com/graphql/).
 * `4me domain` The 4me domain to install the integration in, e.g. `4me.com`, `4me.qa` or `4me-demo.com`.
 * `customer` The customer of the integration.
 * `customer account` The 4me account of the customer.
@@ -355,8 +355,8 @@ Those default values will then used when pressing `enter` on the command prompt.
 * `4me domain` The 4me domain to install the integration in, e.g. `4me.com`, `4me.qa` or `4me-demo.com`.
 * `4me account` The provider account, e.g. `wdc` in demo.
 * `service instance` The name of the service instance representing the integration engine, e.g. `Mainframe 1` in demo.
-* `client ID` The client ID of the Application in 4me used to update the configuration in the 4me provider account and at runtime by the engine to access data in that account.
-* `application token` The secret token of the Application in 4me used to update the configuration in the 4me provider account and at runtime by the engine to access data in that account.
+* `client ID` The client ID of the OAuth Application in 4me used to update the configuration in the 4me provider account and at runtime by the engine to access data in that account.
+* `application token` The secret token of the OAuth Application in 4me used to update the configuration in the 4me provider account and at runtime by the engine to access data in that account.
 * `AWS profile` The profile to be used to access AWS, should be defined in `~/.aws/config`, e.g. `default`.
 
 *Please note:* The usage of the same provider token for both app offering deployment and runtime of all integrations is
@@ -851,7 +851,7 @@ To ensure we can trigger lambdas from secret manager you need to ensure CloudTra
 
 To allow the examples to access data in the provider's 4me account an application token is required. The following steps will create one:
  * In the 4me environment you are using login to the provider account as a user with the administrator role (for instance login to the `wdc` account using `howard.tanner@widget.com`).
- * Go to the Applications console in the settings section (e.g. https://wdc.4me-demo.com/oauth_applications) and create a new application:
+ * Go to the OAuth Applications console in the settings section (e.g. https://wdc.4me-demo.com/oauth_applications) and create a new application:
    * Using 'Client credentials grant'
    * And a scope that allows:
      * Service (Read)
@@ -866,7 +866,7 @@ To allow the examples to access data in the provider's 4me account an applicatio
      * UI Extension (Create, Update, Read)
      * Webhook (Read, Create, Update)
      * Webhook Policy (Update, Read, Create)
- * On saving the application you will get a Client ID and token. Copy these and store them in a safe location.
+ * On saving the OAuth application you will get a Client ID and token. Copy these and store them in a safe location.
 
 #### Install NodeJS
 
@@ -937,8 +937,8 @@ The process will prompt you for the following parameters to configure it:
  * `4me domain`: which 4me instance should be used, typical values would be either '4me-demo.com' or '4me.qa'
  * `4me account`: the account of the provider in the selected 4me domain, in '4me-demo.com' you could for instance use 'wdc'
 * `service instance`: the name of the Service instance in the provider account that will represent the integration engine in 4me.
- * `client ID`: the client ID that will be used (with the token) to access the provider's account, you received this value when you [created the Application](#create-4me-provider-application-token)
-* `application token`: the token that will be used (with the client ID) to access the provider's account, you received this value when you [created the Application](#create-4me-provider-application-token)
+ * `client ID`: the client ID that will be used (with the token) to access the provider's account, you received this value when you [created the OAuth Application](#create-4me-provider-application-token)
+* `application token`: the token that will be used (with the client ID) to access the provider's account, you received this value when you [created the OAuth Application](#create-4me-provider-application-token)
 * `AWS profile`: the name of the AWS profile, in your `~/.aws/config`, that contains the correct parameters (e.g. region, role, MFA device) to access your AWS account.
 * `MFA code`: the current authentication code of the multi-factor authentication device used to protect your AWS account. (You probably will be asked this code twice: once for the secrets configuration and once for the lambda deployment; please ensure you enter the next token for the second prompt as each token can only be used once.)
 
