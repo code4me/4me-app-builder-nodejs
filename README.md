@@ -1,8 +1,9 @@
 # 4me App Builder Framework
 
 4me supports the creation of app offerings to provide custom integrations with external applications. Once an app
-offering is published it will become available in the Apps section of all 4me accounts with a trust to the provider
-account.
+offering is published it will become available in the 4me App Store of all 4me accounts with a trust to the provider
+account. In addition, when an app can be of interest to many 4me customers, you can ask 4me to publish your App 
+to the public 4me App Store, so that it will become available to *all* 4me accounts on the Premium plan. 
 
 Building the actual app/integration is not trivial. This repository contains a couple of sample integrations based on a
 shared framework that can be used to jump-start the development.
@@ -85,7 +86,7 @@ It contains the following topics:
 
 ## App Building
 
-The Apps section in 4me make it possible for customers to install integrations build by providers, app offerings. When
+The 4me App Store makes it possible for customers to install integrations build by providers, called app offerings. When
 an App is installed by a customer the complete setup of the integration for that particular customer should be automated
 so that the functionality of the App is immediately exposed. To accomplish this the provider has to register the
 integration in their 4me account and they need to build, deploy and maintain an integration engine that reacts to 4me
@@ -119,15 +120,15 @@ From a high level point of view the following steps are taken:
 1. The provider builds and deploys the [integration engine](#integration-engine)
 1. The provider installs the draft app offering in the provider account for testing purposes
 1. The provider publishes the app offering so that it becomes available to the customers
-1. The customer installs the app via the Apps section
+1. The customer installs the app via the 4me App Store
 1. The integration engine does some initial provisioning for the specific customer
 1. Regular operations of the integration start: based on events, in either 4me or the external application, the
    integration engine performs actions
 
 Over time when a new version of the app offering becomes available the provider can publish the new version and the
-customers have the opportunity to update the app to the latest version in the 4me Apps section.
+customers have the opportunity to update the app to the latest version in the 4me App Store.
 
-When the customer no longer wishes to use the integration they can disable or remove the app via the 4me Apps section.
+When the customer no longer wishes to use the integration they can disable or remove the app via the 4me App Store.
 
 <a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/topology.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/topology.png"/></a>
 
@@ -154,10 +155,10 @@ The framework provides a [default implementation of the secrets webhook](#secret
 ### App Offering
 
 The 4me app offering record is defined by the provider and consists of the following data:
-* `Name` [required] Name shown to the customers in the Apps section.
+* `Name` [required] Name shown to the customers in the 4me App Store.
 * `Reference` [required] Unique and immutable reference.
 * `Service instance` [required] The [service instance](https://developer.4me.com/graphql/object/serviceinstance/) supporting this integration.
-* `Description` Short description shown to the customers in the Apps section.
+* `Description` Short description shown to the customers in the 4me App Store.
 * `Features` Longer description of the features of the app.
 * `Compliance` Longer description regarding security and compliance.
 * `UI extension` A custom form shown to the customer when installing an app.
@@ -236,7 +237,7 @@ services.
 
 ### App Instance
 
-When a customer installs an app offering from the Apps section, an `app_instance` record is created in the provider
+When a customer installs an app offering from the 4me App Store, an `app_instance` record is created in the provider
 account.
 
 It is possible to add a [UI extension](#ui-extension) to the app offering to collect additional information from the
@@ -623,12 +624,11 @@ record created in step 7.
 
 After the deployment is ready the provider can **manually** publish the app offering in 4me.
 
-Once that is done the Note-Dispatcher app becomes available in the Apps section of all trusted accounts in 4me.
+Once that is done the Note-Dispatcher app becomes available in the 4me App Store of all trusted accounts.
 
 The App installation process consists of a number of (mostly automated) steps:
 
-**Step 10** A 4me customer **manually** clicks on the `Add` button of the Note Dispatcher app in the Apps section in
-4me.
+**Step 10** A 4me customer **manually** clicks on the `Add` button of the Note Dispatcher app in the 4me App Store.
 
 **Step 11** An [app instance](#app-instance) record is created in the provider account.
 
@@ -730,11 +730,11 @@ record created in step 7.
 
 After the deployment is ready the provider can **manually** publish the app offering in 4me.
 
-Once that is done the Typeform app becomes available in the Apps section of all trusted accounts in 4me.
+Once that is done the Typeform app becomes available in the 4me App Store of all trusted accounts.
 
 The App installation process consists of a number of (mostly automated) steps:
 
-**Step 10** A 4me customer **manually** clicks on the `Add` button of the Typeform app in the Apps section in 4me.
+**Step 10** A 4me customer **manually** clicks on the `Add` button of the Typeform app in the 4me App Store.
 
 **Step 11** An [app instance](#app-instance) record is created in the provider account.
 
@@ -1058,10 +1058,10 @@ You'll see the app offering's configuration, matching the configuration files co
 in `<integration-name>/config/4me`. When you navigate to the service instance that represents your integration you'll
 see that a new Configuration Item, representing the lambda, is linked to it.
 
-At this time the app offering will not yet be visible in the Apps section (as that only shows published and enabled app
+At this time the app offering will not yet be visible in the 4me App Store (as that only shows published and enabled app
 offerings). But to test it you can add an Instance to your (provider) account. This is done by pressing the 'Add App
 Instance' which will take you to the same form as your customers will see when adding the app to their accounts, via the
-Apps section. The Configuration tab will be opened which will show the UI extension linked to the app offering, so the
+4me App Store. The Configuration tab will be opened which will show the UI extension linked to the app offering, so the
 customer can fill in the correct parameters.
 
 Once you filled the required fields you can create the app instance in your account by pressing 'Save'. Which values
@@ -1090,7 +1090,7 @@ Now the target has been created we can fill in its address in 4me.
 * Press 'Save'. You will be taken to the screen showing the app offering and see a message that integration was added to
   your account.
 * Follow the link in that success message to see what the app instance looks like to a customer once it has added the
-  App. (You can also navigate to that screen via the Apps section. Now it is installed the app instance will be listed
+  App. (You can also navigate to that screen via the 4me App Store. Now it is installed the app instance will be listed
   in your account as one of the Installed Apps.)
 
 Now the app is installed in your account you can see it in action.
@@ -1165,7 +1165,7 @@ Now the Typeform form has been created we can fill its details 4me.
 * Press 'Save'. You will be taken back to the screen showing the app offering and see a message that integration was
   added to your account.
 * Follow the link in that success message to see what the app instance looks like to a customer once it has added the
-  App. (You can also navigate to that screen via the Apps section. Now it is installed the app instance will be listed
+  App. (You can also navigate to that screen via the 4me App Store. Now it is installed the app instance will be listed
   in your account as one of the Installed Apps.)
 
 Now the app is installed in your account you can see it in action.
