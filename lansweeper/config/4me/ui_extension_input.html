@@ -1,0 +1,84 @@
+<div class="row vertical" data-filterable>
+  <label for="connection_status" title="Connection status">Connection status</label>
+  <select id="connection_status" class="required" disabled data-filterable-name="Connection status">
+    <option value="pending_client_credentials" selected>Pending Client Credentials</option>
+    <option value="pending_callback_url">Pending Callback URL</option>
+    <option value="pending_authorization">Pending Authorization</option>
+    <option value="success">Success</option>
+    <option value="failure">Failure</option>
+  </select>
+</div>
+
+<div class="section-help hide step-client-credentials">
+  Go to your Lansweeper profile and select the 'Developer Tools' menu option.<br>
+  Select the 'All applications' menu and add a new application with:<br>
+  <ul>
+    <li>Application name: 4me</li>
+    <li>Allowed callback URL: https://example.com</li>
+    <li>Developed by: 4me</li>
+  </ul>
+  Press 'Add Application' and open the '4me-credentials.txt' file that Lansweeper generated.<br>
+  Copy the 'Client ID' and 'Client Secret' values from the file to the fields below.<br>
+  Then press 'Save' below and await further instructions.<br>
+  If no instructions are provided after 5 seconds, please refresh your browser.
+</div>
+
+<div class="row vertical">
+  <label for="client_id" title="Client ID">Client ID</label>
+  <input id="client_id" type="text" autocomplete="off" class="required">
+</div>
+
+<div class="row vertical">
+  <label for="client_secret" title="Client secret">Client secret</label>
+  <input id="client_secret" type="text" autocomplete="off" class="required" data-secret>
+</div>
+
+<div class="section-help hide step-authorize">
+  Copy the value below to Lansweeper in the 'Allowed callback URL' field of the newly created 4me application.<br>
+  Then press the 'Save' button at the top right.<br>
+  Press the 'Authorize' button and select all Lansweeper Sites that need to be synced to 4me.<br>
+  Finally press 'Allow' after which 4me will establish the connection to Lansweeper.
+</div>
+
+<div class="row vertical hide step-authorize">
+  <label for="callback_url" title="Callback URL">Callback URL</label>
+  <input id="callback_url" type="text" autocomplete="off" disabled>
+</div>
+
+<div class="row vertical">
+  <label for="import_type" title="Import type">Import type</label>
+  <select id="import_type" class="required">
+    <option value="all">All Assets</option>
+    <option value="ip_only" selected>Only Assets With IP Address</option>
+  </select>
+</div>
+
+<div class="section" id="last_synced_section">
+  <span class="section-header">Last Synced</span>
+
+  <div class="row vertical" data-filterable>
+    <label for="sync_start_at" title="Start">Start</label>
+    <input id="sync_start_at" type="text" autocomplete="off" class="show-when-empty date-time"
+           data-filterable-name="Start" disabled>
+  </div>
+
+  <div class="row vertical" data-filterable>
+    <label for="sync_end_at" title="End">End</label>
+    <input id="sync_end_at" type="text" autocomplete="off" class="date-time" data-filterable-name="End" disabled>
+  </div>
+
+  <div class="row vertical">
+    <label for="sync_duration_text" title="Duration">Duration</label>
+    <input id="sync_duration_text" type="text" autocomplete="off" disabled>
+  </div>
+
+  <div class="row vertical hide" data-filterable data-hidden>
+    <input id="sync_duration" type="number" step="0.001" autocomplete="off" class="hide"
+           data-filterable-name="Duration">
+  </div>
+
+  <div class="row vertical">
+    <label for="sync_summary" title="Summary">Summary</label>
+    <div id="sync_summary" class="rich-text"></div>
+  </div>
+</div>

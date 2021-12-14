@@ -1,0 +1,22 @@
+{
+  "name": "Lansweeper",
+  "reference": "lansweeper",
+  "description": "Lansweeper gathers hardware and software information of computers and other devices on a computer network. This app synchronizes assets from Lansweeper Enterprise Cloud with 4me.\n\n**This app is currently in alpha test stage and is being tested with a limited group of customers in the QA environment.**",
+  "features": "Install this app to import and maintain assets from Lansweeper to the 4me Configuration Management Database (CMDB). This integration creates product categories, products and configuration items for new found hardware assets that have an IP address, checks the 4me CMDB for existing software, and links these assets with 4me users where possible.",
+  "compliance": "By installing this app, you grant 4me access to your Lansweeper sites and to copy asset information to 4me. By using the 4me Lansweeper app, you agree to the [4me API Terms of Service](https://www.4me.com/api-terms-of-service). No data gathered by this app is sent from 4me to Lansweeper or any other third parties.",
+  "newScopes": [
+    {
+      "actions": [
+        "async-query:Read",
+        "ci:Create",
+        "ci:Read",
+        "ci:Update",
+        "person:Read",
+        "product-category:Create",
+        "product-category:Update",
+        "product:Create",
+        "product:Update"
+      ]
+    }
+  ]
+}

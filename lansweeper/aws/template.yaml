@@ -1,0 +1,122 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  4me-lansweeper-lambda
+
+  Sample SAM Template for 4me-lansweeper-lambda
+
+Parameters:
+  4MeDomainParameter:
+    Type: String
+    Default: 4me-demo.com
+  BootstrapSecretApplicationParameter:
+    Type: String
+    Default: 4me-app-builder
+  BootstrapSecretAccountParameter:
+    Type: String
+    Default: wdc
+  offeringReferenceParameter:
+    Type: String
+    Default: lansweeper
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 600
+    CodeUri: integration-lambda/
+    Handler: app.lambdaHandler
+    Runtime: nodejs14.x
+
+Resources:
+  RefreshTriggerSqsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub "${offeringReferenceParameter}-refresh-trigger"
+      VisibilityTimeout: 605 # bit longer than function timeout
+  IntegrationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Zip
+      MemorySize: 128
+      Environment:
+        Variables:
+          PARAM_4ME_DOMAIN: !Ref 4MeDomainParameter
+          PARAM_OFFERING_REFERENCE: !Ref offeringReferenceParameter
+          PARAM_BOOTSTRAP_APP: !Ref BootstrapSecretApplicationParameter
+          PARAM_BOOTSTRAP_ACCOUNT: !Ref BootstrapSecretAccountParameter
+          REFRESH_QUEUE_URL: !Ref RefreshTriggerSqsQueue
+      Events:
+        Integration:
+          Type: Api
+          Properties:
+            Path: /integration/{proxy+}
+            Method: ANY
+        SecretsEventListener:
+          Type: CloudWatchEvent
+          Properties:
+#            Description: "Intercept events from Secrets Manager to get informed on new/updated installations of this integration"
+            Pattern:
+              source:
+                - aws.secretsmanager
+              detail-type:
+                - AWS API Call via CloudTrail
+              detail:
+                eventSource:
+                  - secretsmanager.amazonaws.com
+                eventName:
+                  - CreateSecret
+                  - PutSecretValue
+        MySQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt RefreshTriggerSqsQueue.Arn
+            BatchSize: 1
+        CWSchedule:
+          Type: Schedule
+          Properties:
+            Schedule: 'rate(4 hours)'
+            Name: LansweeperResyncSchedule
+            Description: 'Checks whether any customer accounts need to be synchronized with Lansweeper'
+
+      Policies:
+      - Statement:
+          - Sid: ReadSecrets
+            Effect: Allow
+            Action:
+              - secretsmanager:GetSecretValue
+            Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${BootstrapSecretApplicationParameter}/${4MeDomainParameter}/${BootstrapSecretAccountParameter}-*"
+          - Sid: ReadWriteInstanceSecrets
+            Effect: Allow
+            Action:
+              - secretsmanager:GetSecretValue
+              - secretsmanager:PutSecretValue
+            Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${BootstrapSecretApplicationParameter}/${offeringReferenceParameter}/${4MeDomainParameter}/instances/*"
+          - Sid: SendSQSRefreshMessages
+            Effect: Allow
+            Action:
+              - sqs:SendMessage
+            Resource: !GetAtt RefreshTriggerSqsQueue.Arn
+    Metadata:
+      DockerTag: nodejs14.x-v1
+      DockerContext: ./integration-lambda
+      Dockerfile: Dockerfile
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  IntegrationApi:
+    Description: "API Gateway endpoint URL for Prod stage for Integration Function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/${ServerlessRestApi.Stage}/integration/"
+  IntegrationFunction:
+    Description: "Integration Lambda Function ARN"
+    Value: !GetAtt IntegrationFunction.Arn
+  IntegrationFunctionIamRole:
+    Description: "Implicit IAM Role created for Integration Function"
+    Value: !GetAtt IntegrationFunctionRole.Arn
+  RefreshQueueUrl:
+    Description: "SQS queue for refresh URL"
+    Value: !Ref RefreshTriggerSqsQueue
+  RefreshQueueArn:
+    Description: "SQS queue for refresh ARN"
+    Value: !GetAtt RefreshTriggerSqsQueue.Arn

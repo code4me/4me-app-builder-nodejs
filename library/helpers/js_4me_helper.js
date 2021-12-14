@@ -2,7 +2,10 @@
 
 const axios = require('axios');
 const crypto = require('crypto');
-const { default: jwtVerify } = require('jose/jwt/verify')
+const {default: jwtVerify} = require('jose/jwt/verify')
+const PollingHelper = require('./polling_helper');
+const LoggedError = require('./errors/logged_error');
+const Js4meAuthorizationError = require('./errors/js_4me_authorization_error');
 
 class Js4meHelper {
   constructor(env4me, account, clientId, clientSecret, algorithm, certStr, audience, customHttpsAgent) {
@@ -24,7 +27,6 @@ class Js4meHelper {
     }
 
     this.oauthClient = this.createClient(this.oauthUrl, null);
-    // this.restClient = this.createClient(this.restUrl, null);
   }
 
   getAccount() {
@@ -40,7 +42,7 @@ class Js4meHelper {
     }
     const axiosConfig = {
       baseURL: url,
-      timeout: 30000,
+      timeout: Js4meHelper.SYNC_TIMEOUT,
       headers: headers,
     };
     if (this.httpsAgent) {
@@ -60,16 +62,30 @@ class Js4meHelper {
           grant_type: 'client_credentials'
         }
       );
-      return itrpResponse.data;
+      const resp = itrpResponse.data;
+      if (!resp.access_token) {
+        let msg = 'Unable to get access token';
+        if (resp.error) {
+          msg = `Unable to get access token: ${resp.error_description || resp.error}`;
+          console.info(msg);
+        } else {
+          console.error('Unexpected response from access token request. %j', resp);
+        }
+        throw new Js4meAuthorizationError(msg);
+      }
+      return resp;
     } catch (error) {
+      if (error instanceof LoggedError) {
+        throw error;
+      }
       if (error.response) {
         const response = error.response;
         const url = error.config.url;
-        console.log(`Error from ${url}. ${response.status}: ${response.statusText}`);
+        console.error(`Error from ${url}. ${response.status}: ${response.statusText}`);
       } else {
-        console.log(error);
+        console.error(error);
       }
-      throw error;
+      throw new LoggedError(error);
     }
   }
 
@@ -77,7 +93,7 @@ class Js4meHelper {
     const cryptoKeyObj = crypto.createPublicKey(this.certStr);
 
     try {
-      const { payload, protectedHeader } = await jwtVerify(
+      const {payload, protectedHeader} = await jwtVerify(
         token,
         cryptoKeyObj,
         {
@@ -88,7 +104,7 @@ class Js4meHelper {
       );
       return payload.data;
     } catch (error) {
-      return { error: error };
+      return {error: error};
     }
   }
 
@@ -106,7 +122,7 @@ class Js4meHelper {
       const errors = responseBody.errors;
       if (errors) {
         console.log("Errors from GraphQL call:\n%j", errors);
-        return { error: `Unable to query ${descr}` };
+        return {error: `Unable to query ${descr}`};
       } else {
         return responseBody.data;
       }
@@ -114,12 +130,66 @@ class Js4meHelper {
       if (error.response) {
         const response = error.response;
         const url = error.config.url;
-        console.log(`Error from ${url}. ${response.status}: ${response.statusText}`);
+        console.error(`Error from ${url}. ${response.status}: ${response.statusText}`);
       } else {
-        console.log(error);
+        console.error(error);
       }
-      throw new Error(`Error from GraphQL call: ${error.message}`);
+      throw new LoggedError(`Error from GraphQL call: ${error.message}`);
     }
+  }
+
+  async getPagedGraphQLQuery(descr, accessToken, query, vars, resultHandler, memo) {
+    let results = memo;
+    const queryVars = {...vars, previousEndCursor: null};
+    let hasNext = true;
+    let i = 0;
+
+    do {
+      i++;
+      const result = await this.getGraphQLQuery(`${descr} #${i}`, accessToken, query, queryVars);
+      results = resultHandler(results, result, i);
+      if (results.error) {
+        return results;
+      }
+      const connection = this.getFirstProperty(result);
+
+      if (!connection || !connection.pageInfo) {
+        console.log(`Error. No pageInfo on loop ${i}`);
+        hasNext = false;
+      } else {
+        hasNext = connection.pageInfo.hasNextPage;
+        queryVars.previousEndCursor = connection.pageInfo.endCursor;
+      }
+    } while (hasNext);
+
+    return results;
+  }
+
+  async reducePagedGraphQLQuery(descr,
+                                accessToken,
+                                query,
+                                vars = {},
+                                resultHandler = (c, q, _) => c.push(q),
+                                memo = []) {
+    const processor = (currentResults, queryResult, index) => {
+      if (queryResult.error) {
+        return queryResult;
+      }
+      const connection = this.getFirstProperty(queryResult);
+      if (connection.nodes) {
+        connection.nodes.forEach(n => resultHandler(currentResults, n, index))
+      } else {
+        console.log(`No nodes in ${descr} result ${index}`);
+      }
+
+      return currentResults;
+    };
+    return await this.getPagedGraphQLQuery(descr,
+                                           accessToken,
+                                           query,
+                                           vars,
+                                           processor,
+                                           memo);
   }
 
   async executeGraphQLMutation(descr, accessToken, query, vars) {
@@ -127,12 +197,55 @@ class Js4meHelper {
     if (result.error) {
       return result;
     } else {
-      const updateResult = result[Object.keys(result)[0]];
+      const updateResult = this.getFirstProperty(result);
       if (updateResult.errors && updateResult.errors.length > 0) {
-        return { error: updateResult.errors };
+        return {error: updateResult.errors};
       } else {
         return updateResult;
       }
+    }
+  }
+
+  async getAsyncQueryResult(descr, url, maxWait) {
+    try {
+      if (maxWait < 1000) {
+        // ensure we allow some time to download JSON
+        maxWait = 1000;
+      }
+      const s3Response = await axios.get(url, {timeout: maxWait});
+      const responseBody = s3Response.data;
+      if (!responseBody) {
+        return null;
+      }
+
+      const errors = responseBody.errors;
+      if (errors) {
+        console.log("Errors in async result:\n%j", errors);
+        return {error: `Unable to query ${descr}`};
+      } else {
+        return responseBody.data;
+      }
+    } catch (error) {
+      if (error.response) {
+        const response = error.response;
+        console.error(`Error from ${url}. ${response.status}: ${response.statusText}`);
+      } else {
+        console.error(error.toJSON());
+      }
+      throw new LoggedError(`Error on ${descr}: ${error.message}`);
+    }
+  }
+
+  async getAsyncMutationResult(descr, mutationResult, maxWait = Js4meHelper.ASYNC_TIMEOUT) {
+    const url = mutationResult.asyncQuery.resultUrl;
+
+    const pollingHelper = new PollingHelper();
+    const getResult = async (timeRemaining) => await this.getAsyncQueryResult(descr, url, timeRemaining);
+    const result = await pollingHelper.poll(Js4meHelper.ASYNC_RETRY_TIMEOUT, maxWait, getResult);
+    if (result.error) {
+      return result;
+    } else {
+      return this.getFirstProperty(result);
     }
   }
 
@@ -144,12 +257,19 @@ class Js4meHelper {
         {}
       );
     } catch (error) {
-      console.log(error);
-      throw new Error(`Error from DELETE call: ${error.message}`);
+      console.error(error);
+      throw new LoggedError(`Error from DELETE call: ${error.message}`);
     }
+  }
+
+  getFirstProperty(result) {
+    return result ? result[Object.keys(result)[0]] : null;
   }
 }
 
 Js4meHelper.DELIVERY_HEADER = 'X-4me-Delivery';
+Js4meHelper.SYNC_TIMEOUT = parseInt(process.env.SYNC_4ME_TIMEOUT, 10) || 60000;
+Js4meHelper.ASYNC_TIMEOUT = parseInt(process.env.SYNC_4ME_ASYNC_TIMEOUT, 10) || 120000;
+Js4meHelper.ASYNC_RETRY_TIMEOUT = parseInt(process.env.SYNC_4ME_ASYNC_RETRY_TIMEOUT, 10) || 200;
 
 module.exports = Js4meHelper;

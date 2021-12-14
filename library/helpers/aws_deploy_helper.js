@@ -1,6 +1,6 @@
 'use strict';
 
-const { CloudFormationClient, DescribeStacksCommand } = require("@aws-sdk/client-cloudformation");
+const { CloudFormationClient, DescribeStacksCommand } = require('@aws-sdk/client-cloudformation');
 const { spawn } = require('child_process');
 
 class AwsDeployHelper {

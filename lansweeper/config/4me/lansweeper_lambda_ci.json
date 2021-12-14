@@ -1,0 +1,6 @@
+{
+  "name": "Lansweeper integration Authorize / Refresh service",
+  "label": "lambda-lansweeper-1",
+  "remarks": "Receives redirect with one-time access code from Lansweeper after authorization and syncs lansweeper assets to 4me",
+  "status": "being_tested"
+}

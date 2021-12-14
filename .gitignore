@@ -4,3 +4,4 @@ node_modules
 .vscode
 .DS_Store
 default_input.json
+*.credentials.json

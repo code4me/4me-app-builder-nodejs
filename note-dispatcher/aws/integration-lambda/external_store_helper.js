@@ -1,6 +1,7 @@
 'use strict';
 
 const axios = require('axios');
+const LoggedError = require('../../../library/helpers/errors/logged_error');
 
 class ExternalStoreHelper {
   constructor(customHttpsAgent) {
@@ -34,7 +35,7 @@ class ExternalStoreHelper {
       } else {
         console.error('Error translating: %j', error);
       }
-      throw error;
+      throw new LoggedError(error);
     }
   }
 }

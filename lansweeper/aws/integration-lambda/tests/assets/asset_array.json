@@ -1,0 +1,1806 @@
+[
+  {
+    "_id": "612d9757aa105e2808bcf846",
+    "key": "MTEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2016-001",
+      "description": "JL-2016-001",
+      "firstSeen": "2021-08-23T15:55:41.923Z",
+      "ipAddress": "192.168.69.120",
+      "lastSeen": "2021-08-30T16:00:37.727Z",
+      "type": "VMware Guest",
+      "lastChanged": "2021-08-23T15:55:44.560Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/MTEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9757aa105e2808bcf956",
+    "key": "MjktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "192.168.69.72",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:50.173Z",
+      "ipAddress": "192.168.69.72",
+      "lastSeen": "2021-08-30T16:00:49.850Z",
+      "type": "Webserver",
+      "lastChanged": "2021-08-23T15:55:50.170Z"
+    },
+    "assetCustom": {
+      "model": "gSOAP/2.8",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/MjktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9757aa105e2808bcf9ca",
+    "key": "MzEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JAMES-OPTIPLEX-9010",
+      "firstSeen": "2021-08-23T15:56:04.137Z",
+      "ipAddress": "192.168.69.111",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:56:04.153Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Dell Inc.",
+      "model": "MacSamba",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/MzEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d975caa105e2808bd25eb",
+    "key": "MjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "192.168.69.73",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:49.837Z",
+      "ipAddress": "192.168.69.73",
+      "lastSeen": "2021-08-30T16:00:51.130Z",
+      "type": "Webserver",
+      "lastChanged": "2021-08-23T15:55:49.847Z"
+    },
+    "assetCustom": {
+      "model": "gSOAP/2.8",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/MjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d975caa105e2808bd2694",
+    "key": "MzMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "weather.jestnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-23T15:57:05.643Z",
+      "ipAddress": "192.168.69.9",
+      "lastSeen": "2021-08-30T16:02:06.657Z",
+      "type": "Weather",
+      "lastChanged": "2021-08-23T15:57:05.663Z"
+    },
+    "assetCustom": {
+      "manufacturer": "ASIX ELECTRONICS CORP.",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/MzMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd5109",
+    "key": "OC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "CentOS7-ESXi",
+      "firstSeen": "2021-08-23T15:55:41.923Z",
+      "ipAddress": "192.168.69.112",
+      "lastSeen": "2021-08-23T15:55:41.923Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:42.227Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/OC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd526a",
+    "key": "MjMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "4me-appserv.jestnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:48.607Z",
+      "ipAddress": "192.168.69.107",
+      "lastSeen": "2021-08-23T15:55:48.607Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:48.713Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/MjMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd534f",
+    "key": "NjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "jl-2019.jestnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-25T16:02:39.467Z",
+      "ipAddress": "192.168.69.104",
+      "lastSeen": "2021-08-30T16:02:42.813Z",
+      "type": "Virtual Machine",
+      "lastChanged": "2021-08-25T16:02:39.463Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/NjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd535f",
+    "key": "NTAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2016-000",
+      "userDomain": "JESTNET",
+      "userName": "jest",
+      "description": "JL-2016-000",
+      "firstSeen": "2021-08-23T17:01:35.357Z",
+      "ipAddress": "192.168.69.132",
+      "lastSeen": "2021-09-06T21:39:46.403Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:11.133Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 8d c5 2f 19 d0 62-b8 cd 16 f1 f6 f7 ad c6",
+      "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Standard"
+    },
+    "softwares": [
+      {
+        "name": "Windows Assessment and Deployment Kit - Windows 10",
+        "version": "10.1.16299.15"
+      },
+      {
+        "name": "Wireshark 2.4.5 64-bit",
+        "version": "2.4.5"
+      },
+      {
+        "name": "Java 8 Update 161 (64-bit)",
+        "version": "8.0.1610.12"
+      },
+      {
+        "name": "BMC Gateway Client SuiteKit",
+        "version": "2.0.00"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.5.5"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2015 Redistributable (x64)",
+        "version": "14.0.24215.1"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "7-Zip 17.01 beta (x64)",
+        "version": "17.01 beta"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.1884.14393.0"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NTAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd5502",
+    "key": "MTgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "DESKTOP-11OOKAO",
+      "description": "JL 4me Q3 20-Jul-21",
+      "firstSeen": "2021-08-23T15:55:43.053Z",
+      "ipAddress": "192.168.69.101",
+      "lastSeen": "2021-08-23T15:55:43.053Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:47.673Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "operatingSystem": {},
+    "url": "https://app.lansweeper.com/jest-site/asset/MTgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9762aa105e2808bd6734",
+    "key": "MzAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "Shenzhen Baichuan Digital Technology Co., Ltd. 192.168.69.99",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:57.277Z",
+      "ipAddress": "192.168.69.99",
+      "lastSeen": "2021-08-30T16:00:58.303Z",
+      "type": "Surveillance Camera",
+      "lastChanged": "2021-08-23T15:55:57.280Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Shenzhen Baichuan Digital Technology Co., Ltd.",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9763aa105e2808bd74b5",
+    "key": "MzUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "iphone.jestnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-23T15:58:49.293Z",
+      "ipAddress": "192.168.69.106",
+      "lastSeen": "2021-08-30T16:01:02.833Z",
+      "type": "Mobile",
+      "lastChanged": "2021-08-23T15:58:49.307Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Apple",
+      "model": "iPhone",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d976daa105e2808bdd68d",
+    "key": "MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "192.168.69.71",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:49.837Z",
+      "ipAddress": "192.168.69.71",
+      "lastSeen": "2021-08-30T16:00:51.257Z",
+      "type": "Webserver",
+      "lastChanged": "2021-08-23T15:55:49.847Z"
+    },
+    "assetCustom": {
+      "model": "gSOAP/2.8",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d976daa105e2808bdd768",
+    "key": "MzQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "jest-pixel.jestnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-23T15:57:35.727Z",
+      "ipAddress": "192.168.69.105",
+      "lastSeen": "2021-08-30T16:02:34.187Z",
+      "type": "Mobile",
+      "lastChanged": "2021-08-23T15:57:35.747Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Google",
+      "model": "Pixel",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9773aa105e2808be2011",
+    "key": "MzctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-008",
+      "firstSeen": "2021-08-23T17:01:33.077Z",
+      "ipAddress": "192.168.69.135",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:01.190Z"
+    },
+    "assetCustom": {
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9774aa105e2808be2db0",
+    "key": "NDQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-000",
+      "userDomain": "JESTNET",
+      "userName": "jest",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:43.053Z",
+      "ipAddress": "192.168.69.118",
+      "lastSeen": "2021-09-26T21:37:35.603Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:03.420Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware7,1",
+      "serialNumber": "VMware-56 4d ec 22 b8 d1 2a a9-db 26 b2 51 fc 56 5b 95",
+      "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Standard"
+    },
+    "users": [
+      {
+        "name": "Administrator"
+      },
+      {
+        "fullName": "Fred",
+        "name": "Fred",
+        "email": "fred@4me.com"
+      },
+      {
+        "name": "DefaultAccount"
+      },
+      {
+        "name": "Guest"
+      },
+      {
+        "name": "WDAGUtilityAccount"
+      },
+      {
+        "fullName": "Jest the tester",
+        "name": "jest",
+        "email": "jest-test@4me.com"
+      }
+    ],
+    "softwares": [
+      {
+        "name": "Wireshark 2.4.14 64-bit",
+        "version": "2.4.14"
+      },
+      {
+        "name": "Google Chrome",
+        "version": "93.0.4577.82"
+      },
+      {
+        "name": "FileZilla Client",
+        "version": "3.29.0"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.6.6"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x64)",
+        "version": "12.0.40649.5"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2015 Redistributable (x64)",
+        "version": "14.0.24215.1"
+      },
+      {
+        "name": "7-Zip 17.00 beta (x64)",
+        "version": "17.00 beta"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.19326"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NDQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9776aa105e2808be3b25",
+    "key": "My1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "JL-DC-002",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:14.207Z",
+      "ipAddress": "192.168.69.202",
+      "lastSeen": "2021-08-30T16:01:27.023Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:14.707Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d d5 cf 6f f2 c6 55-25 1d 56 d0 bb bf a5 aa",
+      "stateName": "Active"
+    },
+    "softwares": [
+      {
+        "name": "Softerra LDAP Browser 4.5 (64-bit)",
+        "version": "4.5.13724.0"
+      },
+      {
+        "name": "Google Chrome",
+        "version": "77.0.3865.75"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.7.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.20120"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/My1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d9776aa105e2808be46f1",
+    "key": "MjAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "Vizio, Inc 192.168.69.70",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:48.590Z",
+      "ipAddress": "192.168.69.70",
+      "lastSeen": "2021-08-30T16:00:48.490Z",
+      "type": "Smart TV",
+      "lastChanged": "2021-08-23T15:55:48.603Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Vizio, Inc",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9777aa105e2808be47ce",
+    "key": "MjUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "linux-suse-vm.lerchnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:41.923Z",
+      "ipAddress": "192.168.69.121",
+      "lastSeen": "2021-09-07T16:00:33.947Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:49.187Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9777aa105e2808be4873",
+    "key": "MzItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "jestnet_BS-GS2008_Manged_Switch",
+      "description": "BUFFALO BS-GS2008",
+      "firstSeen": "2021-08-23T15:57:03.757Z",
+      "ipAddress": "192.168.69.254",
+      "lastSeen": "2021-08-30T16:02:02.907Z",
+      "type": "Switch",
+      "lastChanged": "2021-08-23T15:57:03.763Z"
+    },
+    "assetCustom": {
+      "manufacturer": "MELCO Inc.",
+      "model": "GoAhead-http",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9777aa105e2808be4b2f",
+    "key": "MzgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-12-5",
+      "firstSeen": "2021-08-23T17:01:33.077Z",
+      "ipAddress": "192.168.69.11",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:02.057Z"
+    },
+    "assetCustom": {
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9777aa105e2808be4faf",
+    "key": "NC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "JL-DC-001",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:14.207Z",
+      "ipAddress": "192.168.69.201",
+      "lastSeen": "2021-08-30T16:01:26.023Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:14.707Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 5c 36 02 da 11 34-8f be d6 59 ac a6 af bb",
+      "stateName": "Active"
+    },
+    "softwares": [
+      {
+        "name": "Wireshark 3.0.1 64-bit",
+        "version": "3.0.1"
+      },
+      {
+        "name": "Mozilla Maintenance Service",
+        "version": "69.0"
+      },
+      {
+        "name": "Npcap",
+        "version": "0.992"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.7.1"
+      },
+      {
+        "name": "CrystalDiskMark 7.0.0h",
+        "version": "7.0.0h"
+      },
+      {
+        "name": "Mozilla Firefox (x64 en-US)",
+        "version": "91.0.2"
+      },
+      {
+        "name": "Microsoft Visual C++ 2017 Redistributable (x64)",
+        "version": "14.12.25810.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.40649.5"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "7-Zip 18.03 beta (x64)",
+        "version": "18.03 beta"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.20120"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d9778aa105e2808be57d3",
+    "key": "NjQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-001",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:43.023Z",
+      "ipAddress": "192.168.69.114",
+      "lastSeen": "2021-09-26T22:52:39.143Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:21.270Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 2a 3a fe 34 18 2d-e7 ae f5 57 b2 e6 ef gg",
+      "stateName": "Active"
+    },
+    "softwares": [
+      {
+        "name": "Visual Studio 2010 Prerequisites - English",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "TeamViewer",
+        "version": "15.3.8497"
+      },
+      {
+        "name": "Google Chrome",
+        "version": "94.0.4606.61"
+      },
+      {
+        "name": "Microsoft Visual Studio 2010 Shell (Isolated) - ENU",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x86 Runtime",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.5.1"
+      },
+      {
+        "name": "Microsoft System CLR Types for SQL Server 2014 (x64)",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "CrystalDiskMark 7.0.0h",
+        "version": "7.0.0h"
+      },
+      {
+        "name": "Microsoft Office Professional Plus 2010",
+        "version": "14.0.4763.1000"
+      },
+      {
+        "name": "Microsoft SQL Server System CLR Types",
+        "version": "10.51.2500.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 (64-bit)"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Transact-SQL Compiler Service",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Transact-SQL ScriptDom",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2012 Native Client",
+        "version": "11.2.5643.3"
+      },
+      {
+        "name": "SQL Server Browser for SQL Server 2014",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x86 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x64 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "Microsoft ODBC Driver 11 for SQL Server",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft Help Viewer",
+        "version": "1.1.40219"
+      },
+      {
+        "name": "Microsoft SQL Server 2008 R2 Management Objects",
+        "version": "10.51.2500.0"
+      },
+      {
+        "name": "Microsoft VSS Writer for SQL Server 2014",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft Report Viewer 2014 Runtime",
+        "version": "12.0.2000.8"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.18739"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.1.7.5541682"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Setup (English)",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2008 Setup Support Files",
+        "version": "10.3.5500.0"
+      },
+      {
+        "name": "Microsoft .NET Framework 4 Multi-Targeting Pack",
+        "version": "4.0.30319"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NjQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9779aa105e2808be5e83",
+    "key": "OS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "jl_newdell_mebx.jestnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:43.010Z",
+      "ipAddress": "192.168.69.113",
+      "lastSeen": "2021-08-30T16:02:51.907Z",
+      "type": "Computer",
+      "lastChanged": "2021-08-23T15:55:43.017Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2016-05-23T05:00:00.000Z",
+      "warrantyDate": "2019-05-24T05:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/OS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d977baa105e2808be7673",
+    "key": "MjQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "james-virtual-machine.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:48.607Z",
+      "ipAddress": "192.168.69.103",
+      "lastSeen": "2021-08-23T15:55:48.607Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:48.747Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "nginx/1.14.0 (Ubuntu)",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d977baa105e2808be7700",
+    "key": "MjEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "4me-mysql.lerchnet.lan",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:48.607Z",
+      "ipAddress": "192.168.69.116",
+      "lastSeen": "2021-09-07T16:00:38.947Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:48.613Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Linux 16.04"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d977daa105e2808be8d77",
+    "key": "Mi1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "JL-MASTER",
+      "description": "jest-Master",
+      "userDomain": "JESTNET",
+      "userName": "jest",
+      "firstSeen": "2021-08-23T15:48:14.267Z",
+      "ipAddress": "192.168.69.3",
+      "lastSeen": "2021-08-31T07:12:33.820Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:53:06.613Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 42 15 fc db 36 17-05 70 39 cf 50 be 4b cc",
+      "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2019 Standard Evaluation"
+    },
+    "users": [
+      {
+        "name": "Administrator"
+      },
+      {
+        "fullName": "Fred",
+        "name": "Fred",
+        "email": "fred@4me.com"
+      },
+      {
+        "name": "Guest"
+      }
+    ],
+    "softwares": [
+      {
+        "name": "Lansweeper",
+        "version": "8.4"
+      },
+      {
+        "name": "Visual Studio 2010 Prerequisites - English",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Java 8 Update 181 (64-bit)",
+        "version": "8.0.1810.13"
+      },
+      {
+        "name": "Google Chrome",
+        "version": "77.0.3865.75"
+      },
+      {
+        "name": "IIS 8.0 Express",
+        "version": "8.0.1557"
+      },
+      {
+        "name": "Microsoft Visual Studio 2010 Shell (Isolated) - ENU",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual Studio 2015 Shell (Isolated)",
+        "version": "14.0.23107.10"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5 Multi-Targeting Pack",
+        "version": "4.5.50710"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.2 Multi-Targeting Pack",
+        "version": "4.5.51209"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)",
+        "version": "4.5.51209"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.1 Multi-Targeting Pack",
+        "version": "4.5.50932"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)",
+        "version": "4.5.50932"
+      },
+      {
+        "name": "Microsoft Visual Studio Tools for Applications 2015 Language Support",
+        "version": "14.0.23107.20"
+      },
+      {
+        "name": "Microsoft Visual Studio Tools for Applications 2015",
+        "version": "14.0.23829"
+      },
+      {
+        "name": "BMC Client Management Master",
+        "version": "12.9.03"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x86 Runtime",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.1 SDK",
+        "version": "4.5.51641"
+      },
+      {
+        "name": "Npcap OEM",
+        "version": "1.31"
+      },
+      {
+        "name": "IIS Express Application Compatibility Database for x64"
+      },
+      {
+        "name": "IIS Express Application Compatibility Database for x86"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.7.1"
+      },
+      {
+        "name": "Microsoft System CLR Types for SQL Server 2017",
+        "version": "14.0.1000.169"
+      },
+      {
+        "name": "Microsoft System CLR Types for SQL Server 2014 (x64)",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft System CLR Types for SQL Server 2014",
+        "version": "12.0.2402.11"
+      },
+      {
+        "name": "CrystalDiskMark 7.0.0h",
+        "version": "7.0.0h"
+      },
+      {
+        "name": "Microsoft SQL Server Data-Tier Application Framework (x86)",
+        "version": "14.0.3953.4"
+      },
+      {
+        "name": "Microsoft SQL Server System CLR Types",
+        "version": "10.51.2500.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2017"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Transact-SQL Compiler Service",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2017 Policies",
+        "version": "14.0.1000.169"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Express LocalDB",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Policies",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Transact-SQL ScriptDom",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2017 T-SQL Language Service",
+        "version": "14.0.17254.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 (64-bit)"
+      },
+      {
+        "name": "Microsoft SQL Server 2012 Native Client",
+        "version": "11.4.7462.6"
+      },
+      {
+        "name": "SQL Server Browser for SQL Server 2014",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft ODBC Driver 13 for SQL Server",
+        "version": "14.0.1000.169"
+      },
+      {
+        "name": "Microsoft SQL Server Management Studio - 17.7",
+        "version": "14.0.17254.0"
+      },
+      {
+        "name": "Dell OS Recovery Tool",
+        "version": "2.1.2035"
+      },
+      {
+        "name": "Microsoft Silverlight",
+        "version": "5.1.50918.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2015 Redistributable (x86)",
+        "version": "14.0.23026.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2015 Redistributable (x64)",
+        "version": "14.0.23026.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x64 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x64)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x86 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "Microsoft ODBC Driver 11 for SQL Server",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft Help Viewer",
+        "version": "1.1.40219"
+      },
+      {
+        "name": "Microsoft Help Viewer",
+        "version": "2.2.23107"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Management Objects",
+        "version": "12.0.2000.8"
+      },
+      {
+        "name": "Microsoft SQL Server 2008 R2 Management Objects",
+        "version": "10.51.2500.0"
+      },
+      {
+        "name": "Active Directory Authentication Library for SQL Server",
+        "version": "14.0.1000.169"
+      },
+      {
+        "name": "Microsoft VSS Writer for SQL Server 2014",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft Report Viewer 2014 Runtime",
+        "version": "12.0.2000.8"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.20091"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Setup (English)",
+        "version": "12.3.6024.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2008 Setup Support Files",
+        "version": "10.3.5500.0"
+      },
+      {
+        "name": "Microsoft .NET Framework 4 Multi-Targeting Pack",
+        "version": "4.0.30319"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/Mi1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d977faa105e2808bea85e",
+    "key": "Ny1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "VS-20.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:41.903Z",
+      "ipAddress": "192.168.69.20",
+      "lastSeen": "2021-08-30T16:00:37.727Z",
+      "type": "ESXi server",
+      "lastChanged": "2021-08-23T15:55:41.907Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2014-09-22T05:00:00.000Z",
+      "warrantyDate": "2017-09-23T05:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "model": "OptiPlex 7020",
+      "serialNumber": "F1H8P87",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/Ny1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d977faa105e2808beaa75",
+    "key": "NjUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "[TV]Samsung LED60",
+      "description": "Samsung TV NS",
+      "firstSeen": "2021-08-24T16:00:52.743Z",
+      "ipAddress": "192.168.69.102",
+      "lastSeen": "2021-08-29T16:00:57.940Z",
+      "type": "Smart TV",
+      "lastChanged": "2021-08-24T16:00:52.743Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Samsung Electronics",
+      "model": "UN60HU8550",
+      "serialNumber": "20090804RDX",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NjUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9782aa105e2808bec3b3",
+    "key": "MTAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "VS-40.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:43.043Z",
+      "ipAddress": "192.168.69.40",
+      "lastSeen": "2021-08-30T16:00:43.803Z",
+      "type": "ESXi server",
+      "lastChanged": "2021-08-23T15:55:43.040Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2012-02-05T06:00:00.000Z",
+      "warrantyDate": "2015-02-06T06:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "model": "Precision M4600",
+      "serialNumber": "CPFH4D6",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9782aa105e2808bec4f8",
+    "key": "MjItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "DESKTOP-2QU00M4",
+      "firstSeen": "2021-08-23T15:55:45.090Z",
+      "ipAddress": "192.168.69.100",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:48.690Z"
+    },
+    "assetCustom": {
+      "manufacturer": "GIGA-BYTE TECHNOLOGY CO.,LTD.",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9782aa105e2808bec7b9",
+    "key": "NjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2019",
+      "firstSeen": "2021-08-24T16:33:31.160Z",
+      "ipAddress": "192.168.69.104",
+      "type": "Windows",
+      "lastChanged": "2021-08-24T16:33:31.503Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2019 Standard Evaluation"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9786aa105e2808beeef7",
+    "key": "NTYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2016-001",
+      "description": "",
+      "firstSeen": "2021-08-23T17:01:35.357Z",
+      "ipAddress": "192.168.69.120",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:17.750Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware7,1",
+      "serialNumber": "VMware-56 4d 51 37 fb 5f 7c 9a-a7 6a e7 8c 53 38 b1 11",
+      "stateName": "Active"
+    },
+    "softwares": [
+      {
+        "name": "Microsoft Visual Studio Installer",
+        "version": "1.15.3245.307"
+      },
+      {
+        "name": "Microsoft Web Deploy 4.0",
+        "version": "10.0.1988"
+      },
+      {
+        "name": "Microsoft .NET Core SDK - 2.1.100 (x64)",
+        "version": "2.1.100"
+      },
+      {
+        "name": "IIS 10.0 Express",
+        "version": "10.0.1741"
+      },
+      {
+        "name": "Git version",
+        "version": "2.16.1.4"
+      },
+      {
+        "name": "Windows Software Development Kit - Windows 10.0.16299.15",
+        "version": "10.1.16299.15"
+      },
+      {
+        "name": "Microsoft Visual Studio 2015 Shell (Isolated)",
+        "version": "14.0.23107.10"
+      },
+      {
+        "name": "Windows SDK AddOn",
+        "version": "10.1.0.0"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5 Multi-Targeting Pack",
+        "version": "4.5.50710"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.2 Multi-Targeting Pack (ENU)",
+        "version": "4.5.51209"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.1 Multi-Targeting Pack",
+        "version": "4.5.50932"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.1 Multi-Targeting Pack (ENU)",
+        "version": "4.5.50932"
+      },
+      {
+        "name": "Microsoft Visual Studio Tools for Applications 2015",
+        "version": "14.0.23829"
+      },
+      {
+        "name": "Microsoft Visual Studio Tools for Applications 2015 Language Support",
+        "version": "14.0.23107.20"
+      },
+      {
+        "name": "Microsoft .NET Framework 4.5.1 SDK",
+        "version": "4.5.51641"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.5.6"
+      },
+      {
+        "name": "Microsoft System CLR Types for SQL Server 2017",
+        "version": "14.0.3006.16"
+      },
+      {
+        "name": "Microsoft System CLR Types for SQL Server 2014",
+        "version": "12.0.2402.11"
+      },
+      {
+        "name": "Microsoft SQL Server Data-Tier Application Framework (x86)",
+        "version": "14.0.3811.1"
+      },
+      {
+        "name": "Visual Studio Community 2017",
+        "version": "15.6.27428.2002"
+      },
+      {
+        "name": "Microsoft SQL Server 2016 T-SQL Language Service",
+        "version": "13.0.14500.10"
+      },
+      {
+        "name": "Microsoft SQL Server 2016 T-SQL ScriptDom",
+        "version": "13.1.4001.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2016 (64-bit)"
+      },
+      {
+        "name": "Microsoft SQL Server 2017 T-SQL Language Service",
+        "version": "14.0.17199.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2017 Policies",
+        "version": "14.0.1000.169"
+      },
+      {
+        "name": "Microsoft SQL Server 2012 Native Client",
+        "version": "11.3.6540.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2017"
+      },
+      {
+        "name": "Microsoft ODBC Driver 13 for SQL Server",
+        "version": "14.0.1000.169"
+      },
+      {
+        "name": "Microsoft SQL Server Management Studio - 17.3",
+        "version": "14.0.17199.0"
+      },
+      {
+        "name": "Browser for SQL Server 2016",
+        "version": "13.1.4001.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x86 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x64)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x64 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2017 Redistributable (x64)",
+        "version": "14.13.26020.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2017 Redistributable (x86)",
+        "version": "14.13.26020.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "Microsoft Help Viewer",
+        "version": "2.2.23107"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Management Objects",
+        "version": "12.0.2000.8"
+      },
+      {
+        "name": "Active Directory Authentication Library for SQL Server",
+        "version": "14.0.1000.169"
+      },
+      {
+        "name": "Microsoft VSS Writer for SQL Server 2016",
+        "version": "13.1.4001.0"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.1944.14393.0"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      },
+      {
+        "name": "Microsoft SQL Server 2008 Setup Support Files",
+        "version": "10.3.5500.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2016 Setup (English)",
+        "version": "13.1.4001.0"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NTYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9789aa105e2808bf0fd9",
+    "key": "MTktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "VS-50.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:48.587Z",
+      "ipAddress": "192.168.69.50",
+      "lastSeen": "2021-08-30T16:00:46.257Z",
+      "type": "ESXi server",
+      "lastChanged": "2021-08-23T15:55:48.590Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2012-02-22T06:00:00.000Z",
+      "warrantyDate": "2017-02-23T06:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "model": "OptiPlex 990",
+      "serialNumber": "GVX3KD6",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9789aa105e2808bf1082",
+    "key": "MzYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-004",
+      "firstSeen": "2021-08-23T17:01:33.077Z",
+      "ipAddress": "192.168.69.132",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:01.190Z"
+    },
+    "assetCustom": {
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d978baa105e2808bf2803",
+    "key": "NS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "jest2012R2-01",
+      "firstSeen": "2021-08-23T15:55:14.207Z",
+      "ipAddress": "192.168.69.21",
+      "lastSeen": "2021-08-30T16:00:11.630Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:14.713Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 2d f3 4c 06 27 b1-2b 8b f6 15 33 78 c1 dd",
+      "stateName": "Active"
+    },
+    "softwares": [
+      {
+        "name": "Windows Assessment and Deployment Kit - Windows 10",
+        "version": "10.1.16299.15"
+      },
+      {
+        "name": "Visual Studio 2010 Prerequisites - English",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Wireshark 3.0.1 64-bit",
+        "version": "3.0.1"
+      },
+      {
+        "name": "Java 8 Update 181",
+        "version": "8.0.1810.13"
+      },
+      {
+        "name": "Java 8 Update 181 (64-bit)",
+        "version": "8.0.1810.13"
+      },
+      {
+        "name": "Google Chrome",
+        "version": "77.0.3865.75"
+      },
+      {
+        "name": "Microsoft Visual Studio 2010 Shell (Isolated) - ENU",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x86 Runtime",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Npcap 0.99-r9",
+        "version": "0.99-r9"
+      },
+      {
+        "name": "PuTTY release 0.71 (64-bit)",
+        "version": "0.71.0.0"
+      },
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.7.1"
+      },
+      {
+        "name": "Microsoft System CLR Types for SQL Server 2014 (x64)",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft SQL Server System CLR Types",
+        "version": "10.51.2500.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Transact-SQL ScriptDom",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Policies",
+        "version": "12.0.2000.8"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Transact-SQL Compiler Service",
+        "version": "12.2.5553.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2012 Native Client",
+        "version": "11.2.5643.3"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 (64-bit)"
+      },
+      {
+        "name": "SQL Server Browser for SQL Server 2014",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x64)",
+        "version": "12.0.40649.5"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x64 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2017 Redistributable (x64)",
+        "version": "14.12.25810.0"
+      },
+      {
+        "name": "Microsoft Visual C++ 2010  x86 Redistributable",
+        "version": "10.0.40219"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.40649.5"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "Microsoft ODBC Driver 11 for SQL Server",
+        "version": "12.2.5553.0"
+      },
+      {
+        "name": "Microsoft Help Viewer",
+        "version": "1.1.40219"
+      },
+      {
+        "name": "Microsoft SQL Server 2008 R2 Management Objects",
+        "version": "10.51.2500.0"
+      },
+      {
+        "name": "7-Zip 16.04 (x64)",
+        "version": "16.04"
+      },
+      {
+        "name": "Microsoft VSS Writer for SQL Server 2014",
+        "version": "12.2.5000.0"
+      },
+      {
+        "name": "Microsoft Report Viewer 2014 Runtime",
+        "version": "12.0.2000.8"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.19463"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      },
+      {
+        "name": "Microsoft SQL Server 2014 Setup (English)",
+        "version": "12.2.5553.0"
+      },
+      {
+        "name": "Microsoft SQL Server 2008 Setup Support Files",
+        "version": "10.3.5500.0"
+      },
+      {
+        "name": "Microsoft .NET Framework 4 Multi-Targeting Pack",
+        "version": "4.0.30319"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d978eaa105e2808bf4449",
+    "key": "Ni1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "Linksys WRT1900ACv2:DD-WRT",
+      "description": "Gateway",
+      "firstSeen": "2021-08-23T15:55:25.560Z",
+      "ipAddress": "192.168.69.1",
+      "lastSeen": "2021-08-30T16:00:22.163Z",
+      "type": "Router",
+      "lastChanged": "2021-08-23T15:55:25.567Z"
+    },
+    "assetCustom": {
+      "manufacturer": "DD-WRT",
+      "model": "Linksys WRT1900ACv2",
+      "serialNumber": "0008701",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/Ni1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d978eaa105e2808bf46b0",
+    "key": "NDEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-003",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:43.023Z",
+      "ipAddress": "192.168.69.110",
+      "lastSeen": "2021-09-26T22:52:39.143Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:03.403Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d e7 2d ae 6c a5 b3-10 bc d9 08 e3 4f ee c7",
+      "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Standard"
+    },
+    "softwares": [
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.5.8"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.19078"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NDEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d978eaa105e2808bf477f",
+    "key": "NDItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-002",
+      "description": "",
+      "firstSeen": "2021-08-23T15:55:43.053Z",
+      "ipAddress": "192.168.69.115",
+      "lastSeen": "2021-09-26T22:52:39.143Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:03.403Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 77 7e cf f9 10 e5-f8 26 0a c5 17 6a d7 f6",
+      "stateName": "Active"
+    },
+    "softwares": [
+      {
+        "name": "Notepad++ (32-bit x86)",
+        "version": "7.6.6"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.4148"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x86",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2008 Redistributable - x64",
+        "version": "9.0.30729.6161"
+      },
+      {
+        "name": "Microsoft Visual C++ 2013 Redistributable (x86)",
+        "version": "12.0.21005.1"
+      },
+      {
+        "name": "WinPcap 4.1.3",
+        "version": "4.1.0.2980"
+      },
+      {
+        "name": "Windows Internet Explorer 11",
+        "version": "11.0.9600.19326"
+      },
+      {
+        "name": "VMware Tools",
+        "version": "10.2.0.7253323"
+      }
+    ],
+    "url": "https://app.lansweeper.com/jest-site/asset/NDItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  }
+]

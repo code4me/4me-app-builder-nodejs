@@ -1,7 +1,7 @@
 'use strict';
 
-const AwsConfigHelper = require("../library/helpers/aws_config_helper");
-const CliInputHelper = require("../library/helpers/cli_input_helper");
+const AwsConfigHelper = require('../library/helpers/aws_config_helper');
+const CliInputHelper = require('../library/helpers/cli_input_helper');
 const ConfigFileHelper = require('../library/helpers/config_file_helper');
 const Js4meDeployHelper = require('../library/helpers/js_4me_deploy_helper');
 

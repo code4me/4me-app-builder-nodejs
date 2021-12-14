@@ -1,0 +1,6 @@
+{
+  "name": "AWS SQS UI Extension",
+  "title": "SQS parameters",
+  "category": "product",
+  "activate": true
+}

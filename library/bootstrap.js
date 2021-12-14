@@ -1,13 +1,14 @@
 'use strict';
 
-const AwsConfigHelper = require("./helpers/aws_config_helper");
-const {SecretsManagerClient} = require("@aws-sdk/client-secrets-manager");
+const AwsConfigHelper = require('./helpers/aws_config_helper');
+const {SecretsManagerClient} = require('@aws-sdk/client-secrets-manager');
 const SecretsHelper = require('./helpers/secrets_helper');
 const Js4meHelper = require('./helpers/js_4me_helper');
 const Js4meDeployHelper = require('./helpers/js_4me_deploy_helper');
 const ConfigFileHelper = require('./helpers/config_file_helper');
-const CliInputHelper = require("./helpers/cli_input_helper");
+const CliInputHelper = require('./helpers/cli_input_helper');
 const path = require('path')
+const LoggedError = require('./helpers/errors/logged_error');
 
 const stackName = 'app-builder-engine';
 const secretsPolicyAlg = 'es512';
@@ -27,7 +28,7 @@ class Bootstrap {
       account: {'Which 4me account': {default: 'wdc'}},
       serviceInstanceName: {'Which service instance (for integration engine)': {default: 'Mainframe 1'}},
       clientID: 'Your client ID',
-      token: {'Your application token': {silent: true, trim: false, replace: '*'}},
+      token: {'Your client secret': {silent: true, trim: false, replace: '*'}},
       profile: {'Which AWS profile': {default: 'staging'}},
     });
   }
@@ -164,7 +165,7 @@ class Bootstrap {
                                                                  });
     if (result.error) {
       console.error('Unable to create policy: %j', result.error);
-      throw new Error('Unable to create policy');
+      throw new LoggedError('Unable to create policy');
     }
     return result.webhookPolicy;
   }
@@ -212,7 +213,7 @@ class Bootstrap {
                               });
     if (result.error) {
       console.error('Unable to create webhook: %j', result.error);
-      throw new Error('Unable to create webhook');
+      throw new LoggedError('Unable to create webhook');
     }
     return result.webhook;
   }
@@ -259,17 +260,30 @@ class Bootstrap {
     process.exit(1);
   }
 
-  const uiExtension = await bootstrap.syncUiExtension('lambda_ui_extension');
-  if (uiExtension.error) {
+  const lambdaUiExtension = await bootstrap.syncUiExtension('lambda_ui_extension');
+  if (lambdaUiExtension.error) {
     process.exit(2);
   }
   const lambdaProduct = await bootstrap.syncProduct('lambda_product',
                                                     {
-                                                      uiExtensionId: uiExtension.id,
+                                                      uiExtensionId: lambdaUiExtension.id,
                                                       supportTeamId: si.supportTeam.id,
                                                     });
   if (lambdaProduct.error) {
     process.exit(3);
+  }
+
+  const sqsUiExtension = await bootstrap.syncUiExtension('sqs_ui_extension');
+  if (sqsUiExtension.error) {
+    process.exit(2);
+  }
+  const sqsProduct = await bootstrap.syncProduct('sqs_product',
+                                                 {
+                                                   uiExtensionId: sqsUiExtension.id,
+                                                   supportTeamId: si.supportTeam.id,
+                                                 });
+  if (sqsProduct.error) {
+    process.exit(4);
   }
 
   // Upsert webhook policy

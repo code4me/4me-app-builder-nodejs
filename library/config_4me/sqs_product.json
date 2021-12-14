@@ -1,0 +1,7 @@
+{
+  "name": "AWS SQS",
+  "brand": "Amazon",
+  "model": "SQS",
+  "category": "other_type_of_hardware",
+  "remarks": "Amazon SQS provides queues for high-throughput, system-to-system messaging."
+}

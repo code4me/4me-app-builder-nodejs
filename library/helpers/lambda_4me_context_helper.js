@@ -68,7 +68,7 @@ class Lambda4meContextHelper {
     const secretToken = secrets.application.client_secret;
 
     if (!secrets.policy) {
-      console.info('No policy to verify requests from 4me for %j - %j.',
+      console.debug('No policy to verify requests from 4me for %j - %j.',
                    secretsApplicationName, secretsAccountKey);
       secrets.policy = {};
     }
@@ -108,7 +108,7 @@ class Lambda4meContextHelper {
     }
 
     if (!secrets.policy) {
-      console.info('No policy to verify requests from 4me for %j - %j.',
+      console.debug('No policy to verify requests from 4me for %j - %j.',
                    this.applicationName, this.providerAccount);
       secrets.policy = {};
     }

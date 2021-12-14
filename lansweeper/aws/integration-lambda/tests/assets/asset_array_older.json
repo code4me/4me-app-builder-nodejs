@@ -1,0 +1,579 @@
+[
+  {
+    "_id": "612d9757aa105e2808bcf846",
+    "key": "MTEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2016-001",
+      "description": "JL-2016-001",
+      "firstSeen": "2021-08-23T15:55:41.923Z",
+      "ipAddress": "192.168.69.120",
+      "lastSeen": "2021-08-30T16:00:37.727Z",
+      "type": "VMware Guest",
+      "lastChanged": "2021-08-23T15:55:44.560Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9757aa105e2808bcf956",
+    "key": "MjktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "192.168.69.72",
+      "firstSeen": "2021-08-23T15:55:50.173Z",
+      "ipAddress": "192.168.69.72",
+      "lastSeen": "2021-08-30T16:00:49.850Z",
+      "type": "Webserver",
+      "lastChanged": "2021-08-23T15:55:50.170Z"
+    },
+    "assetCustom": {
+      "model": "gSOAP/2.8",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9757aa105e2808bcf9ca",
+    "key": "MzEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JAMES-OPTIPLEX-9010",
+      "firstSeen": "2021-08-23T15:56:04.137Z",
+      "ipAddress": "192.168.69.111",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:56:04.153Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Dell Inc.",
+      "model": "MacSamba",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d975caa105e2808bd25eb",
+    "key": "MjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "192.168.69.73",
+      "firstSeen": "2021-08-23T15:55:49.837Z",
+      "ipAddress": "192.168.69.73",
+      "lastSeen": "2021-08-30T16:00:51.130Z",
+      "type": "Webserver",
+      "lastChanged": "2021-08-23T15:55:49.847Z"
+    },
+    "assetCustom": {
+      "model": "gSOAP/2.8",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d975caa105e2808bd2694",
+    "key": "MzMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "weather.jestnet.lan",
+      "firstSeen": "2021-08-23T15:57:05.643Z",
+      "ipAddress": "192.168.69.9",
+      "lastSeen": "2021-08-30T16:02:06.657Z",
+      "type": "Weather",
+      "lastChanged": "2021-08-23T15:57:05.663Z"
+    },
+    "assetCustom": {
+      "manufacturer": "ASIX ELECTRONICS CORP.",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd5109",
+    "key": "OC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "CentOS7-ESXi",
+      "firstSeen": "2021-08-23T15:55:41.923Z",
+      "ipAddress": "192.168.69.112",
+      "lastSeen": "2021-08-23T15:55:41.923Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:42.227Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/OC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd526a",
+    "key": "MjMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "4me-appserv.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:48.607Z",
+      "ipAddress": "192.168.69.107",
+      "lastSeen": "2021-08-23T15:55:48.607Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:48.713Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjMtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd534f",
+    "key": "NjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "jl-2019.jestnet.lan",
+      "firstSeen": "2021-08-25T16:02:39.467Z",
+      "ipAddress": "192.168.69.104",
+      "lastSeen": "2021-08-30T16:02:42.813Z",
+      "type": "Virtual Machine",
+      "lastChanged": "2021-08-25T16:02:39.463Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NjctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9760aa105e2808bd5502",
+    "key": "MTgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "DESKTOP-11OOKAO",
+      "description": "JL 4me Q3 20-Jul-21",
+      "firstSeen": "2021-08-23T15:55:43.053Z",
+      "ipAddress": "192.168.69.101",
+      "lastSeen": "2021-08-23T15:55:43.053Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:47.673Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9762aa105e2808bd6734",
+    "key": "MzAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "Shenzhen Baichuan Digital Technology Co., Ltd. 192.168.69.99",
+      "firstSeen": "2021-08-23T15:55:57.277Z",
+      "ipAddress": "192.168.69.99",
+      "lastSeen": "2021-08-30T16:00:58.303Z",
+      "type": "Surveillance Camera",
+      "lastChanged": "2021-08-23T15:55:57.280Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Shenzhen Baichuan Digital Technology Co., Ltd.",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9763aa105e2808bd74b5",
+    "key": "MzUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "iphone.jestnet.lan",
+      "firstSeen": "2021-08-23T15:58:49.293Z",
+      "ipAddress": "192.168.69.106",
+      "lastSeen": "2021-08-30T16:01:02.833Z",
+      "type": "Mobile",
+      "lastChanged": "2021-08-23T15:58:49.307Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Apple",
+      "model": "iPhone",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d976daa105e2808bdd68d",
+    "key": "MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "192.168.69.71",
+      "firstSeen": "2021-08-23T15:55:49.837Z",
+      "ipAddress": "192.168.69.71",
+      "lastSeen": "2021-08-30T16:00:51.257Z",
+      "type": "Webserver",
+      "lastChanged": "2021-08-23T15:55:49.847Z"
+    },
+    "assetCustom": {
+      "model": "gSOAP/2.8",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d976daa105e2808bdd768",
+    "key": "MzQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "jest-pixel.jestnet.lan",
+      "firstSeen": "2021-08-23T15:57:35.727Z",
+      "ipAddress": "192.168.69.105",
+      "lastSeen": "2021-08-30T16:02:34.187Z",
+      "type": "Mobile",
+      "lastChanged": "2021-08-23T15:57:35.747Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Google",
+      "model": "Pixel",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9773aa105e2808be2011",
+    "key": "MzctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-008",
+      "firstSeen": "2021-08-23T17:01:33.077Z",
+      "ipAddress": "192.168.69.135",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:01.190Z"
+    },
+    "assetCustom": {
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzctQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9776aa105e2808be3b25",
+    "key": "My1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "JL-DC-002",
+      "firstSeen": "2021-08-23T15:55:14.207Z",
+      "ipAddress": "192.168.69.202",
+      "lastSeen": "2021-08-30T16:01:27.023Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:14.707Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d d5 cf 6f f2 c6 55-25 1d 56 d0 bb bf a5 aa",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/My1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d9776aa105e2808be46f1",
+    "key": "MjAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "Vizio, Inc 192.168.69.70",
+      "firstSeen": "2021-08-23T15:55:48.590Z",
+      "ipAddress": "192.168.69.70",
+      "lastSeen": "2021-08-30T16:00:48.490Z",
+      "type": "Smart TV",
+      "lastChanged": "2021-08-23T15:55:48.603Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Vizio, Inc",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9777aa105e2808be4873",
+    "key": "MzItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "jestnet_BS-GS2008_Manged_Switch",
+      "description": "BUFFALO BS-GS2008",
+      "firstSeen": "2021-08-23T15:57:03.757Z",
+      "ipAddress": "192.168.69.254",
+      "lastSeen": "2021-08-30T16:02:02.907Z",
+      "type": "Switch",
+      "lastChanged": "2021-08-23T15:57:03.763Z"
+    },
+    "assetCustom": {
+      "manufacturer": "MELCO Inc.",
+      "model": "GoAhead-http",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9777aa105e2808be4b2f",
+    "key": "MzgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-12-5",
+      "firstSeen": "2021-08-23T17:01:33.077Z",
+      "ipAddress": "192.168.69.11",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:02.057Z"
+    },
+    "assetCustom": {
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9777aa105e2808be4faf",
+    "key": "NC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "JL-DC-001",
+      "firstSeen": "2021-08-23T15:55:14.207Z",
+      "ipAddress": "192.168.69.201",
+      "lastSeen": "2021-08-30T16:01:26.023Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:14.707Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 5c 36 02 da 11 34-8f be d6 59 ac a6 af bb",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NC1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d9779aa105e2808be5e83",
+    "key": "OS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "jl_newdell_mebx.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:43.010Z",
+      "ipAddress": "192.168.69.113",
+      "lastSeen": "2021-08-30T16:02:51.907Z",
+      "type": "Computer",
+      "lastChanged": "2021-08-23T15:55:43.017Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2016-05-23T05:00:00.000Z",
+      "warrantyDate": "2019-05-24T05:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/OS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d977baa105e2808be7673",
+    "key": "MjQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "james-virtual-machine.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:48.607Z",
+      "ipAddress": "192.168.69.103",
+      "lastSeen": "2021-08-23T15:55:48.607Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:55:48.747Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "nginx/1.14.0 (Ubuntu)",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d977daa105e2808be8d77",
+    "key": "Mi1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "JL-MASTER",
+      "description": "jest-Master",
+      "firstSeen": "2021-08-23T15:48:14.267Z",
+      "ipAddress": "192.168.69.3",
+      "lastSeen": "2021-08-31T07:12:33.820Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:53:06.613Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 42 15 fc db 36 17-05 70 39 cf 50 be 4b cc",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/Mi1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d977faa105e2808bea85e",
+    "key": "Ny1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "VS-20.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:41.903Z",
+      "ipAddress": "192.168.69.20",
+      "lastSeen": "2021-08-30T16:00:37.727Z",
+      "type": "ESXi server",
+      "lastChanged": "2021-08-23T15:55:41.907Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2014-09-22T05:00:00.000Z",
+      "warrantyDate": "2017-09-23T05:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "model": "OptiPlex 7020",
+      "serialNumber": "F1H8P87",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/Ny1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d977faa105e2808beaa75",
+    "key": "NjUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "[TV]Samsung LED60",
+      "description": "Samsung TV NS",
+      "firstSeen": "2021-08-24T16:00:52.743Z",
+      "ipAddress": "192.168.69.102",
+      "lastSeen": "2021-08-29T16:00:57.940Z",
+      "type": "Smart TV",
+      "lastChanged": "2021-08-24T16:00:52.743Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Samsung Electronics",
+      "model": "UN60HU8550",
+      "serialNumber": "20090804RDX",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NjUtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9782aa105e2808bec3b3",
+    "key": "MTAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "VS-40.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:43.043Z",
+      "ipAddress": "192.168.69.40",
+      "lastSeen": "2021-08-30T16:00:43.803Z",
+      "type": "ESXi server",
+      "lastChanged": "2021-08-23T15:55:43.040Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2012-02-05T06:00:00.000Z",
+      "warrantyDate": "2015-02-06T06:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "model": "Precision M4600",
+      "serialNumber": "CPFH4D6",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9782aa105e2808bec4f8",
+    "key": "MjItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "DESKTOP-2QU00M4",
+      "firstSeen": "2021-08-23T15:55:45.090Z",
+      "ipAddress": "192.168.69.100",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:48.690Z"
+    },
+    "assetCustom": {
+      "manufacturer": "GIGA-BYTE TECHNOLOGY CO.,LTD.",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9782aa105e2808bec7b9",
+    "key": "NjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2019",
+      "firstSeen": "2021-08-24T16:33:31.160Z",
+      "ipAddress": "192.168.69.104",
+      "type": "Windows",
+      "lastChanged": "2021-08-24T16:33:31.503Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9786aa105e2808beeef7",
+    "key": "NTYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2016-001",
+      "firstSeen": "2021-08-23T17:01:35.357Z",
+      "ipAddress": "192.168.69.120",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:17.750Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "Workstation pro",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NTYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9789aa105e2808bf0fd9",
+    "key": "MTktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "VS-50.jestnet.lan",
+      "firstSeen": "2021-08-23T15:55:48.587Z",
+      "ipAddress": "192.168.69.50",
+      "lastSeen": "2021-08-30T16:00:46.257Z",
+      "type": "ESXi server",
+      "lastChanged": "2021-08-23T15:55:48.590Z"
+    },
+    "assetCustom": {
+      "purchaseDate": "2012-02-22T06:00:00.000Z",
+      "warrantyDate": "2017-02-23T06:00:00.000Z",
+      "manufacturer": "Dell Inc.",
+      "model": "OptiPlex 990",
+      "serialNumber": "GVX3KD6",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9789aa105e2808bf1082",
+    "key": "MzYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-DM-004",
+      "firstSeen": "2021-08-23T17:01:33.077Z",
+      "ipAddress": "192.168.69.132",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T17:01:01.190Z"
+    },
+    "assetCustom": {
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d978baa105e2808bf2803",
+    "key": "NS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "jest2012R2-01",
+      "firstSeen": "2021-08-23T15:55:14.207Z",
+      "ipAddress": "192.168.69.21",
+      "lastSeen": "2021-08-30T16:00:11.630Z",
+      "type": "Windows",
+      "lastChanged": "2021-08-23T15:55:14.713Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware, Inc.",
+      "model": "VMware Virtual Platform",
+      "serialNumber": "VMware-56 4d 2d f3 4c 06 27 b1-2b 8b f6 15 33 78 c1 dd",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  },
+  {
+    "_id": "612d978eaa105e2808bf4449",
+    "key": "Ni1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=",
+    "assetBasicInfo": {
+      "name": "Linksys WRT1900ACv2:DD-WRT",
+      "description": "Gateway",
+      "firstSeen": "2021-08-23T15:55:25.560Z",
+      "ipAddress": "192.168.69.1",
+      "lastSeen": "2021-08-30T16:00:22.163Z",
+      "type": "Router",
+      "lastChanged": "2021-08-23T15:55:25.567Z"
+    },
+    "assetCustom": {
+      "manufacturer": "DD-WRT",
+      "model": "Linksys WRT1900ACv2",
+      "serialNumber": "0008701",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/Ni1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=/summary"
+  }
+]

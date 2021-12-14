@@ -15,8 +15,8 @@ jest.mock('../typeform_helper');
 const NotesHelper = require('../notes_helper');
 jest.mock('../notes_helper');
 
-const InstanceHelper = require("../instance_helper");
-const LambdaContextMocker = require("../../../../library/aws/secrets-lambda/tests/lambda_context_mocker");
+const InstanceHelper = require('../instance_helper');
+const LambdaContextMocker = require('../../../../library/aws/secrets-lambda/tests/lambda_context_mocker');
 jest.mock('../instance_helper');
 
 const context = {invokedFunctionArn: 'arn:aws:lambda:eu-west-1:123456789012:function:app-builder-aws-s3-IntegrationFunction-1URR7LBIEMI4E'};

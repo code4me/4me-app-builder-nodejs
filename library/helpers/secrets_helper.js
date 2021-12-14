@@ -1,6 +1,7 @@
 'use strict';
 
-const { SecretsManagerClient, GetSecretValueCommand, CreateSecretCommand, PutSecretValueCommand } = require("@aws-sdk/client-secrets-manager");
+const { SecretsManagerClient, GetSecretValueCommand, CreateSecretCommand, PutSecretValueCommand } = require('@aws-sdk/client-secrets-manager');
+const AppError = require('./errors/app_error');
 
 class SecretsHelper {
   constructor(secretsClient, env4me, applicationName) {
@@ -35,7 +36,7 @@ class SecretsHelper {
         console.log(`Creating new secret: ${secretName}`);
         return await this.createSecrets(account, secrets);
       }
-      throw error;
+      throw new AppError(error);
     }
   }
 
@@ -57,11 +58,11 @@ class SecretsHelper {
       const secretString = JSON.stringify(secrets);
       const data = await this.createAwsSecret(secretName, secretString);
       if (!data.ARN) {
-        throw new Error('No ARN returned.');
+        throw new AppError('No ARN returned.');
       }
       return { ...data, secrets: secrets };
     } catch (error) {
-      throw new Error(`Unable to create secret for ${account}: ${error.code}; ${error.message}`);
+      throw new AppError(`Unable to create secret for ${account}: ${error.code}; ${error.message}`);
     }
   };
 
@@ -85,7 +86,7 @@ class SecretsHelper {
       }
       return { ...data, secrets: newSecrets };
     } catch (error) {
-      throw new Error(`Unable to update secrets for ${account}: ${error.code}; ${error.message}`);
+      throw new AppError(`Unable to update secrets for ${account}: ${error.code}; ${error.message}`);
     }
   };
 

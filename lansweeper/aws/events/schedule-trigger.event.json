@@ -1,0 +1,13 @@
+{
+  "version": "0",
+  "id": "f2f7f375-0ade-79c5-2a61-9c06244e9d28",
+  "detail-type": "Scheduled Event",
+  "source": "aws.events",
+  "account": "123456789012",
+  "time": "2021-10-06T13:44:45Z",
+  "region": "eu-west-1",
+  "resources": [
+    "arn:aws:events:eu-west-1:123456789012:rule/LansweeperResyncSchedule"
+  ],
+  "detail": {}
+}

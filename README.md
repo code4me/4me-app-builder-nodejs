@@ -573,6 +573,13 @@ An implementation is found in the [Typeform webhook handler](#typeform-webhook-h
 
 Two example integrations are included in this demo repository. They are relatively simple and aimed at showcasing the different components defined in the [topology](#topology).
 
+Besides these sample integrations this demo repository also contains an actual integration we use to import Configuration Items from the discovery tool Lansweeper.
+That one is a bit more complex but can provide some further insight once you understand the example ones.
+
+* [Note-Dispatcher](#note-dispatcher)
+* [Typeform](#typeform)
+* [Lansweeper](#lansweeper)
+
 ### Note-Dispatcher
 
 When a customer installs the Note-Dispatcher app all notes added to requests in the 4me customer account will be
@@ -809,6 +816,38 @@ the `Form URL` from the app instance and adds a note with the survey link to the
 
 **Step 24** Finally the survey results are added as a note to the request with the given `Request ID` using the customer token to access 4me.
 
+### Lansweeper
+
+The Lansweeper integration allows configuration items discovered by the Lansweeper tool to be uploaded into a customer's 4me account on a regular interval.
+So this integration is a bit different from the sample integrations as it is run according to a schedule. 
+
+#### Lansweeper Deploy Script
+
+* `Script location`: `/lansweeper/deploy_integration.js`
+* `Functionality`: Provision the components for the Lansweeper integration.
+
+The functionality of this script is similar to the [one for the typeform integration](#typeform-deploy-script).
+
+#### Lansweeper High-Level Overview
+
+For this integration this document will not go into the details of how it does its job. Instead we give an high-level overview of the events it processes.
+More details should be obtained by studying the code.
+
+The Lansweeper integration is triggered by multiple events:
+* it responds to customer installation or secrets changes in 4me (like the example integration with Typeform);
+* it receives a 'refreshToken' from Lansweeper when the application is authorized for one or more Lansweeper sites;
+* it receives a trigger event from AWS at a fixed interval to check which customer accounts to synchronize and finally
+* it responds to Simple Queuing Service (SQS) messages to start synchronization of a specific customer account.
+
+Luckily AWS has a standard facility to trigger a lambda at regular intervals. Our integration queries the App Instances for customers at these intervals to check which ones are eligible for re-synchronization. For each customer account it will send an SQS message to execute the actual synchronization for that customer.
+
+The integration's lambda handles such a re-synchronization SQS message by querying all the customer's assets from Lansweeper in batches, sending each batch to 4me and then polling for all batches to be completed by 4me.
+
+Handling the installation (update) events from 4me and receiving the authorization from Lansweeper is similar to the how that is done in the Typeform example.
+
+We could have split the handling of each event into its own lambda function, but instead opted to combine them in a single one. This keeps the deployment and version management a bit simpler. The code for this lambda, and the 4me configuration for the App Offering, can be found in the `lansweeper` directory of this repository.
+The entry point of this single lambda is `lansweeper/aws/integration-lambda/app.js`.
+
 ## Running the examples
 
 After cloning or downloading this repository some more configuration is required before you can see them in action.
@@ -854,6 +893,7 @@ To allow the examples to access data in the provider's 4me account an applicatio
  * Go to the OAuth Applications console in the settings section (e.g. https://wdc.4me-demo.com/oauth_applications) and create a new application:
    * Using 'Client credentials grant'
    * And a scope that allows:
+     * Account (Read)
      * Service (Read)
      * Team (Read)
      * App Instance (Update, Read)
@@ -938,7 +978,7 @@ The process will prompt you for the following parameters to configure it:
  * `4me account`: the account of the provider in the selected 4me domain, in '4me-demo.com' you could for instance use 'wdc'
 * `service instance`: the name of the Service instance in the provider account that will represent the integration engine in 4me.
  * `client ID`: the client ID that will be used (with the token) to access the provider's account, you received this value when you [created the OAuth Application](#create-4me-provider-application-token)
-* `application token`: the token that will be used (with the client ID) to access the provider's account, you received this value when you [created the OAuth Application](#create-4me-provider-application-token)
+* `client secret`: the client secret (the application's token) that will be used (with the client ID) to access the provider's account, you received this value when you [created the OAuth Application](#create-4me-provider-application-token)
 * `AWS profile`: the name of the AWS profile, in your `~/.aws/config`, that contains the correct parameters (e.g. region, role, MFA device) to access your AWS account.
 * `MFA code`: the current authentication code of the multi-factor authentication device used to protect your AWS account. (You probably will be asked this code twice: once for the secrets configuration and once for the lambda deployment; please ensure you enter the next token for the second prompt as each token can only be used once.)
 

@@ -1,8 +1,10 @@
 'use strict';
 
-const { fromIni, parseKnownFiles } = require("@aws-sdk/credential-provider-ini");
-const { STS } = require("@aws-sdk/client-sts");
+const { fromIni } = require("@aws-sdk/credential-providers");
+const { parseKnownFiles } = require('@aws-sdk/util-credentials');
+const { STS } = require('@aws-sdk/client-sts');
 const promptly = require('promptly');
+const AppError = require('./errors/app_error');
 
 class AwsConfigHelper {
   constructor(awsProfile, mfaCode = null) {
@@ -37,7 +39,7 @@ class AwsConfigHelper {
       const sts = new STS({ credentials: sourceCreds, region: region });
       const result = await sts.assumeRole(params);
       if (!result.Credentials) {
-        throw new Error("unable to assume credentials - empty credential object");
+        throw new AppError("unable to assume credentials - empty credential object");
       }
       this.credentials = {
         accessKeyId: result.Credentials.AccessKeyId,

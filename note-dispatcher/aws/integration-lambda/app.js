@@ -1,6 +1,6 @@
 const Js4meWebhookLambdaHandler = require('../../../library/helpers/js_4me_webhook_lambda_handler');
 const FunTranslationsHelper = require('./fun_translations_helper')
-const ExternalStoreHelper = require("./external_store_helper");
+const ExternalStoreHelper = require('./external_store_helper');
 
 async function handleRequestNoteAdded(handler, data, options) {
   const delivery = options.delivery;

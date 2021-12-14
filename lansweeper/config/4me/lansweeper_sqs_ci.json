@@ -1,0 +1,6 @@
+{
+  "name": "Lansweeper integration SQS",
+  "label": "sqs-lansweeper-1",
+  "remarks": "Queue to hold refresh message for each customer account to be synced with 4me",
+  "status": "being_tested"
+}

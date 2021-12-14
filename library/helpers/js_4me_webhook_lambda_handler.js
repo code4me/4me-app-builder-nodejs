@@ -1,8 +1,8 @@
 'use strict';
 
 const axios = require('axios');
-const Lambda4meContextHelper = require("./lambda_4me_context_helper");
-const Js4meHelper = require("./js_4me_helper");
+const Lambda4meContextHelper = require('./lambda_4me_context_helper');
+const Js4meHelper = require('./js_4me_helper');
 
 class Js4meWebhookLambdaHandler {
   constructor(customHandler, options) {

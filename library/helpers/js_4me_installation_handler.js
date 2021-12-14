@@ -1,6 +1,6 @@
 'use strict';
 
-const Lambda4meContextHelper = require("./lambda_4me_context_helper");
+const Lambda4meContextHelper = require('./lambda_4me_context_helper');
 
 class Js4meInstallationHandler {
   constructor(customHandler, options) {

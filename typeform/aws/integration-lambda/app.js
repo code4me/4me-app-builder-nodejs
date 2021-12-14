@@ -1,7 +1,7 @@
 const Js4meInstallationHandler = require('../../../library/helpers/js_4me_installation_handler');
 const TypeformLambdaHandler = require('./typeform_lambda_handler')
-const TypeformClient = require("./typeform_client");
-const InstanceHelper = require("./instance_helper");
+const TypeformClient = require('./typeform_client');
+const InstanceHelper = require('./instance_helper');
 const crypto = require('crypto');
 
 async function findConfigurationItem(js4meHelper, accessToken, arn) {

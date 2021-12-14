@@ -1,9 +1,10 @@
 'use strict';
 
-const {SecretsManagerClient} = require("@aws-sdk/client-secrets-manager");
+const {SecretsManagerClient} = require('@aws-sdk/client-secrets-manager');
 const SecretsHelper = require('./secrets_helper');
 const Js4meHelper = require('./js_4me_helper');
 const AwsDeployHelper = require('./aws_deploy_helper');
+const AppError = require('./errors/app_error');
 
 class Js4meDeployHelper {
   constructor() {
@@ -76,7 +77,7 @@ class Js4meDeployHelper {
     const s3Bucket = stackOutputs['SourceBucket'];
     console.log('Used S3 bucket %s for storage', s3Bucket);
 
-    return {lambdaUrl: lambdaUrl, lambdaArn: lambdaArn, s3Bucket: s3Bucket};
+    return {lambdaUrl: lambdaUrl, lambdaArn: lambdaArn, s3Bucket: s3Bucket, stacksOutput: stackOutputs};
   }
 
   async deployLambda(clientConfig, profile, samPath, stackName, parameterOverrides) {
@@ -334,10 +335,10 @@ class Js4meDeployHelper {
 
   upsertOnSourceIDData(input, source, sourceID, extraProps) {
     if (source.length > 30) {
-      throw new Error(`Source field cannot be longer than 30 characters. '${source}' is ${source.length} long.`);
+      throw new AppError(`Source field cannot be longer than 30 characters. '${source}' is ${source.length} long.`);
     }
     if (sourceID.length > 128) {
-      throw new Error(`SourceID field cannot be longer than 128 characters. '${sourceID}' is ${sourceID.length} long.`);
+      throw new AppError(`SourceID field cannot be longer than 128 characters. '${sourceID}' is ${sourceID.length} long.`);
     }
     if (extraProps) {
       input = {...input, ...extraProps};
@@ -370,6 +371,19 @@ class Js4meDeployHelper {
     const product = await this.findProduct(js4meHelper, accessToken, filter);
 
     this.validateQueryResult(product, 'lambda product');
+
+    return product;
+  }
+
+  async findDefaultSqsProduct(js4meHelper, accessToken) {
+    const filter = {
+      source: {values: [this.bootstrapSource]},
+      sourceID: {values: ['sqs_product']},
+    };
+
+    const product = await this.findProduct(js4meHelper, accessToken, filter);
+
+    this.validateQueryResult(product, 'sqs product');
 
     return product;
   }

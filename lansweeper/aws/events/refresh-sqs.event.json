@@ -1,0 +1,20 @@
+{
+  "Records": [
+    {
+      "messageId": "63e062a9-362a-4a75-9cdc-e1bbe7b788d7",
+      "receiptHandle": "AQEBPrAvFAGbhGAHuiPc+8oZohp14dOWux8iFcGwLqk5dfdddg/qKOg/kHFfl030BiSdBh0nIrp9jeXKqenxOAIVQv5MsJsWzctW782UOjvqk0SgJOn+8VjmNgFDc8pGSijU6EXrYmfYN/38cMSzGxNvyzzmjrbzpO4R3cqDWj4Qpmeq4v0lfu33inJlrYmBE3E/2+5fmvVW5s942SAIVEYAfxjygAjb0BqbD3usZAih+NPqBdww5TmBPm8z62ewt9rjbpbE0ZA5ogY5Ah3sgGof0Z9P2ZIocCWLOJE24eioJImvsGElrYdUrzBW3XH9CZiMswj30Oq+fj9uM0KuT1u1hFFsnoYhib430iAGCn+oi/r2zi6ee4lx9oH3lbO8yBQRaGAkSNjgG6x/XrZ+GGNZBew==",
+      "body": "test-account-sqs",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1630912930558",
+        "SenderId": "AROAQKT7XRFMU7UYWQ5VF:app-builder-lansweeper-IntegrationFunction-euNGJcIZDa0q",
+        "ApproximateFirstReceiveTimestamp": "1630912930558"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "6cd566bfa84190ae790cc74243260108",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:eu-west-1:065816459346:lansweeper-refresh-trigger",
+      "awsRegion": "eu-west-1"
+    }
+  ]
+}

@@ -8,10 +8,10 @@ jest.mock('../../../../library/helpers/secrets_helper');
 const Js4meHelper = require('../../../../library/helpers/js_4me_helper');
 jest.mock('../../../../library/helpers/js_4me_helper');
 
-const InstanceHelper = require("../instance_helper");
+const InstanceHelper = require('../instance_helper');
 jest.mock('../instance_helper');
 
-const TypeformClient = require("../typeform_client");
+const TypeformClient = require('../typeform_client');
 jest.mock('../typeform_client');
 
 const crypto = require('crypto');
@@ -19,7 +19,7 @@ const crypto = require('crypto');
 const context = {invokedFunctionArn: 'arn:aws:lambda:eu-west-1:123456789012:function:app-builder-aws-s3-IntegrationFunction-1URR7LBIEMI4E'};
 
 const ciProductData = require('./lambda-ci-data.json');
-const LambdaContextMocker = require("../../../../library/aws/secrets-lambda/tests/lambda_context_mocker");
+const LambdaContextMocker = require('../../../../library/aws/secrets-lambda/tests/lambda_context_mocker');
 
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_BOOTSTRAP_ACCOUNT = 'test-provider';
