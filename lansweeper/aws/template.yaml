@@ -33,6 +33,7 @@ Resources:
     Properties:
       QueueName: !Sub "${offeringReferenceParameter}-refresh-trigger"
       VisibilityTimeout: 605 # bit longer than function timeout
+      KmsMasterKeyId: "alias/aws/sqs"
   IntegrationFunction:
     Type: AWS::Serverless::Function
     Properties:
