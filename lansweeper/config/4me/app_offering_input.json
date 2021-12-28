@@ -7,7 +7,6 @@
   "newScopes": [
     {
       "actions": [
-        "async-query:Read",
         "ci:Create",
         "ci:Read",
         "ci:Update",
