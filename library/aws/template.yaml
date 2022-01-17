@@ -15,6 +15,9 @@ Parameters:
   BootstrapSecretAccountParameter:
     Type: String
     Default: default
+  BootstrapSecretEnabledReferencesParameter:
+    Type: String
+    Default: "*"
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
@@ -35,6 +38,7 @@ Resources:
           PARAM_4ME_DOMAIN: !Ref 4MeDomainParameter
           PARAM_BOOTSTRAP_APP: !Ref BootstrapSecretApplicationParameter
           PARAM_BOOTSTRAP_ACCOUNT: !Ref BootstrapSecretAccountParameter
+          PARAM_ENABLED_OFFERINGS: !Ref BootstrapSecretEnabledReferencesParameter
       Events:
         Secrets:
           Type: Api

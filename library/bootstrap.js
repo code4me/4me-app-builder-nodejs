@@ -27,6 +27,7 @@ class Bootstrap {
       domain: {'Which 4me domain': {default: '4me-demo.com'}},
       account: {'Which 4me account': {default: 'wdc'}},
       serviceInstanceName: {'Which service instance (for integration engine)': {default: 'Mainframe 1'}},
+      enabledOfferings: {'Which app offerings should store secrets (* for all)': {default: '*'}},
       clientID: 'Your client ID',
       token: {'Your client secret': {silent: true, trim: false, replace: '*'}},
       profile: {'Which AWS profile': {default: 'staging'}},
@@ -38,12 +39,13 @@ class Bootstrap {
     return await secretsHelper.upsertSecret(account, secrets);
   }
 
-  async deployLambda(clientConfig, profile, domain, account) {
+  async deployLambda(clientConfig, profile, domain, account, enabledOfferings) {
     const samPath = path.resolve(__dirname, 'aws');
     const parameterOverrides = [
       `4MeDomainParameter=${domain}`,
       `BootstrapSecretApplicationParameter=${this.secretApplicationName}`,
       `BootstrapSecretAccountParameter=${account}`,
+      `BootstrapSecretEnabledReferencesParameter=${enabledOfferings}`,
     ];
     return await this.js4meDeployHelper.deployLambda(clientConfig,
                                                      profile,
@@ -225,11 +227,13 @@ class Bootstrap {
   const profile = input.profile;
   const domain = input.domain;
   const account = input.account;
+  const enabledOfferings = input.enabledOfferings;
   var secrets = {...input};
   delete secrets.profile;
   delete secrets.domain;
   delete secrets.account;
   delete secrets.serviceInstanceName;
+  delete secrets.enabledOfferings;
 
   // Create a secrets manager client and use it to store user supplied values
   const clientConfig = await new AwsConfigHelper(profile).getClientConfig();
@@ -306,7 +310,7 @@ class Bootstrap {
   }
 
   // Deploy secrets webhook lambda
-  const stackOutputs = await bootstrap.deployLambda(clientConfig, profile, domain, account);
+  const stackOutputs = await bootstrap.deployLambda(clientConfig, profile, domain, account, enabledOfferings);
   const s3Bucket = stackOutputs['SourceBucket'];
   const lambdaUrl = stackOutputs['SecretsApi'];
   console.log(`Created lambda at: ${lambdaUrl}`)

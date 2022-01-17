@@ -6,6 +6,11 @@ async function handleAppInstanceSecretsUpdate(handler, data, options) {
         handler.log('(%s) Updating secrets', options.delivery);
         const customerAccount = data.payload.customer_account_id;
         const offeringRef = data.payload.app_offering.reference;
+        const enabled_references = process.env.PARAM_ENABLED_OFFERINGS ? process.env.PARAM_ENABLED_OFFERINGS.split(',') : null;
+        if (enabled_references && enabled_references[0] !== '*' && enabled_references.indexOf(offeringRef) < 0) {
+            handler.log('Handling of secrets limited to app_references: %j', enabled_references);
+            return handler.respondWith(`No action for app_reference: ${offeringRef}`);
+        }
         const env4me = options.lambda4meContext.env4me;
         const secretsApplicationName = `${options.lambda4meContext.applicationName}/${offeringRef}`;
         const secretsAccountKey = `instances/${customerAccount}`;

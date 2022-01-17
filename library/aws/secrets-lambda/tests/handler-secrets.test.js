@@ -7,10 +7,12 @@ jest.mock('../../../helpers/js_4me_helper');
 
 const secretsHelperMock = require('../../../helpers/tests/secrets_helper_mock');
 const app = require('../app.js');
+const mockedPayload = require('../../events/secret-scope-only.jwt-data.json');
 
 process.env.PARAM_4ME_DOMAIN = '4me-staging.com';
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_BOOTSTRAP_ACCOUNT = 'not-default';
+const env = {...process.env};
 
 const context = {invokedFunctionArn: 'arn:aws:lambda:eu-west-1:123456789012:function:app-builder-4me-IntegrationFunction-1R4T4QRNEPMP5'};
 const event = {
@@ -42,13 +44,126 @@ const mockedSecrets = {
 const lambdaContextMocker = new LambdaContextMocker();
 lambdaContextMocker.providerSecrets = mockedSecrets;
 
-it('handles receiving application', async () => {
+afterEach(() => {
+  process.env = env;
+})
+
+describe('all applications enabled', () => {
+  it('handles receiving application', async () => {
+    await checkSiebelHandled();
+  });
+
+  it('handles receiving policy', async () => {
+    const mockGetSecrets = secretsHelperMock.once('getSecrets', async () => mockedSecrets);
+    const mockUpsertSecret = secretsHelperMock.once('upsertSecret', async (acc, newSecrets) => {
+      return {secrets: {...mockedSecrets, ...newSecrets}};
+    });
+
+    const mockedPolicyPayload = require('../../events/secret-policy-only.jwt-data.json');
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getDelivery: (e) => {
+          expect(e).toBe(event);
+          return '00c7bb4a-b3ba-4744-8126-1e7ef87ef90a';
+        },
+        get4meData: async (jwt) => {
+          expect(jwt).toBe(parsedBody.jwt)
+          return mockedPolicyPayload;
+        }
+      };
+    });
+
+    expect(await app.lambdaHandler(event, context))
+      .toEqual({
+                 'statusCode': 200,
+                 'body': JSON.stringify({
+                                          message: 'Secrets stored',
+                                        })
+               });
+
+    expect(secretsHelperMock.constructor()).toHaveBeenCalledWith(null, '4me-staging.com', 'my-app');
+    expect(mockGetSecrets).toHaveBeenCalledWith('not-default');
+
+    lambdaContextMocker.checkProvider4meHelperCreated();
+
+    expect(secretsHelperMock.constructor()).toHaveBeenCalledWith(null, '4me-staging.com', 'my-app/typeform');
+    expect(mockUpsertSecret).toHaveBeenCalledWith('instances/wdc-test', {
+      "policy": {
+        "nodeID": "NG1lLXN0YWdpbmcuY29tL1dlYmhvb2tQb2xpY3kvNQ",
+        "audience": null,
+        "algorithm": "RS256",
+        "public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs7NgfD+LUikVVUTPhPZk\nkmcvAf1CIOcWpIlWAT5NL3Qy3DBD02M01dCe13FKVSHHq0CZnYbqRaoNr1zdycf2\nEPZgahQ0EcF1lZFOSCx2+L8tZccSlj3+YNvIqarD3k3CepNDxib8kF0rWZxC4c54\nkTuCfHU+qMBtSbavFjl+jD3dFDkQrlJHDHY6k49C+0kfvKDlqKScKtGatuX7uVyc\nfj32wegx/q4hkspb9sfvIJTmOC5t2kDLFOYA/bhihtWsrPboVcJI1IjnhZ9Dag6X\nY7IndRMOsnQQS5I9ELAEoaw/W95A0OIJdWq4IFceOkmlhBb6G6Iw7BrM64Pn/nFl\nEwIDAQAB\n-----END PUBLIC KEY-----\n"
+      }
+    });
+  });
+});
+
+describe('limited applications enabled', () => {
+  it('handles environment variable empty on receiving application', async () => {
+    process.env.PARAM_ENABLED_OFFERINGS = '';
+    await checkSiebelHandled();
+  });
+
+  it('handles environment variable * on receiving application', async () => {
+    process.env.PARAM_ENABLED_OFFERINGS = '*';
+    await checkSiebelHandled();
+  });
+
+  it('handles receiving enabled application', async () => {
+    process.env.PARAM_ENABLED_OFFERINGS = 'wdc_siebel';
+    await checkSiebelHandled();
+  });
+
+  it('handles receiving when multiple enabled application', async () => {
+    process.env.PARAM_ENABLED_OFFERINGS = 'typeform,wdc_siebel';
+    await checkSiebelHandled();
+  });
+
+  it('handles receiving non-enabled application', async () => {
+    process.env.PARAM_ENABLED_OFFERINGS = 'typeform';
+
+    const mockGetSecrets = secretsHelperMock.once('getSecrets', async () => mockedSecrets);
+    const mockUpsertSecret = secretsHelperMock.once('upsertSecret', async (acc, newSecrets) => {
+      return {secrets: {...mockedSecrets, ...newSecrets}};
+    });
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getDelivery: (e) => {
+          expect(e).toBe(event);
+          return '00c7bb4a-b3ba-4744-8126-1e7ef87ef90b';
+        },
+        get4meData: async (jwt) => {
+          expect(jwt).toBe(parsedBody.jwt)
+          return mockedPayload;
+        }
+      };
+    });
+
+    expect(await app.lambdaHandler(event, context))
+      .toEqual({
+                 'statusCode': 200,
+                 'body': JSON.stringify({
+                                          message: 'No action for app_reference: wdc_siebel',
+                                        })
+               });
+
+    expect(secretsHelperMock.constructor()).toHaveBeenCalledWith(null, '4me-staging.com', 'my-app');
+    expect(mockGetSecrets).toHaveBeenCalledWith('not-default');
+
+    lambdaContextMocker.checkProvider4meHelperCreated();
+
+    expect(secretsHelperMock.constructor()).not.toHaveBeenCalledWith(null, '4me-staging.com', 'my-app/wdc_siebel');
+    expect(mockUpsertSecret).not.toBeCalled();
+  });
+});
+
+async function checkSiebelHandled() {
   const mockGetSecrets = secretsHelperMock.once('getSecrets', async () => mockedSecrets);
   const mockUpsertSecret = secretsHelperMock.once('upsertSecret', async (acc, newSecrets) => {
     return {secrets: {...mockedSecrets, ...newSecrets}};
   });
-
-  const mockedPayload = require('../../events/secret-scope-only.jwt-data.json');
 
   Js4meHelper.mockImplementation(() => {
     return {
@@ -84,49 +199,4 @@ it('handles receiving application', async () => {
       "client_secret": "69E4WANiRdpKAv7ws5ZsNY7NI0ttG5Btx6VBH5KfV03ZrkKpN0NGn4EUB0DbipPy"
     }
   });
-});
-
-it('handles receiving policy', async () => {
-  const mockGetSecrets = secretsHelperMock.once('getSecrets', async () => mockedSecrets);
-  const mockUpsertSecret = secretsHelperMock.once('upsertSecret', async (acc, newSecrets) => {
-    return {secrets: {...mockedSecrets, ...newSecrets}};
-  });
-
-  const mockedPayload = require('../../events/secret-policy-only.jwt-data.json');
-
-  Js4meHelper.mockImplementation(() => {
-    return {
-      getDelivery: (e) => {
-        expect(e).toBe(event);
-        return '00c7bb4a-b3ba-4744-8126-1e7ef87ef90a';
-      },
-      get4meData: async (jwt) => {
-        expect(jwt).toBe(parsedBody.jwt)
-        return mockedPayload;
-      }
-    };
-  });
-
-  expect(await app.lambdaHandler(event, context))
-    .toEqual({
-               'statusCode': 200,
-               'body': JSON.stringify({
-                                        message: 'Secrets stored',
-                                      })
-             });
-
-  expect(secretsHelperMock.constructor()).toHaveBeenCalledWith(null, '4me-staging.com', 'my-app');
-  expect(mockGetSecrets).toHaveBeenCalledWith('not-default');
-
-  lambdaContextMocker.checkProvider4meHelperCreated();
-
-  expect(secretsHelperMock.constructor()).toHaveBeenCalledWith(null, '4me-staging.com', 'my-app/typeform');
-  expect(mockUpsertSecret).toHaveBeenCalledWith('instances/wdc-test', {
-    "policy": {
-      "nodeID": "NG1lLXN0YWdpbmcuY29tL1dlYmhvb2tQb2xpY3kvNQ",
-      "audience": null,
-      "algorithm": "RS256",
-      "public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs7NgfD+LUikVVUTPhPZk\nkmcvAf1CIOcWpIlWAT5NL3Qy3DBD02M01dCe13FKVSHHq0CZnYbqRaoNr1zdycf2\nEPZgahQ0EcF1lZFOSCx2+L8tZccSlj3+YNvIqarD3k3CepNDxib8kF0rWZxC4c54\nkTuCfHU+qMBtSbavFjl+jD3dFDkQrlJHDHY6k49C+0kfvKDlqKScKtGatuX7uVyc\nfj32wegx/q4hkspb9sfvIJTmOC5t2kDLFOYA/bhihtWsrPboVcJI1IjnhZ9Dag6X\nY7IndRMOsnQQS5I9ELAEoaw/W95A0OIJdWq4IFceOkmlhBb6G6Iw7BrM64Pn/nFl\nEwIDAQAB\n-----END PUBLIC KEY-----\n"
-    }
-  });
-});
+}

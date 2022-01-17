@@ -359,6 +359,7 @@ Those default values will then used when pressing `enter` on the command prompt.
 * `4me domain` The 4me domain to install the integration in, e.g. `4me.com`, `4me.qa` or `4me-demo.com`.
 * `4me account` The provider account, e.g. `wdc` in demo.
 * `service instance` The name of the service instance representing the integration engine, e.g. `Mainframe 1` in demo.
+* `enabled offerings` The references of the App Offerings for which the [secrets-lambda](#secrets-lambda) should create new AWS secrets, leave the default `*` to allow any App Offering. (Limiting the enabled offerings can be useful in testing situations.)
 * `client ID` The client ID of the OAuth Application in 4me used to update the configuration in the 4me provider account and at runtime by the engine to access data in that account.
 * `application token` The secret token of the OAuth Application in 4me used to update the configuration in the 4me provider account and at runtime by the engine to access data in that account.
 * `AWS profile` The profile to be used to access AWS, should be defined in `~/.aws/config`, e.g. `default`.
@@ -442,9 +443,9 @@ lambda defined in step 9.
 * `Functionality`: Default implementation of the [4me secrets webhook listener](#4me-secrets-webhook-listener).
 
 This serverless script listens to events described in the [secrets webhook](#secrets-webhook) section of the topology.
-It will first use `policy` from the [provider secrets](#secrets_helper) stored by the [bootstrap.js script](#bootstrapjs) to validate that the message is indeed coming from 4me.
+It will first use `policy` from the [provider secrets](#secrets_helper) stored by the [bootstrap.js script](#bootstrapjs) to validate that the message is indeed coming from 4me. And it will check whether it should handle messages about the App Offering of the message. 
 
-All [customer secrets](#secrets_helper) for a single integration will be stored in the [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) using the `4me-app-builder/<integration reference>/<4me domain>/instances/<customer account>` key.
+All [customer secrets](#secrets_helper) for a single integration will be stored in the [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) using the `4me-app-builder/<app offering reference>/<4me domain>/instances/<customer account>` key.
 
 Based on the [Typeform example](#typeform) the secret may look something like this:
 
