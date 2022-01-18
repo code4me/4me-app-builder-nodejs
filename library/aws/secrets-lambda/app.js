@@ -56,5 +56,11 @@ exports.lambdaHandler = async (event, context) => {
         env4me: process.env.PARAM_4ME_DOMAIN,
         providerAccount: process.env.PARAM_BOOTSTRAP_ACCOUNT,
     });
-    return await handler.handleProviderEvent(event, context);
+
+    const resultEvent = await handler.handleProviderEvent(event, context);
+    if (resultEvent.statusCode !== 200) {
+        console.error('%j', resultEvent);
+    }
+
+    return resultEvent;
 };
