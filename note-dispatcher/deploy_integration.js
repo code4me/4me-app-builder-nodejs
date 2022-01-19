@@ -75,7 +75,8 @@ class DeployIntegration {
   }
 
   getOfferingInput() {
-    return this.readFromFile('app_offering_input');
+    const {input} = this.readUpsertData('app_offering_input', {});
+    return input;
   }
 
   async createOffering(serviceInstance, lambdaUrl) {
@@ -100,12 +101,14 @@ class DeployIntegration {
   }
 
   async createUiExtension(offering) {
-    const uiExtensionInput = this.configFileHelper.readUiExtensionFromFiles('ui_extension_input');
+    const filename = 'ui_extension_input';
+    const uiExtensionInput = this.configFileHelper.readUiExtensionFromFiles(filename);
+    const {input} = this.js4meDeployHelper.upsertOnSourceIDData(uiExtensionInput, source, filename, {});
 
     return await this.js4meDeployHelper.syncUiExtensionVersion(this.js4meHelper,
                                                                this.accessToken,
                                                                offering,
-                                                               uiExtensionInput);
+                                                               input);
   }
 }
 module.exports = DeployIntegration;
