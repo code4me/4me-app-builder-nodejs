@@ -71,7 +71,10 @@ class Bootstrap {
 
   async syncUiExtension(filename, extraProps) {
     const uiExtensionInput = this.configFileHelper.readUiExtensionFromFiles(filename);
-    const {input, filter} = this.js4meDeployHelper.upsertOnSourceIDData(uiExtensionInput, this.source, filename, extraProps);
+    const {input, filter} = this.js4meDeployHelper.upsertOnSourceIDData(uiExtensionInput,
+                                                                        this.source,
+                                                                        filename,
+                                                                        extraProps);
     const uiExtension = await this.js4meDeployHelper
       .syncUiExtension(this.js4meHelper,
                        this.accessToken,
@@ -219,7 +222,119 @@ class Bootstrap {
     }
     return result.webhook;
   }
+
+  async updateWebhook(id, uri, policyId) {
+    const result = await this.js4meHelper
+      .executeGraphQLMutation('Update webhook', this.accessToken, `
+        mutation($id: ID!, $uri: String!, $policyId: ID!) {
+          webhookUpdate(input: { id: $id, uri: $uri, webhookPolicyId: $policyId }) {
+            errors {
+                path
+                message
+            }
+            webhook {
+                id
+                name
+                uri
+            }
+          }
+        }`,
+                              {
+                                id: id,
+                                uri: uri,
+                                policyId: policyId,
+                              });
+    if (result.error) {
+      console.error('Unable to update webhook: %j', result.error);
+      throw new LoggedError('Unable to update webhook');
+    }
+    return result.webhook;
+  }
+
+  async createProducts(serviceInstanceName) {
+    const si = await this.findServiceInstance(serviceInstanceName);
+    if (!si) {
+      console.error(`No service instance found for: ${serviceInstanceName}`)
+      process.exit(-1);
+    } else if (si.error) {
+      console.error('Error retrieving service instance: %j', si.error)
+      process.exit(-2);
+    }
+    if (!si.supportTeam) {
+      console.error(`No support team found for service instance: ${serviceInstanceName}. Please configure one`)
+      process.exit(-3);
+    }
+
+    // Upsert products for AWS Lambda and S3
+    const s3Product = await this.syncProduct('s3_product', {supportTeamId: si.supportTeam.id});
+    if (s3Product.error) {
+      process.exit(1);
+    }
+
+    const lambdaUiExtension = await this.syncUiExtension('lambda_ui_extension');
+    if (lambdaUiExtension.error) {
+      process.exit(2);
+    }
+    const lambdaProduct = await this.syncProduct('lambda_product',
+                                                 {
+                                                   uiExtensionId: lambdaUiExtension.id,
+                                                   supportTeamId: si.supportTeam.id,
+                                                 });
+    if (lambdaProduct.error) {
+      process.exit(3);
+    }
+
+    const sqsUiExtension = await this.syncUiExtension('sqs_ui_extension');
+    if (sqsUiExtension.error) {
+      process.exit(2);
+    }
+    const sqsProduct = await this.syncProduct('sqs_product',
+                                              {
+                                                uiExtensionId: sqsUiExtension.id,
+                                                supportTeamId: si.supportTeam.id,
+                                              });
+    if (sqsProduct.error) {
+      process.exit(4);
+    }
+    return {si, s3Product, lambdaProduct};
+  }
+
+  async createCis(region, si, s3Bucket, s3Product, lambdaProduct, lambdaArn, lambdaUrl) {
+    const location = `Amazon ${region}`;
+    const s3Ci = await this.syncConfigurationItem('s3_ci',
+                                                  {
+                                                    systemID: s3Bucket,
+                                                    productId: s3Product.id,
+                                                    serviceId: si.service.id,
+                                                    location: location,
+                                                  });
+    if (s3Ci.error) {
+      process.exit(5);
+    }
+    const lambdaCi = await this.syncConfigurationItem('secrets_lambda_ci',
+                                                      {
+                                                        productId: lambdaProduct.id,
+                                                        serviceId: si.service.id,
+                                                        serviceInstanceIds: [si.id],
+                                                        location: location,
+                                                        systemID: lambdaArn,
+                                                        customFields: [
+                                                          {
+                                                            id: 'cloudformation_stack',
+                                                            value: stackName,
+                                                          },
+                                                          {
+                                                            id: 'api_url',
+                                                            value: lambdaUrl,
+                                                          },
+                                                        ],
+                                                      });
+    if (lambdaCi.error) {
+      process.exit(6);
+    }
+  }
 }
+
 
 (async () => {
   const bootstrap = new Bootstrap();
@@ -244,51 +359,7 @@ class Bootstrap {
   secrets = awsResponse.secrets;
 
   await bootstrap.getAccessToken(domain, account, input.clientID, input.token);
-
-  const si = await bootstrap.findServiceInstance(input.serviceInstanceName);
-  if (!si) {
-    console.error(`No service instance found for: ${input.serviceInstanceName}`)
-    process.exit(-1);
-  } else if (si.error) {
-    console.error('Error retrieving service instance: %j', si.error)
-    process.exit(-2);
-  }
-  if (!si.supportTeam) {
-    console.error(`No support team found for service instance: ${input.serviceInstanceName}. Please configure one`)
-    process.exit(-3);
-  }
-
-  // Upsert products for AWS Lambda and S3
-  const s3Product = await bootstrap.syncProduct('s3_product', {supportTeamId: si.supportTeam.id});
-  if (s3Product.error) {
-    process.exit(1);
-  }
-
-  const lambdaUiExtension = await bootstrap.syncUiExtension('lambda_ui_extension');
-  if (lambdaUiExtension.error) {
-    process.exit(2);
-  }
-  const lambdaProduct = await bootstrap.syncProduct('lambda_product',
-                                                    {
-                                                      uiExtensionId: lambdaUiExtension.id,
-                                                      supportTeamId: si.supportTeam.id,
-                                                    });
-  if (lambdaProduct.error) {
-    process.exit(3);
-  }
-
-  const sqsUiExtension = await bootstrap.syncUiExtension('sqs_ui_extension');
-  if (sqsUiExtension.error) {
-    process.exit(2);
-  }
-  const sqsProduct = await bootstrap.syncProduct('sqs_product',
-                                                 {
-                                                   uiExtensionId: sqsUiExtension.id,
-                                                   supportTeamId: si.supportTeam.id,
-                                                 });
-  if (sqsProduct.error) {
-    process.exit(4);
-  }
+  const {si, s3Product, lambdaProduct} = await bootstrap.createProducts(input.serviceInstanceName);
 
   // Upsert webhook policy
   if (secrets.policy) {
@@ -317,38 +388,7 @@ class Bootstrap {
 
   // Upsert S3 and lambda CIs
   const lambdaArn = stackOutputs['SecretsFunction'];
-  const location = `Amazon ${clientConfig.region}`;
-  const s3Ci = await bootstrap.syncConfigurationItem('s3_ci',
-                                                     {
-                                                       systemID: s3Bucket,
-                                                       productId: s3Product.id,
-                                                       serviceId: si.service.id,
-                                                       location: location,
-                                                     });
-  if (s3Ci.error) {
-    process.exit(5);
-  }
-  const lambdaCi = await bootstrap.syncConfigurationItem('secrets_lambda_ci',
-                                                         {
-                                                           productId: lambdaProduct.id,
-                                                           serviceId: si.service.id,
-                                                           serviceInstanceIds: [si.id],
-                                                           location: location,
-                                                           systemID: lambdaArn,
-                                                           customFields: [
-                                                             {
-                                                               id: 'cloudformation_stack',
-                                                               value: stackName,
-                                                             },
-                                                             {
-                                                               id: 'api_url',
-                                                               value: lambdaUrl,
-                                                             },
-                                                           ],
-                                                         });
-  if (lambdaCi.error) {
-    process.exit(6);
-  }
+  await bootstrap.createCis(clientConfig.region, si, s3Bucket, s3Product, lambdaProduct, lambdaArn, lambdaUrl);
 
   // Create secrets webhook
   if (secrets.webhook) {
@@ -358,6 +398,9 @@ class Bootstrap {
       secrets.webhook = null;
     } else if (webhook.uri !== lambdaUrl) {
       console.error(`Incorrect URL in webhook: ${webhook.name}: ${webhook.uri}`);
+      secrets.webhook = null;
+    } else if (!webhook.webhookPolicy) {
+      console.error(`No policy in webhook: ${webhook.name}`);
       secrets.webhook = null;
     } else if (webhook.webhookPolicy.id !== secrets.policy.id) {
       console.error(`Incorrect policy in webhook: ${webhook.name}: ${webhook.webhookPolicy.id}`);

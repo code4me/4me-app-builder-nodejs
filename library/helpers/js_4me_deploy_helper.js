@@ -26,8 +26,11 @@ class Js4meDeployHelper {
 
   async logInto4meUsingAwsClientConfig(clientConfig, domain, account) {
     const secrets = await this.getSecrets(clientConfig, domain, account);
+    return await this.logInto4me(domain, account, secrets.clientID, secrets.token);
+  }
 
-    const js4meHelper = new Js4meHelper(domain, account, secrets.clientID, secrets.token);
+  async logInto4me(domain, account, clientID, token) {
+    const js4meHelper = new Js4meHelper(domain, account, clientID, token);
     const accessToken = await js4meHelper.getToken();
     if (accessToken.length === 0) {
       this.deploymentFailed('Unable to login to 4me');
