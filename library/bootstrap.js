@@ -337,6 +337,10 @@ class Bootstrap {
 module.exports = Bootstrap;
 
 (async () => {
+  if (require.main !== module) {
+    return;
+  }
+
   const bootstrap = new Bootstrap();
   const input = await bootstrap.gatherInput();
   const profile = input.profile;

@@ -114,6 +114,10 @@ class DeployIntegration {
 module.exports = DeployIntegration;
 
 (async () => {
+  if (require.main !== module) {
+    return;
+  }
+
   const deployIntegration = new DeployIntegration(stackName);
   const {domain, account, serviceInstanceName, profile} = await deployIntegration.gatherInput();
 
