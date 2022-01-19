@@ -108,6 +108,7 @@ class DeployIntegration {
                                                                uiExtensionInput);
   }
 }
+module.exports = DeployIntegration;
 
 (async () => {
   const deployIntegration = new DeployIntegration(stackName);

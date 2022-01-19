@@ -334,7 +334,7 @@ class Bootstrap {
     }
   }
 }
-
+module.exports = Bootstrap;
 
 (async () => {
   const bootstrap = new Bootstrap();

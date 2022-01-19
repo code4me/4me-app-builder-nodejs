@@ -174,6 +174,7 @@ class DeployIntegration {
     return offering;
   }
 }
+module.exports = DeployIntegration;
 
 (async () => {
   const deployIntegration = new DeployIntegration(stackName);
