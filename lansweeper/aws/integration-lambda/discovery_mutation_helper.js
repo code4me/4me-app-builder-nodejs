@@ -104,7 +104,7 @@ class DiscoveryMutationHelper {
       case "Don't show":
         return 'archived';
       case 'In repair':
-        return 'undergoing_maintenance';
+        return 'being_repaired';
       case 'Non-active':
         return 'installed';
       case 'Spare':
