@@ -165,10 +165,10 @@ class LansweeperLambdaHandler {
       networkedAssetsOnly = false;
     }
 
-    let updatedCisPerSite;
+    let resultsPerSite;
     try {
       const integration = new LansweeperIntegration(clientID, clientSecret, refreshToken, customerContext.js4meHelper);
-      updatedCisPerSite = await integration.processSites(networkedAssetsOnly);
+      resultsPerSite = await integration.processSites(networkedAssetsOnly);
     } catch (error) {
       if (error instanceof LansweeperAuthorizationError) {
         return await this.suspendUnauthorizedInstance(lambda4meContext, config, error);
@@ -186,7 +186,7 @@ class LansweeperLambdaHandler {
         {id: 'sync_end_at', value: this.timeHelper.formatDateTime(timer.endTime)},
         {id: 'sync_duration', value: timer.getDurationInSeconds().toString()},
         {id: 'sync_duration_text', value: this.timeHelper.secondsToDurationText(timer.getDurationInSeconds())},
-        {id: 'sync_summary', value: this.formatSummary(updatedCisPerSite)},
+        {id: 'sync_summary', value: this.formatSummary(resultsPerSite)},
       ],
     });
     if (endStart.error) {
@@ -194,7 +194,7 @@ class LansweeperLambdaHandler {
       return this.unknownError('Connection error, please try again later.');
     }
 
-    return this.respondWith(updatedCisPerSite);
+    return this.respondWith(resultsPerSite);
   }
 
   formatSummary(object) {

@@ -15,6 +15,7 @@ jest.mock('../discovery_mutation_helper');
 const TimeHelper = require('../../../../library/helpers/time_helper');
 const LansweeperAuthorizationError = require('../errors/lansweeper_authorization_error');
 const Js4meAuthorizationError = require('../../../../library/helpers/errors/js_4me_authorization_error');
+const LansweeperGraphQLError = require('../errors/lansweeper_graphql_error');
 jest.mock('../../../../library/helpers/time_helper');
 
 describe('processSite', () => {
@@ -325,6 +326,23 @@ describe('processSite', () => {
     await expect(integration.processSite(siteId))
       .rejects
       .toThrow(error);
+  });
+
+  it('handles lansweeper error when retrieving sites', async () => {
+    const error = new LansweeperGraphQLError('Unable to query accessible Lansweeper sites');
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteIds: async () => {
+        throw error;
+      },
+    }));
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  null);
+
+    const result = await integration.processSites(true);
+    expect(result).toEqual({error: error.message});
   });
 
   it('handles lansweeper error', async () => {

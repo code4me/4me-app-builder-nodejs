@@ -6,6 +6,7 @@ const ReferenceHelper = require('./references_helper');
 const TimeHelper = require('../../../library/helpers/time_helper');
 const LoggedError = require('../../../library/helpers/errors/logged_error');
 const Js4meAuthorizationError = require('../../../library/helpers/errors/js_4me_authorization_error');
+const LansweeperGraphQLError = require('./errors/lansweeper_graphql_error');
 
 class LansweeperIntegration {
   constructor(clientId, clientSecret, refreshToken, customer4meHelper) {
@@ -23,13 +24,21 @@ class LansweeperIntegration {
   }
 
   async processSites(networkedAssetsOnly) {
-    const siteIds = await this.lansweeperClient.getSiteIds();
+    let siteIds;
+    try {
+      siteIds = await this.lansweeperClient.getSiteIds();
+    } catch (error) {
+      if (error instanceof LansweeperGraphQLError) {
+        return {error: error.message};
+      }
+      throw error;
+    }
 
     const result = {};
     for (const siteId of siteIds) {
-      const updateCount = await this.processSite(siteId, networkedAssetsOnly);
+      const siteResult = await this.processSite(siteId, networkedAssetsOnly);
       const siteName = await this.lansweeperClient.getSiteName(siteId);
-      result[siteName] = updateCount;
+      result[siteName] = siteResult;
     }
     console.log(`User lookup: found ${this.referenceHelper.peopleFound.size} people (not found ${this.referenceHelper.peopleNotFound.length})`);
     return result;

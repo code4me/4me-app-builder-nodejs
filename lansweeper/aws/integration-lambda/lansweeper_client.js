@@ -1,9 +1,9 @@
 'use strict';
 
 const LansweeperApiHelper = require('./lansweeper_api_helper');
-const AppError = require('../../../library/helpers/errors/app_error');
 const LoggedError = require('../../../library/helpers/errors/logged_error');
 const LansweeperAuthorizationError = require('./errors/lansweeper_authorization_error');
+const LansweeperGraphQLError = require('./errors/lansweeper_graphql_error');
 
 class LansweeperClient {
   constructor(clientId, clientSecret, refreshToken) {
@@ -20,10 +20,10 @@ class LansweeperClient {
 
   async getSites() {
     if (!this.sites) {
-      const result = await this.apiHelper.getGraphQLQuery('sites', '{ authorizedSites { sites { id name } } }');
+      const result = await this.apiHelper.getGraphQLQuery('accessible Lansweeper sites', '{ authorizedSites { sites { id name } } }');
       if (result.error) {
         console.info(`Unable to query sites: ${result.error}`);
-        throw new LansweeperAuthorizationError(result.error);
+        throw new LansweeperGraphQLError(result.error);
       } else {
         if (!result.authorizedSites) {
           console.error('No authorizedSites in Lansweeper response, got:\n%j', result);
