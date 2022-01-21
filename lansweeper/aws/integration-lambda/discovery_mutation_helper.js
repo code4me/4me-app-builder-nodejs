@@ -98,23 +98,30 @@ class DiscoveryMutationHelper {
   }
 
   mapState(stateName) {
+    // Unfortunately Lansweeper customers are free to change their state names, so we don't really have a way to
+    // do a mapping for all customers. These values are based on the defaults as found in:
+    // https://www.lansweeper.com/forum/yaf_postst11095_Asset-States-in-Lansweeper.aspx#post41417
     switch (stateName) {
       case 'Active':
         return 'in_production';
-      case "Don't show":
-        return 'archived';
-      case 'In repair':
-        return 'being_repaired';
       case 'Non-active':
         return 'installed';
-      case 'Spare':
-        return 'standby_for_continuity';
-      case 'Stock':
-        return 'in_stock';
+      case 'Sold':
+        return 'removed';
       case 'Stolen':
         return 'lost_or_stolen';
-      default:
+      case 'Broken':
         return 'broken_down';
+      case "Don't show":
+        return 'to_be_removed';
+      case 'Spare':
+        return 'standby_for_continuity';
+      case 'In repair':
+        return 'being_repaired';
+      case 'Stock':
+        return 'in_stock';
+      default:
+        return 'installed';
     }
   }
 

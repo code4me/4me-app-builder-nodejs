@@ -173,13 +173,14 @@ it('maps stateNames', () => {
   const helper = new DiscoveryMutationHelper(referenceData);
 
   expect(helper.mapState('Active')).toEqual('in_production');
-  expect(helper.mapState("Don't show")).toEqual('archived');
+  expect(helper.mapState("Don't show")).toEqual('to_be_removed');
   expect(helper.mapState('In repair')).toEqual('being_repaired');
   expect(helper.mapState('Non-active')).toEqual('installed');
   expect(helper.mapState('Spare')).toEqual('standby_for_continuity');
   expect(helper.mapState('Stock')).toEqual('in_stock');
   expect(helper.mapState('Stolen')).toEqual('lost_or_stolen');
+  expect(helper.mapState('Sold')).toEqual('removed');
   expect(helper.mapState('Broken')).toEqual('broken_down');
 
-  expect(helper.mapState('foo')).toEqual('broken_down');
+  expect(helper.mapState('foo')).toEqual('installed');
 });
