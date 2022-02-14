@@ -191,7 +191,7 @@ class LansweeperClient {
 LansweeperClient.pageSize = parseInt(process.env.LANSWEEPER_PAGE_SIZE, 10) || 100;
 LansweeperClient.topLevelFields = '_id key url';
 LansweeperClient.basicInfoFields = 'name type description ipAddress firstSeen lastSeen lastChanged userName userDomain';
-LansweeperClient.assetCustomFields = 'model manufacturer stateName purchaseDate warrantyDate serialNumber';
+LansweeperClient.assetCustomFields = 'model manufacturer stateName purchaseDate warrantyDate serialNumber sku';
 LansweeperClient.usersFields = 'name email fullName';
 LansweeperClient.softwaresFields = 'name';
 LansweeperClient.operatingSystemFields = 'caption';

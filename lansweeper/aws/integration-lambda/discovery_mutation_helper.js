@@ -150,6 +150,7 @@ class DiscoveryMutationHelper {
         name: product.name,
         brand: product.brand,
         model: product.model,
+        productID: product.sku,
         configurationItems: [],
       };
       const category = this.mapCategory(asset);

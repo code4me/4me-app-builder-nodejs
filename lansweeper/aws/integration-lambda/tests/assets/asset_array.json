@@ -32,7 +32,8 @@
     },
     "assetCustom": {
       "model": "gSOAP/2.8",
-      "stateName": "Active"
+      "stateName": "Active",
+      "sku": "my sku"
     },
     "operatingSystem": {},
     "url": "https://app.lansweeper.com/jest-site/asset/MjktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"

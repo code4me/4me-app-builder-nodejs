@@ -59,6 +59,71 @@ describe('getProduct', () => {
 
     expect(product1).toBe(product2);
   });
+
+  describe('handles SKU', () => {
+    it('extracts SKU', () => {
+      const asset1 = {
+        assetCustom: {
+          manufacturer: 'hp',
+          model: 'DeskJet 550',
+          sku: 'abc'
+        },
+        assetBasicInfo: {type: 'Printer'},
+      };
+      const product1 = helper.getProduct(asset1);
+
+      expect(product1.sku).toBe('abc');
+    });
+
+    it('handles missing SKU', () => {
+      const asset1 = {
+        assetCustom: {
+          manufacturer: 'hp',
+          model: 'DeskJet 500'
+        },
+        assetBasicInfo: {type: 'Printer'},
+      };
+      const product1 = helper.getProduct(asset1);
+
+      expect(product1.sku).toBeUndefined();
+    });
+
+    it('handles SKU found in some assets', () => {
+      const asset1 = {
+        assetCustom: {
+          manufacturer: 'hp',
+          model: 'DeskJet 530'
+        },
+        assetBasicInfo: {type: 'Printer'},
+      };
+      const product1 = helper.getProduct(asset1);
+      expect(product1.sku).toBeUndefined();
+
+      const asset2 = {
+        assetCustom: {
+          manufacturer: 'hp',
+          model: 'DeskJet 530',
+          sku: 'xyz'
+        },
+        assetBasicInfo: {type: 'Printer'},
+      };
+      const product2 = helper.getProduct(asset2);
+      expect(product2.sku).toBe('xyz');
+      expect(product2).toBe(product1);
+
+      const asset3 = {
+        assetCustom: {
+          manufacturer: 'hp',
+          model: 'DeskJet 530'
+        },
+        assetBasicInfo: {type: 'Printer'},
+      };
+      const product3 = helper.getProduct(asset3);
+
+      expect(product3.sku).toBe('xyz');
+      expect(product3).toBe(product1);
+    });
+  });
 });
 
 describe('getBrand', () => {

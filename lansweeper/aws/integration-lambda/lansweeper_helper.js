@@ -90,17 +90,22 @@ class LansweeperHelper {
     const brand = this.getBrand(asset);
     const model = this.getModel(asset);
     const name = `${category.name} ${brand} ${model}`;
+    const prod = this.getByReferenceOrAdd(this.products,
+                                                      name,
+                                                      (reference, name) => {
+                                                        return {
+                                                          name: name,
+                                                          reference: reference,
+                                                          model: model,
+                                                          brand: brand,
+                                                        };
+                                                      });
 
-    return this.getByReferenceOrAdd(this.products,
-                                    name,
-                                    (reference, name) => {
-                                      return {
-                                        name: name,
-                                        reference: reference,
-                                        model: model,
-                                        brand: brand,
-                                      };
-                                    });
+    if (!prod.sku && asset.assetCustom.sku) {
+      prod.sku = asset.assetCustom.sku;
+    }
+
+    return prod;
   }
 
   getProductCategory(asset) {

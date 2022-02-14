@@ -12,7 +12,11 @@
     },
     "assetCustom": {
       "manufacturer": "Microsoft Corporation",
+      "sku": "2016-Datacenter",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Windows Server 2016 Datacenter"
     },
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MTM3NC1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=/summary"
   },
@@ -29,7 +33,11 @@
     },
     "assetCustom": {
       "manufacturer": "Microsoft Corporation",
+      "sku": "16.04-LTS",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "ubuntu"
     },
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MTM3My1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=/summary"
   },
@@ -53,6 +61,9 @@
       "model": "PowerEdge 2950",
       "serialNumber": "7LDDH2J",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Standard"
     },
     "users": [
       {
@@ -93,18 +104,22 @@
       "userDomain": "Lansweeper",
       "userName": "John Doe",
       "description": "Laptop",
-      "firstSeen": "2018-02-15T17:54:04.793Z",
+      "firstSeen": "2018-02-15T17:54:04.000Z",
       "ipAddress": "192.168.2.118",
-      "lastSeen": "2019-08-23T08:02:14.273Z",
+      "lastSeen": "2019-08-23T08:02:14.000Z",
       "type": "Windows",
-      "lastChanged": "2018-02-15T17:54:05.493Z"
+      "lastChanged": "2018-02-15T17:54:05.000Z"
     },
     "assetCustom": {
       "purchaseDate": "2017-05-28T00:00:00.000Z",
       "warrantyDate": "2020-05-29T00:00:00.000Z",
       "manufacturer": "Dell Inc.",
       "model": "Latitude 5580",
+      "sku": "07A8",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows NT Workstation 10.0"
     },
     "users": [
       {
@@ -130,18 +145,22 @@
       "userDomain": "Lansweeper",
       "userName": "John Doe",
       "description": "Laptop",
-      "firstSeen": "2018-02-15T17:54:04.793Z",
+      "firstSeen": "2018-02-15T17:54:04.000Z",
       "ipAddress": "192.168.2.119",
-      "lastSeen": "2019-08-23T08:02:14.273Z",
+      "lastSeen": "2019-08-23T08:02:14.000Z",
       "type": "Windows",
-      "lastChanged": "2018-02-15T17:54:05.480Z"
+      "lastChanged": "2018-02-15T17:54:05.000Z"
     },
     "assetCustom": {
       "purchaseDate": "2017-05-28T00:00:00.000Z",
       "warrantyDate": "2020-05-29T00:00:00.000Z",
       "manufacturer": "Dell Inc.",
       "model": "Latitude 5580",
+      "sku": "07A8",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows NT Workstation 10.0"
     },
     "users": [
       {
@@ -177,6 +196,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "VMware-56 4d d8 d9 8a 70 54 5b-79 f1 4e 8d 89 29 40 0a",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2019 Standard"
     },
     "users": [
       {
@@ -252,7 +274,11 @@
       "warrantyDate": "2020-05-29T00:00:00.000Z",
       "manufacturer": "Dell Inc.",
       "model": "Latitude 5580",
+      "sku": "07A8",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows NT Workstation 10.0"
     },
     "users": [
       {
@@ -288,7 +314,11 @@
       "warrantyDate": "2020-05-29T00:00:00.000Z",
       "manufacturer": "Dell Inc.",
       "model": "Latitude 5580",
+      "sku": "07A8",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows NT Workstation 10.0"
     },
     "users": [
       {
@@ -408,7 +438,11 @@
       "warrantyDate": "2020-06-26T00:00:00.000Z",
       "manufacturer": "Dell Inc.",
       "model": "Latitude 5580",
+      "sku": "07A8",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows NT Workstation 10.0"
     },
     "users": [
       {
@@ -444,6 +478,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "VMware-56 4d 4c 57 0b 02 68 6f-93 fd 3c e2 20 0a 4d 5f",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Standard"
     },
     "softwares": [
       {
@@ -498,6 +535,7 @@
       "serialNumber": "VMware-42 3b 8d db 00 bf f2 88-91 f6 84 96 3c 9b 1b be",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -763,6 +801,9 @@
       "serialNumber": "VMware-42 3b db a4 61 d8 8a 33-af c9 c3 f5 61 57 0e 8d",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Enterprise"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -889,6 +930,9 @@
       "serialNumber": "VMware-56 4d d9 00 7d c0 fb 81-54 2c 84 0f d2 9a 8d 11",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -992,6 +1036,9 @@
       "manufacturer": "VMware, Inc.",
       "model": "XenServer 7.4.0",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "XenServer 7.4.0"
     },
     "softwares": [
       {
@@ -2565,6 +2612,7 @@
       "serialNumber": "VMware-56 4d 53 4b 12 e5 74 2e-d7 af 93 c9 63 a0 79 53",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -2691,6 +2739,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "LAN1060",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Datacenter"
     },
     "users": [
       {
@@ -2824,6 +2875,9 @@
       "serialNumber": "LAN1057",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Datacenter"
+    },
     "softwares": [
       {
         "name": "Windows Internet Explorer 11"
@@ -2877,6 +2931,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "VMware-56 4d 20 7e ec d4 bd e1-fa 0a 0f 47 68 29 c9 dc",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Ubuntu 19.04"
     },
     "softwares": [
       {
@@ -4458,6 +4515,9 @@
       "model": "VMware Virtual Platform",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Pro"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -4549,6 +4609,9 @@
       "serialNumber": "VMware-56 4d 2a 18 56 bc 8e 0b-e5 ff 08 05 82 be 01 1e",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft® Windows Server® 2008 Standard"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -4636,6 +4699,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "VMware-56 4d b2 9a 8e d5 e3 f3-9c 96 0d a1 7c a5 96 61",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Pro"
     },
     "users": [
       {
@@ -4744,6 +4810,9 @@
       "manufacturer": "VMware, Inc.",
       "model": "VMware Virtual Platform",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Pro"
     },
     "users": [
       {
@@ -4934,6 +5003,9 @@
       "serialNumber": "VMware-56 4d e4 d8 c5 f6 0d 0e-5e fa e5 a2 76 e9 cd 49",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2019 Standard"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -5002,6 +5074,7 @@
       "model": "VMware Virtual Platform",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -5214,6 +5287,9 @@
       "serialNumber": "VMware-56 4d a6 0d 51 da 36 f6-85 11 8a d3 4d d7 5d c1",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Pro"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -5317,6 +5393,7 @@
       "serialNumber": "VMware-42 38 09 cd 4f 8d 68 a5-9d 1a e0 a6 b5 f7 ed 46",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -5639,6 +5716,9 @@
       "serialNumber": "VMware-42 3b 7a ee 5d eb 5f 0f-f7 1a cb 01 7d ae b1 97",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Enterprise"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -5782,6 +5862,9 @@
     "assetCustom": {
       "manufacturer": "VMware, Inc.",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "CentOS Linux 7 (Core)"
     },
     "softwares": [
       {
@@ -6820,6 +6903,7 @@
       "serialNumber": "VMware-42 38 d2 35 3d 41 53 91-8b 7d da c8 d7 64 0f 96",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -7076,6 +7160,9 @@
       "serialNumber": "VMware-56 4d d7 32 80 13 1c 09-b1 fa cc 02 7c c3 4c c5",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Enterprise"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -7226,6 +7313,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "VMware-56 4d 50 ba a8 d8 1c e5-9f 6a a5 29 eb b3 45 71",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Enterprise LTSB"
     },
     "users": [
       {
@@ -7403,6 +7493,7 @@
       "serialNumber": "VMware-56 4d ef e5 e3 f5 49 ff-9f 97 be 5f 27 d9 a7 12",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -7656,6 +7747,9 @@
       "model": "VMware Virtual Platform",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Datacenter"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -7848,6 +7942,7 @@
       "serialNumber": "VMware-56 4d a7 3a 35 84 4e 66-c6 ef ca 3f 1b c3 7d 85",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -8176,6 +8271,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "VMware-56 4d 28 3a 34 cf 40 80-c3 d5 d4 7c 67 ad ae 5e",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "CentOS Linux 7 (Core)"
     },
     "softwares": [
       {
@@ -9109,6 +9207,9 @@
       "serialNumber": "VMware-56 4d 41 8b fb e7 af 2a-19 16 8c 68 4e d0 d5 ac",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Standard"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -9356,6 +9457,9 @@
       "serialNumber": "VMware-56 4d d6 ee d2 e2 9a 51-89 92 f4 c4 80 a0 15 1e",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Pro"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -9451,6 +9555,7 @@
       "serialNumber": "VMware-56 4d 92 ce 3a 79 bb a9-fc 4a 4d ea 5e b4 9e 51",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -9669,6 +9774,9 @@
       "model": "OptiPlex 3010",
       "serialNumber": "LAN7",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 8 Enterprise"
     },
     "users": [
       {
@@ -9925,6 +10033,9 @@
       "model": "VMware Virtual Platform",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Datacenter"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -10142,6 +10253,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN35",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -10403,6 +10517,7 @@
       "serialNumber": "LAN8",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -10955,6 +11070,9 @@
       "serialNumber": "LAN46",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -11173,6 +11291,9 @@
       "serialNumber": "LAN24",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -11306,6 +11427,9 @@
       "model": "VMware Virtual Platform",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Datacenter"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -11419,6 +11543,9 @@
       "model": "VMware Virtual Platform",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2016 Datacenter"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -11515,6 +11642,9 @@
     "assetCustom": {
       "manufacturer": "VMware, Inc.",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Ubuntu 18.04.3 LTS"
     },
     "softwares": [
       {
@@ -16505,6 +16635,7 @@
       "serialNumber": "VMware-42 38 2e 7b 63 c8 1a 7c-97 5d f3 64 a1 e9 44 bb",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -16705,6 +16836,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN56",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -16936,6 +17070,9 @@
       "serialNumber": "LAN66",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -17066,6 +17203,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN50",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -17292,6 +17432,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN82",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -17524,6 +17667,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN73",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -17763,6 +17909,9 @@
       "serialNumber": "LAN41",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -17992,6 +18141,9 @@
       "model": "Latitude E6420",
       "serialNumber": "LAN90",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -18229,6 +18381,9 @@
       "serialNumber": "LAN60",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -18443,6 +18598,9 @@
       "serialNumber": "LAN92",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -18656,6 +18814,9 @@
       "model": "Latitude D630",
       "serialNumber": "LAN19",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Ultimate"
     },
     "users": [
       {
@@ -19160,6 +19321,9 @@
       "serialNumber": "LAN84",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -19305,6 +19469,9 @@
       "serialNumber": "LAN54",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -19423,6 +19590,9 @@
       "model": "OptiPlex 380",
       "serialNumber": "LAN3",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -19603,6 +19773,9 @@
       "model": "OptiPlex 990",
       "serialNumber": "LAN12",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -19925,6 +20098,9 @@
       "serialNumber": "LAN80",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -20057,6 +20233,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN31",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -20283,6 +20462,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN26",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -20532,6 +20714,9 @@
       "serialNumber": "LAN33",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -20779,6 +20964,9 @@
       "serialNumber": "LAN48",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -20866,6 +21054,9 @@
       "model": "OptiPlex 390",
       "serialNumber": "LAN76",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -20999,6 +21190,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN58",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -21226,6 +21420,9 @@
       "serialNumber": "LAN15",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -21425,6 +21622,9 @@
       "model": "OptiPlex GX520",
       "serialNumber": "LAN28",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -21643,6 +21843,9 @@
       "serialNumber": "LAN96",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -21854,6 +22057,9 @@
       "model": "ProLiant ML310 G5p",
       "serialNumber": "LAN22",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
     },
     "softwares": [
       {
@@ -22157,6 +22363,9 @@
       "serialNumber": "LAN64",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -22281,6 +22490,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN62",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -22556,6 +22768,9 @@
       "serialNumber": "LAN39",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -22782,6 +22997,9 @@
       "serialNumber": "LAN52",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -22914,6 +23132,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "VMware-42 38 56 55 f2 78 84 53-c4 c4 49 2c 10 b5 00 6b",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "RHEL 7 x64"
     },
     "softwares": [
       {
@@ -26866,6 +27087,9 @@
       "serialNumber": "VMware-56 4d 8c 45 51 ac 48 c8-6d 96 92 52 86 73 78 76",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Datacenter"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -27109,6 +27333,9 @@
       "model": "Latitude D630",
       "serialNumber": "LAN104",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -27360,6 +27587,9 @@
       "serialNumber": "LAN71",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -27567,6 +27797,9 @@
       "model": "Latitude D630",
       "serialNumber": "LAN105",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -27836,6 +28069,9 @@
       "serialNumber": "LAN78",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -28056,6 +28292,9 @@
       "serialNumber": "LAN86",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -28143,6 +28382,9 @@
       "model": "Latitude D630",
       "serialNumber": "LAN91",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -28370,6 +28612,9 @@
       "serialNumber": "LAN98",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -28590,6 +28835,9 @@
       "serialNumber": "LAN127",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -28797,6 +29045,9 @@
       "model": "OptiPlex 760",
       "serialNumber": "LAN136",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -29027,6 +29278,9 @@
       "serialNumber": "LAN109",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -29142,6 +29396,9 @@
       "model": "OptiPlex GX520",
       "serialNumber": "LAN88",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -29360,6 +29617,9 @@
       "serialNumber": "LAN94",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -29577,6 +29837,9 @@
       "model": "OptiPlex GX270",
       "serialNumber": "LAN102",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -29797,6 +30060,9 @@
       "model": "OptiPlex 755",
       "serialNumber": "LAN115",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -30020,6 +30286,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN126",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -30298,6 +30567,9 @@
       "serialNumber": "LAN107",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -30446,6 +30718,9 @@
       "serialNumber": "LAN122",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -30581,6 +30856,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN119",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -30835,6 +31113,9 @@
       "serialNumber": "LAN1061",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Datacenter"
+    },
     "users": [
       {
         "name": "Guest"
@@ -30985,6 +31266,9 @@
       "manufacturer": "VMware, Inc.",
       "model": "VMware Virtual Platform",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Datacenter"
     },
     "softwares": [
       {
@@ -31309,6 +31593,9 @@
       "serialNumber": "LAN131",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -31482,6 +31769,7 @@
       "serialNumber": "VMware-42 38 5c 89 13 60 ed b5-03 e0 5a 33 18 03 d7 6f",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -31746,6 +32034,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN121",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -32289,6 +32580,9 @@
       "serialNumber": "LAN141",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -32427,6 +32721,9 @@
       "manufacturer": "VMware, Inc.",
       "model": "VMware Virtual Platform",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Pro"
     },
     "users": [
       {
@@ -32643,6 +32940,9 @@
       "serialNumber": "LAN133",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -32826,6 +33126,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN145",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -33095,6 +33398,9 @@
       "serialNumber": "LAN117",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -33179,6 +33485,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN120",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -33279,6 +33588,9 @@
       "model": "OptiPlex 390",
       "serialNumber": "LAN143",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -33415,6 +33727,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN152",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -33666,6 +33981,9 @@
       "serialNumber": "LAN160",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -33900,6 +34218,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN157",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -34172,6 +34493,9 @@
       "serialNumber": "LAN186",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -34436,6 +34760,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN146",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -34729,6 +35056,9 @@
       "serialNumber": "LAN147",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -34974,6 +35304,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN194",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -35314,6 +35647,9 @@
       "serialNumber": "VMware-42 3b 58 4b fe 8b 6f bf-a3 45 71 e3 b9 0b a4 95",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Enterprise"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -35545,6 +35881,9 @@
       "serialNumber": "LAN158",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -35647,6 +35986,9 @@
       "model": "Precision M4600",
       "serialNumber": "LAN111",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -35792,6 +36134,9 @@
       "model": "Latitude E6410",
       "serialNumber": "LAN170",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -35956,6 +36301,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN198",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -36225,6 +36573,9 @@
       "serialNumber": "LAN139",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -36366,6 +36717,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN138",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -36671,6 +37025,9 @@
       "serialNumber": "LAN203",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -36811,6 +37168,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN149",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -37098,6 +37458,9 @@
       "serialNumber": "LAN204",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -37375,6 +37738,9 @@
       "serialNumber": "LAN156",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -37649,6 +38015,9 @@
       "serialNumber": "LAN167",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -37854,6 +38223,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN205",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -38102,6 +38474,9 @@
       "serialNumber": "LAN181",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -38333,6 +38708,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN150",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -38590,6 +38968,9 @@
       "serialNumber": "LAN155",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -38839,6 +39220,7 @@
       "serialNumber": "LAN6",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/Ni1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=/summary"
   },
   {
@@ -38862,6 +39244,9 @@
       "model": "Precision M4600",
       "serialNumber": "LAN166",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -39017,6 +39402,9 @@
       "serialNumber": "LAN30",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -39161,6 +39549,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN187",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -39410,6 +39801,9 @@
       "serialNumber": "LAN177",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Enterprise"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -39569,6 +39963,9 @@
       "model": "OptiPlex 760",
       "serialNumber": "LAN190",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -39799,6 +40196,9 @@
       "serialNumber": "LAN215",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -39950,6 +40350,9 @@
       "model": "Latitude E6420",
       "serialNumber": "LAN70",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -40183,6 +40586,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN201",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -40455,6 +40861,9 @@
       "serialNumber": "LAN154",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -40724,6 +41133,9 @@
       "serialNumber": "LAN175",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "bl9"
@@ -40780,6 +41192,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN183",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -41037,6 +41452,9 @@
       "serialNumber": "LAN184",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -41182,6 +41600,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN192",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -41387,6 +41808,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN159",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -41627,6 +42051,9 @@
       "serialNumber": "LAN178",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Enterprise"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -41786,6 +42213,9 @@
       "model": "OptiPlex 960",
       "serialNumber": "LAN199",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -42061,6 +42491,9 @@
       "serialNumber": "LAN173",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -42185,6 +42618,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "LAN176",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Enterprise Edition"
     },
     "users": [
       {
@@ -42414,6 +42850,9 @@
       "serialNumber": "LAN188",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -42642,6 +43081,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN197",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -42887,6 +43329,9 @@
       "serialNumber": "LAN235",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -43032,6 +43477,9 @@
       "serialNumber": "LAN236",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -43171,6 +43619,9 @@
       "serialNumber": "LAN202",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -43298,6 +43749,9 @@
       "model": "Latitude E6430",
       "serialNumber": "LAN241",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -43437,6 +43891,9 @@
       "model": "Latitude E6410",
       "serialNumber": "LAN212",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -43611,6 +44068,9 @@
       "serialNumber": "LAN221",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -43759,6 +44219,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN228",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -44017,6 +44480,9 @@
       "serialNumber": "LAN180",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -44145,6 +44611,9 @@
       "serialNumber": "LAN229",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -44270,6 +44739,9 @@
       "serialNumber": "LAN230",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -44391,6 +44863,9 @@
       "model": "Latitude E6430",
       "serialNumber": "LAN239",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -44545,6 +45020,9 @@
       "model": "Latitude E6410",
       "serialNumber": "LAN218",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -44731,6 +45209,9 @@
       "serialNumber": "LAN214",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -44870,6 +45351,9 @@
       "model": "Latitude E6410",
       "serialNumber": "LAN216",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -45037,6 +45521,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN261",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -45282,6 +45769,9 @@
       "serialNumber": "LAN217",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -45427,6 +45917,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN260",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -45681,6 +46174,9 @@
       "serialNumber": "LAN224",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -45808,6 +46304,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN206",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -46077,6 +46576,9 @@
       "serialNumber": "LAN264",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -46249,6 +46751,9 @@
       "serialNumber": "LAN210",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -46403,6 +46908,9 @@
       "model": "Latitude E6430",
       "serialNumber": "LAN242",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -46575,6 +47083,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN17",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -46800,6 +47311,9 @@
       "serialNumber": "LAN25",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft® Windows Server® 2008 Standard"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -46910,6 +47424,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN207",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -47029,6 +47546,9 @@
       "model": "Latitude E4300",
       "serialNumber": "LAN209",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -47293,6 +47813,9 @@
       "serialNumber": "LAN275",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -47471,6 +47994,9 @@
       "model": "OptiPlex 980",
       "serialNumber": "LAN43",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -47774,6 +48300,9 @@
       "serialNumber": "LAN225",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -47896,6 +48425,9 @@
       "serialNumber": "LAN223",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -48017,6 +48549,9 @@
       "model": "OptiPlex 755",
       "serialNumber": "LAN249",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -48245,6 +48780,9 @@
       "serialNumber": "LAN278",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "140security",
@@ -48306,6 +48844,9 @@
       "model": "Latitude E6420",
       "serialNumber": "LAN231",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -48425,6 +48966,9 @@
       "model": "Latitude E6430",
       "serialNumber": "LAN233",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -48561,6 +49105,9 @@
       "model": "OptiPlex 755",
       "serialNumber": "LAN245",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -48789,6 +49336,9 @@
       "serialNumber": "LAN298",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft® Windows Server® 2008 Standard"
+    },
     "users": [
       {
         "name": "Guest"
@@ -48837,6 +49387,9 @@
       "model": "OptiPlex 755",
       "serialNumber": "LAN247",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -49085,6 +49638,9 @@
       "serialNumber": "LAN124",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -49218,6 +49774,9 @@
       "model": "Area 51",
       "serialNumber": "LAN290",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 8.1 Enterprise"
     },
     "users": [
       {
@@ -49552,6 +50111,9 @@
       "serialNumber": "LAN222",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -49692,6 +50254,9 @@
       "serialNumber": "LAN232",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -49819,6 +50384,9 @@
       "model": "OptiPlex 755",
       "serialNumber": "LAN256",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -50065,6 +50633,9 @@
       "serialNumber": "LAN179",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Enterprise"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -50111,6 +50682,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "LAN285",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 Standard"
     },
     "users": [
       {
@@ -50166,7 +50740,11 @@
       "manufacturer": "Hewlett-Packard",
       "model": "HP 600B",
       "serialNumber": "LAN288",
+      "sku": "QB337EA#ABE",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -50337,6 +50915,9 @@
       "model": "OptiPlex GX270",
       "serialNumber": "LAN299",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professionnel"
     },
     "users": [
       {
@@ -50520,6 +51101,9 @@
       "serialNumber": "LAN308",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -50691,6 +51275,9 @@
       "model": "OptiPlex 755",
       "serialNumber": "LAN253",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -50928,6 +51515,9 @@
       "serialNumber": "LAN5",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
+    },
     "users": [
       {
         "name": "admsrv"
@@ -51135,6 +51725,9 @@
       "model": "Latitude D630",
       "serialNumber": "LAN255",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -51380,6 +51973,9 @@
       "serialNumber": "LAN258",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -51623,6 +52219,7 @@
       "serialNumber": "LAN277",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/Mjc3LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -51644,6 +52241,9 @@
       "model": "DQ45CB",
       "serialNumber": "LAN293",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
     },
     "users": [
       {
@@ -51794,6 +52394,7 @@
       "serialNumber": "LAN306",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzA2LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -51814,7 +52415,11 @@
       "manufacturer": "ASUSTeK COMPUTER INC.",
       "model": "PU551LA",
       "serialNumber": "LAN311",
+      "sku": "ASUS-NotebookSKU",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 10 Pro"
     },
     "users": [
       {
@@ -51966,6 +52571,9 @@
       "model": "OptiPlex 760",
       "serialNumber": "LAN129",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -52202,6 +52810,9 @@
       "serialNumber": "LAN281",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "admin"
@@ -52340,6 +52951,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN263",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -52612,6 +53226,9 @@
       "serialNumber": "LAN279",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "admin"
@@ -52737,6 +53354,9 @@
     "assetCustom": {
       "serialNumber": "LAN333",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -52954,6 +53574,9 @@
       "serialNumber": "LAN301",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
+    },
     "softwares": [
       {
         "name": "KPrint"
@@ -53096,6 +53719,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN162",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -53320,6 +53946,9 @@
       "serialNumber": "LAN302",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -53432,6 +54061,9 @@
       "model": "OptiPlex 390",
       "serialNumber": "LAN168",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -53573,6 +54205,9 @@
       "serialNumber": "LAN327",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "admin"
@@ -53712,6 +54347,9 @@
       "serialNumber": "LAN330",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrador"
@@ -53818,6 +54456,9 @@
       "model": "HP Compaq 8000 Elite SFF PC",
       "serialNumber": "LAN352",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -54056,6 +54697,9 @@
       "serialNumber": "LAN336",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrador"
@@ -54147,6 +54791,9 @@
       "model": "ThinkPad T430",
       "serialNumber": "LAN283",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -54313,6 +54960,7 @@
       "serialNumber": "LAN286",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/Mjg2LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -54334,6 +54982,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "LAN388",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft® Windows Server® 2008 Enterprise"
     },
     "softwares": [
       {
@@ -54396,6 +55047,7 @@
       "serialNumber": "LAN16",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MTYtQXNzZXQtZjg3ZGY4OTEtZDZlZC00MmM4LWE4ZjEtY2QyZjEwZWJhNWRl/summary"
   },
   {
@@ -54419,6 +55071,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN268",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -54686,6 +55341,9 @@
       "serialNumber": "LAN367",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -54839,6 +55497,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN37",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -55068,6 +55729,7 @@
       "serialNumber": "LAN321",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzIxLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -55089,6 +55751,9 @@
       "model": "OptiPlex 9010",
       "serialNumber": "LAN372",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Ultimate"
     },
     "users": [
       {
@@ -55371,6 +56036,9 @@
       "serialNumber": "LAN313",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
+    },
     "users": [
       {
         "name": "Guest"
@@ -55609,6 +56277,9 @@
       "model": "Precision M6400",
       "serialNumber": "LAN389",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -56011,6 +56682,9 @@
       "serialNumber": "LAN323",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Home Edition"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -56204,6 +56878,9 @@
       "serialNumber": "LAN100",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -56349,6 +57026,9 @@
       "model": "OptiPlex GX270",
       "serialNumber": "LAN345",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -56516,6 +57196,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "LAN356",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
     },
     "users": [
       {
@@ -56707,6 +57390,9 @@
       "model": "Latitude D630",
       "serialNumber": "LAN270",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -56934,6 +57620,9 @@
       "serialNumber": "LAN219",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -57061,6 +57750,9 @@
       "model": "Latitude E6430",
       "serialNumber": "LAN238",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -57204,6 +57896,9 @@
       "model": "ProLiant ML350 G5",
       "serialNumber": "LAN403",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
     },
     "softwares": [
       {
@@ -57349,7 +58044,11 @@
       "manufacturer": "Lenovo",
       "model": "ThinkPad T430",
       "serialNumber": "LAN287",
+      "sku": "LENOVO_MT_2349",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
     },
     "users": [
       {
@@ -57979,6 +58678,9 @@
       "serialNumber": "LAN307",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Hyper-V Server"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -58078,6 +58780,9 @@
     "assetCustom": {
       "serialNumber": "LAN314",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
     },
     "users": [
       {
@@ -58505,6 +59210,7 @@
       "serialNumber": "LAN304",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzA0LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -58525,6 +59231,7 @@
       "serialNumber": "LAN310",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzEwLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -58546,6 +59253,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "LAN351",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Datacenter"
     },
     "users": [
       {
@@ -58651,6 +59361,7 @@
       "serialNumber": "LAN342",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzQyLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -58672,6 +59383,9 @@
       "model": "HP Compaq 6735s",
       "serialNumber": "LAN324",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -58829,6 +59543,9 @@
       "model": "OptiPlex 380",
       "serialNumber": "LAN355",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -59032,6 +59749,9 @@
       "model": "VirtualBox",
       "serialNumber": "LAN11",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -59288,6 +60008,9 @@
       "serialNumber": "LAN400",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -59503,6 +60226,9 @@
       "serialNumber": "LAN410",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -59689,6 +60415,9 @@
       "serialNumber": "LAN404",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -59784,6 +60513,9 @@
       "model": "OptiPlex 390",
       "serialNumber": "LAN68",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -59939,6 +60671,9 @@
       "model": "VMware Virtual Platform",
       "serialNumber": "LAN424",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Enterprise Edition"
     },
     "users": [
       {
@@ -60170,6 +60905,9 @@
       "serialNumber": "LAN75",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -60377,7 +61115,11 @@
       "manufacturer": "Hewlett-Packard",
       "model": "HP Compaq Elite 8300 CMT",
       "serialNumber": "LAN315",
+      "sku": "QV993AV",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -60916,6 +61658,9 @@
       "serialNumber": "LAN322",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Home Edition"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -61044,6 +61789,9 @@
       "model": "ThinkPad W520",
       "serialNumber": "LAN370",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -61353,6 +62101,7 @@
       "serialNumber": "LAN369",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzY5LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -61374,6 +62123,9 @@
       "model": "OptiPlex GX520",
       "serialNumber": "LAN431",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -61597,6 +62349,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN135",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -62206,6 +62961,9 @@
       "serialNumber": "LAN447",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Корпоративная"
+    },
     "users": [
       {
         "name": "bpp"
@@ -62411,6 +63169,7 @@
       "serialNumber": "LAN366",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzY2LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -62431,6 +63190,7 @@
       "serialNumber": "LAN437",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDM3LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -62451,6 +63211,7 @@
       "serialNumber": "LAN436",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDM2LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -62472,6 +63233,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN349",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -62552,6 +63316,9 @@
       "model": "ThinkCentre M58p",
       "serialNumber": "LAN357",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft® Windows Vista™ Enterprise"
     },
     "users": [
       {
@@ -62788,6 +63555,9 @@
       "serialNumber": "LAN113",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -63018,6 +63788,7 @@
       "serialNumber": "LAN378",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "users": [
       {
         "name": "Administrator"
@@ -63551,6 +64322,9 @@
       "serialNumber": "LAN396",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Admin"
@@ -63638,7 +64412,11 @@
       "manufacturer": "Hewlett-Packard",
       "model": "ProLiant DL180 G6",
       "serialNumber": "LAN398",
+      "sku": "590638-421",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Standard"
     },
     "users": [
       {
@@ -63754,6 +64532,7 @@
       "serialNumber": "LAN381",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzgxLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -63777,6 +64556,9 @@
       "model": "Precision WorkStation T5400",
       "serialNumber": "LAN171",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -63913,6 +64695,9 @@
       "serialNumber": "LAN376",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -64004,6 +64789,9 @@
       "serialNumber": "LAN393",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Standard"
+    },
     "users": [
       {
         "name": "Guest"
@@ -64056,6 +64844,9 @@
       "model": "TECRA A6",
       "serialNumber": "LAN464",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -64252,6 +65043,9 @@
       "model": "Latitude E6410",
       "serialNumber": "LAN211",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -64512,7 +65306,11 @@
       "manufacturer": "Hewlett-Packard",
       "model": "ProLiant ML110 G7",
       "serialNumber": "LAN467",
+      "sku": "626474-371",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft® Windows Server® 2008 Standard"
     },
     "softwares": [
       {
@@ -64639,6 +65437,9 @@
       "model": "Latitude D530",
       "serialNumber": "LAN402",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -64989,6 +65790,9 @@
       "serialNumber": "LAN234",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "ben"
@@ -65124,6 +65928,7 @@
       "serialNumber": "LAN474",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDc0LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -65145,6 +65950,9 @@
       "model": "Precision WorkStation T3500",
       "serialNumber": "LAN418",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Ultimate"
     },
     "users": [
       {
@@ -65393,7 +66201,11 @@
       "manufacturer": "Lenovo",
       "model": "ThinkCentre M92p",
       "serialNumber": "LAN439",
+      "sku": "LENOVO_MT_2988",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -65488,6 +66300,9 @@
       "model": "OptiPlex 790",
       "serialNumber": "LAN444",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -65876,6 +66691,9 @@
       "serialNumber": "LAN427",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Home Edition"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -65972,6 +66790,9 @@
       "model": "Dell DXP061",
       "serialNumber": "LAN429",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Home Edition"
     },
     "users": [
       {
@@ -66272,6 +67093,9 @@
       "serialNumber": "LAN471",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Standard"
+    },
     "users": [
       {
         "name": "acxiomwin"
@@ -66407,6 +67231,9 @@
       "serialNumber": "LAN391",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 2000 Server"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -66484,6 +67311,9 @@
     "assetCustom": {
       "serialNumber": "LAN449",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Корпоративная"
     },
     "users": [
       {
@@ -66821,6 +67651,9 @@
       "serialNumber": "LAN337",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrador"
@@ -67103,6 +67936,7 @@
       "serialNumber": "LAN475",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDc1LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -67123,6 +67957,7 @@
       "serialNumber": "LAN341",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzQxLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -67144,6 +67979,9 @@
       "model": "DG41WV",
       "serialNumber": "LAN477",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -67265,6 +68103,7 @@
       "serialNumber": "LAN433",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDMzLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -67286,6 +68125,9 @@
       "model": "BladeCenter LS21 -[79718AG]-",
       "serialNumber": "LAN455",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Enterprise Edition"
     },
     "users": [
       {
@@ -67375,6 +68217,9 @@
       "model": "MS-7798",
       "serialNumber": "LAN452",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Корпоративная"
     },
     "users": [
       {
@@ -67683,6 +68528,7 @@
       "serialNumber": "LAN479",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDc5LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -67705,6 +68551,9 @@
       "model": "ThinkCentre Edge71",
       "serialNumber": "LAN504",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -67874,6 +68723,7 @@
       "serialNumber": "LAN434",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDM0LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -67894,6 +68744,7 @@
       "serialNumber": "LAN438",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDM4LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -67917,6 +68768,9 @@
       "model": "OptiPlex 330",
       "serialNumber": "LAN461",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -68077,6 +68931,7 @@
       "serialNumber": "LAN463",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDYzLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -68097,6 +68952,7 @@
       "serialNumber": "LAN409",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDA5LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -68120,6 +68976,9 @@
       "model": "OptiPlex GX260",
       "serialNumber": "LAN442",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -68279,6 +69138,9 @@
     "assetCustom": {
       "serialNumber": "LAN406",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Максимальная"
     },
     "users": [
       {
@@ -68629,6 +69491,9 @@
       "serialNumber": "LAN412",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -68810,6 +69675,9 @@
       "serialNumber": "LAN456",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Enterprise"
+    },
     "users": [
       {
         "name": "admin"
@@ -68972,6 +69840,9 @@
       "model": "HP Compaq dc7800p Convertible Minitower",
       "serialNumber": "LAN408",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -69581,6 +70452,9 @@
       "serialNumber": "LAN416",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "admlocal"
@@ -69718,6 +70592,9 @@
       "model": "ESPRIMO P9900",
       "serialNumber": "LAN480",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -69929,6 +70806,9 @@
       "model": "OptiPlex 760",
       "serialNumber": "LAN271",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -70331,6 +71211,9 @@
       "serialNumber": "LAN470",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -70480,6 +71363,7 @@
       "serialNumber": "LAN272",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MjcyLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -70503,6 +71387,9 @@
       "model": "Precision WorkStation 670",
       "serialNumber": "LAN465",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 2000 Professional"
     },
     "users": [
       {
@@ -70687,6 +71574,7 @@
       "serialNumber": "LAN473",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDczLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -70708,6 +71596,9 @@
       "model": "ProLiant BL460c G1",
       "serialNumber": "LAN476",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Enterprise Edition"
     },
     "users": [
       {
@@ -70894,6 +71785,9 @@
       "model": "Precision M6400",
       "serialNumber": "LAN532",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -71258,6 +72152,9 @@
       "serialNumber": "LAN495",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -71406,6 +72303,9 @@
     "assetCustom": {
       "serialNumber": "LAN450",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Корпоративная"
     },
     "users": [
       {
@@ -71759,6 +72659,9 @@
       "serialNumber": "LAN500",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Home Premium"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -71914,6 +72817,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN196",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -72151,6 +73057,9 @@
       "serialNumber": "LAN510",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2012 R2 Standard"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -72270,7 +73179,11 @@
       "manufacturer": "Hewlett-Packard",
       "model": "HP EliteBook 8470p",
       "serialNumber": "LAN515",
+      "sku": "D8E80UT",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 8.1 Pro"
     },
     "users": [
       {
@@ -72423,6 +73336,7 @@
       "serialNumber": "LAN459",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDU5LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -72446,6 +73360,9 @@
       "model": "OptiPlex 755",
       "serialNumber": "LAN251",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -72748,6 +73665,9 @@
       "serialNumber": "LAN226",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -72874,6 +73794,9 @@
       "serialNumber": "LAN460",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Enterprise"
+    },
     "softwares": [
       {
         "name": "VNC Enterprise Edition E4.5.1"
@@ -72983,6 +73906,9 @@
       "model": "PowerEdge R710",
       "serialNumber": "LAN469",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Enterprise"
     },
     "users": [
       {
@@ -73094,6 +74020,9 @@
       "model": "OptiPlex 980",
       "serialNumber": "LAN266",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -73212,6 +74141,9 @@
       "serialNumber": "LAN536",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Enterprise Edition"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -73299,6 +74231,9 @@
       "model": "DH61BF__",
       "serialNumber": "LAN538",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 8.1 Pro"
     },
     "users": [
       {
@@ -73459,6 +74394,7 @@
       "serialNumber": "LAN472",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDcyLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -73479,6 +74415,7 @@
       "serialNumber": "LAN498",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDk4LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -73499,6 +74436,7 @@
       "serialNumber": "LAN492",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NDkyLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -73563,6 +74501,9 @@
       "model": "HP Elite 7500 Series MT",
       "serialNumber": "LAN516",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -73804,6 +74745,9 @@
       "serialNumber": "LAN340",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Standard Edition"
+    },
     "softwares": [
       {
         "name": "Deinstallationsprogramm für HP LaserJet 4100"
@@ -73977,6 +74921,9 @@
       "model": "Veriton Series",
       "serialNumber": "LAN508",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 8.1 Pro"
     },
     "users": [
       {
@@ -74162,6 +75109,9 @@
       "serialNumber": "LAN213",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "fullName": "ASP.NET Machine Account",
@@ -74313,6 +75263,9 @@
       "model": "Latitude E6430",
       "serialNumber": "LAN237",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -74491,6 +75444,9 @@
       "model": "OptiPlex 745",
       "serialNumber": "LAN243",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -74751,6 +75707,9 @@
       "serialNumber": "LAN550",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Red Hat"
+    },
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NTUwLUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -74897,6 +75856,7 @@
       "serialNumber": "LAN305",
       "stateName": "Active"
     },
+    "operatingSystem": {},
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/MzA1LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -74939,6 +75899,9 @@
       "model": "hp workstation xw4100",
       "serialNumber": "LAN488",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -75159,6 +76122,9 @@
       "serialNumber": "LAN499",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft(R) Windows(R) Server 2003, Enterprise Edition"
+    },
     "users": [
       {
         "name": "Google"
@@ -75292,6 +76258,9 @@
       "model": "OptiPlex 780",
       "serialNumber": "LAN164",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -75556,6 +76525,9 @@
       "serialNumber": "LAN509",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Home Premium"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -75669,6 +76641,9 @@
       "model": "Infoway",
       "serialNumber": "LAN527",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -75874,6 +76849,9 @@
       "serialNumber": "LAN220",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -76076,6 +77054,9 @@
       "serialNumber": "LAN227",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrator"
@@ -76215,6 +77196,9 @@
       "model": "OptiPlex 790",
       "serialNumber": "LAN523",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -76505,6 +77489,9 @@
       "serialNumber": "LAN240",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Charlene"
@@ -76691,6 +77678,9 @@
       "model": "Latitude E6400",
       "serialNumber": "LAN262",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -76997,6 +77987,9 @@
       "serialNumber": "LAN544",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Red Hat"
+    },
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NTQ0LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -77103,6 +78096,9 @@
       "serialNumber": "LAN546",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Red Hat"
+    },
     "url": "https://app.lansweeper.com/api-demo-data-v2/asset/NTQ2LUFzc2V0LWY4N2RmODkxLWQ2ZWQtNDJjOC1hOGYxLWNkMmYxMGViYTVkZQ==/summary"
   },
   {
@@ -77145,6 +78141,9 @@
       "model": "MS-7529",
       "serialNumber": "LAN273",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows XP Professional"
     },
     "users": [
       {
@@ -77875,6 +78874,9 @@
       "serialNumber": "LAN328",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
+    },
     "users": [
       {
         "name": "Administrador"
@@ -78218,6 +79220,9 @@
       "serialNumber": "LAN490",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
+    },
     "users": [
       {
         "fullName": "Local",
@@ -78331,6 +79336,9 @@
       "model": "ThinkPad T500",
       "serialNumber": "LAN493",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Enterprise"
     },
     "users": [
       {
@@ -78522,6 +79530,9 @@
       "model": "HP Elite 7300 Series MT",
       "serialNumber": "LAN382",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {
@@ -78764,6 +79775,9 @@
       "serialNumber": "LAN496",
       "stateName": "Active"
     },
+    "operatingSystem": {
+      "caption": "Microsoft Windows Server 2008 R2 Standard"
+    },
     "softwares": [
       {
         "name": "Broadcom Drivers and Management Applications"
@@ -78832,6 +79846,9 @@
     "assetCustom": {
       "serialNumber": "LAN385",
       "stateName": "Active"
+    },
+    "operatingSystem": {
+      "caption": "Microsoft Windows 7 Professional"
     },
     "users": [
       {

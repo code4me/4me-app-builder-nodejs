@@ -26,6 +26,7 @@ it('generates object without resolved references', () => {
   expect(webserverProduct.brand).toEqual('Unknown');
   expect(webserverProduct.model).toEqual('gSOAP/2.8');
   expect(webserverProduct.sourceID).toEqual('webserver_unknown_gsoap_2_8');
+  expect(webserverProduct.productID).toEqual('my sku');
   expect(webserverProduct.configurationItems.length).toEqual(3);
 
   const ci = webserverProduct.configurationItems.find(ci => ci.sourceID === 'MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');

@@ -24,7 +24,7 @@ it('create input from demo', async () => {
   console.log('%j', input)
 });
 
-describe('integration tests', () => {
+describe.skip('integration tests', () => {
   // create a file (ignored by Git) containing your credentials to access Lansweeper's demo site api-demo-data-v2
   // next to this test file to execute these integration tests, without credential file these tests are skipped.
   // The `siteId` below is internal ID of that demo site we saw. It is expected to remain stable, but using another
