@@ -89,7 +89,8 @@ class LansweeperHelper {
     const category = this.getProductCategory(asset);
     const brand = this.getBrand(asset);
     const model = this.getModel(asset);
-    const name = `${category.name} ${brand} ${model}`;
+    const sku = asset.assetCustom.sku;
+    const name = `${brand} ${model} ${sku ? `${sku} ` : ''}${category.name}`;
     const prod = this.getByReferenceOrAdd(this.products,
                                                       name,
                                                       (reference, name) => {
@@ -142,7 +143,8 @@ class LansweeperHelper {
   toReference(value) {
     return value.toLowerCase()
       .replace(/[^a-z\d]+/g, '_')
-      .replace(/^_?(.+?)_?$/g, '$1');
+      .replace(/^_?(.+?)_?$/g, '$1')
+      .substring(0, 128);
   }
 }
 

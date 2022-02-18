@@ -18,18 +18,26 @@ it('generates object without resolved references', () => {
   const webserver = input.physicalAssets.find(a => a.name === 'Webserver');
   expect(webserver.meta).toEqual({strategy: 'CREATE'});
   expect(webserver.reference).toEqual('webserver');
-  expect(webserver.products.length).toEqual(1);
+  expect(webserver.products.length).toEqual(2);
 
-  const webserverProduct = webserver.products[0];
-  expect(webserverProduct.meta).toEqual({strategy: 'CREATE'});
-  expect(webserverProduct.name).toEqual('Webserver Unknown gSOAP/2.8');
-  expect(webserverProduct.brand).toEqual('Unknown');
-  expect(webserverProduct.model).toEqual('gSOAP/2.8');
-  expect(webserverProduct.sourceID).toEqual('webserver_unknown_gsoap_2_8');
-  expect(webserverProduct.productID).toEqual('my sku');
-  expect(webserverProduct.configurationItems.length).toEqual(3);
+  const webserverProduct1 = webserver.products[0];
+  expect(webserverProduct1.meta).toEqual({strategy: 'CREATE'});
+  expect(webserverProduct1.name).toEqual('Unknown gSOAP/2.8 my sku Webserver');
+  expect(webserverProduct1.brand).toEqual('Unknown');
+  expect(webserverProduct1.model).toEqual('gSOAP/2.8');
+  expect(webserverProduct1.sourceID).toEqual('unknown_gsoap_2_8_my_sku_webserver');
+  expect(webserverProduct1.productID).toEqual('my sku');
+  expect(webserverProduct1.configurationItems.length).toEqual(1);
 
-  const ci = webserverProduct.configurationItems.find(ci => ci.sourceID === 'MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
+  const webserverProduct2 = webserver.products[1];
+  expect(webserverProduct2.meta).toEqual({strategy: 'CREATE'});
+  expect(webserverProduct2.name).toEqual('Unknown gSOAP/2.8 Webserver');
+  expect(webserverProduct2.brand).toEqual('Unknown');
+  expect(webserverProduct2.model).toEqual('gSOAP/2.8');
+  expect(webserverProduct2.sourceID).toEqual('unknown_gsoap_2_8_webserver');
+  expect(webserverProduct2.productID).toBeUndefined();
+  expect(webserverProduct2.configurationItems.length).toEqual(2);
+  const ci = webserverProduct2.configurationItems.find(ci => ci.sourceID === 'MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
   expect(ci.name).toEqual('192.168.69.71');
   expect(ci.status).toEqual('in_production');
   expect(ci.systemID).toEqual(
@@ -70,7 +78,7 @@ it('generates object with references', () => {
 
   const winVmWare = windows.products[0];
   expect(winVmWare.meta).toEqual({strategy: 'CREATE'});
-  expect(winVmWare.name).toEqual('Windows VMware, Inc. VMware Virtual Platform');
+  expect(winVmWare.name).toEqual('VMware, Inc. VMware Virtual Platform Windows');
   expect(winVmWare.configurationItems.length).toEqual(8);
 
   const ciBoth = winVmWare.configurationItems.find(ci => ci.sourceID === 'Mi1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=');
@@ -98,7 +106,7 @@ it('generates object with references', () => {
   expect(ci2019.userIds).toEqual(undefined);
   expect(ci2019.ciRelations.childIds).toEqual(['nodeID4']);
 
-  const vm71prod = windows.products.find(p => p.sourceID === 'windows_vmware_inc_vmware7_1');
+  const vm71prod = windows.products.find(p => p.sourceID === 'vmware_inc_vmware7_1_windows');
   const ciOneUnkownUser = vm71prod.configurationItems.find(ci => ci.sourceID === 'NDQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
   expect(ciOneUnkownUser.name).toEqual('JL-DM-000');
   expect(ciOneUnkownUser.userIds).toEqual(['nodeID3']);

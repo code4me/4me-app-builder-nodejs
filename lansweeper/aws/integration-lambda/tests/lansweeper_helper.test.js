@@ -23,6 +23,14 @@ describe('toReference', () => {
 
     expect(reference).toEqual('vmware_inc');
   });
+
+  it('limits length to 128 characters', () => {
+    const reference = helper.toReference(' a'.repeat(65));
+
+    // removes leading _ and trims, last _ is kept since it might be significant
+    expect(reference.length).toEqual(128);
+    expect(reference).toEqual('a_'.repeat(64));
+  });
 });
 
 describe('getProduct', () => {
@@ -33,7 +41,7 @@ describe('getProduct', () => {
     };
     const product = helper.getProduct(asset);
 
-    expect(product.reference).toEqual('smart_tv_unknown_unknown');
+    expect(product.reference).toEqual('unknown_unknown_smart_tv');
     expect(product.model).toEqual('Unknown');
     expect(product.brand).toEqual('Unknown');
   });
@@ -97,6 +105,8 @@ describe('getProduct', () => {
         assetBasicInfo: {type: 'Printer'},
       };
       const product1 = helper.getProduct(asset1);
+      expect(product1.name).toEqual('hp DeskJet 530 Printer');
+      expect(product1.reference).toEqual('hp_deskjet_530_printer');
       expect(product1.sku).toBeUndefined();
 
       const asset2 = {
@@ -108,8 +118,10 @@ describe('getProduct', () => {
         assetBasicInfo: {type: 'Printer'},
       };
       const product2 = helper.getProduct(asset2);
+      expect(product2).not.toBe(product1);
+      expect(product2.name).toEqual('hp DeskJet 530 xyz Printer');
+      expect(product2.reference).toEqual('hp_deskjet_530_xyz_printer');
       expect(product2.sku).toBe('xyz');
-      expect(product2).toBe(product1);
 
       const asset3 = {
         assetCustom: {
@@ -120,7 +132,7 @@ describe('getProduct', () => {
       };
       const product3 = helper.getProduct(asset3);
 
-      expect(product3.sku).toBe('xyz');
+      expect(product3.sku).toBeUndefined();
       expect(product3).toBe(product1);
     });
   });
