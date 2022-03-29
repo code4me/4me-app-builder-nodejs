@@ -38,7 +38,9 @@ class CliInputHelper {
     if (this.defaults.skipQuestionWithDefault && options && options.default) {
       return options.default;
     }
-    return await promptly.prompt(`${message}: `, options);
+
+    const prompt = options && options.default ? `${message} (${options.default}): ` : `${message}: `
+    return await promptly.prompt(prompt, options);
   }
 
   searchDefaults(...dirs) {

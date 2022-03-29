@@ -36,7 +36,7 @@ describe('skip with defaults', () => {
     cliHelper.defaults['testQuestion'] = 'answer';
 
     promptly.prompt.mockImplementationOnce(async (message, options) => {
-      expect(message).toEqual('my prompt message: ');
+      expect(message).toEqual('my prompt message (answer): ');
       expect(options).toEqual({
                                 "default": "answer",
                               });
