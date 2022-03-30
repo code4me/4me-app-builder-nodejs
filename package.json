@@ -1,5 +1,9 @@
 {
     "name": "4me-app-builder",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/code4me/4me-app-builder-nodejs.git"
+    },
     "version": "0.0.1",
     "description": "Sample JavaScript code to define and update app offerings for integrations in 4me",
     "main": "library/bootstrap.js",
