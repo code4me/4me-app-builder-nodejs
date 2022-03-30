@@ -255,3 +255,9 @@ describe.skip('integration tests', () => {
     console.log('%j', result);
   });
 });
+
+describe("Test dummy", () => {
+  it("tests the truth", async () => {
+    expect(true).toEqual(true)
+  })
+})
