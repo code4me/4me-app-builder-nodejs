@@ -68,6 +68,11 @@ class Js4meDeployHelper {
       `BootstrapSecretAccountParameter=${account}`,
       `OfferingReferenceParameter=${offeringReference}`,
     ];
+
+    return await this.deployIntegrationLambda(clientConfig, profile, samPath, stackName, parameterOverrides)
+  }
+
+  async deployIntegrationLambda(clientConfig, profile, samPath, stackName, parameterOverrides) {
     const stackOutputs = await this.deployLambda(clientConfig, profile, samPath, stackName, parameterOverrides)
 
     const lambdaUrl = stackOutputs['IntegrationApi'];

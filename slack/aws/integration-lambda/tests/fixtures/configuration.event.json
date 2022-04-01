@@ -1,0 +1,13 @@
+{
+  "httpMethod": "GET",
+  "queryStringParameters": {
+    "nodeID": "12345678",
+    "account_id": "wna-it",
+    "created_at": "2022-03-14T17:59:13+01:00"
+  },
+  "requestContext": {
+    "path": "/Prod/integration",
+    "domainName": "ufru4nvmzf.execute-api.eu-west-1.amazonaws.com"
+  },
+  "body" : ""
+}

@@ -1,0 +1,38 @@
+{
+  "configurationItems": {
+    "totalCount": 1,
+    "nodes": [
+      {
+        "id": "N000000000000000000000000000000000",
+        "name": "Slack integration Lambda",
+        "label": "lambda-slack-1",
+        "systemID": "arn:aws:lambda:eu-west-1:012345678901:function:app-builder-slack-IntegrationFunction-0123456789ABCDEF",
+        "product": {
+          "id": "P000000000000000000000000000000000",
+          "name": "AWS Lambda"
+        },
+        "serviceInstances": {
+          "nodes": [
+            {
+              "id": "SI00000000000000000000000000000000000000000000",
+              "name": "Slack integration 1"
+            }
+          ]
+        },
+        "location": "Amazon: eu-west-1",
+        "status": "being_tested",
+        "remarks": "Receives calls from Slack when a customer uses Slack to interact with 4me",
+        "customFields": [
+          {
+            "id": "api_url",
+            "value": "https://foo.execute-api.eu-west-1.amazonaws.com/Prod/integration/"
+          },
+          {
+            "id": "cloudformation_stack",
+            "value": "app-builder-slack-bucket"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Slack integration Lambda",
+  "label": "lambda-slack-1",
+  "remarks": "Receives calls from Slack when a customer uses Slack to interact with 4me",
+  "status": "being_tested"
+}

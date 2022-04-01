@@ -1,0 +1,6 @@
+{
+  "resource": "/integration",
+  "path": "/integration/",
+  "httpMethod": "GET",
+  "body" : ""
+}

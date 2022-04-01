@@ -1,0 +1,7 @@
+{
+  "Records": [
+    {
+      "body": "{\"slackWorkspaceId\": \"T123456\", \"slackUserId\": \"U123456\", \"subject\": \"Pizza\", \"responseUrl\": \"https://hooks.slack.com/blabla\"}"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Slack integration SQS",
+  "label": "sqs-slack-1",
+  "remarks": "Queue to hold jobs from Slack to create requests in 4me",
+  "status": "being_tested"
+}

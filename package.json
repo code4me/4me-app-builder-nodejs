@@ -12,6 +12,7 @@
         "deploy-typeform": "node typeform/deploy_integration.js",
         "deploy-note-dispatcher": "node note-dispatcher/deploy_integration.js",
         "deploy-lansweeper": "node lansweeper/deploy_integration.js",
+        "deploy-slack": "node slack/deployment.js",
         "test": "jest --silent"
     },
     "author": "4me, Inc",

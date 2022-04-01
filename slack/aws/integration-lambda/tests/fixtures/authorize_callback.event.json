@@ -1,0 +1,17 @@
+{
+  "resource": "/integration",
+  "path": "/integration/",
+  "httpMethod": "GET",
+  "headers": {
+    "Host": "ufru4nvmzf.execute-api.eu-west-1.amazonaws.com"
+  },
+  "queryStringParameters": {
+    "code": "12345678",
+    "state": "1234567890:XXXX"
+  },
+  "requestContext": {
+    "path": "/Prod/integration",
+    "domainName": "ufru4nvmzf.execute-api.eu-west-1.amazonaws.com"
+  },
+  "body" : ""
+}

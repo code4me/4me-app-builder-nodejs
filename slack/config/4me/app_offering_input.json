@@ -1,0 +1,16 @@
+{
+  "name": "Slack",
+  "reference": "slack",
+  "description": "Interact with 4me directly from your Slack channels.",
+  "features": "Create requests in 4me from Slack using the command /4me or using a Slack message's action menu.",
+  "compliance": "By installing this app, you grant 4me access to interact in your Slack workspace channels. By using the 4me Slack app, you agree to the [4me API Terms of Service](https://www.4me.com/api-terms-of-service).",
+  "newScopes": [
+    {
+      "actions": [
+        "person:Read",
+        "request:Create",
+        "request:Read"
+      ]
+    }
+  ]
+}

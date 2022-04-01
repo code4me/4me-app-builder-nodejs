@@ -1,0 +1,11 @@
+{
+  "resource": "/integration",
+  "path": "/integration/",
+  "httpMethod": "POST",
+  "headers": {
+    "Content-Type": "application/x-www-form-urlencoded",
+    "X-Slack-Signature": "v0=140735cb14efcbb89ceb6eac38d66c169f5efca346c45a64e10c2c5c74727aa5",
+    "X-Slack-Request-Timestamp": "1645025140"
+  },
+  "body" : "token=a1Aaaaaaaaaaaaaaaaaaaaaa&team_id=T1234567890&team_domain=foo&channel_id=D1234567890&channel_name=directmessage&user_id=U1234567890&user_name=bar&command=%2F4me&text=request&api_app_id=A1234567890&is_enterprise_install=false&response_url=https%3A%2F%2Fhooks.slack.com%2Fcommands%2FT1234567890%2F1234567890123%2Fa1Aaaaaaaaaaaaaaaaaaaaaa&trigger_id=9999999999999.9999999999999.ffffffffffffffffffffffffffffffff"
+}
