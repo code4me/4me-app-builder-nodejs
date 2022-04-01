@@ -170,6 +170,7 @@ The 4me app offering record is defined by the provider and consists of the follo
 * `Webhook` The endpoint, and associated policy, for webhook messages to relay 4me data from the customer account to the
   integration engine.
 * `Automation rules` Automation rules created in the customer account on installation of the app.
+* `Configuration URI` The external URI where the app can be configured.
 
 Depending on the type of integration the [UI extension](#ui-extension)
 , [scopes and application token](#scopes-and-4me-application-token),
@@ -237,6 +238,25 @@ to the customer's data.
 
 The [Framework](#integration-lambdas) already provides a full implementation for this functionality using the AWS
 services.
+
+#### Configuration URI
+
+When an application needs interaction with a third party at install time to be configured (e.g. for requesting
+authorization tokens through an Oauth authorization code flow), the app offering should define a configuration
+URI where a user will be redirect to upon installation.
+
+When a user installs an app from the app store, first a (disabled) app instance is created. Then the user is redirected
+to the configuration URI, with the nodeID, account_id and created_at of the app instance as query parameters.
+
+At the configuration URI, before doing any configuration, the app should retrieve the app instance from 4me using
+the nodeID and compare the received account_id and created_at with those of the app instance. When the account_id and
+the created_at match, the app can continue with it's configuration by interacting with the user.
+
+After configuration, the user should be redirect back to 4me to confirm the configuration in 4me by
+enabling the app instance. To do this, the user should be redirect to the following url:
+```
+https://{account_id}.4me.com/app_instances/{nodeID}/confirm_configuration
+```
 
 ### App Instance
 
