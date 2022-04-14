@@ -1,0 +1,51 @@
+[
+  {
+    "_id": "612d9757aa105e2808bcf846",
+    "key": "MTEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JL-2016-001",
+      "description": "JL-2016-001",
+      "firstSeen": "2021-08-23T15:55:41.923Z",
+      "ipAddress": "192.168.69.120",
+      "type": "VMware Guest",
+      "lastChanged": "2021-08-23T15:55:44.560Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9757aa105e2808bcf9ca",
+    "key": "MzEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "JAMES-OPTIPLEX-9010",
+      "firstSeen": "2021-08-23T15:56:04.137Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:56:04.153Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Dell Inc.",
+      "model": "MacSamba",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "_id": "612d9757aa105e2808bcf956",
+    "key": "MjktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
+    "assetBasicInfo": {
+      "name": "192.168.69.72",
+      "firstSeen": "2021-08-23T15:55:50.173Z",
+      "ipAddress": "",
+      "type": "Webserver",
+      "lastChanged": "2021-08-23T15:55:50.170Z"
+    },
+    "assetCustom": {
+      "model": "gSOAP/2.8",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjktQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  }
+]

@@ -13,7 +13,7 @@ it('generates object without resolved references', () => {
   const input = helper.toDiscoveryUploadInput(assetArray);
 
   expect(input.source).toEqual('Lansweeper');
-  expect(input.physicalAssets.length).toEqual(13);
+  expect(input.physicalAssets.length).toEqual(14);
 
   const webserver = input.physicalAssets.find(a => a.name === 'Webserver');
   expect(webserver.meta).toEqual({strategy: 'CREATE'});
@@ -69,7 +69,7 @@ it('generates object with references', () => {
 
   expect(input.source).toEqual('Lansweeper');
   expect(input.referenceStrategies).toEqual({ciUserIds: {strategy: 'APPEND'}});
-  expect(input.physicalAssets.length).toEqual(13);
+  expect(input.physicalAssets.length).toEqual(14);
 
   const windows = input.physicalAssets.find(a => a.name === 'Windows');
   expect(windows.meta).toEqual({strategy: 'CREATE'});

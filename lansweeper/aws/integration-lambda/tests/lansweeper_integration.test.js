@@ -36,6 +36,8 @@ describe('processSite', () => {
 
   it('handles successful pages', async () => {
     const siteId = 'abdv';
+    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
+    expect(filteredAssets).not.toEqual(assetArray);
 
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
@@ -70,7 +72,7 @@ describe('processSite', () => {
       expect(js4meHelper).toBe(mockedJs4meHelper);
       return {
         lookup4meReferences: async (assets) => {
-          expect(assets).toEqual(assetArray);
+          expect(assets).toEqual(filteredAssets);
           return refData;
         }
       }
@@ -80,7 +82,7 @@ describe('processSite', () => {
       expect(referenceData).toBe(refData);
       return {
         toDiscoveryUploadInput: (assets) => {
-          expect(assets).toEqual(assetArray);
+          expect(assets).toEqual(filteredAssets);
           return discoveryUploadInput;
         },
       };
@@ -188,6 +190,8 @@ describe('processSite', () => {
 
   it('handles failure on download for first page', async () => {
     const siteId = 'abdv';
+    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
+    expect(filteredAssets).not.toEqual(assetArray);
 
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
@@ -259,7 +263,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId);
+    const result = await integration.processSite(siteId, undefined);
     const uploadCount = graphQLResult.configurationItems.length * 2;
     expect(result).toEqual({errors: ['unable to create ci1'], uploadCount: uploadCount});
   });
@@ -489,4 +493,18 @@ it('filters out assets with old last seen date', () => {
                                                 null);
   // only assets without last seen and server last seen 2021-08-31T07:12:33.820Z
   expect(integration.removeAssetsNotSeenRecently(require('./assets/asset_array_older.json')).length).toEqual(8);
+});
+
+it('filters out assets with empty IP address', () => {
+  TimeHelper.mockImplementation(() => ({
+    getMsSinceEpoch: () => Date.UTC(2021, 8, 30, 7, 12, 33),
+  }));
+
+  const integration = new LansweeperIntegration('client id',
+                                                'secret',
+                                                'refresh token',
+                                                null);
+  // only assets where IP address is not an empty string or missing
+  const assetsWithIP = integration.removeAssetsWithoutIP(require('./assets/asset_array_empty_ip.json'));
+  expect(assetsWithIP.map(a => a.assetBasicInfo.ipAddress)).toEqual(['192.168.69.120']);
 });

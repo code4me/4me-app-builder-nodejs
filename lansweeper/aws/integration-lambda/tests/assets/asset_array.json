@@ -1751,6 +1751,24 @@
     "url": "https://app.lansweeper.com/jest-site/asset/NDEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
   },
   {
+    "_id": "60eed34a8a037f9341853d09",
+    "key": "MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=",
+    "assetBasicInfo": {
+      "name": "Lansweeper2 iPhone iOS 12.1.0 FFG9",
+      "firstSeen": "2019-08-13T07:58:22.930Z",
+      "lastSeen": "2021-09-26T22:52:39.143Z",
+      "type": "iPhone",
+      "lastChanged": "2019-08-13T07:58:24.170Z"
+    },
+    "assetCustom": {
+      "manufacturer": "VMware AirWatch",
+      "model": "iPhone 5S (GSM/LTE) (16 GB Silver)",
+      "serialNumber": "DX3RQJKYFFG9",
+      "stateName": "Active"
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=/summary"
+  },
+  {
     "_id": "612d978eaa105e2808bf477f",
     "key": "NDItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
     "assetBasicInfo": {

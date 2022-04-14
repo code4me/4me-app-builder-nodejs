@@ -207,7 +207,7 @@ describe('extractProductCategories', () => {
     helper.categories = {};
     const categories = helper.extractProductCategories(assetArray);
 
-    expect(categories.length).toEqual(13);
+    expect(categories.length).toEqual(14);
     expect(Object.keys(helper.categories).length).toEqual(categories.length);
   });
 });
@@ -223,7 +223,7 @@ describe('extractBrands', () => {
     helper.brands = {};
     const brands = helper.extractBrands(assetArray);
 
-    expect(brands.length).toEqual(13);
+    expect(brands.length).toEqual(14);
     expect(Object.keys(helper.brands).length).toEqual(brands.length);
   });
 });
@@ -239,7 +239,7 @@ describe('extractModels', () => {
     helper.models = {};
     const models = helper.extractModels(assetArray);
 
-    expect(models.length).toEqual(15);
+    expect(models.length).toEqual(16);
     expect(Object.keys(helper.models).length).toEqual(models.length);
   });
 });

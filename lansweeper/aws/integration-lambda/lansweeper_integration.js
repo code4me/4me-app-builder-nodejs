@@ -47,7 +47,7 @@ class LansweeperIntegration {
   async processSite(siteId, networkedAssetsOnly) {
     const siteName = await this.lansweeperClient.getSiteName(siteId);
     console.log(`processing site ${siteName}. NetworkedAssetsOnly: ${networkedAssetsOnly}`);
-    const itemsHandler = async items => await this.sendAssetsTo4me(items);
+    const itemsHandler = async items => await this.sendAssetsTo4me(items, networkedAssetsOnly);
     const sendResults = await this.lansweeperClient.getAssetsPaged(siteId, itemsHandler, networkedAssetsOnly);
     const jsonResults = await this.downloadResults(sendResults.map(r => r.mutationResult));
     const overallResult = this.reduceResults(sendResults, jsonResults);
@@ -55,17 +55,21 @@ class LansweeperIntegration {
     return overallResult;
   }
 
-  async sendAssetsTo4me(assets) {
+  async sendAssetsTo4me(assets, networkedAssetsOnly = false) {
     const errors = [];
     const result = {errors: errors, uploadCount: 0};
     if (assets.length !== 0) {
       console.log(`found ${assets.length} assets`);
-      const recentAssets = this.removeAssetsNotSeenRecently(assets);
-      if (recentAssets.length !== 0) {
+      let assetsToProcess = this.removeAssetsNotSeenRecently(assets);
+      if (networkedAssetsOnly) {
+        // Lansweeper bug: empty IP address is returned from API call for discovered monitors
+        assetsToProcess = this.removeAssetsWithoutIP(assets);
+      }
+      if (assetsToProcess.length !== 0) {
         try {
-          const referenceData = await this.referenceHelper.lookup4meReferences(recentAssets);
+          const referenceData = await this.referenceHelper.lookup4meReferences(assetsToProcess);
           const discoveryHelper = new DiscoveryMutationHelper(referenceData);
-          const input = discoveryHelper.toDiscoveryUploadInput(recentAssets);
+          const input = discoveryHelper.toDiscoveryUploadInput(assetsToProcess);
           const mutationResult = await this.uploadTo4me(input);
 
           if (mutationResult.error) {
@@ -95,6 +99,14 @@ class LansweeperIntegration {
       console.info(`Skipping ${assets.length - recentAssets.length} assets that have not been seen in ${LansweeperIntegration.LAST_SEEN_DAYS} days.`)
     }
     return recentAssets;
+  }
+
+  removeAssetsWithoutIP(assets) {
+    const assetsWithIP = assets.filter(asset => !!asset.assetBasicInfo.ipAddress);
+    if (assetsWithIP.length < assets.length) {
+      console.info(`Skipping ${assets.length - assetsWithIP.length} assets that have no IP address.`)
+    }
+    return assetsWithIP;
   }
 
   async downloadResults(mutationResultsToRetrieve) {
