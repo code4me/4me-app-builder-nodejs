@@ -185,6 +185,7 @@ class Js4meDeployHelper {
   async upsertOffering(js4meHelper,
                        accessToken,
                        offeringInput,
+                       avatar = null,
                        offeringMutationResponseFields = this.defaultOfferingResponseFields) {
     let offering = await this.findOffering(js4meHelper, accessToken, offeringInput.reference);
     if (!offering) {
@@ -218,6 +219,10 @@ class Js4meDeployHelper {
     }
     if (!offering.id) {
       this.deploymentFailed('No app offering created!');
+    }
+
+    if (avatar) {
+      js4meHelper.updateAvatar(accessToken, 'app_offerings', offering.id, avatar.filename, avatar.stream)
     }
 
     return offering;

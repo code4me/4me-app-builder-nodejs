@@ -40,6 +40,12 @@ class ConfigFileHelper {
     uiExtensionInput.javascript = this.readConfigFileIfPresent(`${filename}.js`);
     return uiExtensionInput;
   }
+
+  readAvatar(filename) {
+    const stream = fs.createReadStream(path.resolve(this.configDir, filename));
+
+    return {filename, stream};
+  }
 }
 
 module.exports = ConfigFileHelper;

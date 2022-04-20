@@ -6,6 +6,7 @@ const {default: jwtVerify} = require('jose/jwt/verify')
 const PollingHelper = require('./polling_helper');
 const LoggedError = require('./errors/logged_error');
 const Js4meAuthorizationError = require('./errors/js_4me_authorization_error');
+const FormData = require('form-data');
 
 class Js4meHelper {
   constructor(env4me, account, clientId, clientSecret, algorithm, certStr, audience, customHttpsAgent) {
@@ -259,6 +260,27 @@ class Js4meHelper {
     } catch (error) {
       console.error(error);
       throw new LoggedError(`Error from DELETE call: ${error.message}`);
+    }
+  }
+
+  async updateAvatar(accessToken, resource, id, avatar_file_name, avatar_stream) {
+    try {
+      const client = this.createClient(this.restUrl, accessToken.access_token);
+
+      const form = new FormData();
+      form.append('avatar_file_name', avatar_file_name);
+      form.append('avatar', avatar_stream);
+
+      return await client.post(
+        `/v1/${resource}/${id}/avatar`,
+        form,
+        {
+          headers: form.getHeaders(),
+        },
+      )
+    } catch (error) {
+      console.error(error);
+      throw new LoggedError(`Error from POST call: ${error.message}`);
     }
   }
 
