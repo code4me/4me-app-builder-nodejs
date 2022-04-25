@@ -6,7 +6,7 @@ const InstanceHelper = require('./instance_helper');
 const LansweeperApiHelper = require('./lansweeper_api_helper');
 const LansweeperIntegration = require('./lansweeper_integration');
 const Timer = require('./timer');
-const SQSHelper = require('./sqs_helper');
+const SQSHelper = require('../../../library/helpers/sqs_helper');
 const LansweeperAuthorizationError = require('./errors/lansweeper_authorization_error');
 const Js4meAuthorizationError = require('../../../library/helpers/errors/js_4me_authorization_error');
 

@@ -25,8 +25,8 @@ jest.mock('../lansweeper_integration');
 const Timer = require('../timer');
 jest.mock('../timer');
 
-const SQSHelper = require('../sqs_helper');
-jest.mock('../sqs_helper');
+const SQSHelper = require('../../../../library/helpers/sqs_helper');
+jest.mock('../../../../library/helpers/sqs_helper');
 
 const axios = require('axios')
 const LoggedError = require('../../../../library/helpers/errors/logged_error');
