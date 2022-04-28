@@ -98,13 +98,14 @@ class DeployIntegration {
     return input;
   }
 
-  async createOffering(serviceInstance) {
+  async createOffering(serviceInstance, avatar) {
     const offeringInput = this.getOfferingInput();
     offeringInput.serviceInstanceId = serviceInstance.id;
 
     return await this.js4meDeployHelper.upsertOffering(this.js4meHelper,
                                                        this.accessToken,
-                                                       offeringInput);
+                                                       offeringInput,
+                                                       avatar);
   }
 
   async createUiExtension(offering) {
@@ -169,12 +170,19 @@ class DeployIntegration {
                                                     ],
                                                   });
 
-    const offering = await this.createOffering(serviceInstance);
+    const avatar = this.readAvatar();
+    const offering = await this.createOffering(serviceInstance, avatar);
     await this.createUiExtension(offering);
 
     console.log(`Success. App Offering is available at: https://${account}.${domain}/app_offerings/${offering.id}`);
 
     return offering;
+  }
+
+  readAvatar() {
+    const filename = "lansweeper-logo.svg";
+
+    return this.configFileHelper.readAvatar(filename);
   }
 }
 module.exports = DeployIntegration;

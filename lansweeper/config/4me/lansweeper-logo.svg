@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="960px"
+   height="960px" viewBox="0 0 960 960" enable-background="new 0 0 1920 1080" xml:space="preserve">
+<metadata>
+Copyright (c) 2021 4me, Inc. All rights reserved.
+</metadata>
+
+<g id="096">
+  <path id="1" style="fill:#555656" d="M25 821l97 1v-490c0 -102 78 -130 139 -130h133v-84h-156c-126 0 -212 93 -212 222z"
+     transform="translate(0, 960) scale(1, -1)" />
+  <path id="2" style="fill:#f6891e" d="M913 693h-245c-213 0 -230 -221 -102 -277l220 -96c70 -31 50 -117 -27 -117h-276v-97h246c247 0 259 238 132 291l-230 97c-68 28 -38 101 19 101h263v98z"
+     transform="translate(0, 960) scale(1, -1)" />
+</g>
+
+</svg>
