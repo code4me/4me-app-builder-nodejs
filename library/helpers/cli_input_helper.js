@@ -28,13 +28,20 @@ class CliInputHelper {
   }
 
   async prompt(key, message, options) {
+    if (!options) {
+      options = {};
+    }
+
     const defaultFromFile = this.defaults[key];
     if (defaultFromFile) {
-      if (!options) {
-        options = {};
-      }
       options.default = defaultFromFile;
     }
+
+    const defaultFromEnv = process.env[key];
+    if (defaultFromEnv) {
+      options.default = defaultFromEnv;
+    }
+
     if (this.defaults.skipQuestionWithDefault && options && options.default) {
       return options.default;
     }
