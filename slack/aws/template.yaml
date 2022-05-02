@@ -68,6 +68,7 @@ Resources:
         - Sid: ReadWriteInstanceSecrets
           Effect: Allow
           Action:
+          - secretsmanager:CreateSecret
           - secretsmanager:GetSecretValue
           - secretsmanager:PutSecretValue
           Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${BootstrapSecretApplicationParameter}/${OfferingReferenceParameter}/${4MeDomainParameter}/instances/*"
