@@ -238,7 +238,7 @@ Deployment.gatherInput = async () => {
   let extraInputs = {}
   if (!skipSlackAppDeployment) {
     extraInputs = await (new CliInputHelper(__dirname)).gatherInput({
-      slackAppConfigurationToken: "Slack Workspace App Configuration Token",
+      slackAppConfigurationToken: "Slack Workspace App Configuration AccessToken",
       slackAppName: {"Slack App name": {default: "4me Development"}},
     })
   }
