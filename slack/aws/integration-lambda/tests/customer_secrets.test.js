@@ -42,7 +42,7 @@ describe(".put(newSecrets)", () => {
       expect(applicationName).toEqual("4me-app-builder/my-app-reference")
 
       return {
-        updateSecrets: async (key, secrets) => {
+        upsertSecret: async (key, secrets) => {
           expect(key).toEqual("instances/wna-it")
           expect(secrets).toEqual({"my_secret": "baz"})
 

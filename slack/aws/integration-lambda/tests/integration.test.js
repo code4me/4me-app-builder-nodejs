@@ -48,7 +48,7 @@ describe("app.lambdaHandler(inputLambdaEvent, lambdaContext)", () => {
 
           return {}
         },
-        updateSecrets: async (key, secrets) => {
+        upsertSecret: async (key, secrets) => {
           expect(secrets.slackAuthorizeSecret).toEqual(mockRandomBuffer.toString('hex'))
           expect(key).toEqual("instances/wna-it")
 
@@ -130,7 +130,7 @@ describe("app.lambdaHandler(inputLambdaEvent, lambdaContext)", () => {
 
           return {}
         },
-        updateSecrets: jest.fn().mockImplementationOnce(
+        upsertSecret: jest.fn().mockImplementationOnce(
           async (key, secrets) => {
             expect(secrets.slackAuthorizeSecret).toEqual("00000000")
             expect(key).toEqual("instances/wna-it")

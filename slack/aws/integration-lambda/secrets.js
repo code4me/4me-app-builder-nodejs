@@ -22,7 +22,7 @@ class Secrets {
   }
 
   async put(secrets) {
-    const awsResult = await this.secretsHelper.updateSecrets(this.secretsKey, secrets)
+    const awsResult = await this.secretsHelper.upsertSecret(this.secretsKey, secrets)
     this._secrets = awsResult.secrets
 
     return this._secrets
