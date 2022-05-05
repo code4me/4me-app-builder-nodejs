@@ -7,7 +7,7 @@
   },
   "queryStringParameters": {
     "code": "12345678",
-    "state": "1234567890:XXXX"
+    "state": "1234567890^XXXX^https://wna-it.4me-demo.com/app_instances/1234567890/confirm_configuration"
   },
   "requestContext": {
     "path": "/Prod/integration",

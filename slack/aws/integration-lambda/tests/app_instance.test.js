@@ -10,10 +10,20 @@ const subject = () => {
   })
 }
 
-describe(".externalConfigurationCallbackUrl()", () => {
-  it("returns the 4me url where a user should confirm the app configuration", async () => {
-    expect(subject().externalConfigurationCallbackUrl()).toEqual(
-      "https://wna-it.4me-demo.com/app_instances/1234567890/confirm_configuration",
-    )
+describe(".id", () => {
+  it("returns the instance id", async () => {
+    expect(subject().id).toEqual("1234567890")
+  })
+})
+
+describe(".env4me", () => {
+  it("returns the env4me", async () => {
+    expect(subject().env4me).toEqual("4me-demo.com")
+  })
+})
+
+describe(".account", () => {
+  it("returns the account", async () => {
+    expect(subject().account).toEqual("wna-it")
   })
 })

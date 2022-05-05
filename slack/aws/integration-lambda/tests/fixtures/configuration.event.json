@@ -3,7 +3,8 @@
   "queryStringParameters": {
     "nodeID": "12345678",
     "account_id": "wna-it",
-    "created_at": "2022-03-14T17:59:13+01:00"
+    "created_at": "2022-03-14T17:59:13+01:00",
+    "confirmation_url": "https://wdc.4me-development.com/v1/wna-it/app_instances/1/confirm_configuration"
   },
   "requestContext": {
     "path": "/Prod/integration",

@@ -18,6 +18,7 @@ class ConfigurationHandler {
         event.queryStringParameters.nodeID,
         event.queryStringParameters.account_id,
         new Date(event.queryStringParameters.created_at),
+        event.queryStringParameters.confirmation_url,
       )
     }
 
@@ -32,7 +33,7 @@ class ConfigurationHandler {
     return this.#respondWithBadRequest()
   }
 
-  async #handleExternalConfiguration(lambdaUrl, nodeId, account, createdAt) {
+  async #handleExternalConfiguration(lambdaUrl, nodeId, account, createdAt, confirmationUrl) {
     const providerFourMe = await this.application.providerFourMe()
     if (!providerFourMe) {
       return this.#respondWithUnknownError("Failed to connect to 4me.")
@@ -66,7 +67,7 @@ class ConfigurationHandler {
       return this.#respondWithUnknownError("Failed to reset Slack authorize secret.")
     }
 
-    const state = `${nodeId}:${slackAuthorizeSecret}`
+    const state = `${nodeId}^${slackAuthorizeSecret}^${confirmationUrl}`
 
     const slackOauth = await this.application.slackOauth(lambdaUrl)
     if (!slackOauth) {
@@ -77,7 +78,7 @@ class ConfigurationHandler {
   }
 
   async #handleAuthorizeSlackCallback(lambdaUrl, code, state) {
-    const [nodeId, slackAuthorizeSecret] = state.split(":")
+    const [nodeId, slackAuthorizeSecret, confirmationUrl] = state.split("^")
 
     const providerFourMe = await this.application.providerFourMe()
     if (!providerFourMe) {
@@ -121,7 +122,7 @@ class ConfigurationHandler {
       return this.#respondWithUnknownError("Failed to configure Slack Workspace in 4me app.")
     }
 
-    return this.#respondWithRedirect(appInstance.externalConfigurationCallbackUrl())
+    return this.#respondWithRedirect(confirmationUrl)
   }
 
   #respondWithRedirect(url) {

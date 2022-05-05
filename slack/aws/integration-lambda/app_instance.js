@@ -9,10 +9,6 @@ class AppInstance {
     this.createdAt = params.createdAt
     this.enabledByCustomer = params.enabledByCustomer
   }
-
-  externalConfigurationCallbackUrl() {
-    return `https://${this.account}.${this.env4me}/app_instances/${this.id}/confirm_configuration`
-  }
 }
 
 module.exports = AppInstance

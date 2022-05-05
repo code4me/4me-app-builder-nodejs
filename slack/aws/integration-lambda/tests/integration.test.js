@@ -101,7 +101,7 @@ describe("app.lambdaHandler(inputLambdaEvent, lambdaContext)", () => {
     expect(await app.lambdaHandler(event, context)).toEqual({
       "statusCode": 302,
       "headers": {
-        "Location": "https://slack.com/oauth/v2/authorize?scope=commands%2Cusers%3Aread%2Cusers%3Aread.email&client_id=foo&redirect_uri=https%3A%2F%2Fufru4nvmzf.execute-api.eu-west-1.amazonaws.com%2FProd%2Fintegration&state=12345678%3A00000000",
+        "Location": "https://slack.com/oauth/v2/authorize?scope=commands%2Cusers%3Aread%2Cusers%3Aread.email&client_id=foo&redirect_uri=https%3A%2F%2Fufru4nvmzf.execute-api.eu-west-1.amazonaws.com%2FProd%2Fintegration&state=12345678%5E00000000%5Ehttps%3A%2F%2Fwdc.4me-development.com%2Fv1%2Fwna-it%2Fapp_instances%2F1%2Fconfirm_configuration",
       }
     })
   })
