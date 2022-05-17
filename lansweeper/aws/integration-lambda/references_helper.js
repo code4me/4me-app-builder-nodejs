@@ -126,12 +126,14 @@ ${queries.join('\n')}
     }
 
     fields.forEach(field => {
-      const fieldNodes = result[field].nodes;
-      for (const node of fieldNodes) {
-        if (node && !this.peopleFound.has(node.userName)) {
-          this.peopleFound.set(node.userName, node.id);
-        }
-      }
+      result[field].nodes
+        .filter(node => !!node)
+        .forEach(node => {
+          const lowerCaseName = node.userName.toLowerCase();
+          if (!this.peopleFound.has(lowerCaseName)) {
+            this.peopleFound.set(lowerCaseName, node.id);
+          }
+        });
     });
 
     return this.peopleFound;

@@ -260,7 +260,7 @@ describe('extractUsers', () => {
     expect(asset1.allUsers).toEqual(['fred@4me.com', 'jest-test@4me.com']);
 
     const asset2 = assetArray.find(a => a._id === '612d977daa105e2808be8d77');
-    expect(asset2.allUsers).toEqual(['jest', 'fred@4me.com']);
+    expect(asset2.allUsers).toEqual(['jest', 'Fred@4me.com']);
   });
 });
 

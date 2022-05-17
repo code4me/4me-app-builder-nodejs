@@ -38,7 +38,7 @@ class LansweeperHelper {
       }
       if (assetUserNames.size > 0) {
         a.allUsers = Array.from(assetUserNames);
-        assetUserNames.forEach(u => allUserNames.add(u));
+        assetUserNames.forEach(u => allUserNames.add(u.toLowerCase()));
       }
     });
     const userNames = Array.from(allUserNames);

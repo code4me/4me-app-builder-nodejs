@@ -126,7 +126,7 @@ class DiscoveryMutationHelper {
   }
 
   mapUser(userName) {
-    const name = userName;
+    const name = userName && userName.toLowerCase();
     return this.referenceData.users.get(name);
   }
 

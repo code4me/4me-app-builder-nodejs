@@ -45,7 +45,7 @@ describe('lookup4meReferences', () => {
     const peopleQueryResult = {
       authenticationID: {nodes: []},
       primaryEmail: {nodes: []},
-      sourceID: {nodes: [{userName: 'jest', id: 'pNode1'}]},
+      sourceID: {nodes: [{userName: 'JEST', id: 'pNode1'}]},
       employeeID: {nodes: [{userName: 'jest', id: 'pNode2'}]},
       supportID: {nodes: []},
     };
@@ -94,10 +94,10 @@ describe('getUserNameToIdMap', () => {
   it('retrieves people', async () => {
     const queryResult = {
       authenticationID: {nodes: [{userName: 'howard', id: 'pNode1'}]},
-      primaryEmail: {nodes: [{userName: 'ellen@widget.com', id: 'pNode2'}]},
+      primaryEmail: {nodes: [{userName: 'Ellen@widget.com', id: 'pNode2'}]},
       sourceID: {nodes: [{userName: 'source1', id: 'pNode3'}]},
       employeeID: {nodes: []},
-      supportID: {nodes: [{userName: 'howard', id: 'pNode4'}, {userName: 'support', id: 'pNode5'}]},
+      supportID: {nodes: [{userName: 'HOWARD', id: 'pNode4'}, {userName: 'SUPPORT', id: 'pNode5'}]},
     };
     const customerAccessToken = {access_token: 'foo.bar'};
     const userNames = ["howard", "ellen@widget.com", 'john.doe@example.com', 'source1', 'support'];
