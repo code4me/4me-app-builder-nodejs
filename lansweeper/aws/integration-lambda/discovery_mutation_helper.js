@@ -53,16 +53,16 @@ class DiscoveryMutationHelper {
       systemID: asset.url,
       status: this.mapState(asset.assetCustom.stateName),
     };
-    let puchaseDate = null;
+    let purchaseDate = null;
     if (asset.assetCustom.purchaseDate) {
-      puchaseDate = new Date(asset.assetCustom.purchaseDate);
-      if (puchaseDate.getTime() > 0) {
-        ci.inUseSince = this.timeHelper.formatDate(puchaseDate);
+      purchaseDate = new Date(asset.assetCustom.purchaseDate);
+      if (purchaseDate.getTime() > 0) {
+        ci.inUseSince = this.timeHelper.formatDate(purchaseDate);
       }
     }
     if (asset.assetCustom.warrantyDate) {
       const warrantyDate = new Date(asset.assetCustom.warrantyDate);
-      if (warrantyDate.getTime() > 0 && (!puchaseDate || puchaseDate <= warrantyDate)) {
+      if (warrantyDate.getTime() > 0 && (!purchaseDate || purchaseDate <= warrantyDate)) {
         ci.warrantyExpiryDate = this.timeHelper.formatDate(warrantyDate);
       }
     }
