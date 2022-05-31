@@ -31,6 +31,10 @@ class InstanceHelper extends InstanceHelperBase {
     if (importTypeField) {
       result.importType = importTypeField.value;
     }
+    const labelGeneratorField = customFields.find(i => i.id === 'label_generator');
+    if (labelGeneratorField) {
+      result.labelGenerator = labelGeneratorField.value;
+    }
   }
 
   async retrieveAccountsLastSyncedBefore(provider4meHelper, reference, endDate) {

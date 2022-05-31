@@ -38,7 +38,7 @@ class InstanceHelperBase {
       id: instanceId,
       suspended: true,
       suspensionComment: suspensionComment,
-    }
+    };
     try {
       const instance = await this.updateAppInstance(js4meHelper, accessToken, instanceInput);
       if (instance.error) {

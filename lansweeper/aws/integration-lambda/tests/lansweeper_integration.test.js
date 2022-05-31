@@ -78,8 +78,9 @@ describe('processSite', () => {
       }
     });
 
-    DiscoveryMutationHelper.mockImplementation((referenceData) => {
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels) => {
       expect(referenceData).toBe(refData);
+      expect(generateLabels).toBe(true);
       return {
         toDiscoveryUploadInput: (assets) => {
           expect(assets).toEqual(filteredAssets);
@@ -107,7 +108,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId, true);
+    const result = await integration.processSite(siteId, true, true);
     const uploadCount = graphQLResult.configurationItems.length * 2;
     expect(result).toEqual({uploadCount: uploadCount});
   });
@@ -156,14 +157,17 @@ describe('processSite', () => {
       }),
     };
 
-    DiscoveryMutationHelper.mockImplementation(() => ({
-      toDiscoveryUploadInput: (assets) => {
-        const recentAssets = integration.removeAssetsNotSeenRecently(assetArray);
-        expect(assets).toEqual(recentAssets);
-        expect(assets).not.toEqual(assetArray);
-        return discoveryUploadInput;
-      },
-    }));
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels) => {
+      expect(generateLabels).toBe(false);
+      return ({
+        toDiscoveryUploadInput: (assets) => {
+          const recentAssets = integration.removeAssetsNotSeenRecently(assetArray);
+          expect(assets).toEqual(recentAssets);
+          expect(assets).not.toEqual(assetArray);
+          return discoveryUploadInput;
+        },
+      });
+    });
 
     LansweeperClient.mockImplementationOnce(() => ({
       getSiteName: async (id) => {

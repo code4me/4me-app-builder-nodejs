@@ -23,7 +23,7 @@ class LansweeperIntegration {
     return true;
   }
 
-  async processSites(networkedAssetsOnly) {
+  async processSites(networkedAssetsOnly, generateLabels) {
     let siteIds;
     try {
       siteIds = await this.lansweeperClient.getSiteIds();
@@ -36,7 +36,7 @@ class LansweeperIntegration {
 
     const result = {};
     for (const siteId of siteIds) {
-      const siteResult = await this.processSite(siteId, networkedAssetsOnly);
+      const siteResult = await this.processSite(siteId, networkedAssetsOnly, generateLabels);
       const siteName = await this.lansweeperClient.getSiteName(siteId);
       result[siteName] = siteResult;
     }
@@ -44,10 +44,10 @@ class LansweeperIntegration {
     return result;
   }
 
-  async processSite(siteId, networkedAssetsOnly) {
+  async processSite(siteId, networkedAssetsOnly, generateLabels) {
     const siteName = await this.lansweeperClient.getSiteName(siteId);
-    console.log(`processing site ${siteName}. NetworkedAssetsOnly: ${networkedAssetsOnly}`);
-    const itemsHandler = async items => await this.sendAssetsTo4me(items, networkedAssetsOnly);
+    console.log(`processing site ${siteName}. NetworkedAssetsOnly: ${networkedAssetsOnly}.${generateLabels ? ' Using asset name as label.' : ''}`);
+    const itemsHandler = async items => await this.sendAssetsTo4me(items, networkedAssetsOnly, generateLabels);
     const sendResults = await this.lansweeperClient.getAssetsPaged(siteId, itemsHandler, networkedAssetsOnly);
     const jsonResults = await this.downloadResults(sendResults.map(r => r.mutationResult));
     const overallResult = this.reduceResults(sendResults, jsonResults);
@@ -55,7 +55,7 @@ class LansweeperIntegration {
     return overallResult;
   }
 
-  async sendAssetsTo4me(assets, networkedAssetsOnly = false) {
+  async sendAssetsTo4me(assets, networkedAssetsOnly = false, generateLabels = false) {
     const errors = [];
     const result = {errors: errors, uploadCount: 0};
     if (assets.length !== 0) {
@@ -68,7 +68,7 @@ class LansweeperIntegration {
       if (assetsToProcess.length !== 0) {
         try {
           const referenceData = await this.referenceHelper.lookup4meReferences(assetsToProcess);
-          const discoveryHelper = new DiscoveryMutationHelper(referenceData);
+          const discoveryHelper = new DiscoveryMutationHelper(referenceData, generateLabels);
           const input = discoveryHelper.toDiscoveryUploadInput(assetsToProcess);
           const mutationResult = await this.uploadTo4me(input);
 
@@ -110,13 +110,17 @@ class LansweeperIntegration {
   }
 
   async downloadResults(mutationResultsToRetrieve) {
-    console.log('Downloading all asynchronous query results');
     const jsonResults = new Map();
-    const jsonRetrievalCalls = mutationResultsToRetrieve
-      .filter(r => !!r)
-      .map(async r => jsonResults.set(r, await this.downloadResult(r)));
-    await Promise.all(jsonRetrievalCalls);
-    console.log('All asynchronous query results downloaded');
+    if (mutationResultsToRetrieve.length === 0) {
+      console.log('No asynchronous queries results to retrieve');
+    } else {
+      console.log('Downloading all asynchronous query results');
+      const jsonRetrievalCalls = mutationResultsToRetrieve
+        .filter(r => !!r)
+        .map(async r => jsonResults.set(r, await this.downloadResult(r)));
+      await Promise.all(jsonRetrievalCalls);
+      console.log('All asynchronous query results downloaded');
+    }
     return jsonResults;
   }
 

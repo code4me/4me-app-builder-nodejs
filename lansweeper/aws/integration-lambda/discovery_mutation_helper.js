@@ -5,8 +5,9 @@ const TimeHelper = require('../../../library/helpers/time_helper');
 const LoggedError = require('../../../library/helpers/errors/logged_error');
 
 class DiscoveryMutationHelper {
-  constructor(referenceData) {
+  constructor(referenceData, generateLabels) {
     this.referenceData = referenceData;
+    this.generateLabels = generateLabels;
     this.lansweeperHelper = new LansweeperHelper();
     this.timeHelper = new TimeHelper();
     this.categories = [];
@@ -36,8 +37,8 @@ class DiscoveryMutationHelper {
     }
 
     try {
-      const ci = this.createCi(asset);
       const mappedProduct = this.mapProduct(asset);
+      const ci = this.createCi(asset, mappedProduct);
       mappedProduct.configurationItems.push(ci);
     } catch (e) {
       console.error(`Error processing: ${key}`);
@@ -45,14 +46,22 @@ class DiscoveryMutationHelper {
     }
   }
 
-  createCi(asset) {
+  createCi(asset, product) {
     const ci = {
       sourceID: asset.key,
-      name: asset.assetBasicInfo.name,
       serialNr: asset.assetCustom.serialNumber,
       systemID: asset.url,
       status: this.mapState(asset.assetCustom.stateName),
     };
+
+    const lansweeperName = asset.assetBasicInfo.name;
+    if (this.generateLabels) {
+      ci.name = product.name;
+      ci.label = lansweeperName;
+    } else {
+      ci.name = lansweeperName;
+    }
+
     let purchaseDate = null;
     if (asset.assetCustom.purchaseDate) {
       purchaseDate = new Date(asset.assetCustom.purchaseDate);

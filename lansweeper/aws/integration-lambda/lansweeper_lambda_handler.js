@@ -165,10 +165,12 @@ class LansweeperLambdaHandler {
       networkedAssetsOnly = false;
     }
 
+    const generateLabels = config.labelGenerator === 'lansweeper_asset_name';
+
     let resultsPerSite;
     try {
       const integration = new LansweeperIntegration(clientID, clientSecret, refreshToken, customerContext.js4meHelper);
-      resultsPerSite = await integration.processSites(networkedAssetsOnly);
+      resultsPerSite = await integration.processSites(networkedAssetsOnly, generateLabels);
     } catch (error) {
       if (error instanceof LansweeperAuthorizationError) {
         return await this.suspendUnauthorizedInstance(lambda4meContext, config, error);
@@ -255,7 +257,7 @@ class LansweeperLambdaHandler {
         {id: 'connection_status', value: 'success'},
         {id: 'callback_url', value: null},
       ]
-    }
+    };
     const updateCustomFields = await this.updateInstanceConfig(lambda4meContext, instanceInput);
     if (updateCustomFields.error) {
       console.error('Unable to set app instance custom fields %s:\n%j', instanceInput, updateCustomFields.error);

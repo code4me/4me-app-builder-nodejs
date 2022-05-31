@@ -9,129 +9,268 @@ const offeringReference = 'my_ref';
 const customerAccount = 'abc';
 const instanceHelper = new InstanceHelper();
 
-it('can retrieve data from custom fields without import_type', async () => {
-  const graphQLResult = {
-    appInstances: {
-      nodes: [
-        {
-          id: 'tadsasd',
-          appOffering: {
-            id: 'app-off-id',
-          },
-          suspended: false,
-          customFields: [
-            {
-              "id": "client_id",
-              "value": "12345"
-            },
-            {
-              "id": "client_secret",
-              "value": "***"
-            },
-            {
-              "id": "callback_url",
-              "value": "https://lambda.aws.com/lansweeper"
-            },
-            {
-              "id": "connection_status",
-              "value": "pending_authorization"
-            }
-          ]
-        }
-      ]
-    }
-  };
-
-  Js4meHelper.mockImplementation(() => {
-    return {
-      getGraphQLQuery: async (descr, token, query, vars) => {
-        expect(token).toBe(accessToken);
-        expect(vars).toEqual(
+describe('import_type', () => {
+  it('can retrieve data from custom fields without import_type', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
           {
-            customerAccount: customerAccount,
-            reference: offeringReference,
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              }
+            ]
           }
-        );
-        return graphQLResult;
-      },
+        ]
+      }
     };
-  });
-  const js4meHelper = new Js4meHelper();
 
-  expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
-    .toEqual({
-               instanceId: 'tadsasd',
-               appOfferingId: 'app-off-id',
-               suspended: false,
-               clientID: '12345',
-               callbackURL: 'https://lambda.aws.com/lansweeper',
-               connectionStatus: 'pending_authorization',
-             });
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+               });
+  });
+
+  it('can retrieve data from custom fields with import_type', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
+          {
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              },
+              {
+                "id": "import_type",
+                "value": "ip_only"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 importType: 'ip_only',
+               });
+  });
 });
 
-it('can retrieve data from custom fields with import_type', async () => {
-  const graphQLResult = {
-    appInstances: {
-      nodes: [
-        {
-          id: 'tadsasd',
-          appOffering: {
-            id: 'app-off-id',
-          },
-          suspended: false,
-          customFields: [
-            {
-              "id": "client_id",
-              "value": "12345"
-            },
-            {
-              "id": "client_secret",
-              "value": "***"
-            },
-            {
-              "id": "callback_url",
-              "value": "https://lambda.aws.com/lansweeper"
-            },
-            {
-              "id": "connection_status",
-              "value": "pending_authorization"
-            },
-            {
-              "id": "import_type",
-              "value": "ip_only"
-            }
-          ]
-        }
-      ]
-    }
-  };
-
-  Js4meHelper.mockImplementation(() => {
-    return {
-      getGraphQLQuery: async (descr, token, query, vars) => {
-        expect(token).toBe(accessToken);
-        expect(vars).toEqual(
+describe('label_generator', () => {
+  it('can retrieve data from custom fields without label_generator', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
           {
-            customerAccount: customerAccount,
-            reference: offeringReference,
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              },
+              {
+                "id": "import_type",
+                "value": "ip_only"
+              }
+            ]
           }
-        );
-        return graphQLResult;
-      },
+        ]
+      }
     };
-  });
-  const js4meHelper = new Js4meHelper();
 
-  expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
-    .toEqual({
-               instanceId: 'tadsasd',
-               appOfferingId: 'app-off-id',
-               suspended: false,
-               clientID: '12345',
-               callbackURL: 'https://lambda.aws.com/lansweeper',
-               connectionStatus: 'pending_authorization',
-               importType: 'ip_only',
-             });
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 importType: 'ip_only',
+               });
+  });
+
+  it('can retrieve data from custom fields with label_generator', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
+          {
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              },
+              {
+                "id": "import_type",
+                "value": "ip_only"
+              },
+              {
+                "id": "label_generator",
+                "value": "lansweeper_asset_name"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 importType: 'ip_only',
+                 labelGenerator: 'lansweeper_asset_name',
+               });
+  });
 });
 
 it('can retrieve instances not synced since time', async () => {

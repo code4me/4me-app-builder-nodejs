@@ -6,7 +6,7 @@ const LansweeperHelper = require('../lansweeper_helper');
 const referenceData = {
   softwareCis: new Map(),
   users: new Map(),
-}
+};
 
 it('generates object without resolved references', () => {
   const helper = new DiscoveryMutationHelper(referenceData);
@@ -39,6 +39,7 @@ it('generates object without resolved references', () => {
   expect(webserverProduct2.configurationItems.length).toEqual(2);
   const ci = webserverProduct2.configurationItems.find(ci => ci.sourceID === 'MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
   expect(ci.name).toEqual('192.168.69.71');
+  expect(ci).not.toHaveProperty('label');
   expect(ci.status).toEqual('in_production');
   expect(ci.systemID).toEqual(
     'https://app.lansweeper.com/jest-site/asset/MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary');
@@ -50,6 +51,56 @@ it('generates object without resolved references', () => {
 
   const ci2 = computerProduct.configurationItems.find(ci => ci.sourceID === 'OS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=');
   expect(ci2.name).toEqual('jl_newdell_mebx.jestnet.lan');
+  expect(ci2).not.toHaveProperty('label');
+  expect(ci2.status).toEqual('in_production');
+  expect(ci2.inUseSince).toEqual('2016-05-23');
+  expect(ci2.warrantyExpiryDate).toEqual('2019-05-24');
+});
+
+it('generates labels when requested', () => {
+  const helper = new DiscoveryMutationHelper(referenceData, true);
+  const input = helper.toDiscoveryUploadInput(assetArray);
+
+  expect(input.source).toEqual('Lansweeper');
+  expect(input.physicalAssets.length).toEqual(14);
+
+  const webserver = input.physicalAssets.find(a => a.name === 'Webserver');
+  expect(webserver.meta).toEqual({strategy: 'CREATE'});
+  expect(webserver.reference).toEqual('webserver');
+  expect(webserver.products.length).toEqual(2);
+
+  const webserverProduct1 = webserver.products[0];
+  expect(webserverProduct1.meta).toEqual({strategy: 'CREATE'});
+  expect(webserverProduct1.name).toEqual('Unknown gSOAP/2.8 my sku Webserver');
+  expect(webserverProduct1.brand).toEqual('Unknown');
+  expect(webserverProduct1.model).toEqual('gSOAP/2.8');
+  expect(webserverProduct1.sourceID).toEqual('unknown_gsoap_2_8_my_sku_webserver');
+  expect(webserverProduct1.productID).toEqual('my sku');
+  expect(webserverProduct1.configurationItems.length).toEqual(1);
+
+  const webserverProduct2 = webserver.products[1];
+  expect(webserverProduct2.meta).toEqual({strategy: 'CREATE'});
+  expect(webserverProduct2.name).toEqual('Unknown gSOAP/2.8 Webserver');
+  expect(webserverProduct2.brand).toEqual('Unknown');
+  expect(webserverProduct2.model).toEqual('gSOAP/2.8');
+  expect(webserverProduct2.sourceID).toEqual('unknown_gsoap_2_8_webserver');
+  expect(webserverProduct2.productID).toBeUndefined();
+  expect(webserverProduct2.configurationItems.length).toEqual(2);
+  const ci = webserverProduct2.configurationItems.find(ci => ci.sourceID === 'MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
+  expect(ci.name).toEqual(webserverProduct2.name);
+  expect(ci.label).toEqual('192.168.69.71');
+  expect(ci.status).toEqual('in_production');
+  expect(ci.systemID).toEqual(
+    'https://app.lansweeper.com/jest-site/asset/MjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary');
+  expect(ci.hasOwnProperty('inUseSince')).toBeFalsy();
+  expect(ci.hasOwnProperty('warrantyExpiryDate')).toBeFalsy();
+
+  const computer = input.physicalAssets.find(a => a.name === 'Computer');
+  const computerProduct = computer.products[0];
+
+  const ci2 = computerProduct.configurationItems.find(ci => ci.sourceID === 'OS1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=');
+  expect(ci2.name).toEqual(computerProduct.name);
+  expect(ci2.label).toEqual('jl_newdell_mebx.jestnet.lan');
   expect(ci2.status).toEqual('in_production');
   expect(ci2.inUseSince).toEqual('2016-05-23');
   expect(ci2.warrantyExpiryDate).toEqual('2019-05-24');
