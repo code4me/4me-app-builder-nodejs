@@ -94,7 +94,7 @@ describe('processSite', () => {
         expect(id).toBe(siteId);
         return 'site 1';
       },
-      getAssetsPaged: async (id, handler, withIP) => {
+      getAssetsPaged: async (id, cutOffDate, handler, withIP) => {
         expect(id).toBe(siteId);
         expect(withIP).toEqual(true);
         const result1 = await handler(assetArray);
@@ -174,7 +174,7 @@ describe('processSite', () => {
         expect(id).toBe(siteId);
         return 'site 2';
       },
-      getAssetsPaged: async (id, handler) => {
+      getAssetsPaged: async (id, cutOffDate, handler) => {
         expect(id).toBe(siteId);
         const result1 = await handler(assetArray);
         const result2 = await handler(assetArray);
@@ -254,7 +254,7 @@ describe('processSite', () => {
         expect(id).toBe(siteId);
         return 'site 1';
       },
-      getAssetsPaged: async (id, handler) => {
+      getAssetsPaged: async (id, cutOffDate, handler) => {
         expect(id).toBe(siteId);
         const result1 = await handler(assetArray);
         const result2 = await handler(assetArray);
@@ -319,7 +319,7 @@ describe('processSite', () => {
         expect(id).toBe(siteId);
         return 'site 2';
       },
-      getAssetsPaged: async (id, handler) => {
+      getAssetsPaged: async (id, cutOffDate, handler) => {
         expect(id).toBe(siteId);
         const result1 = await handler(assetArray);
         return [...result1];
@@ -396,7 +396,7 @@ describe('processSite', () => {
         expect(id).toBe(siteId);
         return 'site 1';
       },
-      getAssetsPaged: async (id, handler) => {
+      getAssetsPaged: async (id, cutOffDate, handler) => {
         expect(id).toBe(siteId);
         const result1 = await handler(assetArray);
         const result2 = {error: 'Unable to query abc'};
@@ -497,6 +497,16 @@ it('filters out assets with old last seen date', () => {
                                                 null);
   // only assets without last seen and server last seen 2021-08-31T07:12:33.820Z
   expect(integration.removeAssetsNotSeenRecently(require('./assets/asset_array_older.json')).length).toEqual(8);
+});
+
+it('determines cut off date for query', () => {
+  TimeHelper.mockImplementation(() => ({
+    getMsSinceEpoch: () => Date.UTC(2021, 8, 30, 7, 12, 33),
+  }));
+
+  const integration = new LansweeperIntegration();
+  const actual = integration.assetSeenCutOffDate();
+  expect(actual.toISOString()).toEqual('2021-08-31T07:12:33.000Z')
 });
 
 it('filters out assets with empty IP address', () => {

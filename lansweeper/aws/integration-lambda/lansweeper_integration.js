@@ -48,7 +48,7 @@ class LansweeperIntegration {
     const siteName = await this.lansweeperClient.getSiteName(siteId);
     console.log(`processing site ${siteName}. NetworkedAssetsOnly: ${networkedAssetsOnly}.${generateLabels ? ' Using asset name as label.' : ''}`);
     const itemsHandler = async items => await this.sendAssetsTo4me(items, networkedAssetsOnly, generateLabels);
-    const sendResults = await this.lansweeperClient.getAssetsPaged(siteId, itemsHandler, networkedAssetsOnly);
+    const sendResults = await this.lansweeperClient.getAssetsPaged(siteId, this.assetSeenCutOffDate(), itemsHandler, networkedAssetsOnly);
     const jsonResults = await this.downloadResults(sendResults.map(r => r.mutationResult));
     const overallResult = this.reduceResults(sendResults, jsonResults);
 
@@ -93,12 +93,16 @@ class LansweeperIntegration {
   }
 
   removeAssetsNotSeenRecently(assets) {
-    const recentCutOff = new TimeHelper().getMsSinceEpoch() - LansweeperIntegration.LAST_SEEN_DAYS * 24 * 60 * 60 * 1000;
+    const recentCutOff = this.assetSeenCutOffDate().getTime();
     const recentAssets = assets.filter(asset => !asset.assetBasicInfo.lastSeen || (Date.parse(asset.assetBasicInfo.lastSeen) > recentCutOff));
     if (recentAssets.length < assets.length) {
       console.info(`Skipping ${assets.length - recentAssets.length} assets that have not been seen in ${LansweeperIntegration.LAST_SEEN_DAYS} days.`)
     }
     return recentAssets;
+  }
+
+  assetSeenCutOffDate() {
+    return new Date(new TimeHelper().getMsSinceEpoch() - LansweeperIntegration.LAST_SEEN_DAYS * 24 * 60 * 60 * 1000);
   }
 
   removeAssetsWithoutIP(assets) {

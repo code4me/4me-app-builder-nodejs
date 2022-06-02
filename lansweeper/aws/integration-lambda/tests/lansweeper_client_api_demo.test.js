@@ -3,6 +3,7 @@
 const LansweeperClient = require('../lansweeper_client');
 const DiscoveryMutationHelper = require('../discovery_mutation_helper');
 const {loadTestCredentials} = require('../../../../library/helpers/tests/test_credentials_helper');
+const LansweeperIntegration = require('../lansweeper_integration');
 
 it('create input from demo', async () => {
   const referenceData = {
@@ -49,7 +50,7 @@ describe.skip('integration tests', () => {
   });
 
   it('can start export', async () => {
-    const exportId = await helper.startExport(siteId, true);
+    const exportId = await helper.startExport(siteId, new LansweeperIntegration().assetSeenCutOffDate(), true);
 
     expect(exportId).not.toEqual(undefined);
     expect(exportId).not.toEqual('');
@@ -74,19 +75,20 @@ describe.skip('integration tests', () => {
     });
 
     it('can get network assets paged', async () => {
-      await getAndCheck(true, 1114);
+      await getAndCheck(true, 245);
     });
 
     it('can get non-network assets paged', async () => {
-      await getAndCheck(false, 376);
+      await getAndCheck(false, 7);
     });
 
     it('can get all assets paged', async () => {
-      await getAndCheck(undefined, 1490);
+      await getAndCheck(undefined, 252);
     });
 
     async function getAndCheck(withIP, expectedCount) {
-      const results = await helper.getAssetsPaged(siteId, items => {
+      const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
+      const results = await helper.getAssetsPaged(siteId, cutOff, items => {
         return items;
       }, withIP);
 

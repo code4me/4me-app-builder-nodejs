@@ -91,7 +91,7 @@ describe.skip('integration tests', () => {
   });
 
   it('can start export', async () => {
-    const exportId = await helper.startExport(siteId1);
+    const exportId = await helper.startExport(siteId1, new LansweeperIntegration().assetSeenCutOffDate());
 
     expect(exportId).not.toEqual(undefined);
     expect(exportId).not.toEqual('');
@@ -99,14 +99,15 @@ describe.skip('integration tests', () => {
   });
 
   it('can get assets paged', async () => {
-    const results = await helper.getAssetsPaged(siteId1, items => {
+    const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
+    const results = await helper.getAssetsPaged(siteId1, cutOff, items => {
       return items;
     }, true);
 
     console.log('assets:\n%j', results);
     const h = new LansweeperHelper();
     const un = h.extractUserNames(results);
-    expect(results.length).toEqual(46);
+    expect(results.length).toEqual(35);
   });
 
   describe('performance tests', () => {
