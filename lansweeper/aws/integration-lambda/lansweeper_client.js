@@ -40,6 +40,24 @@ class LansweeperClient {
     return this.sites;
   }
 
+  async getAssetTypes(siteId) {
+    const query = `query getAssetTypes($siteId: ID!) {
+      site(id: $siteId) {
+        id
+        assetTypes
+      }
+    }`;
+
+    const result = await this.apiHelper.getGraphQLQuery('asset types',
+                                                        query,
+                                                        {siteId: siteId});
+    if (result.error) {
+      return result;
+    } else {
+      return result.site.assetTypes;
+    }
+  }
+
   async getAssetsPaged(siteId, assetCutOffDate, itemsHandler, withIP) {
     let retrieved = 0;
     let results = [];

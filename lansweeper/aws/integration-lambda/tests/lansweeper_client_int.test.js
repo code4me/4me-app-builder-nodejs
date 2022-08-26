@@ -90,6 +90,12 @@ describe.skip('integration tests', () => {
     expect(response).toEqual([siteId2, siteId1]);
   });
 
+  it('can get asset types', async () => {
+    const response = await helper.getAssetTypes(siteId1);
+
+    expect(response).toEqual(['Windows']);
+  });
+
   it('can start export', async () => {
     const exportId = await helper.startExport(siteId1, new LansweeperIntegration().assetSeenCutOffDate());
 
