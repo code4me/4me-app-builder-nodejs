@@ -58,6 +58,40 @@ class LansweeperClient {
     }
   }
 
+  async getAllInstallations(siteId) {
+    // the 'id' returned for each installation can be used to filter assets based on their 'installKey' field.
+    const query = `query getAssetTypes($siteId: ID!) {
+      site(id: $siteId) {
+        allInstallations {
+          id
+          siteId
+          name
+          fqdn
+          description
+          unlinkedOn
+          unlinkedBy
+          linkStatus
+          installationDate
+          type
+          totalAssets
+          syncServerStatus
+          lastAvailable
+          version
+          syncServer
+        }
+      }
+    }`;
+
+    const result = await this.apiHelper.getGraphQLQuery('all installations',
+                                                        query,
+                                                        {siteId: siteId});
+    if (result.error) {
+      return result;
+    } else {
+      return result.site.allInstallations;
+    }
+  }
+
   async getAssetsPaged(siteId, assetCutOffDate, itemsHandler, withIP) {
     let retrieved = 0;
     let results = [];

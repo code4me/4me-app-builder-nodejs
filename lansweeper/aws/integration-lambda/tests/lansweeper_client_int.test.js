@@ -96,6 +96,27 @@ describe.skip('integration tests', () => {
     expect(response).toEqual(['Windows']);
   });
 
+  it('can get all installations', async () => {
+    const response = await helper.getAllInstallations(siteId1);
+    console.log('%j', response);
+
+    expect(response.length).toEqual(1);
+    expect(response[0]).toMatchObject(
+      {
+        "description": "JL Master",
+        "fqdn": "jl-master.Lerchnet.lan",
+        "id": "f3f4db23-1be5-4095-b2a9-869ea7c1af10",
+        "installationDate": "2021-08-31T02:42:33.635Z",
+        "linkStatus": "Linked",
+        "name": "JL Master",
+        "siteId": siteId1,
+        "syncServer": null,
+        "syncServerStatus": "Up",
+        "type": "IT",
+      },
+    );
+  });
+
   it('can start export', async () => {
     const exportId = await helper.startExport(siteId1, new LansweeperIntegration().assetSeenCutOffDate());
 
