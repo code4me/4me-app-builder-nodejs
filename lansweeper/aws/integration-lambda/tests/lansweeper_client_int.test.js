@@ -7,6 +7,7 @@ const Timer = require('../timer');
 const ReferencesHelper = require('../references_helper');
 const LansweeperHelper = require('../lansweeper_helper');
 const {loadTestCredentials} = require('../../../../library/helpers/tests/test_credentials_helper');
+const LansweeperApiHelper = require('../lansweeper_api_helper');
 
 describe.skip('integration tests', () => {
   // create a file (ignored by Git) containing your credentials to access 4me's test sites
@@ -26,6 +27,17 @@ describe.skip('integration tests', () => {
   const accessToken = testCredentials.accessToken;
   const js4meHelper = new Js4meHelper(testCredentials.env, testCredentials.account);
   js4meHelper.getToken = async () => accessToken;
+
+  it.skip('get refresh token', async () => {
+    const code = 'abc';
+    const host = 'efdg.execute-api.eu-west-1.amazonaws.com';
+    const path = '/Prod/integration/wdc/xyz';
+    const callbackURL = `https://${host}${path}`;
+    const lansweeperApiHelper = new LansweeperApiHelper(lsCredentials.clientID, lsCredentials.clientSecret, null);
+    const rt =  await lansweeperApiHelper.getRefreshToken(code, callbackURL);
+    console.log(rt);
+    expect(rt).not.toBe(null);
+  });
 
   it('loads software references', async () => {
     const refsHelper = new ReferencesHelper(js4meHelper);
