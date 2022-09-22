@@ -201,7 +201,12 @@ class LansweeperLambdaHandler {
 
   formatSummary(object) {
     const json = JSON.stringify(object, null, 2);
-    return '```\n' + json + '\n```\n';
+    if (json.length > LansweeperLambdaHandler.MAX_SUMMARY_SIZE) {
+      console.error('Sync summary is too large (%s) to store in custom fields.\n%j', json.length, object);
+      return 'Too much data to show! Truncated value:\n```\n' + json.substring(0, LansweeperLambdaHandler.MAX_SUMMARY_SIZE) + '\n```\n';
+    } else {
+      return '```\n' + json + '\n```\n';
+    }
   }
 
   async suspendUnauthorizedInstance(lambda4meContext, config, error) {
@@ -363,5 +368,6 @@ class LansweeperLambdaHandler {
   }
 }
 LansweeperLambdaHandler.SYNC_INTERVAL = parseInt(process.env.SYNC_INTERVAL, 10) || 8;
+LansweeperLambdaHandler.MAX_SUMMARY_SIZE = parseInt(process.env.MAX_SUMMARY_SIZE, 10) || 64000;
 
 module.exports = LansweeperLambdaHandler;
