@@ -20,8 +20,8 @@ describe.skip('integration tests', () => {
   }
   const lsCredentials = credentials.lansweeper;
   const helper = new LansweeperClient(lsCredentials.clientID, lsCredentials.clientSecret, lsCredentials.refreshToken);
-  const siteId1 = '261986fd-78b5-4b69-ad12-a6795492f68d';
-  const siteId2 = 'c4f5026c-e7e1-4b8f-b5e8-2944e4c044bf';
+  const siteId1 = 'a58223c9-a25d-425a-84f0-35b215b003f9';
+  const siteId2 = '261986fd-78b5-4b69-ad12-a6795492f68d';
 
   const testCredentials = credentials['4me'];
   const accessToken = testCredentials.accessToken;
@@ -105,22 +105,55 @@ describe.skip('integration tests', () => {
   it('can get asset types', async () => {
     const response = await helper.getAssetTypes(siteId1);
 
-    expect(response).toEqual(['Windows']);
+    expect(response).toEqual([
+                               "alarm system",
+                               "automotive",
+                               "camera",
+                               "cleaner",
+                               "computer",
+                               "desktop",
+                               "energy",
+                               "esxi server",
+                               "ftp server",
+                               "laptop",
+                               "linux",
+                               "location",
+                               "media system",
+                               "mobile",
+                               "monitor",
+                               "nas",
+                               "network device",
+                               "printer",
+                               "router",
+                               "smart home",
+                               "smart tv",
+                               "smoke",
+                               "surveillance camera",
+                               "switch",
+                               "tablet",
+                               "toy",
+                               "virtual machine",
+                               "vmware guest",
+                               "weather",
+                               "webserver",
+                               "wifi",
+                               "windows"
+                             ]);
   });
 
   it('can get all installations', async () => {
     const response = await helper.getAllInstallations(siteId1);
     console.log('%j', response);
 
-    expect(response.length).toEqual(1);
-    expect(response[0]).toMatchObject(
+    expect(response.length).toEqual(2);
+    expect(response[1]).toMatchObject(
       {
-        "description": "JL Master",
-        "fqdn": "jl-master.Lerchnet.lan",
-        "id": "f3f4db23-1be5-4095-b2a9-869ea7c1af10",
-        "installationDate": "2021-08-31T02:42:33.635Z",
+        "description": "US Based",
+        "fqdn": "",
+        "id": "e3d90a6d-5f9a-4af8-8162-da011bcca979",
+        "installationDate": "2022-09-21T15:32:13.099Z",
         "linkStatus": "Linked",
-        "name": "JL Master",
+        "name": "Widget JLerch",
         "siteId": siteId1,
         "syncServer": null,
         "syncServerStatus": "Up",
@@ -146,7 +179,19 @@ describe.skip('integration tests', () => {
     console.log('assets:\n%j', results);
     const h = new LansweeperHelper();
     const un = h.extractUserNames(results);
-    expect(results.length).toEqual(35);
+    expect(results.length).toEqual(63);
+  });
+
+  it('can get assets paged for single installation', async () => {
+    const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
+    const results = await helper.getAssetsPaged(siteId1, cutOff, items => {
+      return items;
+    }, true, "e3d90a6d-5f9a-4af8-8162-da011bcca979");
+
+    console.log('assets:\n%j', results);
+    const h = new LansweeperHelper();
+    const un = h.extractUserNames(results);
+    expect(results.length).toEqual(26);
   });
 
   describe('performance tests', () => {

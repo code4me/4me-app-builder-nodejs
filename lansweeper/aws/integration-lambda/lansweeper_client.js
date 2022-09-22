@@ -92,11 +92,11 @@ class LansweeperClient {
     }
   }
 
-  async getAssetsPaged(siteId, assetCutOffDate, itemsHandler, withIP) {
+  async getAssetsPaged(siteId, assetCutOffDate, itemsHandler, withIP, installKey) {
     let retrieved = 0;
     let results = [];
 
-    let firstPage = await this.getFirstAssetPage(siteId, assetCutOffDate, withIP);
+    let firstPage = await this.getFirstAssetPage(siteId, assetCutOffDate, withIP, installKey);
     if (firstPage.error) {
       return [firstPage];
     }
@@ -112,7 +112,7 @@ class LansweeperClient {
 
       let next = firstPage.pagination.next;
       while (next && retrieved < total) {
-        let nextPage = await this.getNextAssetPage(siteId, assetCutOffDate, next, withIP);
+        let nextPage = await this.getNextAssetPage(siteId, assetCutOffDate, next, withIP, installKey);
         if (nextPage.error) {
           results = [...results, nextPage];
           break;
@@ -133,16 +133,16 @@ class LansweeperClient {
     return results;
   }
 
-  async getFirstAssetPage(siteId, assetCutOffDate, withIP) {
-    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "FIRST"}, withIP, assetCutOffDate);
+  async getFirstAssetPage(siteId, assetCutOffDate, withIP, installKey) {
+    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "FIRST"}, withIP, assetCutOffDate, installKey);
   }
 
-  async getNextAssetPage(siteId, assetCutOffDate, next, withIP) {
-    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "NEXT", cursor: next}, withIP, assetCutOffDate);
+  async getNextAssetPage(siteId, assetCutOffDate, next, withIP, installKey) {
+    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "NEXT", cursor: next}, withIP, assetCutOffDate, installKey);
   }
 
-  async getAssetPage(siteId, pagination, withIP, assetCutOffDate) {
-    const filters = this.getFilters(withIP, assetCutOffDate);
+  async getAssetPage(siteId, pagination, withIP, assetCutOffDate, installKey) {
+    const filters = this.getFilters(withIP, assetCutOffDate, installKey);
     const fields = LansweeperClient.topLevelFields.split(' ');
 
     LansweeperClient.basicInfoFields
@@ -187,8 +187,8 @@ class LansweeperClient {
     }
   }
 
-  async startExport(siteId, assetCutOffDate) {
-    const filters = this.getFilters(true, assetCutOffDate);
+  async startExport(siteId, assetCutOffDate, installKey) {
+    const filters = this.getFilters(true, assetCutOffDate, installKey);
     const query = `
       mutation export($siteId: ID!) {
         site(id: $siteId) {
@@ -231,10 +231,13 @@ class LansweeperClient {
     }
   }
 
-  getFilters(withIP, assetCutOffDate) {
+  getFilters(withIP, assetCutOffDate, installKey) {
     let conditions = '';
     if (withIP !== undefined) {
       conditions = `{operator: EXISTS, path: "assetBasicInfo.ipAddress", value: "${withIP}"}`;
+    }
+    if (installKey !== undefined) {
+      conditions = `${conditions}\n{operator: EQUAL, path: "installKey", value: "${installKey}"}`;
     }
 
     return `{conjunction: OR, groups: [
