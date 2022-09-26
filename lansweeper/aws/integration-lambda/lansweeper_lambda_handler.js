@@ -368,6 +368,6 @@ class LansweeperLambdaHandler {
   }
 }
 LansweeperLambdaHandler.SYNC_INTERVAL = parseInt(process.env.SYNC_INTERVAL, 10) || 8;
-LansweeperLambdaHandler.MAX_SUMMARY_SIZE = parseInt(process.env.MAX_SUMMARY_SIZE, 10) || 64000;
+LansweeperLambdaHandler.MAX_SUMMARY_SIZE = parseInt(process.env.MAX_SUMMARY_SIZE, 10) || 15000;
 
 module.exports = LansweeperLambdaHandler;

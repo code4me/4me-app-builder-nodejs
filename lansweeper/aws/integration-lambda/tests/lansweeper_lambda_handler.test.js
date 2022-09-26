@@ -366,7 +366,7 @@ describe('summary formatting', () => {
     const handler = new LansweeperLambdaHandler({});
     const largeValue = "x".repeat(LansweeperLambdaHandler.MAX_SUMMARY_SIZE + 10);
     const summary = handler.formatSummary({a: largeValue});
-    expect(summary.length).toBeLessThan(65500);
+    expect(summary.length).toBeLessThan(15500);
     expect(summary.substring(0, 44)).toEqual("Too much data to show! Truncated value:\n```\n");
     expect(summary.substring(summary.length - 5)).toEqual("\n```\n");
     expect(summary.substring(44, 54)).toEqual("{\n  \"a\": \"");
