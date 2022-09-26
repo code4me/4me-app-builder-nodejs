@@ -202,7 +202,7 @@ class LansweeperLambdaHandler {
   formatSummary(object) {
     const json = JSON.stringify(object, null, 2);
     if (json.length > LansweeperLambdaHandler.MAX_SUMMARY_SIZE) {
-      console.error('Sync summary is too large (%s) to store in custom fields.\n%j', json.length, object);
+      console.info('Sync summary is too large (%s) to store in custom fields, it will be truncated.', json.length);
       return 'Too much data to show! Truncated value:\n```\n' + json.substring(0, LansweeperLambdaHandler.MAX_SUMMARY_SIZE) + '\n```\n';
     } else {
       return '```\n' + json + '\n```\n';
