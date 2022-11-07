@@ -32,7 +32,7 @@
     "devDependencies": {
         "aws-sam-webpack-plugin": "^0.9.0",
         "jest": "^27.5.1",
-        "nodemon-webpack-plugin": "^4.7.1",
+        "nodemon-webpack-plugin": "^4.8.1",
         "rimraf": "^3.0.2",
         "webpack": "^5.70.0",
         "webpack-cli": "^4.9.2"
