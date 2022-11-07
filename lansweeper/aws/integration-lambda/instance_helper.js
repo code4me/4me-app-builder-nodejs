@@ -31,6 +31,20 @@ class InstanceHelper extends InstanceHelperBase {
     if (importTypeField) {
       result.importType = importTypeField.value;
     }
+    const assetTypesField = customFields.find(i => i.id === 'asset_types');
+    if (assetTypesField) {
+      result.selectedAssetTypes = this.splitMultiValueField(assetTypesField.value);
+    }
+    const installationHandlingField = customFields.find(i => i.id === 'installation_handling');
+    if (installationHandlingField) {
+      result.installationHandling = installationHandlingField.value;
+    }
+    result.installationHandling = result.installationHandling || 'all';
+    const installationsField = customFields.find(i => i.id === 'installations');
+    if (installationsField) {
+      result.installationNames = this.splitMultiValueField(installationsField.value);
+    }
+    result.installationNames = result.installationNames || [];
     const labelGeneratorField = customFields.find(i => i.id === 'label_generator');
     if (labelGeneratorField) {
       result.labelGenerator = labelGeneratorField.value;
@@ -60,6 +74,13 @@ class InstanceHelper extends InstanceHelperBase {
     } else {
       return result.appInstances.nodes.map(node => node.customerAccount.id);
     }
+  }
+
+  splitMultiValueField(value) {
+    return (value || '')
+      .split(/^\s*\*\s+/m)
+      .map(i => i.trim())
+      .filter(i => !!i);
   }
 }
 

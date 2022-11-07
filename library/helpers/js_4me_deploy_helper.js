@@ -347,7 +347,7 @@ class Js4meDeployHelper {
   }
 
   upsertOnSourceIDData(input, source, sourceID, extraProps) {
-    if (source.length > 30) {
+    if (source.length > Js4meHelper.MAX_SOURCE_LENGTH) {
       throw new AppError(`Source field cannot be longer than 30 characters. '${source}' is ${source.length} long.`);
     }
     if (sourceID.length > 128) {

@@ -67,6 +67,8 @@ describe('import_type', () => {
                  clientID: '12345',
                  callbackURL: 'https://lambda.aws.com/lansweeper',
                  connectionStatus: 'pending_authorization',
+                 installationHandling: 'all',
+                 installationNames: [],
                });
   });
 
@@ -132,6 +134,144 @@ describe('import_type', () => {
                  callbackURL: 'https://lambda.aws.com/lansweeper',
                  connectionStatus: 'pending_authorization',
                  importType: 'ip_only',
+                 installationHandling: 'all',
+                 installationNames: [],
+               });
+  });
+});
+
+describe('asset_types', () => {
+  it('can retrieve data from custom fields without asset_types', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
+          {
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 installationHandling: 'all',
+                 installationNames: [],
+               });
+  });
+
+  it('can retrieve data from custom fields with asset_types', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
+          {
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              },
+              {
+                "id": "import_type",
+                "value": "selected_types_only"
+              },
+              {
+                "id": "asset_types",
+                "value": " * Windows\n * VMWare Guest\n"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 importType: 'selected_types_only',
+                 selectedAssetTypes: ['Windows', 'VMWare Guest'],
+                 installationHandling: 'all',
+                 installationNames: [],
                });
   });
 });
@@ -199,6 +339,8 @@ describe('label_generator', () => {
                  callbackURL: 'https://lambda.aws.com/lansweeper',
                  connectionStatus: 'pending_authorization',
                  importType: 'ip_only',
+                 installationHandling: 'all',
+                 installationNames: [],
                });
   });
 
@@ -269,6 +411,237 @@ describe('label_generator', () => {
                  connectionStatus: 'pending_authorization',
                  importType: 'ip_only',
                  labelGenerator: 'lansweeper_asset_name',
+                 installationHandling: 'all',
+                 installationNames: [],
+               });
+  });
+});
+
+describe('installation_handling', () => {
+  it('can retrieve data from custom fields without installation_handling', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
+          {
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              },
+              {
+                "id": "import_type",
+                "value": "ip_only"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 importType: 'ip_only',
+                 installationHandling: 'all',
+                 installationNames: [],
+               });
+  });
+
+  it('can retrieve data from custom fields with installation_handling selected_only', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
+          {
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              },
+              {
+                "id": "import_type",
+                "value": "ip_only"
+              },
+              {
+                "id": "installation_handling",
+                "value": "selected_only"
+              },
+              {
+                "id": "installations",
+                "value": " * abc \n * def\n * x * yx\n * kl * gf"
+              },
+              {
+                "id": "label_generator",
+                "value": "lansweeper_asset_name"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 importType: 'ip_only',
+                 labelGenerator: 'lansweeper_asset_name',
+                 installationHandling: 'selected_only',
+                 installationNames: ['abc', 'def', 'x * yx', 'kl * gf'],
+               });
+  });
+
+  it('can retrieve data from custom fields with installation_handling all', async () => {
+    const graphQLResult = {
+      appInstances: {
+        nodes: [
+          {
+            id: 'tadsasd',
+            appOffering: {
+              id: 'app-off-id',
+            },
+            suspended: false,
+            customFields: [
+              {
+                "id": "client_id",
+                "value": "12345"
+              },
+              {
+                "id": "client_secret",
+                "value": "***"
+              },
+              {
+                "id": "callback_url",
+                "value": "https://lambda.aws.com/lansweeper"
+              },
+              {
+                "id": "connection_status",
+                "value": "pending_authorization"
+              },
+              {
+                "id": "import_type",
+                "value": "ip_only"
+              },
+              {
+                "id": "installation_handling",
+                "value": "all"
+              },
+              {
+                "id": "installationNames",
+                "value": ""
+              },
+              {
+                "id": "label_generator",
+                "value": "lansweeper_asset_name"
+              }
+            ]
+          }
+        ]
+      }
+    };
+
+    Js4meHelper.mockImplementation(() => {
+      return {
+        getGraphQLQuery: async (descr, token, query, vars) => {
+          expect(token).toBe(accessToken);
+          expect(vars).toEqual(
+            {
+              customerAccount: customerAccount,
+              reference: offeringReference,
+            }
+          );
+          return graphQLResult;
+        },
+      };
+    });
+    const js4meHelper = new Js4meHelper();
+
+    expect(await instanceHelper.retrieveInstance(js4meHelper, accessToken, offeringReference, customerAccount))
+      .toEqual({
+                 instanceId: 'tadsasd',
+                 appOfferingId: 'app-off-id',
+                 suspended: false,
+                 clientID: '12345',
+                 callbackURL: 'https://lambda.aws.com/lansweeper',
+                 connectionStatus: 'pending_authorization',
+                 importType: 'ip_only',
+                 labelGenerator: 'lansweeper_asset_name',
+                 installationHandling: 'all',
+                 installationNames: [],
                });
   });
 });

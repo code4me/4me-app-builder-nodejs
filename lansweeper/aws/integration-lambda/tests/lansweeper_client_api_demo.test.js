@@ -21,7 +21,7 @@ it('create input from demo', async () => {
     myNewArray = [...myNewArray, allAssets.slice(i, i + chunk)];
   }
   console.log(myNewArray.length);
-  const input = new DiscoveryMutationHelper(referenceData).toDiscoveryUploadInput(myNewArray[0]);
+  const input = new DiscoveryMutationHelper(referenceData, false, []).toDiscoveryUploadInput('a', myNewArray[0]);
   console.log('%j', input)
 });
 

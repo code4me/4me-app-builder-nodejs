@@ -28,6 +28,8 @@ describe('processSite', () => {
         }
       }`;
 
+  const installations = [{id: 1, name: 'a'}, {id: 3, name: 'b'}];
+
   beforeEach(() => {
     TimeHelper.mockImplementation(() => ({
       getMsSinceEpoch: () => new Date(2021, 7, 30, 10, 0, 0).getTime(),
@@ -82,7 +84,7 @@ describe('processSite', () => {
       expect(referenceData).toBe(refData);
       expect(generateLabels).toBe(true);
       return {
-        toDiscoveryUploadInput: (assets) => {
+        toDiscoveryUploadInput: (installation, assets) => {
           expect(assets).toEqual(filteredAssets);
           return discoveryUploadInput;
         },
@@ -108,7 +110,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId, true, true);
+    const result = await integration.processSite(siteId, true, true, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length * 2;
     expect(result).toEqual({uploadCount: uploadCount});
   });
@@ -160,7 +162,7 @@ describe('processSite', () => {
     DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels) => {
       expect(generateLabels).toBe(false);
       return ({
-        toDiscoveryUploadInput: (assets) => {
+        toDiscoveryUploadInput: (installation, assets) => {
           const recentAssets = integration.removeAssetsNotSeenRecently(assetArray);
           expect(assets).toEqual(recentAssets);
           expect(assets).not.toEqual(assetArray);
@@ -187,7 +189,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId);
+    const result = await integration.processSite(siteId, false, false, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length;
     expect(result).toEqual({errors: ['Unable to upload'], uploadCount: uploadCount});
   });
@@ -243,7 +245,7 @@ describe('processSite', () => {
     };
 
     DiscoveryMutationHelper.mockImplementation(() => ({
-      toDiscoveryUploadInput: (assets) => {
+      toDiscoveryUploadInput: (installation, assets) => {
         expect(assets).toEqual(assetArray);
         return discoveryUploadInput;
       },
@@ -267,7 +269,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId, undefined);
+    const result = await integration.processSite(siteId, undefined, false, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length * 2;
     expect(result).toEqual({errors: ['unable to create ci1'], uploadCount: uploadCount});
   });
@@ -285,7 +287,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   null);
 
-    await expect(integration.processSites(true))
+    await expect(integration.processSites(true, null, false, (_) => true, []))
       .rejects
       .toThrow(error);
   });
@@ -306,7 +308,7 @@ describe('processSite', () => {
     };
 
     DiscoveryMutationHelper.mockImplementation(() => ({
-      toDiscoveryUploadInput: (assets) => {
+      toDiscoveryUploadInput: (installation, assets) => {
         const recentAssets = integration.removeAssetsNotSeenRecently(assetArray);
         expect(assets).toEqual(recentAssets);
         expect(assets).not.toEqual(assetArray);
@@ -331,7 +333,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    await expect(integration.processSite(siteId))
+    await expect(integration.processSite(siteId, undefined, false, installations[0], installations, null))
       .rejects
       .toThrow(error);
   });
@@ -349,8 +351,203 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   null);
 
-    const result = await integration.processSites(true);
+    const result = await integration.processSites(true, null, false, (_) => true, []);
     expect(result).toEqual({error: error.message});
+  });
+
+  it('handles lansweeper error when retrieving installations for one site', async () => {
+    const allInstallationNames = ['a for b', 'b for b', 'd for c'];
+    const extraInstallationNames = ['e', 'a for c', 'b for b'];
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteIds: async () => ['a', 'b', 'c'],
+      getAllInstallationNames: async () => allInstallationNames,
+      getAllInstallations: async (siteId) => {
+        if (siteId === 'a') {
+          return {error: 'No installations for site a'};
+        } else {
+          return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+        }
+      },
+      getSiteName: async (id) => {
+        return `site ${id}`;
+      },
+      getAssetsPaged: async (id, cutOffDate, handler, networkedAssetsOnly, installationKey) => {
+        expect(id).toBe('b');
+        const installation = installations.find(i => i.id === installationKey);
+        expect(installation).not.toBeUndefined();
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        return [...result1];
+      },
+    }));
+
+    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
+    expect(filteredAssets).not.toEqual(assetArray);
+
+    const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
+
+    const mutationResult = {
+      configurationItems: null,
+      asyncQuery: {resultUrl: 'https://s3/results.json'}
+    };
+    const graphQLResult = {
+      configurationItems: [
+        {id: 'nodeID 1', sourceID: 'sourceID 1'},
+        {id: 'nodeID 2', sourceID: 'sourceID 2'},
+      ]
+    };
+    const customerAccessToken = {access_token: 'foo.bar'};
+    const mockedJs4meHelper = {
+      getToken: jest.fn(async () => customerAccessToken),
+      executeGraphQLMutation: jest.fn(async (descr, token, query, vars) => {
+        expect(token).toBe(customerAccessToken);
+        expect(query.trim()).toEqual(discoveryUploadQuery.trim());
+        expect(vars).toEqual({input: discoveryUploadInput});
+        return mutationResult;
+      }),
+      getAsyncMutationResult: jest.fn(async (descr, result, maxWait) => {
+        expect(result).toEqual(mutationResult);
+        expect(maxWait).toEqual(300000);
+        return graphQLResult;
+      }),
+    };
+    const refData = {refDat: true};
+    ReferencesHelper.mockImplementationOnce((js4meHelper) => {
+      expect(js4meHelper).toBe(mockedJs4meHelper);
+      return {
+        lookup4meReferences: async (assets) => {
+          expect(assets).toEqual(filteredAssets);
+          return refData;
+        },
+        peopleFound: [],
+        peopleNotFound: ['a'],
+      }
+    });
+
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels, installationNames) => {
+      expect(referenceData).toBe(refData);
+      expect(generateLabels).toBe(false);
+      // allInstallationNames + extraInstallations with duplicates removed
+      expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
+      return {
+        toDiscoveryUploadInput: (installation, assets) => {
+          expect(assets).toEqual(filteredAssets);
+          expect(installationNames.indexOf(installation)).not.toEqual(-1);
+          return discoveryUploadInput;
+        },
+      };
+    });
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  mockedJs4meHelper);
+
+    const result = await integration.processSites(true, null, false, (i) => !i.endsWith(' for c'), extraInstallationNames);
+    expect(result).toEqual({
+                             "site a": {error: 'No installations for site a'},
+                             "site b": {'a for b': {'uploadCount': 2}, 'b for b': {'uploadCount': 2}},
+                             "site c": {info: 'No installations in this site matched selection'},
+                           });
+  });
+
+  it('handles lansweeper error when retrieving assets for one site', async () => {
+    const allInstallationNames = ['a for b', 'b for b', 'd for c'];
+    const extraInstallationNames = ['e', 'a for c', 'b for b'];
+    const allAssetTypes = ['Linux', 'Windows', 'iPad'];
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteIds: async () => ['a', 'b', 'c'],
+      getAssetTypes: async (siteId) => {
+        if (siteId === 'a') {
+          return {error: 'No assets for site a'};
+        } else {
+          return allAssetTypes.map(a => a.toLowerCase());
+        }
+      },
+      getAllInstallationNames: async () => allInstallationNames,
+      getAllInstallations: async (siteId) => {
+        expect(siteId).not.toEqual('a');
+        return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+      },
+      getSiteName: async (id) => {
+        return `site ${id}`;
+      },
+      getAssetsPaged: async (id, cutOffDate, handler, networkedAssetsOnly, installationKey, assetTypes) => {
+        expect(assetTypes).toEqual(['ipad', 'linux']);
+        const installation = installations.find(i => i.id === installationKey);
+        expect(installation).not.toBeUndefined();
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        return [...result1];
+      },
+    }));
+
+    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
+    expect(filteredAssets).not.toEqual(assetArray);
+
+    const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
+
+    const mutationResult = {
+      configurationItems: null,
+      asyncQuery: {resultUrl: 'https://s3/results.json'}
+    };
+    const graphQLResult = {
+      configurationItems: [
+        {id: 'nodeID 1', sourceID: 'sourceID 1'},
+        {id: 'nodeID 2', sourceID: 'sourceID 2'},
+      ]
+    };
+    const customerAccessToken = {access_token: 'foo.bar'};
+    const mockedJs4meHelper = {
+      getToken: jest.fn(async () => customerAccessToken),
+      executeGraphQLMutation: jest.fn(async (descr, token, query, vars) => {
+        expect(token).toBe(customerAccessToken);
+        expect(query.trim()).toEqual(discoveryUploadQuery.trim());
+        expect(vars).toEqual({input: discoveryUploadInput});
+        return mutationResult;
+      }),
+      getAsyncMutationResult: jest.fn(async (descr, result, maxWait) => {
+        expect(result).toEqual(mutationResult);
+        expect(maxWait).toEqual(300000);
+        return graphQLResult;
+      }),
+    };
+    const refData = {refDat: true};
+    ReferencesHelper.mockImplementationOnce((js4meHelper) => {
+      expect(js4meHelper).toBe(mockedJs4meHelper);
+      return {
+        lookup4meReferences: async (assets) => {
+          expect(assets).toEqual(filteredAssets);
+          return refData;
+        },
+        peopleFound: [],
+        peopleNotFound: ['a'],
+      }
+    });
+
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels, installationNames) => {
+      expect(referenceData).toBe(refData);
+      expect(generateLabels).toBe(false);
+      // allInstallationNames + extraInstallations with duplicates removed
+      expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
+      return {
+        toDiscoveryUploadInput: (installation, assets) => {
+          expect(assets).toEqual(filteredAssets);
+          expect(installationNames.indexOf(installation)).not.toEqual(-1);
+          return discoveryUploadInput;
+        },
+      };
+    });
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  mockedJs4meHelper);
+
+    const result = await integration.processSites(true, ['ipad', 'linux', 'vmware'], false, (i) => !i.endsWith(' for c'), extraInstallationNames);
+    expect(result).toEqual({
+                             "site a": {error: 'No assets for site a'},
+                             "site b": {'a for b': {'uploadCount': 2}, 'b for b': {'uploadCount': 2}},
+                             "site c": {info: 'No installations in this site matched selection'},
+                           });
   });
 
   it('handles lansweeper error', async () => {
@@ -385,7 +582,7 @@ describe('processSite', () => {
     };
 
     DiscoveryMutationHelper.mockImplementation(() => ({
-      toDiscoveryUploadInput: (assets) => {
+      toDiscoveryUploadInput: (installation, assets) => {
         expect(assets).toEqual(assetArray);
         return discoveryUploadInput;
       },
@@ -409,7 +606,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId);
+    const result = await integration.processSite(siteId, undefined, false, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length;
     expect(result).toEqual({errors: ['Unable to query abc'], uploadCount: uploadCount});
   });

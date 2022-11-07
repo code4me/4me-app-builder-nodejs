@@ -242,7 +242,7 @@ class Js4meHelper {
 
     const pollingHelper = new PollingHelper();
     const getResult = async (timeRemaining) => await this.getAsyncQueryResult(descr, url, timeRemaining);
-    const result = await pollingHelper.poll(Js4meHelper.ASYNC_RETRY_TIMEOUT, maxWait, getResult);
+    const result = await pollingHelper.poll(Js4meHelper.ASYNC_POLL_INTERVAL, maxWait, getResult);
     if (result.error) {
       return result;
     } else {
@@ -292,6 +292,7 @@ class Js4meHelper {
 Js4meHelper.DELIVERY_HEADER = 'X-4me-Delivery';
 Js4meHelper.SYNC_TIMEOUT = parseInt(process.env.SYNC_4ME_TIMEOUT, 10) || 60000;
 Js4meHelper.ASYNC_TIMEOUT = parseInt(process.env.SYNC_4ME_ASYNC_TIMEOUT, 10) || 120000;
-Js4meHelper.ASYNC_RETRY_TIMEOUT = parseInt(process.env.SYNC_4ME_ASYNC_RETRY_TIMEOUT, 10) || 200;
+Js4meHelper.ASYNC_POLL_INTERVAL = parseInt(process.env.SYNC_4ME_ASYNC_POLL_INTERVAL, 10) || 501;
+Js4meHelper.MAX_SOURCE_LENGTH = 30;
 
 module.exports = Js4meHelper;

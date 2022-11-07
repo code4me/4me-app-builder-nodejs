@@ -1,3 +1,19 @@
+#config .select_wrapper {
+  width: 250px;
+}
+
+#config #client_id, #config #client_secret {
+  width: 500px;
+}
+
+#config input.txt {
+  width: 250px;
+}
+
+#config .track input.txt {
+  width: 233px;
+}
+
 code {
   font-family: "Lucida Console", "Courier New", monospace;
 }

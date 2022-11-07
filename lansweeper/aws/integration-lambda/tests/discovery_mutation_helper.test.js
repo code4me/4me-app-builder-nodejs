@@ -9,10 +9,11 @@ const referenceData = {
 };
 
 it('generates object without resolved references', () => {
-  const helper = new DiscoveryMutationHelper(referenceData);
-  const input = helper.toDiscoveryUploadInput(assetArray);
+  const helper = new DiscoveryMutationHelper(referenceData, false, ['a']);
+  const input = helper.toDiscoveryUploadInput('a', assetArray);
 
-  expect(input.source).toEqual('Lansweeper');
+  expect(input.source).toEqual('Lansweeper-a');
+  expect(input.alternativeSources).toEqual(['Lansweeper']);
   expect(input.physicalAssets.length).toEqual(14);
 
   const webserver = input.physicalAssets.find(a => a.name === 'Webserver');
@@ -58,10 +59,11 @@ it('generates object without resolved references', () => {
 });
 
 it('generates labels when requested', () => {
-  const helper = new DiscoveryMutationHelper(referenceData, true);
-  const input = helper.toDiscoveryUploadInput(assetArray);
+  const helper = new DiscoveryMutationHelper(referenceData, true, ['a123456789012345678901234567890']);
+  const input = helper.toDiscoveryUploadInput('a123456789012345678901234567890', assetArray);
 
-  expect(input.source).toEqual('Lansweeper');
+  expect(input.source).toEqual('Lansweeper-a123456789012345678');
+  expect(input.alternativeSources).toEqual(['Lansweeper']);
   expect(input.physicalAssets.length).toEqual(14);
 
   const webserver = input.physicalAssets.find(a => a.name === 'Webserver');
@@ -114,11 +116,12 @@ it('generates object with references', () => {
   // call helper to ensure assetArray is manipulated as expected
   const usernames = new LansweeperHelper().extractUserNames(assetArray);
 
-  const helper = new DiscoveryMutationHelper(referenceData);
-  const input = helper.toDiscoveryUploadInput(assetArray);
+  const helper = new DiscoveryMutationHelper(referenceData, false, ['a', 'b']);
+  const input = helper.toDiscoveryUploadInput('b', assetArray);
   console.log('%j', input);
 
-  expect(input.source).toEqual('Lansweeper');
+  expect(input.source).toEqual('Lansweeper-b');
+  expect(input.alternativeSources).toEqual(['Lansweeper-a', 'Lansweeper']);
   expect(input.referenceStrategies).toEqual({ciUserIds: {strategy: 'APPEND'}});
   expect(input.physicalAssets.length).toEqual(14);
 
@@ -167,10 +170,11 @@ it('generates object with references', () => {
 it('processes assets without IP address', () => {
   const nonIPAssets = require('./assets/non_network_assets.json');
 
-  const helper = new DiscoveryMutationHelper(referenceData);
-  const input = helper.toDiscoveryUploadInput(nonIPAssets);
+  const helper = new DiscoveryMutationHelper(referenceData, false, ['a', 'b']);
+  const input = helper.toDiscoveryUploadInput('a', nonIPAssets);
 
-  expect(input.source).toEqual('Lansweeper');
+  expect(input.source).toEqual('Lansweeper-a');
+  expect(input.alternativeSources).toEqual(['Lansweeper-b', 'Lansweeper']);
   const productCategoryNames = input.physicalAssets.map(pa => pa.name);
   expect(productCategoryNames).not.toContain('Location');
   expect(productCategoryNames).toContain('iPhone',
@@ -191,12 +195,12 @@ it('processes assets without IP address', () => {
 
 describe('check dates', () => {
   it('purchase and warranty date before 1970 are ignored', () => {
-    const helper = new DiscoveryMutationHelper(referenceData);
+    const helper = new DiscoveryMutationHelper(referenceData, false, []);
     const asset = assetArray[0];
     asset.assetCustom.purchaseDate = new Date(Date.parse('1968-01-01'));
     asset.assetCustom.warrantyDate = new Date(Date.parse('1968-12-01'));
 
-    const input = helper.toDiscoveryUploadInput([asset]);
+    const input = helper.toDiscoveryUploadInput('a', [asset]);
 
     const configurationItem = input.physicalAssets[0].products[0].configurationItems[0];
     expect(configurationItem.inUseSince).toEqual(undefined);
@@ -204,12 +208,12 @@ describe('check dates', () => {
   });
 
   it('warranty date before purchase date is ignored', () => {
-    const helper = new DiscoveryMutationHelper(referenceData);
+    const helper = new DiscoveryMutationHelper(referenceData, false, []);
     const asset = assetArray[0];
     asset.assetCustom.purchaseDate = new Date(Date.parse('2021-01-01'));
     asset.assetCustom.warrantyDate = new Date(Date.parse('2020-12-01'));
 
-    const input = helper.toDiscoveryUploadInput([asset]);
+    const input = helper.toDiscoveryUploadInput('sdfsdf', [asset]);
 
     const configurationItem = input.physicalAssets[0].products[0].configurationItems[0];
     expect(configurationItem.inUseSince).toEqual('2021-01-01');
@@ -217,12 +221,12 @@ describe('check dates', () => {
   });
 
   it('warranty date without purchase date is supported', () => {
-    const helper = new DiscoveryMutationHelper(referenceData);
+    const helper = new DiscoveryMutationHelper(referenceData, false, []);
     const asset = assetArray[0];
     asset.assetCustom.purchaseDate = undefined;
     asset.assetCustom.warrantyDate = new Date(Date.parse('2020-12-01'));
 
-    const input = helper.toDiscoveryUploadInput([asset]);
+    const input = helper.toDiscoveryUploadInput('a & b', [asset]);
 
     const configurationItem = input.physicalAssets[0].products[0].configurationItems[0];
     expect(configurationItem.warrantyExpiryDate).toEqual('2020-12-01');

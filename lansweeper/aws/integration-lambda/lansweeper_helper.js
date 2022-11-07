@@ -146,6 +146,17 @@ class LansweeperHelper {
       .replace(/^_?(.+?)_?$/g, '$1')
       .substring(0, 128);
   }
+
+  arrayToRegExValue(values) {
+    return values.map(value => this.regExEscape(value)).join('|');
+  }
+
+  regExEscape(value) {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
+    // to get a single \ in the regex we need to use 4 here
+    // GraphQL escaping requires \\ and then JavaScript literal means times 2
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&');
+  }
 }
 
 LansweeperHelper.USERS_TO_IGNORE = new Set((process.env.USERS_TO_IGNORE || 'Administrator;Guest;DefaultAccount;WDAGUtilityAccount').split(

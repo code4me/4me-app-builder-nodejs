@@ -19,8 +19,9 @@ describe.skip('integration tests', () => {
     return;
   }
   const lsCredentials = credentials.lansweeper;
-  const helper = new LansweeperClient(lsCredentials.clientID, lsCredentials.clientSecret, lsCredentials.refreshToken);
+  const lansweeperClient = new LansweeperClient(lsCredentials.clientID, lsCredentials.clientSecret, lsCredentials.refreshToken);
   const siteId1 = 'a58223c9-a25d-425a-84f0-35b215b003f9';
+  const installId = 'e3d90a6d-5f9a-4af8-8162-da011bcca979';
   const siteId2 = '261986fd-78b5-4b69-ad12-a6795492f68d';
 
   const testCredentials = credentials['4me'];
@@ -97,13 +98,13 @@ describe.skip('integration tests', () => {
   });
 
   it('can get site ids', async () => {
-    const response = await helper.getSiteIds();
+    const response = await lansweeperClient.getSiteIds();
 
     expect(response).toEqual([siteId2, siteId1]);
   });
 
   it('can get asset types', async () => {
-    const response = await helper.getAssetTypes(siteId1);
+    const response = await lansweeperClient.getAssetTypes(siteId1);
 
     expect(response).toEqual([
                                "alarm system",
@@ -141,19 +142,24 @@ describe.skip('integration tests', () => {
                              ]);
   });
 
+  it('can get installation names for all sites', async () => {
+    const names = await lansweeperClient.getAllInstallationNames();
+    expect(names).toEqual(['Widget Amsterdam', 'Tampa JLerch', 'Widget Belgium']);
+  });
+
   it('can get all installations', async () => {
-    const response = await helper.getAllInstallations(siteId1);
+    const response = await lansweeperClient.getAllInstallations(siteId1);
     console.log('%j', response);
 
-    expect(response.length).toEqual(2);
-    expect(response[1]).toMatchObject(
+    expect(response.length).toEqual(3);
+    expect(response.find(i => i.siteId === siteId1 && i.syncServerStatus === 'Up')).toMatchObject(
       {
         "description": "US Based",
         "fqdn": "",
-        "id": "e3d90a6d-5f9a-4af8-8162-da011bcca979",
+        "id": installId,
         "installationDate": "2022-09-21T15:32:13.099Z",
         "linkStatus": "Linked",
-        "name": "Widget JLerch",
+        "name": "Tampa JLerch",
         "siteId": siteId1,
         "syncServer": null,
         "syncServerStatus": "Up",
@@ -163,7 +169,7 @@ describe.skip('integration tests', () => {
   });
 
   it('can start export', async () => {
-    const exportId = await helper.startExport(siteId1, new LansweeperIntegration().assetSeenCutOffDate());
+    const exportId = await lansweeperClient.startExport(siteId1, new LansweeperIntegration().assetSeenCutOffDate());
 
     expect(exportId).not.toEqual(undefined);
     expect(exportId).not.toEqual('');
@@ -172,7 +178,7 @@ describe.skip('integration tests', () => {
 
   it('can get assets paged', async () => {
     const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
-    const results = await helper.getAssetsPaged(siteId1, cutOff, items => {
+    const results = await lansweeperClient.getAssetsPaged(siteId1, cutOff, items => {
       return items;
     }, true);
 
@@ -184,14 +190,36 @@ describe.skip('integration tests', () => {
 
   it('can get assets paged for single installation', async () => {
     const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
-    const results = await helper.getAssetsPaged(siteId1, cutOff, items => {
+    const results = await lansweeperClient.getAssetsPaged(siteId1, cutOff, items => {
       return items;
-    }, true, "e3d90a6d-5f9a-4af8-8162-da011bcca979");
+    }, true, installId);
 
     console.log('assets:\n%j', results);
+    const r = results.filter(a => !a.assetBasicInfo.ipAddress);
+    expect(r.length).toEqual(0);
+
     const h = new LansweeperHelper();
     const un = h.extractUserNames(results);
-    expect(results.length).toEqual(26);
+    expect(results.length).toEqual(27);
+  });
+
+  it('can get assets paged for single installation and limited asset types', async () => {
+    const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
+    const results = await lansweeperClient.getAssetsPaged(siteId1, cutOff, items => {
+      return items;
+    }, true, installId, ['Windows', 'VMware Guest']);
+
+    console.log('assets:\n%j', results);
+    const r = results.filter(a => a.assetBasicInfo.type !== 'Windows' && a.assetBasicInfo.type !== 'VMware Guest');
+    expect(r.length).toEqual(0);
+
+    const allResults = await lansweeperClient.getAssetsPaged(siteId1, cutOff, items => {
+      return items;
+    }, undefined, installId);
+
+    // console.log('all assets:\n%j', allResults);
+    const filteredResults = allResults.filter(a => a.assetBasicInfo.type === 'Windows' || a.assetBasicInfo.type === 'VMware Guest');
+    expect(filteredResults).toEqual(results);
   });
 
   describe('performance tests', () => {

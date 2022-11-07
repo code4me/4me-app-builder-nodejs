@@ -330,6 +330,18 @@ it('handles refresh SQS with importType no_ip_only', async () => {
                                 });
 });
 
+it('handles refresh SQS with importType selected_types_only', async () => {
+  const handlerResult = await checkRefreshEvent(refreshSQSEvent,
+                                                'test-account-sqs',
+                                                {importType: "selected_types_only", selectedAssetTypes: ['My type']},
+                                                undefined);
+
+  expect(handlerResult).toEqual({
+                                  'statusCode': 200,
+                                  'body': "{\"message\":{\"recordCount\":1,\"successCount\":1}}",
+                                });
+});
+
 it('handles refresh SQS with labelGenerator lansweeper_asset_name', async () => {
   const handlerResult = await checkRefreshEvent(refreshSQSEvent,
                                                 'test-account-sqs',
@@ -598,8 +610,13 @@ async function checkRefreshEvent(event, expectedCustomerAccount, extraConfig, ex
     expect(clientSecret).toEqual(customerSecrets.secrets.client_secret);
     expect(refreshToken).toEqual(customerSecrets.refresh_token);
     return {
-      processSites: async (networkedAssetsOnly, generateLabels) => {
+      processSites: async (networkedAssetsOnly, configAssetTypes, generateLabels, installationFilter, extraInstallations) => {
         expect(networkedAssetsOnly).toEqual(expectedNetworkedAssetsOnly);
+        if (config.importType === 'selected_types_only') {
+          expect(configAssetTypes).toEqual(config.selectedAssetTypes.map(a => a.toLowerCase()));
+        } else {
+          expect(configAssetTypes).toEqual(null);
+        }
         expect(generateLabels).toEqual(expectedGenerateLabels);
         return {site1: 1, site2: 0}
       },

@@ -23,7 +23,7 @@ class LansweeperIntegration {
     return true;
   }
 
-  async processSites(networkedAssetsOnly, generateLabels) {
+  async processSites(networkedAssetsOnly, configAssetTypes, generateLabels, installationFilter, extraInstallations) {
     let siteIds;
     try {
       siteIds = await this.lansweeperClient.getSiteIds();
@@ -34,9 +34,47 @@ class LansweeperIntegration {
       throw error;
     }
 
+    const allInstallationNames = await this.lansweeperClient.getAllInstallationNames();
+    if (allInstallationNames.error) {
+      return allInstallationNames;
+    }
+    const installationNames = [...new Set([...allInstallationNames, ...extraInstallations])];
+
     const result = {};
     for (const siteId of siteIds) {
-      const siteResult = await this.processSite(siteId, networkedAssetsOnly, generateLabels);
+      const siteResult = {};
+
+      let assetTypes = null;
+      if (configAssetTypes) {
+        const allAssetTypes = await this.lansweeperClient.getAssetTypes(siteId);
+        if (allAssetTypes.error) {
+          siteResult.error = allAssetTypes.error;
+        } else {
+          assetTypes = configAssetTypes.filter(at => allAssetTypes.indexOf(at) > -1);
+        }
+      }
+
+      if (!siteResult.error) {
+        const installations = await this.lansweeperClient.getAllInstallations(siteId);
+        if (installations.error) {
+          siteResult.error = installations.error;
+        } else {
+          const selectedInstallations = installations.filter(i => installationFilter(i.name));
+          if (selectedInstallations.length === 0) {
+            siteResult.info = 'No installations in this site matched selection';
+          } else {
+            for (const installation of selectedInstallations) {
+              const installationResult = await this.processSite(siteId,
+                                                                networkedAssetsOnly,
+                                                                generateLabels,
+                                                                installation,
+                                                                installationNames,
+                                                                assetTypes);
+              siteResult[installation.name] = installationResult;
+            }
+          }
+        }
+      }
       const siteName = await this.lansweeperClient.getSiteName(siteId);
       result[siteName] = siteResult;
     }
@@ -44,18 +82,19 @@ class LansweeperIntegration {
     return result;
   }
 
-  async processSite(siteId, networkedAssetsOnly, generateLabels) {
+  async processSite(siteId, networkedAssetsOnly, generateLabels, installation, installationNames, assetTypes) {
     const siteName = await this.lansweeperClient.getSiteName(siteId);
-    console.log(`processing site ${siteName}. NetworkedAssetsOnly: ${networkedAssetsOnly}.${generateLabels ? ' Using asset name as label.' : ''}`);
-    const itemsHandler = async items => await this.sendAssetsTo4me(items, networkedAssetsOnly, generateLabels);
-    const sendResults = await this.lansweeperClient.getAssetsPaged(siteId, this.assetSeenCutOffDate(), itemsHandler, networkedAssetsOnly);
+    const installationName = installation.name;
+    console.log(`processing site ${siteName}, installation ${installationName}. NetworkedAssetsOnly: ${networkedAssetsOnly}.${generateLabels ? ' Using asset name as label.' : ''}`);
+    const itemsHandler = async items => await this.sendAssetsTo4me(items, networkedAssetsOnly, generateLabels, installationName, installationNames);
+    const sendResults = await this.lansweeperClient.getAssetsPaged(siteId, this.assetSeenCutOffDate(), itemsHandler, networkedAssetsOnly, installation.id, assetTypes);
     const jsonResults = await this.downloadResults(sendResults.map(r => r.mutationResult));
     const overallResult = this.reduceResults(sendResults, jsonResults);
 
     return overallResult;
   }
 
-  async sendAssetsTo4me(assets, networkedAssetsOnly = false, generateLabels = false) {
+  async sendAssetsTo4me(assets, networkedAssetsOnly = false, generateLabels = false, installation = null, installations = []) {
     const errors = [];
     const result = {errors: errors, uploadCount: 0};
     if (assets.length !== 0) {
@@ -68,8 +107,8 @@ class LansweeperIntegration {
       if (assetsToProcess.length !== 0) {
         try {
           const referenceData = await this.referenceHelper.lookup4meReferences(assetsToProcess);
-          const discoveryHelper = new DiscoveryMutationHelper(referenceData, generateLabels);
-          const input = discoveryHelper.toDiscoveryUploadInput(assetsToProcess);
+          const discoveryHelper = new DiscoveryMutationHelper(referenceData, generateLabels, installations);
+          const input = discoveryHelper.toDiscoveryUploadInput(installation, assetsToProcess);
           const mutationResult = await this.uploadTo4me(input);
 
           if (mutationResult.error) {

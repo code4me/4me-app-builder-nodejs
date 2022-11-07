@@ -135,7 +135,7 @@ describe('getAsyncMutationResult', () => {
       return {
         poll: jest.fn()
           .mockImplementationOnce(async (interval, maxWait, providerFunction) => {
-            expect(interval).toEqual(Js4meHelper.ASYNC_RETRY_TIMEOUT);
+            expect(interval).toEqual(Js4meHelper.ASYNC_POLL_INTERVAL);
             expect(maxWait).toEqual(19921);
             return await providerFunction(1342);
           })
@@ -165,7 +165,7 @@ describe('getAsyncMutationResult', () => {
       return {
         poll: jest.fn()
           .mockImplementationOnce(async (interval, maxWait, providerFunction) => {
-            expect(interval).toEqual(Js4meHelper.ASYNC_RETRY_TIMEOUT);
+            expect(interval).toEqual(Js4meHelper.ASYNC_POLL_INTERVAL);
             expect(maxWait).toEqual(19925);
             return await providerFunction(1343);
           })

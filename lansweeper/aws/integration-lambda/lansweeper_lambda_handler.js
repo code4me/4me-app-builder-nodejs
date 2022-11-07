@@ -158,19 +158,34 @@ class LansweeperLambdaHandler {
     const clientSecret = customerContext.secrets.secrets.client_secret;
     const refreshToken = customerContext.secrets.refresh_token;
 
+    let assetTypes = null;
     let networkedAssetsOnly = true;
     if (config.importType === 'all') {
       networkedAssetsOnly = undefined;
     } else if (config.importType === 'no_ip_only') {
       networkedAssetsOnly = false;
+    } else if (config.importType === 'selected_types_only') {
+      networkedAssetsOnly = undefined;
+      assetTypes = config.selectedAssetTypes;
+      if (assetTypes) {
+        // Lansweeper asset types are not case sensitive and returned from getAssetTypes in lowercase
+        assetTypes = assetTypes.map(a => a.toLowerCase());
+      }
     }
 
     const generateLabels = config.labelGenerator === 'lansweeper_asset_name';
 
+    let installationFilter;
+    if (config.installationHandling === 'all') {
+      installationFilter = (_) => true;
+    } else {
+      installationFilter = (i) => config.installationNames.indexOf(i) >= 0;
+    }
+
     let resultsPerSite;
     try {
       const integration = new LansweeperIntegration(clientID, clientSecret, refreshToken, customerContext.js4meHelper);
-      resultsPerSite = await integration.processSites(networkedAssetsOnly, generateLabels);
+      resultsPerSite = await integration.processSites(networkedAssetsOnly, assetTypes, generateLabels, installationFilter, config.installationNames);
     } catch (error) {
       if (error instanceof LansweeperAuthorizationError) {
         return await this.suspendUnauthorizedInstance(lambda4meContext, config, error);

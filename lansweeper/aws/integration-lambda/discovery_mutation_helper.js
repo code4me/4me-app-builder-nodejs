@@ -3,21 +3,25 @@
 const LansweeperHelper = require('./lansweeper_helper');
 const TimeHelper = require('../../../library/helpers/time_helper');
 const LoggedError = require('../../../library/helpers/errors/logged_error');
+const Js4meHelper = require('../../../library/helpers/js_4me_helper');
 
 class DiscoveryMutationHelper {
-  constructor(referenceData, generateLabels) {
+  constructor(referenceData, generateLabels, installations) {
     this.referenceData = referenceData;
     this.generateLabels = generateLabels;
+    this.installations = installations;
     this.lansweeperHelper = new LansweeperHelper();
     this.timeHelper = new TimeHelper();
     this.categories = [];
   }
 
-  toDiscoveryUploadInput(assets) {
+  toDiscoveryUploadInput(installationName, assets) {
     assets.forEach(a => this.addCi(a));
 
+    const otherSources = this.installations.filter(i => i !== installationName).map(this.sourceForInstallation);
     return {
-      source: 'Lansweeper',
+      source: this.sourceForInstallation(installationName),
+      alternativeSources: otherSources.concat('Lansweeper'),
       referenceStrategies: {
         ciUserIds: {strategy: 'APPEND'},
       },
@@ -187,6 +191,10 @@ class DiscoveryMutationHelper {
     if (category.products.indexOf(product) === -1) {
       category.products.push(product);
     }
+  }
+
+  sourceForInstallation(installation) {
+    return `Lansweeper-${installation}`.substring(0, Js4meHelper.MAX_SOURCE_LENGTH);
   }
 }
 
