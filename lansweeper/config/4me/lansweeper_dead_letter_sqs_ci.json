@@ -1,0 +1,6 @@
+{
+  "name": "Lansweeper dead-letter SQS",
+  "label": "sqs-lansweeper-dead-letter",
+  "remarks": "Queue to hold messages that could not be processed",
+  "status": "being_tested"
+}

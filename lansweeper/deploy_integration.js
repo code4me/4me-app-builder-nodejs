@@ -79,6 +79,7 @@ class DeployIntegration {
                                                                                  account,
                                                                                  offeringReference);
     result.refreshQueueArn = result.stacksOutput['RefreshQueueArn'];
+    result.deadLetterQueueArn = result.stacksOutput['DeadLetterQueueArn'];
     return result;
   }
 
@@ -125,6 +126,7 @@ class DeployIntegration {
                   lambdaArn,
                   lambdaUrl,
                   refreshQueueArn,
+                  deadLetterQueueArn,
                   account,
                   domain) {
     const lambdaProduct = await this.findLambdaProduct();
@@ -155,6 +157,20 @@ class DeployIntegration {
                                                   });
 
     const sqsProduct = await this.findSqsProduct();
+    await this.syncConfigurationItem('lansweeper_dead_letter_sqs_ci',
+                                     {
+                                       productId: sqsProduct.id,
+                                       serviceId: serviceInstance.service.id,
+                                       serviceInstanceIds: [serviceInstance.id],
+                                       location: location,
+                                       systemID: deadLetterQueueArn,
+                                       customFields: [
+                                         {
+                                           id: 'cloudformation_stack',
+                                           value: stackName,
+                                         },
+                                       ],
+                                     });
     await this.syncConfigurationItem('lansweeper_sqs_ci',
                                                   {
                                                     productId: sqsProduct.id,
@@ -198,7 +214,7 @@ module.exports = DeployIntegration;
   const clientConfig = await new AwsConfigHelper(profile).getClientConfig();
   await deployIntegration.logInto4meUsingAwsClientConfig(clientConfig, domain, account);
 
-  const {lambdaUrl, lambdaArn, s3Bucket, refreshQueueArn} = await deployIntegration.deployLambda(clientConfig,
+  const {lambdaUrl, lambdaArn, s3Bucket, refreshQueueArn, deadLetterQueueArn} = await deployIntegration.deployLambda(clientConfig,
                                                                                                  profile,
                                                                                                  domain,
                                                                                                  account);
@@ -208,6 +224,7 @@ module.exports = DeployIntegration;
                                     lambdaArn,
                                     lambdaUrl,
                                     refreshQueueArn,
+                                    deadLetterQueueArn,
                                     account,
                                     domain);
 })();

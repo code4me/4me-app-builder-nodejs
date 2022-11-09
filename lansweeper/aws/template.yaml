@@ -28,12 +28,23 @@ Globals:
     Runtime: nodejs14.x
 
 Resources:
+  DeadLetterSqsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub "${offeringReferenceParameter}-dead-letter"
+      MessageRetentionPeriod: 604800 # 7 days in seconds
+      KmsMasterKeyId: "alias/aws/sqs"
+      RedriveAllowPolicy:
+        redrivePermission: "allowAll"
   RefreshTriggerSqsQueue:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Sub "${offeringReferenceParameter}-refresh-trigger"
       VisibilityTimeout: 605 # bit longer than function timeout
       KmsMasterKeyId: "alias/aws/sqs"
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt DeadLetterSqsQueue.Arn
+        maxReceiveCount: 3
   IntegrationFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -115,6 +126,12 @@ Outputs:
   IntegrationFunctionIamRole:
     Description: "Implicit IAM Role created for Integration Function"
     Value: !GetAtt IntegrationFunctionRole.Arn
+  DeadLetterQueueUrl:
+    Description: "SQS dead-letter queue URL"
+    Value: !Ref DeadLetterSqsQueue
+  DeadLetterQueueArn:
+    Description: "SQS dead-letter queue ARN"
+    Value: !GetAtt DeadLetterSqsQueue.Arn
   RefreshQueueUrl:
     Description: "SQS queue for refresh URL"
     Value: !Ref RefreshTriggerSqsQueue
