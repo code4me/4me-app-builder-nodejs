@@ -63,6 +63,9 @@ class LansweeperIntegration {
           if (selectedInstallations.length === 0) {
             siteResult.info = 'No installations in this site matched selection';
           } else {
+            if (selectedInstallations.length > 1) {
+              console.log('Will process the following installations: %j', selectedInstallations.map(i => i.name));
+            }
             for (const installation of selectedInstallations) {
               const installationResult = await this.processSite(siteId,
                                                                 networkedAssetsOnly,
