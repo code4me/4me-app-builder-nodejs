@@ -152,7 +152,7 @@ class LansweeperClient {
         }
 
         total = nextPage.total;
-        if (nextPage.items) {
+        if (nextPage.items && nextPage.items.length > 0) {
           retrieved += nextPage.items.length;
           console.log(`retrieved first ${retrieved} of ${total}`);
 

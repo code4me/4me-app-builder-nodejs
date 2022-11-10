@@ -7,12 +7,14 @@ const TimeHelper = require('../../../library/helpers/time_helper');
 const LoggedError = require('../../../library/helpers/errors/logged_error');
 const Js4meAuthorizationError = require('../../../library/helpers/errors/js_4me_authorization_error');
 const LansweeperGraphQLError = require('./errors/lansweeper_graphql_error');
+const ResultHelper = require('../../../library/helpers/result_helper');
 
 class LansweeperIntegration {
   constructor(clientId, clientSecret, refreshToken, customer4meHelper) {
     this.lansweeperClient = new LansweeperClient(clientId, clientSecret, refreshToken);
     this.customer4meHelper = customer4meHelper;
     this.referenceHelper = new ReferenceHelper(customer4meHelper);
+    this.resultHelper = new ResultHelper();
   }
 
   async validateCredentials() {
@@ -40,28 +42,29 @@ class LansweeperIntegration {
     }
     const installationNames = [...new Set([...allInstallationNames, ...extraInstallations])];
 
-    const result = {};
+    const result = {uploadCounts: {}, info: {}, errors: {}};
     for (const siteId of siteIds) {
-      const siteResult = {};
+      const siteName = await this.lansweeperClient.getSiteName(siteId);
+      let siteError = null;
 
       let assetTypes = null;
       if (configAssetTypes) {
         const allAssetTypes = await this.lansweeperClient.getAssetTypes(siteId);
         if (allAssetTypes.error) {
-          siteResult.error = allAssetTypes.error;
+          siteError = allAssetTypes.error;
         } else {
           assetTypes = configAssetTypes.filter(at => allAssetTypes.indexOf(at) > -1);
         }
       }
 
-      if (!siteResult.error) {
+      if (!siteError) {
         const installations = await this.lansweeperClient.getAllInstallations(siteId);
         if (installations.error) {
-          siteResult.error = installations.error;
+          siteError = installations.error;
         } else {
           const selectedInstallations = installations.filter(i => installationFilter(i.name));
           if (selectedInstallations.length === 0) {
-            siteResult.info = 'No installations in this site matched selection';
+            result.info[siteName] = 'No installations in this site matched selection';
           } else {
             if (selectedInstallations.length > 1) {
               console.log('Will process the following installations: %j', selectedInstallations.map(i => i.name));
@@ -73,16 +76,24 @@ class LansweeperIntegration {
                                                                 installation,
                                                                 installationNames,
                                                                 assetTypes);
-              siteResult[installation.name] = installationResult;
+              result.uploadCounts[siteName] = result.uploadCounts[siteName] || {};
+              result.uploadCounts[siteName][installation.name] = installationResult.uploadCount;
+              if (installationResult.errors) {
+                result.errors[siteName] = result.errors[siteName] || {};
+                result.errors[siteName][installation.name] = installationResult.errors;
+              }
             }
           }
         }
       }
-      const siteName = await this.lansweeperClient.getSiteName(siteId);
-      result[siteName] = siteResult;
+      if (siteError) {
+        result.errors[siteName] = siteError;
+      }
     }
-    console.log(`User lookup: found ${this.referenceHelper.peopleFound.size} people (not found ${this.referenceHelper.peopleNotFound.length})`);
-    return result;
+    if (this.referenceHelper.peopleFound.size > 0 || this.referenceHelper.peopleNotFound.length > 0) {
+      console.log(`User lookup: found ${this.referenceHelper.peopleFound.size} people (not found ${this.referenceHelper.peopleNotFound.length})`);
+    }
+    return this.resultHelper.cleanupResult(result);
   }
 
   async processSite(siteId, networkedAssetsOnly, generateLabels, installation, installationNames, assetTypes) {
@@ -93,15 +104,15 @@ class LansweeperIntegration {
     const sendResults = await this.lansweeperClient.getAssetsPaged(siteId, this.assetSeenCutOffDate(), itemsHandler, networkedAssetsOnly, installation.id, assetTypes);
     const jsonResults = await this.downloadResults(sendResults.map(r => r.mutationResult));
     const overallResult = this.reduceResults(sendResults, jsonResults);
+    console.log(`processed site ${siteName}, installation ${installationName}. Upload count: ${overallResult.uploadCount}, error count: ${overallResult.errors ? overallResult.errors.length : 0}`);
 
     return overallResult;
   }
 
   async sendAssetsTo4me(assets, networkedAssetsOnly = false, generateLabels = false, installation = null, installations = []) {
     const errors = [];
-    const result = {errors: errors, uploadCount: 0};
+    const result = {uploadCount: 0, errors: errors};
     if (assets.length !== 0) {
-      console.log(`found ${assets.length} assets`);
       let assetsToProcess = this.removeAssetsNotSeenRecently(assets);
       if (networkedAssetsOnly) {
         // Lansweeper bug: empty IP address is returned from API call for discovered monitors
@@ -165,7 +176,6 @@ class LansweeperIntegration {
         .filter(r => !!r)
         .map(async r => jsonResults.set(r, await this.downloadResult(r)));
       await Promise.all(jsonRetrievalCalls);
-      console.log('All asynchronous query results downloaded');
     }
     return jsonResults;
   }
@@ -181,7 +191,7 @@ class LansweeperIntegration {
   }
 
   reduceResults(sendResults, jsonResults) {
-    const overallResult = {errors: [], uploadCount: 0};
+    const overallResult = {uploadCount: 0, errors: []};
     sendResults.forEach(sendResult => {
       if (sendResult.mutationResult) {
         const json = jsonResults.get(sendResult.mutationResult);
@@ -206,10 +216,7 @@ class LansweeperIntegration {
         overallResult.uploadCount = overallResult.uploadCount + sendResult.uploadCount;
       }
     });
-    if (overallResult.errors.length === 0) {
-      delete overallResult.errors;
-    }
-    return overallResult;
+    return this.resultHelper.cleanupResult(overallResult);
   }
 
   mapErrors(errors) {

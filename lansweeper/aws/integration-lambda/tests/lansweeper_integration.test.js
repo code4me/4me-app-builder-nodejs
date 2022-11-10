@@ -444,9 +444,9 @@ describe('processSite', () => {
 
     const result = await integration.processSites(true, null, false, (i) => !i.endsWith(' for c'), extraInstallationNames);
     expect(result).toEqual({
-                             "site a": {error: 'No installations for site a'},
-                             "site b": {'a for b': {'uploadCount': 2}, 'b for b': {'uploadCount': 2}},
-                             "site c": {info: 'No installations in this site matched selection'},
+                             uploadCounts: {'site b': {'a for b': 2, 'b for b': 2}},
+                             info: {'site c': 'No installations in this site matched selection'},
+                             errors: {'site a': 'No installations for site a'},
                            });
   });
 
@@ -544,9 +544,9 @@ describe('processSite', () => {
 
     const result = await integration.processSites(true, ['ipad', 'linux', 'vmware'], false, (i) => !i.endsWith(' for c'), extraInstallationNames);
     expect(result).toEqual({
-                             "site a": {error: 'No assets for site a'},
-                             "site b": {'a for b': {'uploadCount': 2}, 'b for b': {'uploadCount': 2}},
-                             "site c": {info: 'No installations in this site matched selection'},
+                             uploadCounts: {'site b': {'a for b': 2, 'b for b': 2}},
+                             info: {'site c': 'No installations in this site matched selection'},
+                             errors: {'site a': 'No assets for site a'},
                            });
   });
 

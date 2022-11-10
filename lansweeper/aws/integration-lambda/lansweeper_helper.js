@@ -41,9 +41,7 @@ class LansweeperHelper {
         assetUserNames.forEach(u => allUserNames.add(u.toLowerCase()));
       }
     });
-    const userNames = Array.from(allUserNames);
-    console.info(`Found ${userNames.length} user names in ${assets.length} assets`);
-    return userNames;
+    return Array.from(allUserNames);
   }
 
   // only try to extract the last logged on user
