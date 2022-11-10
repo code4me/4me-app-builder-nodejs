@@ -22,7 +22,7 @@ Parameters:
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 600
+    Timeout: 900
     CodeUri: integration-lambda/
     Handler: app.lambdaHandler
     Runtime: nodejs14.x
@@ -40,11 +40,11 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Sub "${offeringReferenceParameter}-refresh-trigger"
-      VisibilityTimeout: 605 # bit longer than function timeout
+      VisibilityTimeout: 905 # bit longer than function timeout
       KmsMasterKeyId: "alias/aws/sqs"
       RedrivePolicy:
         deadLetterTargetArn: !GetAtt DeadLetterSqsQueue.Arn
-        maxReceiveCount: 3
+        maxReceiveCount: 2
   IntegrationFunction:
     Type: AWS::Serverless::Function
     Properties:
