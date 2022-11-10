@@ -81,12 +81,17 @@ class Js4meHelper {
       }
       if (error.response) {
         const response = error.response;
+        if (response.status === 400) {
+          const msg = 'Access token request rejected';
+          console.info(msg);
+          throw new Js4meAuthorizationError(msg);
+        }
         const url = error.config.url;
         console.error(`Error from ${url}. ${response.status}: ${response.statusText}`);
       } else {
         console.error(error);
       }
-      throw new LoggedError(error);
+      throw new Js4meAuthorizationError(error);
     }
   }
 
