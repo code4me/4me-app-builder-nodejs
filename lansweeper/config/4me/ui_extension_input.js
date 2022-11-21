@@ -52,6 +52,7 @@ const multiText = function () {
       this.$tracks.append($add);
       $add.on('click', function () {
         this.renderTrack('');
+        return false; // prevent URL change, needed since this is an `a`
       }.bind(this));
     },
 
