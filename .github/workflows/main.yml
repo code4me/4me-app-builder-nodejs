@@ -17,8 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Configure correct node version # based on .nvmrc
-        uses: dcodeIO/setup-node-nvm@master
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14.18.3
 
       - name: Get npm cache directory
         id: npm-cache-dir
