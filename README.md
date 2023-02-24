@@ -133,7 +133,7 @@ customers have the opportunity to update the app to the latest version in the 4m
 
 When the customer no longer wishes to use the integration they can disable or remove the app via the 4me App Store.
 
-<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/topology.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/topology.png"/></a>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/main/images/topology.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/main/images/topology.png"/></a>
 
 ### Secrets Webhook
 
@@ -367,7 +367,7 @@ Next to that it provides helpers that can be used by the actual integrations:
 
 The [bootstrap usage section](#bootstrap) describes how to run the bootstrap script.
 
-<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/framework-bootstrap-js.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/framework-bootstrap-js.png"/></a>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/main/images/framework-bootstrap-js.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/main/images/framework-bootstrap-js.png"/></a>
 
 **Step 1** Gathering user input
 
@@ -611,7 +611,7 @@ This example explains the use of the [app webhook and automation rules](#app-web
 
 Make sure to understand the [bootstrap.js](#bootstrapjs) script as that is a prerequisite for this example.
 
-<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/framework-note-dispatcher.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/framework-note-dispatcher.png"/></a>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/main/images/framework-note-dispatcher.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/main/images/framework-note-dispatcher.png"/></a>
 
 #### Note-Dispatcher Deploy Script
 
@@ -704,7 +704,7 @@ This example explains the use of the [scopes and 4me application token](#scopes-
 
 Make sure to understand the [bootstrap.js](#bootstrapjs) script as that is a prerequisite for this example.
 
-<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/master/images/framework-typeform.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/master/images/framework-typeform.png"/></a>
+<a href="https://github.com/code4me/4me-app-builder-nodejs/raw/main/images/framework-typeform.pdf"><img src="https://raw.githubusercontent.com/code4me/4me-app-builder-nodejs/main/images/framework-typeform.png"/></a>
 
 #### Typeform Preparation
 
