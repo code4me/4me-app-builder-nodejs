@@ -19,7 +19,7 @@ class Js4meDeployHelper {
         reference
         uiExtensionVersion { id uiExtension { id } }
         automationRules(first: 100) {
-          nodes { id name }
+          nodes { id name generic }
         }
       }`;
   }
@@ -303,13 +303,12 @@ class Js4meDeployHelper {
     return await js4meHelper.deleteRecord(accessToken, 'app_offering_automation_rules', ruleId);
   }
 
-  async syncOfferingAutomationRules(js4meHelper,
-                                    accessToken,
-                                    existingRules,
-                                    offeringRuleInputs,
-                                    offeringAutomationRuleMutationResponseFields = 'appOfferingAutomationRule { id name }') {
+  async syncOfferingAutomationRuleGroup(js4meHelper,
+                                        accessToken,
+                                        currentRules,
+                                        offeringRuleInputs,
+                                        offeringAutomationRuleMutationResponseFields) {
     const results = [];
-    const currentRules = existingRules || [];
     for (let i = 0; i < currentRules.length; i++) {
       const ruleId = currentRules[i].id;
       if (i < offeringRuleInputs.length) {
@@ -342,6 +341,49 @@ class Js4meDeployHelper {
       } else {
         results.push(createResult);
       }
+    }
+    return results;
+  }
+
+  groupOfferingAutomationRules(existingRules, offeringRuleInputs) {
+    const groups = {};
+    const currentRules = existingRules || [];
+    for (let i = 0; i < currentRules.length; i++) {
+      const currentRule = currentRules[i];
+      const generic = currentRule.generic;
+      if (!groups[generic]) {
+        groups[generic] = [[], []];
+      }
+      groups[generic][0].push(currentRule);
+    }
+    const newRules = offeringRuleInputs || [];
+    for (let i = 0; i < newRules.length; i++) {
+      const newRule = newRules[i];
+      const generic = newRule.generic;
+      if (!groups[generic]) {
+        groups[generic] = [[], []];
+      }
+      groups[generic][1].push(newRule);
+    }
+    return groups;
+  }
+
+  async syncOfferingAutomationRules(js4meHelper,
+                                    accessToken,
+                                    existingRules,
+                                    offeringRuleInputs,
+                                    offeringAutomationRuleMutationResponseFields = 'appOfferingAutomationRule { id name }') {
+    const groupedByGeneric = this.groupOfferingAutomationRules(existingRules, offeringRuleInputs);
+    let results = [];
+    const keys = Object.keys(groupedByGeneric);
+    for (const key of keys) {
+      const group = groupedByGeneric[key];
+      const groupResults = await this.syncOfferingAutomationRuleGroup(js4meHelper,
+                                                                      accessToken,
+                                                                      group[0],
+                                                                      group[1],
+                                                                      offeringAutomationRuleMutationResponseFields);
+      results = results.concat(groupResults);
     }
     return results;
   }
