@@ -25,7 +25,7 @@ describe('grouping automation rules by record type', () => {
     ];
     const grouped = jsHelper.groupOfferingAutomationRules(existingRules, inputRules);
     expect(Object.keys(grouped)).toEqual(['request']);
-    expect(grouped['request']).toEqual([existingRules, inputRules]);
+    expect(grouped['request']).toEqual([existingRules, [null, null, ...inputRules]]);
   });
 
   test('rules with different generic value', () => {
@@ -50,7 +50,7 @@ describe('grouping automation rules by record type', () => {
     ];
     const grouped = jsHelper.groupOfferingAutomationRules(existingRules, inputRules);
     expect(Object.keys(grouped)).toEqual(['request', 'task']);
-    expect(grouped['request']).toEqual([existingRules, []]);
+    expect(grouped['request']).toEqual([existingRules, [null, null]]);
     expect(grouped['task']).toEqual([[], inputRules]);
   });
 
@@ -66,7 +66,6 @@ describe('grouping automation rules by record type', () => {
     expect(Object.keys(grouped)).toEqual(['task']);
     expect(grouped['task']).toEqual([[], inputRules]);
   });
-
 
   test('remove all current rules', () => {
     const jsHelper = new Js4meDeployHelper();
@@ -84,7 +83,42 @@ describe('grouping automation rules by record type', () => {
     ];
     const grouped = jsHelper.groupOfferingAutomationRules(existingRules, null);
     expect(Object.keys(grouped)).toEqual(['request']);
-    expect(grouped['request']).toEqual([existingRules, []]);
+    expect(grouped['request']).toEqual([existingRules, [null, null]]);
+  });
+
+  test('mixed rules remove first', () => {
+    const jsHelper = new Js4meDeployHelper();
+    const existingRules = [
+      {
+        "id": "abc",
+        "name": "Trigger webhook for each note added",
+        "generic": "request"
+      },
+      {
+        "id": "xyz",
+        "name": "Trigger webhook for each note added updated",
+        "generic": "request"
+      },
+      {
+        "id": "def",
+        "name": "Trigger webhook for status changed",
+        "generic": "task"
+      },
+    ];
+    const inputRules = [
+      {
+        "name": "Trigger webhook for each note added updated",
+        "generic": "request"
+      },
+      {
+        "name": "Trigger webhook for status changed",
+        "generic": "task"
+      },
+    ];
+    const grouped = jsHelper.groupOfferingAutomationRules(existingRules, inputRules);
+    expect(Object.keys(grouped)).toEqual(['request', 'task']);
+    expect(grouped['request']).toEqual([[existingRules[0], existingRules[1]], [null, inputRules[0]]]);
+    expect(grouped['task']).toEqual([[existingRules[2]], [inputRules[1]]]);
   });
 
   test('mixed rules remove one', () => {
@@ -118,7 +152,7 @@ describe('grouping automation rules by record type', () => {
     ];
     const grouped = jsHelper.groupOfferingAutomationRules(existingRules, inputRules);
     expect(Object.keys(grouped)).toEqual(['request', 'task']);
-    expect(grouped['request']).toEqual([[existingRules[0], existingRules[1]], [inputRules[0]]]);
+    expect(grouped['request']).toEqual([[existingRules[0], existingRules[1]], [inputRules[0], null]]);
     expect(grouped['task']).toEqual([[existingRules[2]], [inputRules[1]]]);
   });
 
@@ -183,7 +217,7 @@ describe('grouping automation rules by record type', () => {
     ];
     const grouped = jsHelper.groupOfferingAutomationRules(existingRules, inputRules);
     expect(Object.keys(grouped)).toEqual(['request', 'task']);
-    expect(grouped['request']).toEqual([[existingRules[0], existingRules[1]], []]);
+    expect(grouped['request']).toEqual([[existingRules[0], existingRules[1]], [null, null]]);
     expect(grouped['task']).toEqual([[existingRules[2]], [inputRules[0]]]);
   });
 
@@ -206,7 +240,7 @@ describe('grouping automation rules by record type', () => {
     ];
     const grouped = jsHelper.groupOfferingAutomationRules(existingRules, inputRules);
     expect(Object.keys(grouped)).toEqual(['undefined']);
-    expect(grouped['undefined']).toEqual([[existingRules[0], existingRules[1]], [inputRules[0]]]);
+    expect(grouped['undefined']).toEqual([[existingRules[0], existingRules[1]], [null, null, inputRules[0]]]);
   });
 
   test('no rules', () => {

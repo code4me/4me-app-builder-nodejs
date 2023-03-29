@@ -311,7 +311,7 @@ class Js4meDeployHelper {
     const results = [];
     for (let i = 0; i < currentRules.length; i++) {
       const ruleId = currentRules[i].id;
-      if (i < offeringRuleInputs.length) {
+      if (i < offeringRuleInputs.length && offeringRuleInputs[i]) {
         const newRule = offeringRuleInputs[i];
         const upsertResult = await this.upsertOfferingAutomationRule(js4meHelper,
                                                                      accessToken,
@@ -355,6 +355,7 @@ class Js4meDeployHelper {
         groups[generic] = [[], []];
       }
       groups[generic][0].push(currentRule);
+      groups[generic][1].push(null);
     }
     const newRules = offeringRuleInputs || [];
     for (let i = 0; i < newRules.length; i++) {
@@ -363,7 +364,13 @@ class Js4meDeployHelper {
       if (!groups[generic]) {
         groups[generic] = [[], []];
       }
-      groups[generic][1].push(newRule);
+      const currentRules = groups[generic][0];
+      const currentRuleIndex = currentRules.findIndex(r => r.name === newRule.name);
+      if (currentRuleIndex >= 0) {
+        groups[generic][1][currentRuleIndex] = newRule;
+      } else {
+        groups[generic][1].push(newRule);
+      }
     }
     return groups;
   }
