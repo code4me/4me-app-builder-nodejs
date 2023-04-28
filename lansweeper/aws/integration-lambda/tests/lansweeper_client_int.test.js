@@ -151,7 +151,7 @@ describe.skip('integration tests', () => {
     const response = await lansweeperClient.getAllInstallations(siteId1);
     console.log('%j', response);
 
-    expect(response.length).toEqual(3);
+    expect(response.length).toEqual(2);
     expect(response.find(i => i.siteId === siteId1 && i.syncServerStatus === 'Up')).toMatchObject(
       {
         "description": "US Based",
@@ -161,7 +161,7 @@ describe.skip('integration tests', () => {
         "linkStatus": "Linked",
         "name": "Tampa JLerch",
         "siteId": siteId1,
-        "syncServer": null,
+        "syncServer": "jl-master",
         "syncServerStatus": "Up",
         "type": "IT",
       },

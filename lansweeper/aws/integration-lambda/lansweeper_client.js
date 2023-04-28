@@ -90,7 +90,7 @@ class LansweeperClient {
       return this.installationsBySiteId.get(siteId);
     }
 
-    // the 'id' returned for each installation can be used to filter assets based on their 'installKey' field.
+    // the 'id' returned for each installation can be used to filter assets based on their 'installationId' field.
     const query = `query getInstallations($siteId: ID!) {
       site(id: $siteId) {
         allInstallations {
@@ -125,11 +125,11 @@ class LansweeperClient {
     }
   }
 
-  async getAssetsPaged(siteId, assetCutOffDate, itemsHandler, withIP, installKey, assetTypes) {
+  async getAssetsPaged(siteId, assetCutOffDate, itemsHandler, withIP, installationId, assetTypes) {
     let retrieved = 0;
     let results = [];
 
-    let firstPage = await this.getFirstAssetPage(siteId, assetCutOffDate, withIP, installKey, assetTypes);
+    let firstPage = await this.getFirstAssetPage(siteId, assetCutOffDate, withIP, installationId, assetTypes);
     if (firstPage.error) {
       return [firstPage];
     }
@@ -145,7 +145,7 @@ class LansweeperClient {
 
       let next = firstPage.pagination.next;
       while (next && retrieved < total) {
-        let nextPage = await this.getNextAssetPage(siteId, assetCutOffDate, next, withIP, installKey, assetTypes);
+        let nextPage = await this.getNextAssetPage(siteId, assetCutOffDate, next, withIP, installationId, assetTypes);
         if (nextPage.error) {
           results = [...results, nextPage];
           break;
@@ -166,16 +166,16 @@ class LansweeperClient {
     return results;
   }
 
-  async getFirstAssetPage(siteId, assetCutOffDate, withIP, installKey, assetTypes) {
-    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "FIRST"}, withIP, assetCutOffDate, installKey, assetTypes);
+  async getFirstAssetPage(siteId, assetCutOffDate, withIP, installationId, assetTypes) {
+    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "FIRST"}, withIP, assetCutOffDate, installationId, assetTypes);
   }
 
-  async getNextAssetPage(siteId, assetCutOffDate, next, withIP, installKey, assetTypes) {
-    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "NEXT", cursor: next}, withIP, assetCutOffDate, installKey, assetTypes);
+  async getNextAssetPage(siteId, assetCutOffDate, next, withIP, installationId, assetTypes) {
+    return await this.getAssetPage(siteId, {limit: LansweeperClient.pageSize, page: "NEXT", cursor: next}, withIP, assetCutOffDate, installationId, assetTypes);
   }
 
-  async getAssetPage(siteId, pagination, withIP, assetCutOffDate, installKey, assetTypes) {
-    const filters = this.getFilters(withIP, assetCutOffDate, installKey, assetTypes);
+  async getAssetPage(siteId, pagination, withIP, assetCutOffDate, installationId, assetTypes) {
+    const filters = this.getFilters(withIP, assetCutOffDate, installationId, assetTypes);
     const fields = LansweeperClient.topLevelFields.split(' ');
 
     LansweeperClient.basicInfoFields
@@ -220,8 +220,8 @@ class LansweeperClient {
     }
   }
 
-  async startExport(siteId, assetCutOffDate, installKey) {
-    const filters = this.getFilters(true, assetCutOffDate, installKey);
+  async startExport(siteId, assetCutOffDate, installationId) {
+    const filters = this.getFilters(true, assetCutOffDate, installationId);
     const query = `
       mutation export($siteId: ID!) {
         site(id: $siteId) {
@@ -264,7 +264,7 @@ class LansweeperClient {
     }
   }
 
-  getFilters(withIP, assetCutOffDate, installKey, assetTypes = null) {
+  getFilters(withIP, assetCutOffDate, installationId, assetTypes = null) {
     let conditions = '';
 
     if (assetTypes) {
@@ -276,8 +276,9 @@ class LansweeperClient {
       }
     }
 
-    if (installKey !== undefined) {
-      conditions = `${conditions}\n{operator: EQUAL, path: "installKey", value: "${installKey}"}`;
+    if (installationId !== undefined) {
+      // Here using the `installationId` in path results in an error response
+      conditions = `${conditions}\n{operator: EQUAL, path: "installKey", value: "${installationId}"}`;
     }
 
     return `{conjunction: OR, groups: [
