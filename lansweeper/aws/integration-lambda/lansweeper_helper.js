@@ -49,10 +49,10 @@ class LansweeperHelper {
     let emailUserCount = 0;
     assets.filter(a => !!a.assetBasicInfo.userName && a.users)
       .forEach(a => {
-        const username = a.assetBasicInfo.userName;
-        const user = a.users.find(u => u.name === username && !!u.email);
+        const username = a.assetBasicInfo.userName.toLowerCase();
+        const user = a.users.find(u => u.name && u.name.toLowerCase() === username && !!u.email);
         if (user) {
-          a.assetBasicInfo.userName = user.email;
+          a.assetBasicInfo.userName = user.email.toLowerCase();
           emailUserCount++;
         }
       });

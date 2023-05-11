@@ -251,16 +251,16 @@ describe('extractUsers', () => {
     expect(users).toEqual([]);
   });
 
-  it('extracts unique values', () => {
+  it('extracts unique values converted to lowercase', () => {
     const users = helper.extractUserNames(assetArray);
 
-    expect(users).toEqual(['jest', 'fred@4me.com', 'jest-test@4me.com']);
-
     const asset1 = assetArray.find(a => a._id === '612d9774aa105e2808be2db0');
-    expect(asset1.allUsers).toEqual(['fred@4me.com', 'jest-test@4me.com']);
+    expect(asset1.allUsers).toEqual(['fred@4me.com', 'jest-Test@4me.com']);
 
     const asset2 = assetArray.find(a => a._id === '612d977daa105e2808be8d77');
     expect(asset2.allUsers).toEqual(['jest', 'Fred@4me.com']);
+
+    expect(users).toEqual(['jest', 'fred@4me.com', 'jest-test@4me.com']);
   });
 });
 
