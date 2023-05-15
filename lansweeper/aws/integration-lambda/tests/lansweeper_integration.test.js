@@ -450,6 +450,119 @@ describe('processSite', () => {
                            });
   });
 
+  it('handles no matching asset types for one site', async () => {
+    const allInstallationNames = ['a for b', 'b for b', 'd for c'];
+    const extraInstallationNames = ['e', 'a for c', 'b for b'];
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteIds: async () => ['a', 'b', 'c'],
+      getAssetTypes: async (siteId) =>{
+        if (siteId === 'a') {
+          return ['ipad', 'Kassa'];
+        } else {
+          return [... new Set(assetArray.map(a => a.assetBasicInfo.type))];
+        }
+      },
+      getAllInstallationNames: async () => allInstallationNames,
+      getAllInstallations: async (siteId) => {
+        return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+      },
+      getSiteName: async (id) => {
+        return `site ${id}`;
+      },
+      getAssetsPaged: async (id, cutOffDate, handler, networkedAssetsOnly, installationKey) => {
+        expect(id).toBe('b');
+        const installation = installations.find(i => i.id === installationKey);
+        expect(installation).not.toBeUndefined();
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        return [...result1];
+      },
+    }));
+
+    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
+    expect(filteredAssets).not.toEqual(assetArray);
+
+    const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
+
+    const mutationResult = {
+      configurationItems: null,
+      asyncQuery: {resultUrl: 'https://s3/results.json'}
+    };
+    const graphQLResult = {
+      configurationItems: [
+        {id: 'nodeID 1', sourceID: 'sourceID 1'},
+        {id: 'nodeID 2', sourceID: 'sourceID 2'},
+      ]
+    };
+    const customerAccessToken = {access_token: 'foo.bar'};
+    const mockedJs4meHelper = {
+      getToken: jest.fn(async () => customerAccessToken),
+      executeGraphQLMutation: jest.fn(async (descr, token, query, vars) => {
+        expect(token).toBe(customerAccessToken);
+        expect(query.trim()).toEqual(discoveryUploadQuery.trim());
+        expect(vars).toEqual({input: discoveryUploadInput});
+        return mutationResult;
+      }),
+      getAsyncMutationResult: jest.fn(async (descr, result, maxWait) => {
+        expect(result).toEqual(mutationResult);
+        expect(maxWait).toEqual(300000);
+        return graphQLResult;
+      }),
+    };
+    const refData = {refDat: true};
+    ReferencesHelper.mockImplementationOnce((js4meHelper) => {
+      expect(js4meHelper).toBe(mockedJs4meHelper);
+      return {
+        lookup4meReferences: async (assets) => {
+          expect(assets).toEqual(filteredAssets);
+          return refData;
+        },
+        peopleFound: [],
+        peopleNotFound: ['a'],
+      }
+    });
+
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels, installationNames) => {
+      expect(referenceData).toBe(refData);
+      expect(generateLabels).toBe(false);
+      // allInstallationNames + extraInstallations with duplicates removed
+      expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
+      return {
+        toDiscoveryUploadInput: (installation, assets) => {
+          expect(assets).toEqual(filteredAssets);
+          expect(installationNames.indexOf(installation)).not.toEqual(-1);
+          return discoveryUploadInput;
+        },
+      };
+    });
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  mockedJs4meHelper);
+
+    const result = await integration.processSites(true, ['VMware Guest', 'bla'], false, (i) => !i.endsWith(' for c'), extraInstallationNames);
+    expect(result).toEqual({
+                             uploadCounts: {'site b': {'a for b': 2, 'b for b': 2}},
+                             info: {'site c': 'No installations in this site matched selection'},
+                             errors: {'site a': 'No assets matched selected asset types. Available types: ipad; Kassa'},
+                           });
+  });
+
+  it('finds matching configured asset types case insensitive', async () => {
+    LansweeperClient.mockImplementationOnce(() => ({
+      getAssetTypes: async (siteId) =>{
+        return ['bla', 'iPad', 'lInux'];
+      },
+    }));
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  null);
+    const result = await integration.getSelectedAssetTypes('a', ['ipad', 'LINUX', 'Windows', 'Bla']);
+    expect(result).toEqual(['ipad', 'linux', 'bla']);
+  });
+
   it('handles lansweeper error when retrieving assets for one site', async () => {
     const allInstallationNames = ['a for b', 'b for b', 'd for c'];
     const extraInstallationNames = ['e', 'a for c', 'b for b'];

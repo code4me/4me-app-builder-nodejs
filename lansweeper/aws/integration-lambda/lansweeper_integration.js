@@ -49,11 +49,11 @@ class LansweeperIntegration {
 
       let assetTypes = null;
       if (configAssetTypes) {
-        const allAssetTypes = await this.lansweeperClient.getAssetTypes(siteId);
+        const allAssetTypes = await this.getSelectedAssetTypes(siteId, configAssetTypes);
         if (allAssetTypes.error) {
           siteError = allAssetTypes.error;
         } else {
-          assetTypes = configAssetTypes.filter(at => allAssetTypes.indexOf(at) > -1);
+          assetTypes = allAssetTypes;
         }
       }
 
@@ -236,6 +236,28 @@ class LansweeperIntegration {
     } else {
       return result;
     }
+  }
+
+  async getSelectedAssetTypes(siteId, configAssetTypes) {
+    let allAssetTypes = await this.lansweeperClient.getAssetTypes(siteId);
+    if (allAssetTypes.error) {
+      return allAssetTypes;
+    } else {
+      const allLower = allAssetTypes.map(t => t.toLowerCase());
+      const configLower = configAssetTypes.map(t => t.toLowerCase());
+      const assetTypes = configLower.filter(at => allLower.includes(at));
+      if (assetTypes.length === 0) {
+        const typesStr = allAssetTypes.join('; ');
+        allAssetTypes = {error: `No assets matched selected asset types. Available types: ${typesStr}`};
+      } else {
+        if (assetTypes.length !== configAssetTypes.length) {
+          const missing = configLower.filter(at => !allLower.includes(at));
+          console.warn('Not all asset types configured found. Found: %j. Missing: %j', assetTypes, missing);
+        }
+        allAssetTypes = assetTypes;
+      }
+    }
+    return allAssetTypes;
   }
 }
 
