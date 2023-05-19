@@ -168,7 +168,7 @@ class LansweeperLambdaHandler {
       networkedAssetsOnly = undefined;
       assetTypes = config.selectedAssetTypes;
       if (assetTypes) {
-        // Lansweeper asset types are not case sensitive and returned from getAssetTypes in lowercase
+        // Lansweeper asset types are not case sensitive
         assetTypes = assetTypes.map(a => a.toLowerCase());
       }
     }
