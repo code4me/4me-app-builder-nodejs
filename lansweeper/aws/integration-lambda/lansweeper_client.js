@@ -278,7 +278,7 @@ class LansweeperClient {
 
     if (installationId !== undefined) {
       // Here using the `installationId` in path results in an error response
-      conditions = `${conditions}\n{operator: EQUAL, path: "installKey", value: "${installationId}"}`;
+      conditions = `${conditions}\n{operator: EQUAL, path: "installationId", value: "${installationId}"}`;
     }
 
     return `{conjunction: OR, groups: [
