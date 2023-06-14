@@ -2,7 +2,7 @@
 
 const axios = require('axios');
 const crypto = require('crypto');
-const {default: jwtVerify} = require('jose/jwt/verify')
+const {jwtVerify} = require('jose')
 const PollingHelper = require('./polling_helper');
 const LoggedError = require('./errors/logged_error');
 const Js4meAuthorizationError = require('./errors/js_4me_authorization_error');
