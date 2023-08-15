@@ -71,13 +71,12 @@ class LansweeperClient {
     const result = new Map();
     for (const site of (await this.getSites())) {
       const siteId = site.id;
-      const allForSite = await this.getAllInstallations(siteId);
+      let allForSite = await this.getAllInstallations(siteId);
       if (allForSite.error) {
         console.error(`Error querying installations for ${site.name}/${siteId}`);
-        return allForSite;
-      } else {
-        result.set(siteId, allForSite);
+        allForSite = [];
       }
+      result.set(siteId, allForSite);
     }
     return result;
   }
@@ -116,13 +115,12 @@ class LansweeperClient {
     const result = await this.apiHelper.getGraphQLQuery('all installations',
                                                         query,
                                                         {siteId: siteId});
-    if (result.error) {
-      return result;
-    } else {
-      const allForSite = result.site.allInstallations;
-      this.installationsBySiteId.set(siteId, allForSite);
-      return allForSite;
+    let allForSite = result;
+    if (!result.error) {
+      allForSite = result.site.allInstallations;
     }
+    this.installationsBySiteId.set(siteId, allForSite);
+    return allForSite;
   }
 
   async getAssetsPaged(siteId, assetCutOffDate, itemsHandler, withIP, installationId, assetTypes) {

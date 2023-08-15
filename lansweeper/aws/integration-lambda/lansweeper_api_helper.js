@@ -128,7 +128,7 @@ class LansweeperApiHelper {
       const errors = responseBody.errors;
       if (errors) {
         console.log("Errors from GraphQL call:\n%j", errors);
-        return { error: `Unable to query ${descr}` };
+        return { error: `Unable to query ${descr}: ${JSON.stringify(errors)}` };
       } else {
         return responseBody.data;
       }
@@ -137,8 +137,8 @@ class LansweeperApiHelper {
         const lecResponse = error.response;
         if (lecResponse.data && lecResponse.data.errors) {
           const errors = lecResponse.data.errors;
-          console.error("Errors from GraphQL call:\n%j", errors);
-          return { error: `Unable to query ${descr}` };
+          console.error("Exception from GraphQL call:\n%j", errors);
+          return { error: `Unable to query ${descr}: ${JSON.stringify(errors)}` };
         } else {
           const url = error.config.url;
           console.error(`Error from ${url}. ${lecResponse.status}: ${lecResponse.statusText}`);
