@@ -221,6 +221,7 @@ class Js4meHelper {
       const s3Response = await axios.get(url, {timeout: maxWait});
       const responseBody = s3Response.data;
       if (!responseBody) {
+        // no content yet, retry
         return null;
       }
 
@@ -232,7 +233,10 @@ class Js4meHelper {
         return responseBody.data;
       }
     } catch (error) {
-      if (error.response) {
+      if (error.code === 'ECONNABORTED') {
+        // timeout occurred, retry
+        return null;
+      } else if (error.response) {
         const response = error.response;
         console.error(`Error from ${url}. ${response.status}: ${response.statusText}`);
       } else {

@@ -39,6 +39,24 @@ describe('getAsyncQueryResult', () => {
       .toEqual(response.data.data);
   });
 
+  test('GET of empty file', async () => {
+    const response = {
+      status: 200,
+      data: '',
+    };
+
+    const expectedUrl = 'https://my_test.com/results.json';
+    axios.get.mockImplementationOnce(async (url, config) => {
+      expect(url).toBe(expectedUrl);
+      expect(config).toEqual({timeout: 2002});
+      return response;
+    });
+
+    const jsHelper = new Js4meHelper();
+    expect(await jsHelper.getAsyncQueryResult('test query', expectedUrl, 2002))
+      .toEqual(null);
+  });
+
   test('GET of result with errors', async () => {
     const response = {
       status: 200,
@@ -92,7 +110,6 @@ describe('getAsyncQueryResult', () => {
       .toEqual(response.data.data);
   });
 
-
   test('GET denied', async () => {
     const expectedUrl = 'https://my_test.com/results.json';
     axios.get.mockImplementationOnce(async (url, config) => {
@@ -107,6 +124,21 @@ describe('getAsyncQueryResult', () => {
     await expect(async () => await jsHelper.getAsyncQueryResult('test query', expectedUrl, 2003))
       .rejects
       .toThrow('Error on test query: Request failed with status 403');
+  });
+
+  test('GET timeout', async () => {
+    const expectedUrl = 'https://my_test.com/results.json';
+    axios.get.mockImplementationOnce(async (url, config) => {
+      expect(url).toBe(expectedUrl);
+      expect(config).toEqual({timeout: 1006});
+      const error = new Error('timeout of 1006ms exceeded');
+      error.code = 'ECONNABORTED';
+      throw error;
+    });
+
+    const jsHelper = new Js4meHelper();
+    expect(await jsHelper.getAsyncQueryResult('test query', expectedUrl, 1006))
+      .toEqual(null);
   });
 });
 
