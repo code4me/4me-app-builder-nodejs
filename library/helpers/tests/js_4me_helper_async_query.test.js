@@ -208,4 +208,22 @@ describe('getAsyncMutationResult', () => {
     const result = await jsHelper.getAsyncMutationResult('retrieve mutation result call', mutationResult, 19925);
     expect(result).toEqual({error: 'Unable to query retrieve mutation result call'});
   });
+
+  it('adds result URL to error on timeout', async () => {
+    const mutationResult = {asyncQuery: {resultUrl: 'https://my_test_uri/results'}};
+    PollingHelper.mockImplementationOnce(() => {
+      return {
+        poll: jest.fn()
+          .mockImplementationOnce(async (interval, maxWait, providerFunction) => {
+            expect(interval).toEqual(Js4meHelper.ASYNC_POLL_INTERVAL);
+            expect(maxWait).toEqual(301020);
+            return {error: `No result available after 301022ms`};
+          })
+      }
+    });
+
+    const jsHelper = new Js4meHelper();
+    const result = await jsHelper.getAsyncMutationResult('retrieve mutation result call', mutationResult, 301020);
+    expect(result).toEqual({error: "No result available after 301022ms; https://my_test_uri/results"});
+  });
 });

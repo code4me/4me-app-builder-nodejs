@@ -21,6 +21,7 @@ class PollingHelper {
         timeRemaining = maxWait - this.timeHelper.getMsSince(pollStart);
       }
     }
+    // ensure message is in sync with check in Js4meHelper.getAsyncMutationResult()
     return {error: `No result available after ${this.timeHelper.getMsSince(pollStart)}ms`};
   }
 }
