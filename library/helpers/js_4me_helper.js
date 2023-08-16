@@ -253,6 +253,10 @@ class Js4meHelper {
     const getResult = async (timeRemaining) => await this.getAsyncQueryResult(descr, url, timeRemaining);
     const result = await pollingHelper.poll(Js4meHelper.ASYNC_POLL_INTERVAL, maxWait, getResult);
     if (result.error) {
+      // error message from polling_helper.js on timeout
+      if (result.error.startsWith && result.error.startsWith('No result available after ')) {
+        result.error = result.error + `; ${url}`
+      }
       return result;
     } else {
       return this.getFirstProperty(result);
