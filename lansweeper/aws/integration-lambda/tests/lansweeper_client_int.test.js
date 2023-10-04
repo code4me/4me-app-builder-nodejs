@@ -144,7 +144,7 @@ describe.skip('integration tests', () => {
 
   it('can get installation names for all sites', async () => {
     const names = await lansweeperClient.getAllInstallationNames();
-    expect(names).toEqual(['Widget Amsterdam', 'Tampa JLerch', 'Widget Belgium']);
+    expect(names).toEqual(['Tampa JLerch', 'Widget Belgian HQ']);
   });
 
   it('can get all installations', async () => {
@@ -152,7 +152,7 @@ describe.skip('integration tests', () => {
     console.log('%j', response);
 
     expect(response.length).toEqual(2);
-    expect(response.find(i => i.siteId === siteId1 && i.syncServerStatus === 'Up')).toMatchObject(
+    expect(response.find(i => i.siteId === siteId1 && i.syncServerStatus === 'Down')).toMatchObject(
       {
         "description": "US Based",
         "fqdn": "",
@@ -162,7 +162,7 @@ describe.skip('integration tests', () => {
         "name": "Tampa JLerch",
         "siteId": siteId1,
         "syncServer": "jl-master",
-        "syncServerStatus": "Up",
+        "syncServerStatus": "Down",
         "type": "IT",
       },
     );
@@ -185,7 +185,7 @@ describe.skip('integration tests', () => {
     console.log('assets:\n%j', results);
     const h = new LansweeperHelper();
     const un = h.extractUserNames(results);
-    expect(results.length).toEqual(63);
+    expect(results.length).toEqual(55);
   });
 
   it('can get assets paged for single installation', async () => {
