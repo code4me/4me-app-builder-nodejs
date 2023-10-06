@@ -62,7 +62,7 @@ describe('lookup4meReferences', () => {
         .mockImplementationOnce(async (descr, token, query, vars) => {
           expect(token).toBe(customerAccessToken);
           expect(query.trim()).toEqual(findPeopleQuery.trim());
-          expect(vars).toEqual({names: ['jest', 'fred@4me.com', 'jest-test@4me.com']});
+          expect(vars).toEqual({names: ['jeste', 'jest', 'fred@4me.com', 'jest-test@4me.com']});
           return peopleQueryResult;
         }),
     };
@@ -72,6 +72,18 @@ describe('lookup4meReferences', () => {
 
     expect(helper.softwareFound).toBe(result.softwareCis);
     expect(helper.peopleFound).toBe(result.users);
+    expect(helper.allOperatingSystems).toEqual([
+                                                 "Microsoft Windows 11 Home",
+                                                 "Microsoft Windows Server 2012 R2 Standard",
+                                                 "Linux 16.04",
+                                                 "Linux 18.04",
+                                                 "Microsoft Windows Server 2019 Standard Evaluation",
+                                                 "Linux 20.04",
+                                               ]);
+    expect(helper.osEndOfSupports)
+      .toEqual(new Map()
+                 .set('Microsoft Windows Server 2012 R2 Standard', '2023-10-10T16:00:00.000Z')
+      );
     expect(Object.fromEntries(result.softwareCis)).toEqual({
                                                              "Google Chrome": "ciNode2",
                                                              "Microsoft Visual C++ 2010 x86 Redistributable": "ciNode1",
@@ -83,10 +95,14 @@ describe('lookup4meReferences', () => {
     expect(mockedJs4meHelper.getGraphQLQuery).toHaveBeenCalledTimes(1);
 
     // no new calls on new lookup
+    const previousOSs = [...helper.allOperatingSystems];
+    const previousOsEndOfSupport = new Map([...helper.osEndOfSupports]);
     const result2 = await helper.lookup4meReferences(assetArray);
     expect(result2).toEqual(result);
     expect(mockedJs4meHelper.reducePagedGraphQLQuery).toHaveBeenCalledTimes(1);
     expect(mockedJs4meHelper.getGraphQLQuery).toHaveBeenCalledTimes(1);
+    expect(helper.allOperatingSystems).toEqual(previousOSs);
+    expect(helper.osEndOfSupports).toEqual(previousOsEndOfSupport);
   });
 });
 

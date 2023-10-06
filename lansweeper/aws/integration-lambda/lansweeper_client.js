@@ -188,6 +188,10 @@ class LansweeperClient {
       .split(' ')
       .forEach(field => fields.push(`operatingSystem.${field}`));
 
+    LansweeperClient.osMetadataFields
+      .split(' ')
+      .forEach(field => fields.push(`recognitionInfo.osMetadata.${field}`));
+
     LansweeperClient.usersFields
       .split(' ')
       .forEach(field => fields.push(`users.${field}`));
@@ -195,6 +199,14 @@ class LansweeperClient {
     LansweeperClient.softwaresFields
       .split(' ')
       .forEach(field => fields.push(`softwares.${field}`));
+
+    LansweeperClient.memoryModulesFields
+      .split(' ')
+      .forEach(field => fields.push(`memoryModules.${field}`));
+
+    LansweeperClient.processorFields
+      .split(' ')
+      .forEach(field => fields.push(`processors.${field}`));
 
     const query = `query getAssetResources($siteId: ID!, $pagination: AssetsPaginationInputValidated, $fields: [String!]!) {
       site(id: $siteId) {
@@ -229,6 +241,9 @@ class LansweeperClient {
             operatingSystem {${LansweeperClient.operatingSystemFields}}
             users {${LansweeperClient.usersFields}}
             softwares {${LansweeperClient.softwaresFields}}
+            processors {${LansweeperClient.processorFields}}
+            memoryModules {${LansweeperClient.memoryModulesFields}}
+            recognitionInfo {osMetadata {${LansweeperClient.osMetadataFields}} }
             ${LansweeperClient.topLevelFields}
             exportId
           }
@@ -298,6 +313,9 @@ LansweeperClient.basicInfoFields = 'name type description ipAddress firstSeen la
 LansweeperClient.assetCustomFields = 'model manufacturer stateName purchaseDate warrantyDate serialNumber sku';
 LansweeperClient.usersFields = 'name email fullName';
 LansweeperClient.softwaresFields = 'name';
-LansweeperClient.operatingSystemFields = 'caption';
+LansweeperClient.operatingSystemFields = 'caption version';
+LansweeperClient.osMetadataFields = 'name version endOfSupportDate';
+LansweeperClient.processorFields = 'numberOfCores';
+LansweeperClient.memoryModulesFields = 'size';
 
 module.exports = LansweeperClient;

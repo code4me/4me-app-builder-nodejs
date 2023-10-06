@@ -14,7 +14,7 @@ it('generates object without resolved references', () => {
 
   expect(input.source).toEqual('Lansweeper-a');
   expect(input.alternativeSources).toEqual(['Lansweeper']);
-  expect(input.physicalAssets.length).toEqual(14);
+  expect(input.physicalAssets.length).toEqual(15);
 
   const webserver = input.physicalAssets.find(a => a.name === 'Webserver');
   expect(webserver.meta).toEqual({strategy: 'CREATE'});
@@ -56,6 +56,14 @@ it('generates object without resolved references', () => {
   expect(ci2.status).toEqual('in_production');
   expect(ci2.inUseSince).toEqual('2016-05-23');
   expect(ci2.warrantyExpiryDate).toEqual('2019-05-24');
+
+  const windows = input.physicalAssets.find(a => a.name === 'Windows');
+  const hpEnvyProduct = windows.products.find(p => p.name === 'Hewlett-Packard HP ENVY All-in-One Desktop 34-c1xxx 6Y0L4EA#UUG Windows');
+  const hpEnvy = hpEnvyProduct.configurationItems.find(i => i.serialNr === '9DD3381N7L');
+  expect(hpEnvy.ramAmount).toEqual(32);
+  expect(hpEnvy.nrOfProcessors).toEqual(1);
+  expect(hpEnvy.nrOfCores).toEqual(12);
+  expect(hpEnvy.lastSeenAt).toEqual('2023-10-03T13:59:56.060Z');
 });
 
 it('generates labels when requested', () => {
@@ -64,7 +72,7 @@ it('generates labels when requested', () => {
 
   expect(input.source).toEqual('Lansweeper-a123456789012345678');
   expect(input.alternativeSources).toEqual(['Lansweeper']);
-  expect(input.physicalAssets.length).toEqual(14);
+  expect(input.physicalAssets.length).toEqual(15);
 
   const webserver = input.physicalAssets.find(a => a.name === 'Webserver');
   expect(webserver.meta).toEqual({strategy: 'CREATE'});
@@ -123,14 +131,14 @@ it('generates object with references', () => {
   expect(input.source).toEqual('Lansweeper-b');
   expect(input.alternativeSources).toEqual(['Lansweeper-a', 'Lansweeper']);
   expect(input.referenceStrategies).toEqual({ciUserIds: {strategy: 'APPEND'}});
-  expect(input.physicalAssets.length).toEqual(14);
+  expect(input.physicalAssets.length).toEqual(15);
 
   const windows = input.physicalAssets.find(a => a.name === 'Windows');
   expect(windows.meta).toEqual({strategy: 'CREATE'});
   expect(windows.reference).toEqual('windows');
-  expect(windows.products.length).toEqual(6);
+  expect(windows.products.length).toEqual(8);
 
-  const winVmWare = windows.products[0];
+  const winVmWare = windows.products[1];
   expect(winVmWare.meta).toEqual({strategy: 'CREATE'});
   expect(winVmWare.name).toEqual('VMware, Inc. VMware Virtual Platform Windows');
   expect(winVmWare.configurationItems.length).toEqual(8);
@@ -138,7 +146,8 @@ it('generates object with references', () => {
   const ciBoth = winVmWare.configurationItems.find(ci => ci.sourceID === 'Mi1Bc3NldC1mM2Y0ZGIyMy0xYmU1LTQwOTUtYjJhOS04NjllYTdjMWFmMTA=');
   expect(ciBoth.name).toEqual('JL-MASTER');
   expect(ciBoth.userIds).toEqual(['nodeID1', 'nodeID3']);
-  expect(ciBoth.ciRelations.childIds).toEqual(['nodeID2', 'nodeID4']);
+  expect(ciBoth.ciRelations.childIds).toEqual(['nodeID2']);
+  expect(ciBoth.operatingSystemId).toEqual('nodeID4')
 
   const ciNeither = winVmWare.configurationItems.find(ci => ci.sourceID === 'NDEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
   expect(ciNeither.name).toEqual('JL-DM-003');
@@ -155,10 +164,11 @@ it('generates object with references', () => {
   expect(ciOnlyUser.userIds).toEqual(['nodeID1']);
   expect(ciOnlyUser.hasOwnProperty('ciRelations')).toBeFalsy();
 
-  const ci2019 = windows.products[5].configurationItems.find(ci => ci.sourceID === 'NjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
+  const ci2019 = windows.products[6].configurationItems.find(ci => ci.sourceID === 'NjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');
   expect(ci2019.name).toEqual('JL-2019');
   expect(ci2019.userIds).toEqual(undefined);
-  expect(ci2019.ciRelations.childIds).toEqual(['nodeID4']);
+  expect(ci2019.ciRelations).toEqual(undefined);
+  expect(ciBoth.operatingSystemId).toEqual('nodeID4')
 
   const vm71prod = windows.products.find(p => p.sourceID === 'vmware_inc_vmware7_1_windows');
   const ciOneUnkownUser = vm71prod.configurationItems.find(ci => ci.sourceID === 'NDQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw');

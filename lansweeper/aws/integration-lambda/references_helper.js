@@ -9,6 +9,8 @@ class ReferencesHelper {
     this.customer4meHelper = customer4meHelper;
 
     this.allSoftware = null;
+    this.allOperatingSystems = [];
+    this.osEndOfSupports = new Map();
     this.softwareFound = new Map();
     this.softwareNotFound = [];
     this.allPeople = null;
@@ -28,6 +30,13 @@ class ReferencesHelper {
   async getSoftwareReferences(accessToken, assets) {
     const softwareNames = this.lansweeperHelper.extractSoftwareNames(assets);
     const osNames = this.lansweeperHelper.extractOperatingSystemNames(assets);
+    this.allOperatingSystems = Array.from(new Set([...this.allOperatingSystems, ...osNames]));
+
+    const endOfSupports = this.lansweeperHelper.extractOperatingSystemEndOfSupport(assets);
+    for (const item of endOfSupports) {
+      this.osEndOfSupports.set(...item);
+    }
+
     const names = new Set([...osNames, ...softwareNames]);
     return await this.getSoftwareNameToIdMap(Array.from(names), accessToken);
   }

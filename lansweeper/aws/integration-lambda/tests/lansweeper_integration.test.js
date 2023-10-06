@@ -12,6 +12,9 @@ jest.mock('../references_helper');
 const DiscoveryMutationHelper = require('../discovery_mutation_helper');
 jest.mock('../discovery_mutation_helper');
 
+const OsCiMutationHelper = require('../os_ci_mutation_helper');
+jest.mock('../os_ci_mutation_helper');
+
 const TimeHelper = require('../../../../library/helpers/time_helper');
 const LansweeperAuthorizationError = require('../errors/lansweeper_authorization_error');
 const Js4meAuthorizationError = require('../../../../library/helpers/errors/js_4me_authorization_error');
@@ -413,15 +416,30 @@ describe('processSite', () => {
     const refData = {refDat: true};
     ReferencesHelper.mockImplementationOnce((js4meHelper) => {
       expect(js4meHelper).toBe(mockedJs4meHelper);
+      const softwareFound =
+        new Map()
+          .set('Winzip', 'xyz')
+          .set('Windows 7', 'def')
+          .set('Windows 11', 'abc')
       return {
         lookup4meReferences: async (assets) => {
           expect(assets).toEqual(filteredAssets);
           return refData;
         },
+        allOperatingSystems: ['Windows 11', 'Windows Server', 'Windows 7'],
+        softwareFound: softwareFound,
+        osEndOfSupports: new Map(),
         peopleFound: [],
         peopleNotFound: ['a'],
       }
     });
+
+    OsCiMutationHelper.mockImplementationOnce((referencesHelpers, js4meHelper) => ({
+      processOSUpdates: async (allOperatingSystems) => {
+        expect(allOperatingSystems).toEqual(['Windows 11', 'Windows Server', 'Windows 7']);
+        return {cisErrored: ['def'], cisUpdated: []};
+      },
+    }));
 
     DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels, installationNames) => {
       expect(referenceData).toBe(refData);
@@ -446,7 +464,9 @@ describe('processSite', () => {
     expect(result).toEqual({
                              uploadCounts: {'site b': {'a for b': 2, 'b for b': 2}},
                              info: {'site c': 'No installations in this site matched selection'},
-                             errors: {'site a': 'No installations for site a'},
+                             errors: {
+                               'operatingSystems': 'Unable to store end-of-support for: def',
+                               'site a': 'No installations for site a'},
                            });
   });
 
@@ -516,6 +536,7 @@ describe('processSite', () => {
           expect(assets).toEqual(filteredAssets);
           return refData;
         },
+        allOperatingSystems: [],
         peopleFound: [],
         peopleNotFound: ['a'],
       }
@@ -631,6 +652,7 @@ describe('processSite', () => {
           expect(assets).toEqual(filteredAssets);
           return refData;
         },
+        allOperatingSystems: [],
         peopleFound: [],
         peopleNotFound: ['a'],
       }
@@ -722,6 +744,135 @@ describe('processSite', () => {
     const result = await integration.processSite(siteId, undefined, false, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length;
     expect(result).toEqual({errors: ['Unable to query abc'], uploadCount: uploadCount});
+  });
+
+  it('updates end of support dates', async () => {
+    const allInstallationNames = ['a for b', 'b for b', 'd for c'];
+    const extraInstallationNames = ['e', 'a for c', 'b for b'];
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteIds: async () => ['a', 'b', 'c'],
+      getAllInstallationNames: async () => allInstallationNames,
+      getAllInstallations: async (siteId) => {
+        if (siteId === 'a') {
+          return {error: 'No installations for site a'};
+        } else {
+          return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+        }
+      },
+      getSiteName: async (id) => {
+        return `site ${id}`;
+      },
+      getAssetsPaged: async (id, cutOffDate, handler, networkedAssetsOnly, installationKey) => {
+        expect(id).toBe('b');
+        const installation = installations.find(i => i.id === installationKey);
+        expect(installation).not.toBeUndefined();
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        return [...result1];
+      },
+    }));
+
+    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
+    expect(filteredAssets).not.toEqual(assetArray);
+
+    const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
+
+    const mutationResult = {
+      configurationItems: null,
+      asyncQuery: {resultUrl: 'https://s3/results.json'}
+    };
+    const graphQLResult = {
+      configurationItems: [
+        {id: 'nodeID 1', sourceID: 'sourceID 1'},
+        {id: 'nodeID 2', sourceID: 'sourceID 2'},
+      ]
+    };
+    const customerAccessToken = {access_token: 'foo.bar'};
+    const ciUpdateMutationQuery = `
+      mutation($input: ConfigurationItemUpdateInput!) {
+        configurationItemUpdate(input: $input) {
+          errors { path message }
+          configurationItem { id }
+        }
+      }`.trim();
+    const mockedJs4meHelper = {
+      getToken: jest.fn(async () => customerAccessToken),
+      executeGraphQLMutation: jest.fn(async (descr, token, query, vars) => {
+        expect(token).toBe(customerAccessToken);
+        if (query.includes('discoveredConfigurationItems')) {
+          expect(query.trim()).toEqual(discoveryUploadQuery.trim());
+          expect(vars).toEqual({input: discoveryUploadInput});
+          return mutationResult;
+        } else {
+          expect(query.trim()).toEqual(ciUpdateMutationQuery);
+          expect(vars).toEqual({input: {id: 'def', endOfSupportDate: '2023-10-10T16:00:00.000Z'}});
+          return {configurationItem: {id: 'def'}};
+        }
+      }),
+      getAsyncMutationResult: jest.fn(async (descr, result, maxWait) => {
+        expect(result).toEqual(mutationResult);
+        expect(maxWait).toEqual(300000);
+        return graphQLResult;
+      }),
+    };
+    const refData = {refDat: true};
+
+    OsCiMutationHelper.mockImplementationOnce((referencesHelpers, js4meHelper) => ({
+      processOSUpdates: async (allOperatingSystems) => {
+        return {cisErrored: [], cisUpdated: ['def']};
+      },
+    }));
+
+    ReferencesHelper.mockImplementationOnce((js4meHelper) => {
+      expect(js4meHelper).toBe(mockedJs4meHelper);
+      const softwareFound =
+        new Map()
+          .set('Winzip', 'xyz')
+          .set('Windows 7', 'def')
+          .set('Windows 11', 'abc')
+      const osEndOfSupports =
+        new Map()
+          .set('Windows 7', '2023-10-10T16:00:00.000Z')
+      return {
+        lookup4meReferences: async (assets) => {
+          expect(assets).toEqual(filteredAssets);
+          return refData;
+        },
+        allOperatingSystems: ['Windows 11', 'Windows Server', 'Windows 7'],
+        softwareFound: softwareFound,
+        osEndOfSupports: osEndOfSupports,
+        peopleFound: [],
+        peopleNotFound: ['a'],
+      }
+    });
+
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels, installationNames) => {
+      expect(referenceData).toBe(refData);
+      expect(generateLabels).toBe(false);
+      // allInstallationNames + extraInstallations with duplicates removed
+      expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
+      return {
+        toDiscoveryUploadInput: (installation, assets) => {
+          expect(assets).toEqual(filteredAssets);
+          expect(installationNames.indexOf(installation)).not.toEqual(-1);
+          return discoveryUploadInput;
+        },
+      };
+    });
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  mockedJs4meHelper);
+
+    const result = await integration.processSites(true, null, false, (i) => !i.endsWith(' for c'), extraInstallationNames);
+    expect(result).toEqual({
+                             uploadCounts: {'site b': {'a for b': 2, 'b for b': 2}},
+                             info: {
+                               'operatingSystems': 'Stored end-of-support for 1 item(s)',
+                               'site c': 'No installations in this site matched selection',
+                             },
+                             errors: {'site a': 'No installations for site a'},
+                           });
   });
 });
 

@@ -71,6 +71,24 @@ class LansweeperHelper {
     return this.mapToUnique(oss, os => this.cleanupName(os.caption));
   }
 
+  extractOperatingSystemEndOfSupport(assets) {
+    const endOfSupportDates = new Map();
+    for (const asset of assets) {
+      if (asset.operatingSystem && asset.operatingSystem.caption &&
+        asset.recognitionInfo && asset.recognitionInfo.osMetadata) {
+        const metadata = asset.recognitionInfo.osMetadata;
+        if (metadata.name && metadata.endOfSupportDate) {
+          const caption = this.cleanupName(asset.operatingSystem.caption);
+          const metaName = this.cleanupName(metadata.name);
+          if (caption.includes(metaName)) {
+            endOfSupportDates.set(caption, metadata.endOfSupportDate);
+          }
+        }
+      }
+    }
+    return endOfSupportDates;
+  }
+
   cleanupName(name) {
     return name.replace(/\s+/g, ' ').trim();
   }

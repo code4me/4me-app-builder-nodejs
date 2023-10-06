@@ -8,6 +8,7 @@ const LoggedError = require('../../../library/helpers/errors/logged_error');
 const Js4meAuthorizationError = require('../../../library/helpers/errors/js_4me_authorization_error');
 const LansweeperGraphQLError = require('./errors/lansweeper_graphql_error');
 const ResultHelper = require('../../../library/helpers/result_helper');
+const OsCiMutationHelper = require('./os_ci_mutation_helper');
 
 class LansweeperIntegration {
   constructor(clientId, clientSecret, refreshToken, customer4meHelper) {
@@ -88,6 +89,16 @@ class LansweeperIntegration {
       }
       if (siteError) {
         result.errors[siteName] = siteError;
+      }
+    }
+    const allOperatingSystems = this.referenceHelper.allOperatingSystems;
+    if (allOperatingSystems.length > 0) {
+      const osCiMutationHelper = new OsCiMutationHelper(this.referenceHelper, this.customer4meHelper);
+      const {cisErrored, cisUpdated} = await osCiMutationHelper.processOSUpdates(allOperatingSystems);
+      if (cisErrored && cisErrored.length > 0) {
+        result.errors['operatingSystems'] = `Unable to store end-of-support for: ${cisErrored.join(', ')}`;
+      } else if (cisUpdated) {
+        result.info['operatingSystems'] = `Stored end-of-support for ${cisUpdated.length} item(s)`;
       }
     }
     if (this.referenceHelper.peopleFound.size > 0 || this.referenceHelper.peopleNotFound.length > 0) {
