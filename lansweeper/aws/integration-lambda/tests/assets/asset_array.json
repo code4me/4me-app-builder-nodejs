@@ -1,5 +1,292 @@
 [
   {
+    "key": "MT1Bc3NldC02023hZWZiZi1mMjYzLTRkOGQtOGMzOC04OGRhZTQ2MTA3NWN=",
+    "assetBasicInfo": {
+      "name": "JEST1",
+      "userDomain": "JEST",
+      "userName": "jeste",
+      "firstSeen": "2023-03-01T16:08:54.210Z",
+      "ipAddress": "192.168.0.160",
+      "lastSeen": "2023-10-03T13:59:56.060Z",
+      "type": "Windows",
+      "lastChanged": "2023-03-01T16:08:54.427Z"
+    },
+    "operatingSystem": {
+      "version": "22H2",
+      "caption": "Microsoft Windows 11 Home",
+      "buildNumber": "10.0.22621"
+    },
+    "memoryModules": [
+      {
+        "size": 17179869184
+      },
+      {
+        "size": 17179869184
+      }
+    ],
+    "users": [
+      {
+        "name": "Administrator"
+      },
+      {
+        "name": "DefaultAccount"
+      },
+      {
+        "name": "Guest"
+      },
+      {
+        "name": "WDAGUtilityAccount"
+      },
+      {
+        "fullName": "Jest test framework",
+        "name": "jeste"
+      }
+    ],
+    "processors": [
+      {
+        "numberOfCores": 12
+      }
+    ],
+    "assetCustom": {
+      "manufacturer": "Hewlett-Packard",
+      "model": "HP ENVY All-in-One Desktop 34-c1xxx",
+      "serialNumber": "9DD3381N7L",
+      "sku": "6Y0L4EA#UUG",
+      "stateName": "Active"
+    },
+    "softwares": [
+      {
+        "name": "Lansweeper"
+      },
+      {
+        "name": "Npcap OEM"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Audio Switch"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Connection Optimizer"
+      },
+      {
+        "name": "Teams Machine-Wide Installer"
+      },
+      {
+        "name": "Update"
+      },
+      {
+        "name": "ExpressVPN"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Officejet Pro X476dw MFP Help"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "OpenOffice"
+      },
+      {
+        "name": "Duet Display"
+      },
+      {
+        "name": "Documentation"
+      },
+      {
+        "name": "Drive Client"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "SQL Server Express LocalDB"
+      },
+      {
+        "name": "Bonjour"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Product Improvement Study for Officejet Pro X476dw MFP"
+      },
+      {
+        "name": "IIS Express"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "IIS Express Application Compatibility Database"
+      },
+      {
+        "name": "Officejet Pro X476dw MFP Basic Device Software"
+      },
+      {
+        "name": "GeForce Experience"
+      },
+      {
+        "name": "PhysX System Software"
+      },
+      {
+        "name": "FrameView SDK"
+      },
+      {
+        "name": "IIS Express Application Compatibility Database"
+      },
+      {
+        "name": "Photoshop Elements"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "4me Gmail"
+      },
+      {
+        "name": "Visual C++ Redistributable"
+      },
+      {
+        "name": "Signing Plugins"
+      },
+      {
+        "name": "Belgium e middleware .8 (build 6030)"
+      },
+      {
+        "name": "Display Control Service"
+      },
+      {
+        "name": "Edge Update"
+      },
+      {
+        "name": "Git"
+      },
+      {
+        "name": "Update Health Tools"
+      },
+      {
+        "name": "Insomnia"
+      },
+      {
+        "name": "Genuine Service"
+      },
+      {
+        "name": "Windows Desktop Runtime"
+      },
+      {
+        "name": "ASP.NET Core Shared Framework"
+      },
+      {
+        "name": "Acrobat"
+      },
+      {
+        "name": "Notepad++"
+      },
+      {
+        "name": "Microsoft 365"
+      },
+      {
+        "name": "Microsoft 365"
+      },
+      {
+        "name": "Microsoft 365"
+      },
+      {
+        "name": "Microsoft 365"
+      },
+      {
+        "name": "Microsoft 365"
+      },
+      {
+        "name": "OneNote"
+      },
+      {
+        "name": "OneNote"
+      },
+      {
+        "name": "OneNote"
+      },
+      {
+        "name": "OneNote"
+      },
+      {
+        "name": "Visio"
+      },
+      {
+        "name": "Norton 360"
+      },
+      {
+        "name": "1Password"
+      },
+      {
+        "name": "Graphics Driver"
+      },
+      {
+        "name": "OneDrive"
+      },
+      {
+        "name": "Google Chrome"
+      },
+      {
+        "name": "Slack"
+      },
+      {
+        "name": "Firefox"
+      },
+      {
+        "name": "Maintenance Service"
+      },
+      {
+        "name": "Zoom"
+      },
+      {
+        "name": "Edge"
+      },
+      {
+        "name": "Edge WebView2 Runtime"
+      },
+      {
+        "name": "Windows Desktop Runtime"
+      },
+      {
+        "name": "Perimeter 81"
+      },
+      {
+        "name": "Teams"
+      }
+    ],
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Windows",
+        "version": "11 Home"
+      }
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MT1Bc3NldC02023hZWZiZi1mMjYzLTRkOGQtOGMzOC04OGRhZTQ2MTA3NWN=/summary"
+  },
+  {
     "_id": "612d9757aa105e2808bcf846",
     "key": "MTEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw",
     "assetBasicInfo": {
@@ -234,6 +521,13 @@
         "version": "10.2.0.7253323"
       }
     ],
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Windows",
+        "version": "Server 2012 R2 Standard",
+        "endOfSupportDate": "2023-10-10T16:00:00.000Z"
+      }
+    },
     "url": "https://app.lansweeper.com/jest-site/asset/NTAtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
   },
   {
@@ -253,7 +547,15 @@
       "model": "Workstation pro",
       "stateName": "Active"
     },
-    "operatingSystem": {},
+    "operatingSystem": {
+      "version": "16.04",
+      "caption": "Linux 16.04"
+    },
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Windows"
+      }
+    },
     "url": "https://app.lansweeper.com/jest-site/asset/MTgtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
   },
   {
@@ -366,7 +668,8 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "caption": "Microsoft Windows Server 2012 R2 Standard"
+      "caption": "Microsoft Windows Server 2012 R2 Standard",
+      "buildNumber": "6.3.9600"
     },
     "users": [
       {
@@ -446,6 +749,13 @@
         "version": "10.2.0.7253323"
       }
     ],
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Windows",
+        "version": "Server 2012 R2 Standard",
+        "endOfSupportDate": "2023-10-10T16:00:00.000Z"
+      }
+    },
     "url": "https://app.lansweeper.com/jest-site/asset/NDQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
   },
   {
@@ -839,10 +1149,20 @@
       "type": "Linux",
       "lastChanged": "2021-08-23T15:55:48.747Z"
     },
+    "operatingSystem": {
+      "version": "18.04",
+      "caption": "Linux 18.04"
+    },
     "assetCustom": {
       "manufacturer": "VMware, Inc.",
       "model": "nginx/1.14.0 (Ubuntu)",
       "stateName": "Active"
+    },
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Linux",
+        "version": "18.04"
+      }
     },
     "url": "https://app.lansweeper.com/jest-site/asset/MjQtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
   },
@@ -1821,5 +2141,128 @@
       }
     ],
     "url": "https://app.lansweeper.com/jest-site/asset/NDItQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
+  },
+  {
+    "key": "MjQtQXNzZXQtNjgwYWVm12345jI2My00ZDhkLThjMzgtODhkYWU0NjEwNzVj",
+    "assetBasicInfo": {
+      "name": "Apple, Inc. 192.168.0.159",
+      "firstSeen": "2023-03-20T06:20:51.530Z",
+      "ipAddress": "192.168.0.159",
+      "lastSeen": "2023-10-03T10:02:33.943Z",
+      "type": "Laptop",
+      "lastChanged": "2023-03-20T06:20:51.537Z"
+    },
+    "operatingSystem": {
+      "version": "macOS"
+    },
+    "assetCustom": {
+      "manufacturer": "Apple",
+      "model": "MacBook Air",
+      "stateName": "Active"
+    },
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "macOS"
+      }
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjQtQXNzZXQtNjgwYWVm12345jI2My00ZDhkLThjMzgtODhkYWU0NjEwNzVj/summary"
+  },
+  {
+    "key": "MzAtQXNzZXQtNjgwYWVmYmYtZjI2My00ZDhkLThjMzgt123450U0NjEwNzVj",
+    "assetBasicInfo": {
+      "name": "192.168.0.225",
+      "firstSeen": "2023-03-21T06:23:07.403Z",
+      "ipAddress": "192.168.0.225",
+      "lastSeen": "2023-10-03T10:02:33.943Z",
+      "type": "Mobile",
+      "lastChanged": "2023-03-21T06:23:07.403Z"
+    },
+    "operatingSystem": {
+      "version": "12"
+    },
+    "assetCustom": {
+      "manufacturer": "Oppo",
+      "model": "Reno4 Z 5G",
+      "stateName": "Active"
+    },
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Android",
+        "version": "12"
+      }
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzAtQXNzZXQtNjgwYWVmYmYtZjI2My00ZDhkLThjMzgt123450U0NjEwNzVj/summary"
+  },
+  {
+    "key": "MjUtQXN01234NjgwYWVmYmYtZjI2My00ZDhkLThjMzgtODhkYWU0NjEwNzVj",
+    "assetBasicInfo": {
+      "name": "Ipad/Iphone 192.168.0.237",
+      "firstSeen": "2023-03-20T06:21:00.857Z",
+      "ipAddress": "192.168.0.237",
+      "lastSeen": "2023-10-03T10:02:33.943Z",
+      "type": "Mobile",
+      "lastChanged": "2023-03-20T06:21:00.857Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Apple",
+      "model": "N104AP",
+      "stateName": "Active"
+    },
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "iOS"
+      }
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MjUtQXN01234NjgwYWVmYmYtZjI2My00ZDhkLThjMzgtODhkYWU0NjEwNzVj/summary"
+  },
+  {
+    "key": "NzMtQXNzZXQt6543210mYmYtZjI2My00ZDhkLThjMzgtODhkYWU0NjEwNzVj",
+    "assetBasicInfo": {
+      "name": "LAPTOP-JEST",
+      "firstSeen": "2023-08-25T10:00:35.810Z",
+      "ipAddress": "192.168.0.208",
+      "type": "Windows",
+      "lastChanged": "2023-08-25T10:01:03.183Z"
+    },
+    "assetCustom": {
+      "manufacturer": "Intel Corporate",
+      "stateName": "Active"
+    },
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Windows",
+        "version": "10 Pro",
+        "endOfSupportDate": "2024-05-14T10:00:00.000Z"
+      }
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/NzMtQXNzZXQt6543210mYmYtZjI2My00ZDhkLThjMzgtODhkYWU0NjEwNzVj/summary"
+  },
+  {
+    "key": "MzEtQXN0987654321TBhNmQtNWY5YS00YWY4LTgxNjItZGEwMTFiY2NhOTc5",
+    "assetBasicInfo": {
+      "name": "JLERCH-OPTIPLEX-9010",
+      "firstSeen": "2021-08-23T15:56:04.137Z",
+      "ipAddress": "192.168.69.111",
+      "lastSeen": "2023-10-01T16:00:52.513Z",
+      "type": "Linux",
+      "lastChanged": "2021-08-23T15:56:04.153Z"
+    },
+    "operatingSystem": {
+      "version": "20.04",
+      "caption": "Linux 20.04"
+    },
+    "assetCustom": {
+      "manufacturer": "Dell Inc.",
+      "model": "MacSamba",
+      "stateName": "Active"
+    },
+    "recognitionInfo": {
+      "osMetadata": {
+        "name": "Windows",
+        "version": "Server 2012 R2 Standard",
+        "endOfSupportDate": "2023-10-10T16:00:00.000Z"
+      }
+    },
+    "url": "https://app.lansweeper.com/jest-site/asset/MzEtQXN0987654321TBhNmQtNWY5YS00YWY4LTgxNjItZGEwMTFiY2NhOTc5/summary"
   }
 ]

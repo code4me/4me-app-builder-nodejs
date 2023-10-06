@@ -207,7 +207,7 @@ describe('extractProductCategories', () => {
     helper.categories = {};
     const categories = helper.extractProductCategories(assetArray);
 
-    expect(categories.length).toEqual(14);
+    expect(categories.length).toEqual(15);
     expect(Object.keys(helper.categories).length).toEqual(categories.length);
   });
 });
@@ -223,7 +223,7 @@ describe('extractBrands', () => {
     helper.brands = {};
     const brands = helper.extractBrands(assetArray);
 
-    expect(brands.length).toEqual(14);
+    expect(brands.length).toEqual(17);
     expect(Object.keys(helper.brands).length).toEqual(brands.length);
   });
 });
@@ -239,7 +239,7 @@ describe('extractModels', () => {
     helper.models = {};
     const models = helper.extractModels(assetArray);
 
-    expect(models.length).toEqual(16);
+    expect(models.length).toEqual(20);
     expect(Object.keys(helper.models).length).toEqual(models.length);
   });
 });
@@ -260,7 +260,7 @@ describe('extractUsers', () => {
     const asset2 = assetArray.find(a => a._id === '612d977daa105e2808be8d77');
     expect(asset2.allUsers).toEqual(['jest', 'Fred@4me.com']);
 
-    expect(users).toEqual(['jest', 'fred@4me.com', 'jest-test@4me.com']);
+    expect(users).toEqual(['jeste', 'jest', 'fred@4me.com', 'jest-test@4me.com']);
   });
 });
 
@@ -274,7 +274,7 @@ describe('extractLastUserNames', () => {
   it('extracts unique values', () => {
     const users = helper.extractLastUserNames(assetArray);
 
-    expect(users).toEqual(['jest', 'jest-test@4me.com']);
+    expect(users).toEqual(['jeste', 'jest', 'jest-test@4me.com']);
   });
 });
 
@@ -288,7 +288,7 @@ describe('extractSoftwareNames', () => {
   it('extracts unique values', () => {
     const names = helper.extractSoftwareNames(assetArray);
 
-    expect(names.length).toEqual(99);
+    expect(names.length).toEqual(148);
     // check whitespace is collapsed
     expect(names.indexOf('Microsoft Visual C++ 2010 x86 Runtime')).not.toEqual(-1);
     expect(names.indexOf('Microsoft Visual C++ 2010  x86 Runtime')).toEqual(-1);
@@ -305,9 +305,29 @@ describe('extractOperatingSystemNames', () => {
   it('extracts unique values', () => {
     const names = helper.extractOperatingSystemNames(assetArray);
 
-    expect(names).toEqual(['Microsoft Windows Server 2012 R2 Standard',
+    expect(names).toEqual(['Microsoft Windows 11 Home',
+                            'Microsoft Windows Server 2012 R2 Standard',
                             'Linux 16.04',
-                            'Microsoft Windows Server 2019 Standard Evaluation']);
+                            "Linux 18.04",
+                            'Microsoft Windows Server 2019 Standard Evaluation',
+                            "Linux 20.04",
+                          ]);
+  });
+});
+
+describe('extractOperatingSystemsEndOfSupportDates', () => {
+  it('handles empty', () => {
+    const names = helper.extractOperatingSystemEndOfSupport([]);
+
+    expect(names).toEqual(new Map());
+  });
+
+  it('extracts unique values', () => {
+    const names = helper.extractOperatingSystemEndOfSupport(assetArray);
+
+    const expectedMap = new Map();
+    expectedMap.set('Microsoft Windows Server 2012 R2 Standard', '2023-10-10T16:00:00.000Z');
+    expect(names).toEqual(expectedMap);
   });
 });
 

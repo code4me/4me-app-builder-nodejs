@@ -65,6 +65,9 @@ class DiscoveryMutationHelper {
     } else {
       ci.name = lansweeperName;
     }
+    if (asset.assetBasicInfo.lastSeen) {
+      ci.lastSeenAt = asset.assetBasicInfo.lastSeen;
+    }
 
     let purchaseDate = null;
     if (asset.assetCustom.purchaseDate) {
@@ -99,13 +102,27 @@ class DiscoveryMutationHelper {
     if (asset.operatingSystem && asset.operatingSystem.caption) {
       const softwareIDs = this.mapSoftwareName([asset.operatingSystem.caption]);
       if (softwareIDs.length > 0) {
-        if (ci.ciRelations) {
-          ci.ciRelations.childIds = ci.ciRelations.childIds.concat(softwareIDs)
-        } else {
-          ci.ciRelations = {childIds: softwareIDs}
-        }
+        ci.operatingSystemId = softwareIDs[0];
       }
-
+    }
+    if (asset.memoryModules) {
+      const sizes = asset.memoryModules
+        .filter(m => m.size)
+        .map(m => m.size);
+      const totalSize = sizes.reduce((a, b) => a + b, 0);
+      if (totalSize > 0) {
+        ci.ramAmount = totalSize / (1024 * 1024 * 1024);
+      }
+    }
+    if (asset.processors && asset.processors.length > 0) {
+      ci.nrOfProcessors = asset.processors.length;
+      const cores = asset.processors
+        .filter(m => m.numberOfCores)
+        .map(m => m.numberOfCores);
+      const totalCores = cores.reduce((a, b) => a + b, 0);
+      if (totalCores > 0) {
+        ci.nrOfCores = totalCores;
+      }
     }
     return ci;
   }
