@@ -1,6 +1,7 @@
 'use strict';
 
 const LansweeperHelper = require('./lansweeper_helper');
+const SizeHelper = require('./size_helper');
 const TimeHelper = require('../../../library/helpers/time_helper');
 const LoggedError = require('../../../library/helpers/errors/logged_error');
 const Js4meHelper = require('../../../library/helpers/js_4me_helper');
@@ -12,6 +13,7 @@ class DiscoveryMutationHelper {
     this.installations = installations;
     this.lansweeperHelper = new LansweeperHelper();
     this.timeHelper = new TimeHelper();
+    this.sizeHelper = new SizeHelper();
     this.categories = [];
   }
 
@@ -106,20 +108,16 @@ class DiscoveryMutationHelper {
       }
     }
     if (asset.memoryModules) {
-      const sizes = asset.memoryModules
-        .filter(m => m.size)
-        .map(m => m.size);
-      const totalSize = sizes.reduce((a, b) => a + b, 0);
+      const sizes = asset.memoryModules.map(m => m.size);
+      const totalSize = this.sizeHelper.sum(sizes);
       if (totalSize > 0) {
-        ci.ramAmount = totalSize / (1024 * 1024 * 1024);
+        ci.ramAmount = this.sizeHelper.bytesToGB(totalSize);
       }
     }
     if (asset.processors && asset.processors.length > 0) {
       ci.nrOfProcessors = asset.processors.length;
-      const cores = asset.processors
-        .filter(m => m.numberOfCores)
-        .map(m => m.numberOfCores);
-      const totalCores = cores.reduce((a, b) => a + b, 0);
+      const cores = asset.processors.map(m => m.numberOfCores);
+      const totalCores = this.sizeHelper.sum(cores);
       if (totalCores > 0) {
         ci.nrOfCores = totalCores;
       }
