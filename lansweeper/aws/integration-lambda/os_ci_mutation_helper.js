@@ -26,7 +26,7 @@ class OsCiMutationHelper {
     if (osEndOfSupports.size === 0) {
       return {};
     }
-    console.log('End of support dates: %j', osEndOfSupports);
+    console.log('End of support dates: %j', [...osEndOfSupports]);
     const cisToUpdate = [];
     for (const osCaption of osEndOfSupports.keys()) {
       const ciId = ciIds.get(osCaption);
