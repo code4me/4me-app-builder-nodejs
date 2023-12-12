@@ -3,6 +3,7 @@
 const DiscoveryMutationHelper = require('../discovery_mutation_helper');
 const assetArray = require('./assets/asset_array.json');
 const LansweeperHelper = require('../lansweeper_helper');
+const LoggedError = require('../../../../library/helpers/errors/logged_error');
 const referenceData = {
   softwareCis: new Map(),
   users: new Map(),
@@ -257,4 +258,29 @@ it('maps stateNames', () => {
   expect(helper.mapState('Broken')).toEqual('broken_down');
 
   expect(helper.mapState('foo')).toEqual('installed');
+});
+
+it('handles null software elements', () => {
+  const helper = new DiscoveryMutationHelper(referenceData, false, []);
+  const asset = assetArray[0];
+  asset.softwares = [undefined];
+
+  expect(() => helper.toDiscoveryUploadInput('a', [asset])).not.toThrow();
+});
+
+it('logs errors', () => {
+  const helper = new DiscoveryMutationHelper(null, false, []);
+  const asset = assetArray[0];
+  asset.softwares = [undefined];
+  const consoleErrorSpy = jest.spyOn(console, 'error');
+  const infoCalls = [];
+  const consoleInfoSpy = jest.spyOn(console, 'info').mockImplementation((a) => infoCalls.push(a));
+
+  expect(() => helper.toDiscoveryUploadInput('a', [asset])).toThrow(LoggedError);
+
+  expect(consoleErrorSpy).toHaveBeenCalledWith('%s.\nAsset:\n%j',
+                                               'Error processing: MT1Bc3NldC02023hZWZiZi1mMjYzLTRkOGQtOGMzOC04OGRhZTQ2MTA3NWN=',
+                                               asset);
+  expect(consoleInfoSpy).toHaveBeenCalled();
+  expect(infoCalls[0].message).toEqual("Cannot read properties of null (reading 'users')");
 });

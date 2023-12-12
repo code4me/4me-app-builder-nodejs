@@ -47,8 +47,10 @@ class DiscoveryMutationHelper {
       const ci = this.createCi(asset, mappedProduct);
       mappedProduct.configurationItems.push(ci);
     } catch (e) {
-      console.error(`Error processing: ${key}`);
-      throw new LoggedError(e);
+      const msg = `Error processing: ${key}`;
+      console.error('%s.\nAsset:\n%j', msg, asset);
+      console.info(e);
+      throw new LoggedError(msg);
     }
   }
 
@@ -159,11 +161,12 @@ class DiscoveryMutationHelper {
   }
 
   mapSoftware(softwares) {
-    return this.mapSoftwareName(softwares.map(s => s.name));
+    return this.mapSoftwareName(softwares.map(s => s && s.name));
   }
 
   mapSoftwareName(softwareNames) {
     return softwareNames
+      .filter(n => !!n)
       .map(n => this.lansweeperHelper.cleanupName(n))
       .map(n => this.referenceData.softwareCis.get(n))
       .filter(id => !!id);
