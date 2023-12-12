@@ -19,6 +19,7 @@ const TimeHelper = require('../../../../library/helpers/time_helper');
 const LansweeperAuthorizationError = require('../errors/lansweeper_authorization_error');
 const Js4meAuthorizationError = require('../../../../library/helpers/errors/js_4me_authorization_error');
 const LansweeperGraphQLError = require('../errors/lansweeper_graphql_error');
+const LoggedError = require('../../../../library/helpers/errors/logged_error');
 jest.mock('../../../../library/helpers/time_helper');
 
 describe('processSite', () => {
@@ -116,6 +117,76 @@ describe('processSite', () => {
     const result = await integration.processSite(siteId, true, true, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length * 2;
     expect(result).toEqual({uploadCount: uploadCount});
+  });
+
+  it('handles logged error preparing upload', async () => {
+    const siteId = 'abddda';
+    TimeHelper.mockImplementation(() => ({
+      getMsSinceEpoch: () => Date.UTC(2021, 8, 29, 7, 12, 33),
+    }));
+
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels) => {
+      expect(generateLabels).toBe(false);
+      return ({
+        toDiscoveryUploadInput: () => { throw new LoggedError('broken') },
+      });
+    });
+
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteName: async (id) => {
+        expect(id).toBe(siteId);
+        return 'site 2';
+      },
+      getAssetsPaged: async (id, cutOffDate, handler) => {
+        expect(id).toBe(siteId);
+        return await handler(assetArray);
+      },
+    }));
+
+    const consoleErrorSpy = jest.spyOn(console, 'error');
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  null);
+
+    const result = await integration.processSite(siteId, false, false, installations[0], installations, null);
+    expect(result).toEqual({errors: ['Unable to upload assets to 4me.']});
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+  });
+
+  it('handles non-logged error preparing upload', async () => {
+    const siteId = 'sadsa';
+    TimeHelper.mockImplementation(() => ({
+      getMsSinceEpoch: () => Date.UTC(2021, 8, 29, 7, 12, 33),
+    }));
+
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels) => {
+      expect(generateLabels).toBe(false);
+      return ({
+        toDiscoveryUploadInput: () => { throw new Error('broken') },
+      });
+    });
+
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteName: async (id) => {
+        expect(id).toBe(siteId);
+        return 'site 2';
+      },
+      getAssetsPaged: async (id, cutOffDate, handler) => {
+        expect(id).toBe(siteId);
+        return await handler(assetArray);
+      },
+    }));
+    const consoleErrorSpy = jest.spyOn(console, 'error');
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  null);
+
+    const result = await integration.processSite(siteId, false, false, installations[0], installations, null);
+    expect(result).toEqual({errors: ['Unable to upload assets to 4me.']});
+    expect(consoleErrorSpy).toHaveBeenCalled();
   });
 
   it('handles error on first page upload', async () => {

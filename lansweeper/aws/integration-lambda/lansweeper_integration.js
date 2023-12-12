@@ -148,7 +148,9 @@ class LansweeperIntegration {
             // no need to keep process going
             throw e;
           }
-          console.error(e);
+          if (!(e instanceof LoggedError)) {
+            console.error(e);
+          }
           errors.push(`Unable to upload assets to 4me.`);
         }
       }
