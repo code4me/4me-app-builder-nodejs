@@ -19,6 +19,8 @@ class LansweeperApiHelper {
   createClient(url, bearerToken) {
     const headers = {
       'Content-Type': 'application/json',
+      'x-ls-integration-id': LansweeperApiHelper.LS_INTEGRATION_ID,
+      'x-ls-integration-version': LansweeperApiHelper.LS_INTEGRATION_VERSION,
     };
     if (bearerToken) {
       headers['authorization'] = `Bearer ${bearerToken}`;
@@ -118,7 +120,7 @@ class LansweeperApiHelper {
     try {
       const client = this.createClient(this.apiUrl, accessToken);
       const lecResponse = await client.post(
-        `/v2/graphql`,
+        '/v2/graphql',
         {
           query: query,
           variables: vars,
@@ -164,5 +166,7 @@ class LansweeperApiHelper {
     }
   }
 }
+LansweeperApiHelper.LS_INTEGRATION_VERSION = '1.0';
+LansweeperApiHelper.LS_INTEGRATION_ID = 'a561a72d-aa5e-4c52-af6d-084129ab5f09';
 
 module.exports = LansweeperApiHelper;
