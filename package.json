@@ -30,7 +30,7 @@
         "promptly": "3.2.0"
     },
     "devDependencies": {
-        "aws-sam-webpack-plugin": "^0.13.0",
+        "aws-sam-webpack-plugin": "^0.14.0",
         "jest": "^29.7.0",
         "json5": "2.2.3",
         "nodemon-webpack-plugin": "^4.8.1",
