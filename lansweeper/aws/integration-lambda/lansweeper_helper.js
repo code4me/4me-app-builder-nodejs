@@ -127,7 +127,7 @@ class LansweeperHelper {
 
   getProductCategory(asset) {
     return this.getByReferenceOrAdd(this.categories,
-                                    asset.assetBasicInfo.type,
+                                    asset.assetBasicInfo.type || 'Unknown',
                                     (reference, assetType) => {
                                       return {
                                         name: assetType,
