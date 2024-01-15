@@ -33,7 +33,44 @@ describe('toReference', () => {
   });
 });
 
+describe('getProductCategory', () => {
+  it('handles undefined type', () => {
+    const asset = {
+      assetCustom: {},
+      assetBasicInfo: {name: 'Smart TV'},
+    };
+    const productCategory = helper.getProductCategory(asset);
+
+    expect(productCategory.reference).toEqual('unknown');
+    expect(productCategory.name).toEqual('Unknown');
+  });
+
+  it('handles type', () => {
+    const asset = {
+      assetCustom: {},
+      assetBasicInfo: {name: 'Smart TV', type: 'Tv'},
+    };
+    const productCategory = helper.getProductCategory(asset);
+
+    expect(productCategory.reference).toEqual('tv');
+    expect(productCategory.name).toEqual('Tv');
+  });
+});
+
+
 describe('getProduct', () => {
+  it('handles undefined type', () => {
+    const asset = {
+      assetCustom: {},
+      assetBasicInfo: {name: 'Smart TV'},
+    };
+    const product = helper.getProduct(asset);
+
+    expect(product.reference).toEqual('unknown_unknown_unknown');
+    expect(product.model).toEqual('Unknown');
+    expect(product.brand).toEqual('Unknown');
+  });
+
   it('handles undefined model and brand', () => {
     const asset = {
       assetCustom: {},
