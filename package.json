@@ -33,7 +33,7 @@
         "aws-sam-webpack-plugin": "^0.14.0",
         "jest": "^29.7.0",
         "json5": "2.2.3",
-        "nodemon-webpack-plugin": "^4.8.1",
+        "nodemon-webpack-plugin": "^4.8.2",
         "rimraf": "^5.0.5",
         "webpack": "^5.89.0",
         "webpack-cli": "^5.1.4"
