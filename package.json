@@ -24,7 +24,7 @@
         "@aws-sdk/client-sts": "3.485.0",
         "@aws-sdk/credential-providers": "3.485.0",
         "@aws-sdk/util-credentials": "3.56.0",
-        "axios": "1.6.0",
+        "axios": "1.6.5",
         "form-data": "^4.0.0",
         "jose": "4.14.4",
         "promptly": "3.2.0"
