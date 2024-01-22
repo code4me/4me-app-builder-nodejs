@@ -89,7 +89,7 @@ describe('JWT verification failed', () => {
 
         const data = await accountHelper.get4meData(rs256Token);
         expect(data.error.name).toEqual('JOSEAlgNotAllowed');
-        expect(data.error.message).toEqual('"alg" (Algorithm) Header Parameter not allowed');
+        expect(data.error.message).toEqual('"alg" (Algorithm) Header Parameter value not allowed');
         expect(data.webhook_nodeID).toBe(undefined);
     });
 
