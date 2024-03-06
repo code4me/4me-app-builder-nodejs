@@ -358,7 +358,7 @@ Next to that it provides helpers that can be used by the actual integrations:
 * [js_4me_installation_handler](#js_4me_installation_handler)
 * [js_4me_deploy_helper](#js_4me_deploy_helper)
 
-[Webpack](https://webpack.js.org) is used to include only the helpers that are actually used in the lambdas deployed to AWS.
+[esbuild](https://esbuild.github.io) is used to include only the helpers that are actually used in the lambdas deployed to AWS.
 
 #### bootstrap.js
 

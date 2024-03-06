@@ -78,6 +78,15 @@ Resources:
       DockerTag: nodejs18.x-v1
       DockerContext: ./integration-lambda
       Dockerfile: Dockerfile
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: true
+        Target: "es2020"
+        Sourcemap: false
+        SourcesContent: false
+        EntryPoints:
+          - typeform/aws/integration-lambda/app.js
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

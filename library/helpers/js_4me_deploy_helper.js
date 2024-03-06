@@ -74,6 +74,9 @@ class Js4meDeployHelper {
 
   async deployIntegrationLambda(clientConfig, profile, samPath, stackName, parameterOverrides) {
     const stackOutputs = await this.deployLambda(clientConfig, profile, samPath, stackName, parameterOverrides)
+    if (!stackOutputs) {
+      this.deploymentFailed('Unable to build/deploy integration lambda');
+    }
 
     const lambdaUrl = stackOutputs['IntegrationApi'];
     if (!lambdaUrl) {
