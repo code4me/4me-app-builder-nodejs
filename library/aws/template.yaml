@@ -25,7 +25,7 @@ Globals:
     Timeout: 3
     CodeUri: secrets-lambda/
     Handler: app.lambdaHandler
-    Runtime: nodejs18.x
+    Runtime: nodejs20.x
 
 Resources:
   SecretsFunction:
@@ -60,7 +60,7 @@ Resources:
           - secretsmanager:PutSecretValue
           Resource: !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:${BootstrapSecretApplicationParameter}/*/${4MeDomainParameter}/instances/*"
     Metadata:
-      DockerTag: nodejs18.x-v1
+      DockerTag: nodejs20.x-v1
       DockerContext: ./secrets-lambda
       Dockerfile: Dockerfile
       BuildMethod: esbuild

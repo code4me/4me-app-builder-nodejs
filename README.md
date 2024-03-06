@@ -932,7 +932,7 @@ To allow the examples to access data in the provider's 4me account an applicatio
 
 #### Install NodeJS
 
-The examples are based on NodeJS (version 18).
+The examples are based on NodeJS (version 20).
 
 ##### Using Node Version Manager
 
