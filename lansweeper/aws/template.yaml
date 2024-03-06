@@ -25,7 +25,7 @@ Globals:
     Timeout: 900
     CodeUri: integration-lambda/
     Handler: app.lambdaHandler
-    Runtime: nodejs18.x
+    Runtime: nodejs20.x
 
 Resources:
   DeadLetterSqsQueue:
@@ -109,7 +109,7 @@ Resources:
               - sqs:SendMessage
             Resource: !GetAtt RefreshTriggerSqsQueue.Arn
     Metadata:
-      DockerTag: nodejs18.x-v1
+      DockerTag: nodejs20.x-v1
       DockerContext: ./integration-lambda
       Dockerfile: Dockerfile
 
