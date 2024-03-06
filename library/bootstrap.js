@@ -47,11 +47,15 @@ class Bootstrap {
       `BootstrapSecretAccountParameter=${account}`,
       `BootstrapSecretEnabledReferencesParameter=${enabledOfferings}`,
     ];
-    return await this.js4meDeployHelper.deployLambda(clientConfig,
-                                                     profile,
-                                                     samPath,
-                                                     stackName,
-                                                     parameterOverrides);
+    const stackOutputs = await this.js4meDeployHelper.deployLambda(clientConfig,
+                                                                   profile,
+                                                                   samPath,
+                                                                   stackName,
+                                                                   parameterOverrides);
+    if (!stackOutputs) {
+      this.js4meDeployHelper.deploymentFailed('Unable to build/deploy secrets lambda');
+    }
+    return stackOutputs;
   }
 
   async getAccessToken(domain, account, clientID, token) {

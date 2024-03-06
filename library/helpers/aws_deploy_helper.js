@@ -15,11 +15,12 @@ class AwsDeployHelper {
   }
 
   async deploy(samPath, stackName, parameterOverrides) {
-    const buildExitCode = await this.run('node',
+    const buildExitCode = await this.run('sam',
       [
-        '../../node_modules/webpack-cli/bin/cli.js',
-      ],
-      { cwd: samPath });
+        'build',
+        '--manifest', './package.json',
+        '--template', `${samPath}/template.yaml`,
+      ]);
     if (buildExitCode !== 0) {
       console.error('Unable to build deployment package');
       return buildExitCode;
@@ -37,7 +38,7 @@ class AwsDeployHelper {
         '--no-confirm-changeset',
         '--parameter-overrides', `${parameterOverrides.join(' ')}`,
       ],
-      { cwd: samPath, shell: true }
+      { cwd: './.aws-sam/build', shell: true }
     );
     if (deployExitCode !== 0) {
       console.error('Deploy failed');

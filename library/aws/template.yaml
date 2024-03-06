@@ -63,7 +63,15 @@ Resources:
       DockerTag: nodejs18.x-v1
       DockerContext: ./secrets-lambda
       Dockerfile: Dockerfile
-
+      BuildMethod: esbuild
+      BuildProperties:
+        Format: cjs
+        Minify: true
+        Target: "es2020"
+        Sourcemap: false
+        SourcesContent: false
+        EntryPoints:
+          - library/aws/secrets-lambda/app.js
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
