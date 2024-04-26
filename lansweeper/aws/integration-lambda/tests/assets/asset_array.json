@@ -14,6 +14,7 @@
     "operatingSystem": {
       "version": "22H2",
       "caption": "Microsoft Windows 11 Home",
+      "name": "Microsoft Windows 11 Home",
       "buildNumber": "10.0.22621"
     },
     "memoryModules": [
@@ -1151,7 +1152,8 @@
     },
     "operatingSystem": {
       "version": "18.04",
-      "caption": "Linux 18.04"
+      "caption": "Linux 18.04",
+      "name": "Linux"
     },
     "assetCustom": {
       "manufacturer": "VMware, Inc.",
@@ -2154,6 +2156,7 @@
       "lastChanged": "2023-03-20T06:20:51.537Z"
     },
     "operatingSystem": {
+      "name": "macOS",
       "version": "macOS"
     },
     "assetCustom": {
@@ -2179,6 +2182,7 @@
       "lastChanged": "2023-03-21T06:23:07.403Z"
     },
     "operatingSystem": {
+      "name": "Android",
       "version": "12"
     },
     "assetCustom": {
@@ -2250,7 +2254,8 @@
     },
     "operatingSystem": {
       "version": "20.04",
-      "caption": "Linux 20.04"
+      "caption": "Linux 20.04",
+      "name": "Linux 20.04"
     },
     "assetCustom": {
       "manufacturer": "Dell Inc.",
