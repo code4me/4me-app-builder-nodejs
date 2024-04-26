@@ -101,6 +101,12 @@ class LansweeperIntegration {
         result.info['operatingSystems'] = `Stored end-of-support for ${cisUpdated.length} item(s)`;
       }
     }
+    const osNameMismatches = this.referenceHelper?.lansweeperHelper?.osNameMismatches;
+    if (osNameMismatches && osNameMismatches.size > 0) {
+      osNameMismatches.forEach((count, message) => {
+        console.log(`OS name mismatch: ${message}; count: ${count}`)
+      });
+    }
     if (this.referenceHelper.peopleFound.size > 0 || this.referenceHelper.peopleNotFound.length > 0) {
       console.log(`User lookup: found ${this.referenceHelper.peopleFound.size} people (not found ${this.referenceHelper.peopleNotFound.length})`);
     }
