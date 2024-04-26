@@ -125,10 +125,6 @@ class LansweeperIntegration {
     const result = {uploadCount: 0, errors: errors};
     if (assets.length !== 0) {
       let assetsToProcess = this.removeAssetsNotSeenRecently(assets);
-      if (networkedAssetsOnly) {
-        // Lansweeper bug: empty IP address is returned from API call for discovered monitors
-        assetsToProcess = this.removeAssetsWithoutIP(assets);
-      }
       if (assetsToProcess.length !== 0) {
         try {
           const referenceData = await this.referenceHelper.lookup4meReferences(assetsToProcess);
@@ -169,14 +165,6 @@ class LansweeperIntegration {
 
   assetSeenCutOffDate() {
     return new Date(new TimeHelper().getMsSinceEpoch() - LansweeperIntegration.LAST_SEEN_DAYS * 24 * 60 * 60 * 1000);
-  }
-
-  removeAssetsWithoutIP(assets) {
-    const assetsWithIP = assets.filter(asset => !!asset.assetBasicInfo.ipAddress);
-    if (assetsWithIP.length < assets.length) {
-      console.info(`Skipping ${assets.length - assetsWithIP.length} assets that have no IP address.`)
-    }
-    return assetsWithIP;
   }
 
   async downloadResults(mutationResultsToRetrieve) {

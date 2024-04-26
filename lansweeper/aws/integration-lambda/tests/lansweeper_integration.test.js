@@ -42,8 +42,6 @@ describe('processSite', () => {
 
   it('handles successful pages', async () => {
     const siteId = 'abdv';
-    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
-    expect(filteredAssets).not.toEqual(assetArray);
 
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
@@ -78,7 +76,7 @@ describe('processSite', () => {
       expect(js4meHelper).toBe(mockedJs4meHelper);
       return {
         lookup4meReferences: async (assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           return refData;
         }
       }
@@ -89,7 +87,7 @@ describe('processSite', () => {
       expect(generateLabels).toBe(true);
       return {
         toDiscoveryUploadInput: (installation, assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           return discoveryUploadInput;
         },
       };
@@ -270,9 +268,6 @@ describe('processSite', () => {
 
   it('handles failure on download for first page', async () => {
     const siteId = 'abdv';
-    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
-    expect(filteredAssets).not.toEqual(assetArray);
-
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
     const mutationResult1 = {
@@ -454,9 +449,6 @@ describe('processSite', () => {
       },
     }));
 
-    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
-    expect(filteredAssets).not.toEqual(assetArray);
-
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
     const mutationResult = {
@@ -494,7 +486,7 @@ describe('processSite', () => {
           .set('Windows 11', 'abc')
       return {
         lookup4meReferences: async (assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           return refData;
         },
         allOperatingSystems: ['Windows 11', 'Windows Server', 'Windows 7'],
@@ -519,7 +511,7 @@ describe('processSite', () => {
       expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
       return {
         toDiscoveryUploadInput: (installation, assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           expect(installationNames.indexOf(installation)).not.toEqual(-1);
           return discoveryUploadInput;
         },
@@ -569,9 +561,6 @@ describe('processSite', () => {
       },
     }));
 
-    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
-    expect(filteredAssets).not.toEqual(assetArray);
-
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
     const mutationResult = {
@@ -604,7 +593,7 @@ describe('processSite', () => {
       expect(js4meHelper).toBe(mockedJs4meHelper);
       return {
         lookup4meReferences: async (assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           return refData;
         },
         allOperatingSystems: [],
@@ -620,7 +609,7 @@ describe('processSite', () => {
       expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
       return {
         toDiscoveryUploadInput: (installation, assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           expect(installationNames.indexOf(installation)).not.toEqual(-1);
           return discoveryUploadInput;
         },
@@ -685,9 +674,6 @@ describe('processSite', () => {
       },
     }));
 
-    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
-    expect(filteredAssets).not.toEqual(assetArray);
-
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
     const mutationResult = {
@@ -720,7 +706,7 @@ describe('processSite', () => {
       expect(js4meHelper).toBe(mockedJs4meHelper);
       return {
         lookup4meReferences: async (assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           return refData;
         },
         allOperatingSystems: [],
@@ -736,7 +722,7 @@ describe('processSite', () => {
       expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
       return {
         toDiscoveryUploadInput: (installation, assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           expect(installationNames.indexOf(installation)).not.toEqual(-1);
           return discoveryUploadInput;
         },
@@ -842,9 +828,6 @@ describe('processSite', () => {
       },
     }));
 
-    const filteredAssets = assetArray.filter(a => a.key !== 'MTQ2Mi1Bc3NldC1mODdkZjg5MS1kNmVkLTQyYzgtYThmMS1jZDJmMTBlYmE1ZGU=');
-    expect(filteredAssets).not.toEqual(assetArray);
-
     const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
 
     const mutationResult = {
@@ -905,7 +888,7 @@ describe('processSite', () => {
           .set('Windows 7', '2023-10-10T16:00:00.000Z')
       return {
         lookup4meReferences: async (assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           return refData;
         },
         allOperatingSystems: ['Windows 11', 'Windows Server', 'Windows 7'],
@@ -923,7 +906,7 @@ describe('processSite', () => {
       expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
       return {
         toDiscoveryUploadInput: (installation, assets) => {
-          expect(assets).toEqual(filteredAssets);
+          expect(assets).toEqual(assetArray);
           expect(installationNames.indexOf(installation)).not.toEqual(-1);
           return discoveryUploadInput;
         },
@@ -1039,18 +1022,4 @@ it('determines cut off date for query', () => {
   const integration = new LansweeperIntegration();
   const actual = integration.assetSeenCutOffDate();
   expect(actual.toISOString()).toEqual('2021-08-31T07:12:33.000Z')
-});
-
-it('filters out assets with empty IP address', () => {
-  TimeHelper.mockImplementation(() => ({
-    getMsSinceEpoch: () => Date.UTC(2021, 8, 30, 7, 12, 33),
-  }));
-
-  const integration = new LansweeperIntegration('client id',
-                                                'secret',
-                                                'refresh token',
-                                                null);
-  // only assets where IP address is not an empty string or missing
-  const assetsWithIP = integration.removeAssetsWithoutIP(require('./assets/asset_array_empty_ip.json'));
-  expect(assetsWithIP.map(a => a.assetBasicInfo.ipAddress)).toEqual(['192.168.69.120']);
 });
