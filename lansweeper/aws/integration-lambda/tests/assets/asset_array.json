@@ -12,9 +12,7 @@
       "lastChanged": "2023-03-01T16:08:54.427Z"
     },
     "operatingSystem": {
-      "version": "22H2",
-      "caption": "Microsoft Windows 11 Home",
-      "buildNumber": "10.0.22621"
+      "name": "Microsoft Windows 11 Home"
     },
     "memoryModules": [
       {
@@ -461,7 +459,7 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "caption": "Microsoft Windows Server 2012 R2 Standard"
+      "name": "Microsoft Windows Server 2012 R2 Standard"
     },
     "softwares": [
       {
@@ -548,8 +546,7 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "version": "16.04",
-      "caption": "Linux 16.04"
+      "name": "Linux 16.04"
     },
     "recognitionInfo": {
       "osMetadata": {
@@ -668,8 +665,7 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "caption": "Microsoft Windows Server 2012 R2 Standard",
-      "buildNumber": "6.3.9600"
+      "name": "Microsoft Windows Server 2012 R2 Standard"
     },
     "users": [
       {
@@ -1150,8 +1146,7 @@
       "lastChanged": "2021-08-23T15:55:48.747Z"
     },
     "operatingSystem": {
-      "version": "18.04",
-      "caption": "Linux 18.04"
+      "name": "Linux 18.04"
     },
     "assetCustom": {
       "manufacturer": "VMware, Inc.",
@@ -1184,7 +1179,7 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "caption": "Linux 16.04"
+      "name": "Red Hat Enterprise Linux 8.9 (Ootpa)"
     },
     "url": "https://app.lansweeper.com/jest-site/asset/MjEtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
   },
@@ -1209,7 +1204,7 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "caption": "Microsoft Windows Server 2019 Standard Evaluation"
+      "name": "Microsoft Windows Server 2019 Standard Evaluation"
     },
     "users": [
       {
@@ -1570,7 +1565,7 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "caption": "Microsoft Windows Server 2019 Standard Evaluation"
+      "name": "Microsoft Windows Server 2019 Standard Evaluation"
     },
     "url": "https://app.lansweeper.com/jest-site/asset/NjYtQXNzZXQtZjNmNGRiMjMtMWJlNS00MDk1LWIyYTktODY5ZWE3YzFhZjEw/summary"
   },
@@ -2040,7 +2035,7 @@
       "stateName": "Active"
     },
     "operatingSystem": {
-      "caption": "Microsoft Windows Server 2012 R2 Standard"
+      "name": "Microsoft Windows Server 2012 R2 Standard"
     },
     "softwares": [
       {
@@ -2154,7 +2149,7 @@
       "lastChanged": "2023-03-20T06:20:51.537Z"
     },
     "operatingSystem": {
-      "version": "macOS"
+      "name": "macOS 14.4.1 (23E224)"
     },
     "assetCustom": {
       "manufacturer": "Apple",
@@ -2179,7 +2174,7 @@
       "lastChanged": "2023-03-21T06:23:07.403Z"
     },
     "operatingSystem": {
-      "version": "12"
+      "name": "Android"
     },
     "assetCustom": {
       "manufacturer": "Oppo",
@@ -2249,8 +2244,7 @@
       "lastChanged": "2021-08-23T15:56:04.153Z"
     },
     "operatingSystem": {
-      "version": "20.04",
-      "caption": "Linux 20.04"
+      "name": "Linux 20.04"
     },
     "assetCustom": {
       "manufacturer": "Dell Inc.",

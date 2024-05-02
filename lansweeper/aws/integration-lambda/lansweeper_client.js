@@ -313,8 +313,8 @@ LansweeperClient.basicInfoFields = 'name type description ipAddress firstSeen la
 LansweeperClient.assetCustomFields = 'model manufacturer stateName purchaseDate warrantyDate serialNumber sku';
 LansweeperClient.usersFields = 'name email fullName';
 LansweeperClient.softwaresFields = 'name';
-LansweeperClient.operatingSystemFields = 'caption version';
-LansweeperClient.osMetadataFields = 'name version endOfSupportDate';
+LansweeperClient.operatingSystemFields = 'name';
+LansweeperClient.osMetadataFields = 'name endOfSupportDate';
 LansweeperClient.processorFields = 'numberOfCores';
 LansweeperClient.memoryModulesFields = 'size';
 

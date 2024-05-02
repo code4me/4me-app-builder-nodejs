@@ -67,21 +67,21 @@ class LansweeperHelper {
   }
 
   extractOperatingSystemNames(assets) {
-    const oss = assets.map(a => a.operatingSystem).filter(os => !!os && !!os.caption);
-    return this.mapToUnique(oss, os => this.cleanupName(os.caption));
+    const oss = assets.map(a => a.operatingSystem).filter(os => !!os && !!os.name);
+    return this.mapToUnique(oss, os => this.cleanupName(os.name));
   }
 
   extractOperatingSystemEndOfSupport(assets) {
     const endOfSupportDates = new Map();
     for (const asset of assets) {
-      if (asset.operatingSystem && asset.operatingSystem.caption &&
+      if (asset.operatingSystem && asset.operatingSystem.name &&
         asset.recognitionInfo && asset.recognitionInfo.osMetadata) {
         const metadata = asset.recognitionInfo.osMetadata;
         if (metadata.name && metadata.endOfSupportDate) {
-          const caption = this.cleanupName(asset.operatingSystem.caption);
+          const name = this.cleanupName(asset.operatingSystem.name);
           const metaName = this.cleanupName(metadata.name);
-          if (caption.includes(metaName)) {
-            endOfSupportDates.set(caption, metadata.endOfSupportDate);
+          if (name.includes(metaName)) {
+            endOfSupportDates.set(name, metadata.endOfSupportDate);
           }
         }
       }
@@ -151,8 +151,8 @@ class LansweeperHelper {
     return known;
   }
 
-  mapToUnique(assets, getFunction) {
-    return assets.map(getFunction)
+  mapToUnique(objects, getFunction) {
+    return objects.map(getFunction)
       .filter((v, i, a) => v && a.indexOf(v) === i);
   }
 
