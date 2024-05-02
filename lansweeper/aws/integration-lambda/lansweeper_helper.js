@@ -82,6 +82,8 @@ class LansweeperHelper {
           const metaName = this.cleanupName(metadata.name);
           if (name.includes(metaName)) {
             endOfSupportDates.set(name, metadata.endOfSupportDate);
+          } else {
+            console.warn(`operatingSystem and osMetadata mismatch: '${asset.operatingSystem.name}' vs '${metadata.name}'`);
           }
         }
       }
