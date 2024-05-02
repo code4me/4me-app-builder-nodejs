@@ -6,7 +6,6 @@ class LansweeperHelper {
     this.brands = {};
     this.models = {};
     this.products = {};
-    this.osNameMismatches = new Map();
   }
 
   extractProductCategories(assets) {
@@ -68,33 +67,8 @@ class LansweeperHelper {
   }
 
   extractOperatingSystemNames(assets) {
-    const oss = assets.map(a => a.operatingSystem).filter(os => !!os);
-    this.captureOsMismatches(oss);
-    const captions = oss.filter(os => !!os.caption);
-    return this.mapToUnique(captions, os => this.cleanupName(os.caption));
-  }
-
-  captureOsMismatches(oss) {
-    for (const os of oss) {
-      const cleanCaption = os.caption && this.cleanupName(os.caption);
-      const cleanName = os.name && this.cleanupName(os.name);
-      let message = null;
-      if (cleanCaption && !cleanName) {
-        message = `No name for ${cleanCaption}`;
-      } else if (!cleanCaption && cleanName) {
-        message = `No caption for ${cleanName}`;
-      } else if (cleanCaption && cleanName && cleanCaption !== cleanName) {
-        message = `Mismatch between caption and name: '${cleanCaption}' != '${cleanName}'`;
-      }
-      if (message) {
-        const currentCount = this.osNameMismatches.get(message);
-        if (currentCount) {
-          this.osNameMismatches.set(message, currentCount + 1);
-        } else {
-          this.osNameMismatches.set(message, 1);
-        }
-      }
-    }
+    const oss = assets.map(a => a.operatingSystem).filter(os => !!os && !!os.caption);
+    return this.mapToUnique(oss, os => this.cleanupName(os.caption));
   }
 
   extractOperatingSystemEndOfSupport(assets) {
@@ -177,8 +151,8 @@ class LansweeperHelper {
     return known;
   }
 
-  mapToUnique(objects, getFunction) {
-    return objects.map(getFunction)
+  mapToUnique(assets, getFunction) {
+    return assets.map(getFunction)
       .filter((v, i, a) => v && a.indexOf(v) === i);
   }
 
