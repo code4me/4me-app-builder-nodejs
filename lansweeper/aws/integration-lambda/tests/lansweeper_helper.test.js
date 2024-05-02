@@ -333,15 +333,10 @@ describe('extractSoftwareNames', () => {
 });
 
 describe('extractOperatingSystemNames', () => {
-  beforeEach(() => {
-    helper.osNameMismatches.clear();
-  });
-
   it('handles empty', () => {
     const names = helper.extractOperatingSystemNames([]);
 
     expect(names).toEqual([]);
-    expect(helper.osNameMismatches.size).toEqual(0);
   });
 
   it('extracts unique values', () => {
@@ -354,25 +349,6 @@ describe('extractOperatingSystemNames', () => {
                             'Microsoft Windows Server 2019 Standard Evaluation',
                             "Linux 20.04",
                           ]);
-    expect(helper.osNameMismatches.size).toBeGreaterThan(0);
-  });
-
-  describe('capturesOsMismatches', () => {
-    it('counts mismatches', () => {
-      helper.extractOperatingSystemNames(assetArray);
-
-      expect([...helper.osNameMismatches.keys()])
-        .toEqual([
-                   "No name for Microsoft Windows Server 2012 R2 Standard",
-                   "No name for Linux 16.04",
-                   "Mismatch between caption and name: 'Linux 18.04' != 'Linux'",
-                   "No name for Microsoft Windows Server 2019 Standard Evaluation",
-                   "No caption for macOS",
-                   "No caption for Android",
-                 ]);
-      expect(helper.osNameMismatches.get("No name for Microsoft Windows Server 2012 R2 Standard")).toEqual(3);
-      expect(helper.osNameMismatches.get("No caption for macOS")).toEqual(1);
-    });
   });
 });
 
