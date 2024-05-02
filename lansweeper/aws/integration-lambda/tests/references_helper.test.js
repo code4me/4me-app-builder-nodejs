@@ -77,7 +77,10 @@ describe('lookup4meReferences', () => {
                                                  "Microsoft Windows Server 2012 R2 Standard",
                                                  "Linux 16.04",
                                                  "Linux 18.04",
-                                                 "Microsoft Windows Server 2019 Standard Evaluation",
+                                                 'Red Hat Enterprise Linux 8.9 (Ootpa)',
+                                                 'Microsoft Windows Server 2019 Standard Evaluation',
+                                                 'macOS 14.4.1 (23E224)',
+                                                 'Android',
                                                  "Linux 20.04",
                                                ]);
     expect(helper.osEndOfSupports)

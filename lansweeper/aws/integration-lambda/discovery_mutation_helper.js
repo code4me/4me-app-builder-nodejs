@@ -103,8 +103,8 @@ class DiscoveryMutationHelper {
         ci.ciRelations = {childIds: softwareIDs};
       }
     }
-    if (asset.operatingSystem && asset.operatingSystem.caption) {
-      const softwareIDs = this.mapSoftwareName([asset.operatingSystem.caption]);
+    if (asset.operatingSystem && asset.operatingSystem.name) {
+      const softwareIDs = this.mapSoftwareName([asset.operatingSystem.name]);
       if (softwareIDs.length > 0) {
         ci.operatingSystemId = softwareIDs[0];
       }
