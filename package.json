@@ -18,7 +18,7 @@
     "author": "4me, Inc",
     "license": "MIT",
     "dependencies": {
-        "@aws-sdk/client-cloudformation": "3.563.0",
+        "@aws-sdk/client-cloudformation": "3.569.0",
         "@aws-sdk/client-secrets-manager": "3.563.0",
         "@aws-sdk/client-sqs": "3.563.0",
         "@aws-sdk/client-sts": "3.556.0",
