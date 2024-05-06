@@ -716,6 +716,7 @@ class Js4meDeployHelper {
     let uiExtensionResult;
     if (uiExtension && uiExtension.id) {
       const updateInput = {...uiExtensionInput, id: uiExtension.id};
+      delete updateInput.category;
       uiExtensionResult = await this.updateUiExtensionVersion(js4meHelper,
                                                               accessToken,
                                                               updateInput,
