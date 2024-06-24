@@ -17,7 +17,7 @@ It contains the following topics:
   * [Secrets webhook](#secrets-webhook)
   * [App offering](#app-offering)
     * [UI extension](#ui-extension)
-    * [Scopes and 4me application token](#scopes-and-4me-application-token)
+    * [Scopes and 4me tokens](#scopes-and-4me-tokens)
     * [App webhook and automation rules](#app-webhook-and-automation-rules)
   * [App instance](#app-instance)
   * [Integration engine](#integration-engine)
@@ -151,7 +151,8 @@ The following customer secrets are passed using webhook messages from 4me to the
 
 * The secret values provided by the customer in the [UI Extension](#ui-extension) related to the integration.
 * The webhook policy details of the [app webhook](#app-webhook-and-automation-rules) related to the integration.
-* The [4me application token](#scopes-and-4me-application-token) required to access data in the 4me customer account.
+* The [4me application token](#scopes-and-4me-tokens) required to access data in the 4me customer account.
+* The [4me authorization grant token](#scopes-and-4me-tokens) required to access data in the 4me customer account on behalf of the currently logged in user.
 
 The framework provides a [default implementation of the secrets webhook](#secrets-lambda) making use of the [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/).
 
@@ -173,7 +174,7 @@ The 4me app offering record is defined by the provider and consists of the follo
 * `Configuration URI` The external URI where the app can be configured.
 
 Depending on the type of integration the [UI extension](#ui-extension)
-, [scopes and application token](#scopes-and-4me-application-token),
+, [scopes and tokens](#scopes-and-4me-tokens),
 and/or [app webhook and automation rules](#app-webhook-and-automation-rules) need to be defined.
 
 This framework provides several [example integrations](#example-integrations) showing when and how to use them.
@@ -201,7 +202,7 @@ process those messages in the integration engine and store the customer's secret
 
 The [Framework](#secrets-lambda) already provides a full implementation for this functionality using the AWS services.
 
-#### Scopes and 4me Application Token
+#### Scopes and 4me Tokens
 
 In case the integration needs to interact with the [4me GraphQL API](https://developer.4me.com/graphql/) in the customer account the integration has to define the access it requires.
 This can be done by defining scopes.
@@ -210,8 +211,11 @@ Scopes typically contain information like 'Allow: CI — Read, Update'.
 
 The customer is able to review the scopes before installing the app.
 
-When the app is installed a 4me application token will be created in the customer account with the defined scopes. The
-created token, required to access the [4me GraphQL API](https://developer.4me.com/graphql/) in the customer account,
+When the app is installed a 4me application token and authorization grant token will be created in the customer account 
+with the defined scopes. The application token will allow the integration access on its own behalf, not dependent on a 
+user's session currently logged in the 4me UI. The authorization code grant token will allow access in context of a user
+currently using 4me (these will typically use the 'Me scope', allowing access to the current user's identity). 
+The created tokens, required to access the [4me GraphQL API](https://developer.4me.com/graphql/) in the customer account,
 will be sent to the integration engine using the [app_instance.secrets-update](#secrets-webhook) webhook.
 
 4me does not store the secret 4me application token so it is imperative to process those messages in the integration
@@ -247,11 +251,14 @@ URI where a user will be redirect to upon installation.
 
 When a user installs an app from the app store, first a (disabled) app instance is created. Then the user is redirected
 to the configuration URI, with the nodeID, account_id, confirmation_url and created_at of the app instance as query
-parameters.
+parameters. Additionally a query parameter X-4me-Signature will be provided when the [Secrets Webhook](#secrets-webhook)
+has a policy configured (which is **strongly recommended**).
 
-At the configuration URI, before doing any configuration, the app should retrieve the app instance from 4me using
-the nodeID and compare the received account_id and created_at with those of the app instance. When the account_id and
-the created_at match, the app can continue with it's configuration by interacting with the user.
+At the configuration URI, before doing any configuration, the app should validate the incoming request.
+First X-4me-Signature can be used to verify the nodeID, the signature contains a JWT token (with the nodeID value as 
+its data) signed with the secret webhook's policy. If this token is valid the app should retrieve the app instance from
+4me using the nodeID and compare the received account_id and created_at with those of the app instance. When the 
+account_id and the created_at match, the app can continue with its configuration by interacting with the user.
 
 After configuration, the user should be redirect back to 4me to confirm the configuration in 4me by
 enabling the app instance. To do this, the user should be redirect to the confirmation_url.
@@ -482,8 +489,10 @@ Based on the [Typeform example](#typeform) the secret may look something like th
 
 The `secrets` hash contains all customer secrets retrieved from secret fields defined in the [UI extension](#ui-extension).
 
-The `application` hash contains the [secret 4me application token](#scopes-and-4me-application-token) used to access the
-4me GraphQL API in the customer account.
+The `application` hash contains the [secret 4me application token](#scopes-and-4me-tokens) used to access the
+4me GraphQL API in the customer account. If this integration would have defined any authorization code grant scopes an 
+`authorization_application` hash would also have been present, with the details of the token allowing those scopes to be
+used.
 
 Not present in this example is the `policy` hash (as the this integration does not define any webhooks from the customer
 account). The `policy` hash would contain the details of webhook policy generated in the customer's account. These
@@ -700,7 +709,7 @@ step 13.
 
 When a customer installs the Typeform app all completed requests will receive a note with a link to a survey. Once the survey is filled out the results will be added as a note to a generic Survey request in 4me.
 
-This example explains the use of the [scopes and 4me application token](#scopes-and-4me-application-token) in detail.
+This example explains the use of the [scopes and 4me application token](#scopes-and-4me-tokens) in detail.
 
 Make sure to understand the [bootstrap.js](#bootstrapjs) script as that is a prerequisite for this example.
 
@@ -771,7 +780,7 @@ The App installation process consists of a number of (mostly automated) steps:
 Extensions created in step 9 above. The secret `Typeform token` is sent to the [secrets lambda](#secrets-lambda). The
 other values provided by the customer are stored in the `custom_fields` of the app instance created in step 11.
 
-**Step 13** A new [application](#scopes-and-4me-application-token) is created in the customer account based on the
+**Step 13** A new [application](#scopes-and-4me-tokens) is created in the customer account based on the
 scopes defined in step 7. The secret `application token` is shared with the integration using
 the [secrets-lambda](#secrets-lambda) that was provisioned in the [bootstrap.js script](#bootstrapjs).
 
