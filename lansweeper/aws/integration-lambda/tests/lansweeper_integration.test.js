@@ -928,6 +928,133 @@ describe('processSite', () => {
                              errors: {'site a': 'No installations for site a'},
                            });
   });
+
+
+  it('adds an errorCount for all errors received from 4me', async () => {
+    const allInstallationNames = ['a for b', 'b for b', 'd for c'];
+    const extraInstallationNames = ['e', 'a for c', 'b for b'];
+    LansweeperClient.mockImplementationOnce(() => ({
+      getSiteIds: async () => ['a', 'b', 'c'],
+      getAllInstallationNames: async () => allInstallationNames,
+      getAllInstallations: async (siteId) => {
+        if (siteId === 'a') {
+          return {error: 'No installations for site a'};
+        } else {
+          return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+        }
+      },
+      getSiteName: async (id) => {
+        return `site ${id}`;
+      },
+      getAssetsPaged: async (id, cutOffDate, handler, networkedAssetsOnly, installationKey) => {
+        expect(id).toBe('b');
+        const installation = installations.find(i => i.id === installationKey);
+        expect(installation).not.toBeUndefined();
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        return [...result1];
+      },
+    }));
+
+    const discoveryUploadInput = [{dataReturnedByDiscoveryHelper: true}];
+
+    const mutationResult = {
+      configurationItems: null,
+      asyncQuery: {resultUrl: 'https://s3/results.json'}
+    };
+    const graphQLResult = {
+      configurationItems: [
+        {id: 'nodeID 1'},
+        {id: 'nodeID 2'},
+      ],
+    };
+    const customerAccessToken = {access_token: 'foo.bar'};
+    const ciUpdateMutationQuery = `
+      mutation($input: ConfigurationItemUpdateInput!) {
+        configurationItemUpdate(input: $input) {
+          errors { path message }
+          configurationItem { id }
+        }
+      }`.trim();
+    let asyncResultCount = 0;
+    const mockedJs4meHelper = {
+      getToken: jest.fn(async () => customerAccessToken),
+      executeGraphQLMutation: jest.fn(async (descr, token, query, vars) => {
+        expect(token).toBe(customerAccessToken);
+        if (query.includes('discoveredConfigurationItems')) {
+          expect(query.trim()).toEqual(discoveryUploadQuery.trim());
+          expect(vars).toEqual({input: discoveryUploadInput});
+          return mutationResult;
+        } else {
+          expect(query.trim()).toEqual(ciUpdateMutationQuery);
+          expect(vars).toEqual({input: {id: 'def', endOfSupportDate: '2023-10-10T16:00:00.000Z'}});
+          return {configurationItem: {id: 'def'}};
+        }
+      }),
+      getAsyncMutationResult: jest.fn(async (descr, result, maxWait) => {
+        expect(result).toEqual(mutationResult);
+        expect(maxWait).toEqual(300000);
+        asyncResultCount++;
+        return {...graphQLResult, errors: [{message: `Oops ${asyncResultCount}`, path: ['a', 'b']}]};
+      }),
+    };
+    const refData = {refDat: true};
+
+    OsCiMutationHelper.mockImplementationOnce((referencesHelpers, js4meHelper) => ({
+      processOSUpdates: async (allOperatingSystems) => {
+        return {cisErrored: [], cisUpdated: ['def']};
+      },
+    }));
+
+    ReferencesHelper.mockImplementationOnce((js4meHelper) => {
+      expect(js4meHelper).toBe(mockedJs4meHelper);
+      return {
+        lookup4meReferences: async (assets) => {
+          expect(assets).toEqual(assetArray);
+          return refData;
+        },
+        allOperatingSystems: [],
+        softwareFound: new Map(),
+        osEndOfSupports: new Map(),
+        peopleFound: [],
+        peopleNotFound: ['a'],
+      }
+    });
+
+    DiscoveryMutationHelper.mockImplementation((referenceData, generateLabels, installationNames) => {
+      expect(referenceData).toBe(refData);
+      expect(generateLabels).toBe(false);
+      // allInstallationNames + extraInstallations with duplicates removed
+      expect(installationNames).toEqual(['a for b', 'b for b', 'd for c', 'e', 'a for c']);
+      return {
+        toDiscoveryUploadInput: (installation, assets) => {
+          expect(assets).toEqual(assetArray);
+          expect(installationNames.indexOf(installation)).not.toEqual(-1);
+          return discoveryUploadInput;
+        },
+      };
+    });
+
+    const integration = new LansweeperIntegration('client id',
+                                                  'secret',
+                                                  'refresh token',
+                                                  mockedJs4meHelper);
+
+    const result = await integration.processSites(true, null, false, (i) => !i.endsWith(' for c'), extraInstallationNames);
+    expect(result).toEqual({
+                             uploadCounts: {'site b': {'a for b': 2, 'b for b': 2}},
+                             errorCounts: {'site b': {'a for b': 1, 'b for b': 1}},
+                             info: {
+                               'site c': 'No installations in this site matched selection',
+                             },
+                             errors: {
+                               'site a': 'No installations for site a',
+                               'site b': {
+                                 'a for b': ['Oops 1'],
+                                 'b for b': ['Oops 2'],
+                               },
+                             },
+                           });
+  });
 });
 
 describe('validateCredentials', () => {
