@@ -43,7 +43,7 @@ class LansweeperIntegration {
     }
     const installationNames = [...new Set([...allInstallationNames, ...extraInstallations])];
 
-    const result = {uploadCounts: {}, info: {}, errors: {}};
+    const result = {uploadCounts: {}, errorCounts: {}, info: {}, errors: {}};
     for (const siteId of siteIds) {
       const siteName = await this.lansweeperClient.getSiteName(siteId);
       let siteError = null;
@@ -80,6 +80,8 @@ class LansweeperIntegration {
               result.uploadCounts[siteName] = result.uploadCounts[siteName] || {};
               result.uploadCounts[siteName][installation.name] = installationResult.uploadCount;
               if (installationResult.errors) {
+                result.errorCounts[siteName] = result.errorCounts[siteName] || {};
+                result.errorCounts[siteName][installation.name] = installationResult.errors.length;
                 result.errors[siteName] = result.errors[siteName] || {};
                 result.errors[siteName][installation.name] = installationResult.errors;
               }
