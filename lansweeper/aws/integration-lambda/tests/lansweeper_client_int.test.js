@@ -24,6 +24,41 @@ describe.skip('integration tests', () => {
   const installId = 'e3d90a6d-5f9a-4af8-8162-da011bcca979';
   const siteId2 = '261986fd-78b5-4b69-ad12-a6795492f68d';
 
+  const EXPECTED_ASSET_TYPES = [
+    "Automotive",
+    "Cleaner",
+    "Computer",
+    "ESXi server",
+    "Energy",
+    "FTP server",
+    "Game device",
+    "IOS",
+    "Laptop",
+    "Linux",
+    "Location",
+    "Loudspeaker",
+    "Media system",
+    "Mobile",
+    "Monitor",
+    "NAS",
+    "Network device",
+    "Printer",
+    "Router",
+    "Server",
+    "Smart TV",
+    "Smoke",
+    "Surveillance Camera",
+    "Switch",
+    "Tablet",
+    "Toy",
+    "VMware Guest",
+    "Virtual Machine",
+    "Weather",
+    "Webserver",
+    "Wifi",
+    "Windows"
+  ];
+
   const testCredentials = credentials['4me'];
   const accessToken = testCredentials.accessToken;
   const js4meHelper = new Js4meHelper(testCredentials.env, testCredentials.account);
@@ -105,41 +140,7 @@ describe.skip('integration tests', () => {
 
   it('can get asset types', async () => {
     const response = await lansweeperClient.getAssetTypes(siteId1);
-
-    expect(response).toEqual([
-                               "Alarm system",
-                               "Automotive",
-                               "Cleaner",
-                               "Computer",
-                               "ESXi server",
-                               "Energy",
-                               "FTP server",
-                               "IOS",
-                               "Laptop",
-                               "Linux",
-                               "Location",
-                               "Media system",
-                               "Mobile",
-                               "Monitor",
-                               "NAS",
-                               "Network device",
-                               "Printer",
-                               "Router",
-                               "Server",
-                               "Smart Home",
-                               "Smart TV",
-                               "Smoke",
-                               "Surveillance Camera",
-                               "Switch",
-                               "Tablet",
-                               "Toy",
-                               "VMware Guest",
-                               "Virtual Machine",
-                               "Weather",
-                               "Webserver",
-                               "Wifi",
-                               "Windows"
-                             ]);
+    expect(response).toEqual(EXPECTED_ASSET_TYPES);
   });
 
   it('can get installation names for all sites', async () => {
@@ -220,6 +221,16 @@ describe.skip('integration tests', () => {
     // console.log('all assets:\n%j', allResults);
     const filteredResults = allResults.filter(a => a.assetBasicInfo.type === 'Windows' || a.assetBasicInfo.type === 'VMware Guest');
     expect(filteredResults).toEqual(results);
+  });
+
+  it('can get assets paged for single installation and a large list of asset types', async () => {
+    const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
+    const results = await lansweeperClient.getAssetsPaged(siteId1, cutOff, items => {
+      return items;
+    }, true, installId, EXPECTED_ASSET_TYPES);
+
+    console.log('assets:\n%j', results);
+    expect(results.length).toBeGreaterThan(0);
   });
 
   describe('performance tests', () => {
