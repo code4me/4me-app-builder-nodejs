@@ -278,83 +278,36 @@ class LansweeperClient {
   }
 
   getFilters(withIP, assetCutOffDate, installationId, assetTypes = null) {
-    const conjunctions = [];
+    let conditions = '';
 
     if (assetTypes) {
-      const conditions =
-        this.getAssetTypeRegExs(assetTypes)
-          .map((regEx) => `{ operator: REGEXP, path: "assetBasicInfo.type", value: "${regEx}" }`);
-      const assetTypesConjunction = this.createConjunction("OR", ...conditions);
-      conjunctions.push(assetTypesConjunction);
+      let assetTypesRegEx = this.helper.arrayToRegExValue(assetTypes);
+      conditions = `{operator: REGEXP, path: "assetBasicInfo.type", value: "${assetTypesRegEx}"}`;
     } else {
       if (withIP !== undefined) {
-        const ipConjunction = this.createConjunction("AND",
-                                                     `{ operator: EXISTS, path: "assetBasicInfo.ipAddress", value: "${withIP}" }`);
-        conjunctions.push(ipConjunction);
+        conditions = `{operator: EXISTS, path: "assetBasicInfo.ipAddress", value: "${withIP}"}`;
       }
     }
-
-    const lastSeenConjunction = this.createConjunction("OR",
-                                                       `{ operator: GREATER_THAN, path: "assetBasicInfo.lastSeen", value: "${assetCutOffDate.toISOString()}" }`,
-                                                       '{ operator: EXISTS, path: "assetBasicInfo.lastSeen", value: "false" }',
-    );
-    conjunctions.push(lastSeenConjunction);
 
     if (installationId !== undefined) {
-      const installationConjunction = this.createConjunction("AND",
-                                                             `{ operator: EQUAL, path: "installationId", value: "${installationId}" }`);
-      conjunctions.push(installationConjunction);
+      // Here using the `installationId` in path results in an error response
+      conditions = `${conditions}\n{operator: EQUAL, path: "installationId", value: "${installationId}"}`;
     }
 
-    return `
-      { conjunction: AND
-        groups: [ ${conjunctions.join(",\n")} ]
-      }`;
-  }
-
-  getAssetTypeRegExs(assetTypes) {
-    const [firstRegEx, remainingTypes] = this.firstRegexValue(assetTypes);
-    let regExs = [firstRegEx];
-    if (remainingTypes.length > 0) {
-      regExs.push(...this.getAssetTypeRegExs(remainingTypes));
-    }
-    return regExs;
-  }
-
-  createConjunction(operator, ...conditions) {
-    return `{ conjunction: ${operator}\n  conditions: [ ${conditions.join(",\n")} ] }`;
-  }
-
-  firstRegexValue(assetTypes) {
-    let index = 0;
-    let currentRegEx = '';
-    let currentLength = -1;
-    let currentArray = [];
-    while (index < assetTypes.length && currentLength < LansweeperClient.maxFilterFieldLength) {
-      let nextType = assetTypes[index];
-      let nextLength = nextType.length;
-      if (nextLength > LansweeperClient.maxFilterFieldLength) {
-        console.error(`AssetType too long (${nextLength}): ${nextType}`);
-      } else {
-        const nextArray = [...currentArray, nextType];
-        const nextRegEx = this.helper.arrayToRegExValue(nextArray);
-        if (nextRegEx.length <= LansweeperClient.maxFilterFieldLength) {
-          currentArray = nextArray;
-          currentRegEx = nextRegEx;
-          currentLength = nextRegEx.length;
-        } else {
-          break;
-        }
-      }
-      index++;
-    }
-    const remainingArray = assetTypes.slice(index, assetTypes.length);
-    return [currentRegEx, remainingArray];
+    return `{conjunction: OR, groups: [
+      { conditions: [ 
+        ${conditions}
+        { operator: GREATER_THAN, path: "assetBasicInfo.lastSeen", value: "${assetCutOffDate.toISOString()}" }
+        ]}
+      { conditions: [ 
+        ${conditions}
+        { operator: EXISTS, path: "assetBasicInfo.lastSeen", value: "false" }
+        ]}
+      ]}`;
   }
 }
 
 LansweeperClient.pageSize = parseInt(process.env.LANSWEEPER_PAGE_SIZE, 10) || 100;
-LansweeperClient.maxFilterFieldLength = parseInt(process.env.LANSWEEPER_MAX_FILTER_FIELD_LENGTH, 10) || 100;
 LansweeperClient.topLevelFields = '_id key url';
 LansweeperClient.basicInfoFields = 'name type description ipAddress firstSeen lastSeen lastChanged userName userDomain';
 LansweeperClient.assetCustomFields = 'model manufacturer stateName purchaseDate warrantyDate serialNumber sku';

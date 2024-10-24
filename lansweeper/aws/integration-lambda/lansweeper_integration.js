@@ -246,10 +246,6 @@ class LansweeperIntegration {
     if (allAssetTypes.error) {
       return allAssetTypes;
     } else {
-      const tooLongAssetTypes = allAssetTypes.filter(t => t.length > LansweeperClient.maxFilterFieldLength);
-      if (tooLongAssetTypes.length > 0) {
-        console.warn(`Encountered ${tooLongAssetTypes.length} too long asset types: [${tooLongAssetTypes.join(',')}]`)
-      }
       const allLower = allAssetTypes.map(t => t.toLowerCase());
       const configLower = configAssetTypes.map(t => t.toLowerCase());
       const assetTypes = configLower.filter(at => allLower.includes(at));
