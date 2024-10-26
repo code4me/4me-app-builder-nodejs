@@ -137,6 +137,9 @@ class Js4meHelper {
         const response = error.response;
         const url = error.config.url;
         console.error(`Error from ${url}. ${response.status}: ${response.statusText}`);
+        if (response.status === 429) {
+          console.info(`Retry after: ${response.headers['retry-after']}`)
+        }
       } else {
         console.error(error);
       }
