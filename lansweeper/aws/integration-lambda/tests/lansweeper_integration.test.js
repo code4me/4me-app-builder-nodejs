@@ -22,6 +22,104 @@ const LansweeperGraphQLError = require('../errors/lansweeper_graphql_error');
 const LoggedError = require('../../../../library/helpers/errors/logged_error');
 jest.mock('../../../../library/helpers/time_helper');
 
+describe('downloadAndReduceSiteResults', () => {
+  const integration = new LansweeperIntegration('client id',
+                                                'secret',
+                                                'refresh token',
+                                                null);
+  const siteName = 'my_site';
+
+  it('combines uploads from 2 installations', async () => {
+    const result = {uploadCounts: {}, errorCounts: {}, info: {}, errors: {}};
+
+    const resultDownloadFunctions = new Map();
+    resultDownloadFunctions.set({id: '0', name: 'installation1'},
+                                async () => ({uploadCount: 2}));
+    resultDownloadFunctions.set({id: '1', name: 'installation2'},
+                                async () => ({uploadCount: 6}));
+
+    await integration.downloadAndReduceSiteResults(resultDownloadFunctions, result, siteName);
+    expect(result).toEqual(
+      {
+        errorCounts: {},
+        info: {},
+        errors: {},
+        uploadCounts: {
+          my_site: {
+            installation1: 2,
+            installation2: 6,
+          },
+        },
+      });
+  });
+
+  it('combines errors from 2 installations', async () => {
+    const result = {uploadCounts: {}, errorCounts: {}, info: {}, errors: {}};
+
+    const resultDownloadFunctions = new Map();
+    resultDownloadFunctions.set({id: '0', name: 'installation1'},
+                                async () => ({errors: ['a', 'c']}));
+    resultDownloadFunctions.set({id: '1', name: 'installation2'},
+                                async () => ({errors: ['b']}));
+
+    await integration.downloadAndReduceSiteResults(resultDownloadFunctions, result, siteName);
+    expect(result).toEqual(
+      {
+        errorCounts: {
+          my_site: {
+            installation1: 2,
+            installation2: 1,
+          },
+        },
+        info: {},
+        errors: {
+          my_site: {
+            installation1: ['a', 'c'],
+            installation2: ['b'],
+          },
+        },
+        uploadCounts: {
+          my_site: {
+            installation1: 0,
+            installation2: 0,
+          },
+        },
+      });
+  });
+
+  it('combines error and upload from 2 installations', async () => {
+    const result = {uploadCounts: {}, errorCounts: {}, info: {}, errors: {}};
+
+    const resultDownloadFunctions = new Map();
+    resultDownloadFunctions.set({id: '0', name: 'installation1'},
+                                async () => ({errors: ['a', 'c']}));
+    resultDownloadFunctions.set({id: '1', name: 'installation2'},
+                                async () => ({uploadCount: 2}));
+
+    await integration.downloadAndReduceSiteResults(resultDownloadFunctions, result, siteName);
+    expect(result).toEqual(
+      {
+        errorCounts: {
+          my_site: {
+            installation1: 2,
+          },
+        },
+        info: {},
+        errors: {
+          my_site: {
+            installation1: ['a', 'c'],
+          },
+        },
+        uploadCounts: {
+          my_site: {
+            installation1: 0,
+            installation2: 2,
+          },
+        },
+      });
+  });
+});
+
 describe('processSite', () => {
   const discoveryUploadQuery = `
       mutation($input: DiscoveredConfigurationItemsInput!) {
@@ -39,6 +137,11 @@ describe('processSite', () => {
       getMsSinceEpoch: () => new Date(2021, 7, 30, 10, 0, 0).getTime(),
     }));
   });
+
+  const processSite = async (integration, siteId, networkedAssetsOnly, generateLabels, installation, installationNames, assetTypes) => {
+    const resultDownloadFunction = await integration.enqueueMutationsForInstallation(siteId, networkedAssetsOnly, generateLabels, installation, installationNames, assetTypes);
+    return await resultDownloadFunction.call();
+  }
 
   it('handles successful pages', async () => {
     const siteId = 'abdv';
@@ -112,7 +215,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId, true, true, installations[0], installations, null);
+    const result = await processSite(integration, siteId, true, true, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length * 2;
     expect(result).toEqual({uploadCount: uploadCount});
   });
@@ -147,8 +250,8 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   null);
 
-    const result = await integration.processSite(siteId, false, false, installations[0], installations, null);
-    expect(result).toEqual({errors: ['Unable to upload assets to 4me.']});
+    const result = await processSite(integration, siteId, false, false, installations[0], installations, null);
+    expect(result).toEqual({errors: ['Unable to upload assets to 4me.'], uploadCount: 0});
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
@@ -182,8 +285,8 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   null);
 
-    const result = await integration.processSite(siteId, false, false, installations[0], installations, null);
-    expect(result).toEqual({errors: ['Unable to upload assets to 4me.']});
+    const result = await processSite(integration, siteId, false, false, installations[0], installations, null);
+    expect(result).toEqual({errors: ['Unable to upload assets to 4me.'], uploadCount: 0});
     expect(consoleErrorSpy).toHaveBeenCalled();
   });
 
@@ -261,7 +364,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId, false, false, installations[0], installations, null);
+    const result = await processSite(integration, siteId, false, false, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length;
     expect(result).toEqual({errors: ['Unable to upload'], uploadCount: uploadCount});
   });
@@ -338,7 +441,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId, undefined, false, installations[0], installations, null);
+    const result = await processSite(integration, siteId, undefined, false, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length * 2;
     expect(result).toEqual({errors: ['unable to create ci1'], uploadCount: uploadCount});
   });
@@ -402,7 +505,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    await expect(integration.processSite(siteId, undefined, false, installations[0], installations, null))
+    await expect(processSite(integration, siteId, undefined, false, installations[0], installations, null))
       .rejects
       .toThrow(error);
   });
@@ -798,7 +901,7 @@ describe('processSite', () => {
                                                   'refresh token',
                                                   mockedJs4meHelper);
 
-    const result = await integration.processSite(siteId, undefined, false, installations[0], installations, null);
+    const result = await processSite(integration, siteId, undefined, false, installations[0], installations, null);
     const uploadCount = graphQLResult.configurationItems.length;
     expect(result).toEqual({errors: ['Unable to query abc'], uploadCount: uploadCount});
   });
