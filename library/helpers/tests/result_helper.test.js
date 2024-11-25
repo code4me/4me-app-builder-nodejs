@@ -22,5 +22,8 @@ describe('cleanupResult', () => {
 
     expect(helper.cleanupResult({uploadCount: {a: 'a'}, info: {b: 'b'}, errors: {c: []}}))
       .toEqual({uploadCount: {a: 'a'}, info: {b: 'b'}, errors: {c: []}});
+
+    expect(helper.cleanupResult({uploadCount: 0, info: 'b', errors: ['a']}))
+      .toEqual({uploadCount: 0, info: 'b', errors: ['a']});
   });
 });
