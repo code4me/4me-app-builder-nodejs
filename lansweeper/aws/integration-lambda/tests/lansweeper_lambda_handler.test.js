@@ -40,7 +40,7 @@ const context = {invokedFunctionArn: 'arn:aws:lambda:eu-west-1:123456789012:func
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_BOOTSTRAP_ACCOUNT = 'test-provider';
 process.env.PARAM_4ME_DOMAIN = '4me-test-domain';
-process.env.PARAM_OFFERING_REFERENCE = 'my-lansweeper';
+process.env.PARAM_OFFERING_REFERENCE = 'lansweeper';
 process.env.REFRESH_QUEUE_URL = 'sql-url';
 
 it('handles scheduled event', async () => {
