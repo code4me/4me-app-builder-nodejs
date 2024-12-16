@@ -21,6 +21,12 @@ class Js4meInstallationHandler {
       return this.respondWith(`Installation account not found in ${secretId}`, 200)
     }
 
+    const offeringReference = this.lambda4meContextHelper.offeringReference;
+    if (offeringReference && secretId.indexOf(offeringReference) === -1) {
+      // secrets manager call for other application than current offering
+      return this.respondWith(`Current offering ${offeringReference} not found in ${secretId}`, 200)
+    }
+
     const account = matches[1];
     const newInstallation = event.detail.eventName === 'CreateSecret';
     console.log('%s installation for account %s', newInstallation ? 'New' : 'Updated', account);

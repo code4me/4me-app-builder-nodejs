@@ -33,7 +33,7 @@ const mockedSecrets = {
 
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_4ME_DOMAIN = '4me-test-domain';
-process.env.PARAM_OFFERING_REFERENCE = 'my-typeform';
+process.env.PARAM_OFFERING_REFERENCE = 'typeform';
 
 it('handles note dispatcher event', async () => {
   const event = require('../../events/note-dispatcher.event.json');
@@ -86,7 +86,7 @@ it('handles note dispatcher event', async () => {
                                       })
              });
 
-  expect(secretsHelperMock.constructor()).toHaveBeenCalledWith(null, '4me-test-domain', 'my-app/my-typeform');
+  expect(secretsHelperMock.constructor()).toHaveBeenCalledWith(null, '4me-test-domain', 'my-app/typeform');
   expect(mockGetSecrets).toHaveBeenCalledWith('instances/wdc');
 
   expect(receivedText).toBe('a new note');

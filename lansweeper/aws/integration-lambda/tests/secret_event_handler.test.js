@@ -30,7 +30,7 @@ const expectedInstanceId = 'fuydjhdf';
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_BOOTSTRAP_ACCOUNT = 'test-provider';
 process.env.PARAM_4ME_DOMAIN = '4me-test-domain';
-process.env.PARAM_OFFERING_REFERENCE = 'my-lansweeper';
+process.env.PARAM_OFFERING_REFERENCE = 'lansweeper';
 
 describe('known app_instance', () => {
   it('handles event and sets callbackURL in the app instance when status is pending_callback_url', async () => {
@@ -192,6 +192,28 @@ it('does not continue if no app instance is found', async () => {
   const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
+  expect(LansweeperClient.mock.calls.length).toBe(0);
+});
+
+it('does not continue if offering reference is different', async () => {
+  const event = require('../../events/secret-create.event.json');
+  event.detail.requestParameters.name = '4me-app-builder/xurrent_apps_xds/4me-staging.com/instances/test-account'
+
+  Js4meHelper.mockImplementation(() => {
+    return {
+      getToken: async () => providerAccessToken,
+      getGraphQLQuery: async () => ciProductData,
+    };
+  });
+
+  expect(await app.lambdaHandler(event, context))
+    .toEqual({
+      'statusCode': 200,
+      'body': JSON.stringify({
+        message: 'Current offering lansweeper not found in 4me-app-builder/xurrent_apps_xds/4me-staging.com/instances/test-account',
+      })
+    });
+
   expect(LansweeperClient.mock.calls.length).toBe(0);
 });
 

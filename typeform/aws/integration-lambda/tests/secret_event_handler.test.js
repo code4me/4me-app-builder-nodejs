@@ -24,7 +24,7 @@ const LambdaContextMocker = require('../../../../library/aws/secrets-lambda/test
 process.env.PARAM_BOOTSTRAP_APP = 'my-app';
 process.env.PARAM_BOOTSTRAP_ACCOUNT = 'test-provider';
 process.env.PARAM_4ME_DOMAIN = '4me-test-domain';
-process.env.PARAM_OFFERING_REFERENCE = 'my-typeform';
+process.env.PARAM_OFFERING_REFERENCE = 'typeform';
 
 it('handles event when typeform secret is present', async () => {
   const event = require('../../events/secret-update.event.json');
@@ -68,7 +68,7 @@ it('handles initial secrets, no typeform secret yet', async () => {
       client_secret: 'secret',
     },
     secrets: {
-      typeform_token: 'my-typeform-token',
+      typeform_token: 'typeform-token',
     },
   };
   const lambdaContextMocker = new LambdaContextMocker('test-account', customerSecrets);
@@ -155,7 +155,7 @@ it('handles initial secrets, no typeform secret yet', async () => {
   expect(Js4meHelper.mock.calls.length).toBe(2);
   expect(randomBytesMock).toBeCalledWith(64);
   expect(generatedSecrets.typeform_secret).toBe(bufferFromMock.toString('hex'));
-  expect(TypeformClient).toBeCalledWith('my-typeform-token');
+  expect(TypeformClient).toBeCalledWith('typeform-token');
   expect(unsuspendCalled).toBe(true);
 });
 
@@ -168,7 +168,7 @@ it('does not continue if no app instance is found', async () => {
       client_secret: 'secret',
     },
     secrets: {
-      typeform_token: 'my-typeform-token',
+      typeform_token: 'typeform-token',
     },
   };
   const lambdaContextMocker = new LambdaContextMocker('test-account', customerSecrets);
@@ -220,7 +220,7 @@ it('does not store secrets if typeform call fails', async () => {
       client_secret: 'secret',
     },
     secrets: {
-      typeform_token: 'my-typeform-token',
+      typeform_token: 'typeform-token',
     },
   };
   const lambdaContextMocker = new LambdaContextMocker('test-account', customerSecrets);
@@ -283,7 +283,7 @@ it('does not store secrets if typeform call fails', async () => {
   const expectedAppName = `${process.env.PARAM_BOOTSTRAP_APP}/${process.env.PARAM_OFFERING_REFERENCE}`;
   expect(SecretsHelper).toHaveBeenCalledWith(null, process.env.PARAM_4ME_DOMAIN, expectedAppName);
   lambdaContextMocker.checkCustomerAndProvider4meHelperCreated();
-  expect(TypeformClient).toBeCalledWith('my-typeform-token');
+  expect(TypeformClient).toBeCalledWith('typeform-token');
   expect(generatedSecrets).toBeNull();
   expect(actualSuspensionComment).toBe('Error creating Typeform webhook. Please check the Typeform token and Form ID.');
 });
