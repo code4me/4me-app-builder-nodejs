@@ -1,6 +1,5 @@
 'use strict';
 
-const secretsHelperMock = require('./secrets_helper_mock');
 const Js4meHelper = require('../js_4me_helper');
 
 const domain = '4me-staging.com';
@@ -18,6 +17,10 @@ const rs512Alg = 'RS512';
 const es512Token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzUxMiJ9.eyJkYXRhIjp7IndlYmhvb2tfaWQiOjMsIndlYmhvb2tfbm9kZUlEIjoiTkcxbExYTjBZV2RwYm1jdVkyOXRMMWRsWW1odmIyc3ZNdyIsImFjY291bnRfaWQiOiJ3ZGMiLCJhY2NvdW50IjoiaHR0cHM6Ly93ZGMuNG1lLXN0YWdpbmcuY29tIiwibmFtZSI6ImludGVncmF0aW9uX2luc3RhbmNlLnNlY3JldHMtdXBkYXRlIiwiZXZlbnQiOiJ3ZWJob29rLnZlcmlmeSIsIm9iamVjdF9pZCI6Mywib2JqZWN0X25vZGVJRCI6Ik5HMWxMWE4wWVdkcGJtY3VZMjl0TDFkbFltaHZiMnN2TXciLCJwZXJzb25faWQiOjU5MSwicGVyc29uX25vZGVJRCI6Ik5HMWxMWE4wWVdkcGJtY3VZMjl0TDFCbGNuTnZiaTgxT1RFIiwicGVyc29uX25hbWUiOiJQbHVnZ2FibGUgSW50ZWdyYXRpb25zIiwicGF5bG9hZCI6eyJjYWxsYmFjayI6Imh0dHBzOi8vd2RjLjRtZS1zdGFnaW5nLmNvbS93ZWJob29rcy8zL3ZlcmlmeT9jb2RlPVUyTjM1T3Ffa3JkZktnRkYwc0M0dHNYTSZleHBpcmVzX2F0PTE2MTQ5MzUxNjQifX0sImp0aSI6IjI0Nzg0ZmUxNjM0ZDk1NzU0ZmEzMGEyMGFmMWZhNDc0ZjNjODgyOWE3OTZlMzlkMWI2OGI2MGNhZDFhZDJhMzEiLCJzdWIiOiIzIiwiaXNzIjoiaHR0cHM6Ly93ZGMuNG1lLXN0YWdpbmcuY29tIiwibmJmIjoxNjE0ODQ4NzY0LCJpYXQiOjE2MTQ4NDg3NjQsImF1ZCI6ImludGVncmF0aW9ucyBwcm92aWRlZCBieSB3ZGNANG1lLXN0YWdpbmcuY29tIn0.AUH4wS5HN4niHtG4jhAiO4TzAXVGiOcdowhJjX-LXr3DJW_8uxc4OWMkuOvP1hIULowsFWaEAwtHPnxPl8wz-VQNAXYpY_grtdXX9dlgp0WbY9n6fBd6Hrywg1fGiI_Uw36FbBIihMe3qTT8c3HRbYso_7nlHDUiO5vnZWHOCOhFl_2G';
 const es512Pem = '-----BEGIN EC PRIVATE KEY-----\nMIHcAgEBBEIAJEdjbBWlqziCZqr6Eqk1RKoFSh8XAzcbBU6Oe/3v3VBNSM/y86jb\nkuB0EFM0xDxKDgLNQSmAU+dO0KgCkPOrVT2gBwYFK4EEACOhgYkDgYYABAEZl9/T\nBwPGzNJx0y6wsEhGVjaJsIH02Ml/TELAUinZmFkf3D0xN6oswkOvuiWPg2WfIo5h\nNMNR1hJxZZDHUwLKYwC8lICvu18p7cH0xAwMou9NElofm93mzdhqS89uBXZVu6Qs\n6N7JBEkuoI0OKUKJ8+rnnYbeLQoQSnvV3Hs1B3ym/g==\n-----END EC PRIVATE KEY-----\n';
 const es512Alg = 'ES512';
+
+const xurrentToken = 'eyJraWQiOiJjZGExNDE4MS1hNGExLTQ4MjktYjA4NS0wODdiNjFlN2Q5MjMiLCJhbGciOiJFUzUxMiJ9.ew0KICAiZGF0YSI6IHsNCiAgICAid2ViaG9va19pZCI6IDIsDQogICAgIndlYmhvb2tfbm9kZUlEIjogIk5HMWxMWE4wWVdkcGJtY3VZMjl0TDFkbFltaHZiMnN2TWciLA0KICAgICJhY2NvdW50X2lkIjogIndkYyIsDQogICAgImFjY291bnQiOiAiaHR0cHM6Ly93ZGMueHVycmVudC1zdGFnaW5nLmNvbSIsDQogICAgIm5hbWUiOiAiYXBwX2luc3RhbmNlLnNlY3JldHMtdXBkYXRlIiwNCiAgICAiZXZlbnQiOiAiYXBwX2luc3RhbmNlLnNlY3JldHMtdXBkYXRlIiwNCiAgICAib2JqZWN0X2lkIjogMSwNCiAgICAib2JqZWN0X25vZGVJRCI6ICJORzFsTFhOMFlXZHBibWN1WTI5dEwwRndjRWx1YzNSaGJtTmxMekUiLA0KICAgICJwZXJzb25faWQiOiA2LA0KICAgICJwZXJzb25fbm9kZUlEIjogIk5HMWxMWE4wWVdkcGJtY3VZMjl0TDFCbGNuTnZiaTgyIiwNCiAgICAicGVyc29uX25hbWUiOiAiSG93YXJkIFRhbm5lciIsDQogICAgInBheWxvYWQiOiB7DQogICAgICAiYXVkaXRfbGluZV9pZCI6ICIqKioiLA0KICAgICAgImF1ZGl0X2xpbmVfbm9kZUlEIjogIioqKiIsDQogICAgICAiYXBwX29mZmVyaW5nIjogew0KICAgICAgICAicmVmZXJlbmNlIjogImxhbnN3ZWVwZXIiLA0KICAgICAgICAiaWQiOiAxLA0KICAgICAgICAibm9kZUlEIjogIk5HMWxMWE4wWVdkcGJtY3VZMjl0TDBGd2NFOW1abVZ5YVc1bkx6RSINCiAgICAgIH0sDQogICAgICAiY3VzdG9tZXJfYWNjb3VudF9pZCI6ICJ3ZGMiLA0KICAgICAgImFwcGxpY2F0aW9uIjogew0KICAgICAgICAibm9kZUlEIjogIk5HMWxMWE4wWVdkcGJtY3VZMjl0TDA5aGRYUm9RWEJ3YkdsallYUnBiMjR2TWciLA0KICAgICAgICAiY2xpZW50X2lkIjogIioqKiIsDQogICAgICAgICJjbGllbnRfc2VjcmV0IjogIioqKiINCiAgICAgIH0sDQogICAgICAic2VjcmV0cyI6IHsNCiAgICAgICAgImNsaWVudF9zZWNyZXQiOiAiKioqIg0KICAgICAgfQ0KICAgIH0NCiAgfSwNCiAgImp0aSI6ICJhODZlYWQzMTgzOGM5NGFkMWEyMDAzMjU0Y2VjYjUyYTBmOTY4ZjYwNjE0YTI2ZTg2YzBjMDY2MWIxNTczNGQ5IiwNCiAgInN1YiI6ICIyIiwNCiAgImlzcyI6ICJodHRwczovL3dkYy54dXJyZW50LXN0YWdpbmcuY29tIiwNCiAgIm5iZiI6IDE3MzY1ODMwODgsDQogICJpYXQiOiAxNzM2NTgzMDg4LA0KICAiYXVkIjogImludGVncmF0aW9ucyBwcm92aWRlZCBieSB3ZGNANG1lLXN0YWdpbmcuY29tIg0KfQ.AR3KYxByBj_mivAM_pu1CP5P5ch3cwGs1-gajR2mddV7MV6FPj12ngwLTG3l3CZMi4OpHisXwSrHO_fiRDQ0L4XAAXoH5J6fi7RarAHsV2O15ATRXtiA7NS7pAUaOfhK3sY3a7GOFNpfWjfBoDwPiyGy8GzCb5lKw8NEUI0D629HWGoc';
+const xurrentPem = '-----BEGIN PUBLIC KEY-----\nMIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBYErmnPLrH/EfauB/o9Lv+lrrjFoH\nK+mvsgtDpJjdx65O9B2TgpB1gtyrrKQTav5WiiTFj2Y2zt0PwntXbMzT+hEAdEpU\n4UEHVjnAEXs3/1ZG0xPWY8oMLWE5tY2G3rV8fa4CFjgSyPw5mtRNcsWVzu6HmuXW\nyPFNF9JgOFMVhaUkU0s=\n-----END PUBLIC KEY-----';
+const xurrentAlg = 'ES512';
 
 describe('JWT validation success', () => {
     test('handles JWT verification with rs256', async () => {
@@ -42,6 +45,14 @@ describe('JWT validation success', () => {
         const data = await accountHelper.get4meData(es512Token);
         expect(data.webhook_nodeID).toBe('NG1lLXN0YWdpbmcuY29tL1dlYmhvb2svMw');
         expect(data.person_name).toBe('Pluggable Integrations');
+    });
+
+    test('handles xurrent issuer in 4me environment', async () => {
+        const accountHelper = new Js4meHelper(domain, account, null, null, xurrentAlg, xurrentPem, jwtAudience);
+
+        const data = await accountHelper.get4meData(xurrentToken);
+        expect(data.webhook_nodeID).toBe('NG1lLXN0YWdpbmcuY29tL1dlYmhvb2svMg');
+        expect(data.person_name).toBe('Howard Tanner');
     });
 });
 

@@ -98,12 +98,17 @@ class Js4meHelper {
   async get4meData(token) {
     const cryptoKeyObj = crypto.createPublicKey(this.certStr);
 
+    const iss = [this.issuer];
+    if (this.env4me.includes('4me')) {
+      iss.push(`https://${this.account}.${this.env4me.replace('4me', 'xurrent')}`);
+    }
+
     try {
       const {payload, protectedHeader} = await jwtVerify(
         token,
         cryptoKeyObj,
         {
-          issuer: this.issuer,
+          issuer: iss,
           algorithms: [this.algorithm],
           audience: this.audience,
         }
