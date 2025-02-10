@@ -19,7 +19,7 @@
     "license": "MIT",
     "dependencies": {
         "@aws-sdk/client-cloudformation": "3.726.1",
-        "@aws-sdk/client-secrets-manager": "3.726.1",
+        "@aws-sdk/client-secrets-manager": "3.744.0",
         "@aws-sdk/client-sqs": "3.726.1",
         "@aws-sdk/client-sts": "3.726.1",
         "@aws-sdk/credential-providers": "3.726.1",
