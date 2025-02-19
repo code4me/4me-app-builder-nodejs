@@ -118,7 +118,7 @@ class ReferencesHelper {
     const fields = ReferencesHelper.peopleFields.split(' ');
     const queries = [];
     fields.forEach(field => {
-      queries.push(`${field}: people(first: ${ReferencesHelper.maxPeopleCount}, view: all, filter: {${field}: {values: $names}}) {
+      queries.push(`${field}: people(first: ${ReferencesHelper.maxPeopleCount}, view: all, filter: {${field}: {values: $names}, disabled: false}) {
                       nodes { userName: ${field} id }
                     }`);
     });

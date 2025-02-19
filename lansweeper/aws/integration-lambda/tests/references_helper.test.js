@@ -17,19 +17,19 @@ const allPeopleQuery = `query($previousEndCursor: String) {
       }
     }`;
 const findPeopleQuery = `query($names: [String!]!) {
-authenticationID: people(first: 100, view: all, filter: {authenticationID: {values: $names}}) {
+authenticationID: people(first: 100, view: all, filter: {authenticationID: {values: $names}, disabled: false}) {
                       nodes { userName: authenticationID id }
                     }
-primaryEmail: people(first: 100, view: all, filter: {primaryEmail: {values: $names}}) {
+primaryEmail: people(first: 100, view: all, filter: {primaryEmail: {values: $names}, disabled: false}) {
                       nodes { userName: primaryEmail id }
                     }
-sourceID: people(first: 100, view: all, filter: {sourceID: {values: $names}}) {
+sourceID: people(first: 100, view: all, filter: {sourceID: {values: $names}, disabled: false}) {
                       nodes { userName: sourceID id }
                     }
-employeeID: people(first: 100, view: all, filter: {employeeID: {values: $names}}) {
+employeeID: people(first: 100, view: all, filter: {employeeID: {values: $names}, disabled: false}) {
                       nodes { userName: employeeID id }
                     }
-supportID: people(first: 100, view: all, filter: {supportID: {values: $names}}) {
+supportID: people(first: 100, view: all, filter: {supportID: {values: $names}, disabled: false}) {
                       nodes { userName: supportID id }
                     }
     }`;
