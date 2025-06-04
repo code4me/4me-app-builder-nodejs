@@ -132,7 +132,7 @@ class LansweeperClient {
       return [firstPage];
     }
 
-    let total = firstPage.total;
+    const total = firstPage.total;
     if (firstPage.items) {
       retrieved += firstPage.items.length;
       console.log(`retrieved first ${retrieved} of ${total}`);
@@ -149,7 +149,6 @@ class LansweeperClient {
           break;
         }
 
-        total = nextPage.total;
         if (nextPage.items && nextPage.items.length > 0) {
           retrieved += nextPage.items.length;
           console.log(`retrieved first ${retrieved} of ${total}`);
@@ -208,10 +207,11 @@ class LansweeperClient {
       .split(' ')
       .forEach(field => fields.push(`processors.${field}`));
 
+    const totalField = pagination.page === 'FIRST' ?  'total' : '';
     const query = `query getAssetResources($siteId: ID!, $pagination: AssetsPaginationInputValidated, $fields: [String!]!) {
       site(id: $siteId) {
         assetResources(assetPagination: $pagination, fields: $fields, filters: ${filters}) {
-          total
+          ${totalField}
           pagination {
             next
           }
