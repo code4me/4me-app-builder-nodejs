@@ -33,9 +33,9 @@ describe('downloadAndReduceSiteResults', () => {
     const result = {uploadCounts: {}, errorCounts: {}, info: {}, errors: {}};
 
     const resultDownloadFunctions = new Map();
-    resultDownloadFunctions.set({id: '0', name: 'installation1'},
+    resultDownloadFunctions.set({id: '0', displayName: 'installation1'},
                                 async () => ({uploadCount: 2}));
-    resultDownloadFunctions.set({id: '1', name: 'installation2'},
+    resultDownloadFunctions.set({id: '1', displayName: 'installation2'},
                                 async () => ({uploadCount: 6}));
 
     await integration.downloadAndReduceSiteResults(resultDownloadFunctions, result, siteName);
@@ -57,9 +57,9 @@ describe('downloadAndReduceSiteResults', () => {
     const result = {uploadCounts: {}, errorCounts: {}, info: {}, errors: {}};
 
     const resultDownloadFunctions = new Map();
-    resultDownloadFunctions.set({id: '0', name: 'installation1'},
+    resultDownloadFunctions.set({id: '0', displayName: 'installation1'},
                                 async () => ({errors: ['a', 'c']}));
-    resultDownloadFunctions.set({id: '1', name: 'installation2'},
+    resultDownloadFunctions.set({id: '1', displayName: 'installation2'},
                                 async () => ({errors: ['b']}));
 
     await integration.downloadAndReduceSiteResults(resultDownloadFunctions, result, siteName);
@@ -91,9 +91,9 @@ describe('downloadAndReduceSiteResults', () => {
     const result = {uploadCounts: {}, errorCounts: {}, info: {}, errors: {}};
 
     const resultDownloadFunctions = new Map();
-    resultDownloadFunctions.set({id: '0', name: 'installation1'},
+    resultDownloadFunctions.set({id: '0', displayName: 'installation1'},
                                 async () => ({errors: ['a', 'c']}));
-    resultDownloadFunctions.set({id: '1', name: 'installation2'},
+    resultDownloadFunctions.set({id: '1', displayName: 'installation2'},
                                 async () => ({uploadCount: 2}));
 
     await integration.downloadAndReduceSiteResults(resultDownloadFunctions, result, siteName);
@@ -130,7 +130,7 @@ describe('processSite', () => {
         }
       }`;
 
-  const installations = [{id: 1, name: 'a'}, {id: 3, name: 'b'}];
+  const installations = [{id: 1, displayName: 'a'}, {id: 3, displayName: 'b'}];
 
   beforeEach(() => {
     TimeHelper.mockImplementation(() => ({
@@ -537,7 +537,7 @@ describe('processSite', () => {
         if (siteId === 'a') {
           return {error: 'No installations for site a'};
         } else {
-          return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+          return installations.map(i => ({...i, displayName: `${i.displayName} for ${siteId}`}));
         }
       },
       getSiteName: async (id) => {
@@ -547,7 +547,7 @@ describe('processSite', () => {
         expect(id).toBe('b');
         const installation = installations.find(i => i.id === installationKey);
         expect(installation).not.toBeUndefined();
-        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.displayName, installations.map(i => i.displayName));
         return [...result1];
       },
     }));
@@ -650,7 +650,7 @@ describe('processSite', () => {
       },
       getAllInstallationNames: async () => allInstallationNames,
       getAllInstallations: async (siteId) => {
-        return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+        return installations.map(i => ({...i, displayName: `${i.displayName} for ${siteId}`}));
       },
       getSiteName: async (id) => {
         return `site ${id}`;
@@ -659,7 +659,7 @@ describe('processSite', () => {
         expect(id).toBe('b');
         const installation = installations.find(i => i.id === installationKey);
         expect(installation).not.toBeUndefined();
-        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.displayName, installations.map(i => i.displayName));
         return [...result1];
       },
     }));
@@ -763,7 +763,7 @@ describe('processSite', () => {
       getAllInstallationNames: async () => allInstallationNames,
       getAllInstallations: async (siteId) => {
         expect(siteId).not.toEqual('a');
-        return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+        return installations.map(i => ({...i, displayName: `${i.displayName} for ${siteId}`}));
       },
       getSiteName: async (id) => {
         return `site ${id}`;
@@ -772,7 +772,7 @@ describe('processSite', () => {
         expect(assetTypes).toEqual(['ipad', 'linux']);
         const installation = installations.find(i => i.id === installationKey);
         expect(installation).not.toBeUndefined();
-        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.displayName, installations.map(i => i.displayName));
         return [...result1];
       },
     }));
@@ -916,7 +916,7 @@ describe('processSite', () => {
         if (siteId === 'a') {
           return {error: 'No installations for site a'};
         } else {
-          return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+          return installations.map(i => ({...i, displayName: `${i.displayName} for ${siteId}`}));
         }
       },
       getSiteName: async (id) => {
@@ -926,7 +926,7 @@ describe('processSite', () => {
         expect(id).toBe('b');
         const installation = installations.find(i => i.id === installationKey);
         expect(installation).not.toBeUndefined();
-        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.displayName, installations.map(i => i.displayName));
         return [...result1];
       },
     }));
@@ -1043,7 +1043,7 @@ describe('processSite', () => {
         if (siteId === 'a') {
           return {error: 'No installations for site a'};
         } else {
-          return installations.map(i => ({...i, name: `${i.name} for ${siteId}`}));
+          return installations.map(i => ({...i, displayName: `${i.displayName} for ${siteId}`}));
         }
       },
       getSiteName: async (id) => {
@@ -1053,7 +1053,7 @@ describe('processSite', () => {
         expect(id).toBe('b');
         const installation = installations.find(i => i.id === installationKey);
         expect(installation).not.toBeUndefined();
-        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.name, installations.map(i => i.name));
+        const result1 = await handler(assetArray, networkedAssetsOnly, false, installation.displayName, installations.map(i => i.displayName));
         return [...result1];
       },
     }));

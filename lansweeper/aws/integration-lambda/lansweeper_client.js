@@ -64,7 +64,7 @@ class LansweeperClient {
     const installationsPerSite = await this.getInstallationsPerSite();
     return [...installationsPerSite.values()]
       .reduce((memo, i) => memo.concat(i))
-      .map(i => i.name);
+      .map(i => i.displayName);
   }
 
   async getInstallationsPerSite() {
@@ -90,24 +90,43 @@ class LansweeperClient {
     }
 
     // the 'id' returned for each installation can be used to filter assets based on their 'installationId' field.
-    const query = `query getInstallations($siteId: ID!) {
+    const query = `query listSources($siteId: ID!) {
       site(id: $siteId) {
-        allInstallations {
-          id
-          siteId
-          name
-          fqdn
-          description
-          unlinkedOn
-          unlinkedBy
-          linkStatus
-          installationDate
-          type
-          totalAssets
-          syncServerStatus
-          lastAvailable
-          version
-          syncServer
+        sources(
+          pagination: { limit: 100, page: FIRST }
+          filters: {
+            conjunction: AND
+            groups: [
+              {
+                conditions: [
+                  { operator: EXISTS, path: "id", value: "true" }
+                ]
+                conjunction: AND
+              }
+            ]
+          }
+        ) {
+          total
+          pagination {
+            limit
+            current
+            next
+            page
+          }
+          items {
+            id
+            type
+            state {
+              value
+              unlinkedOnDate
+              deletedOnDate
+              firstSyncCompletedOn
+            }
+            siteId
+            createdAt
+            externalId
+            displayName
+          }
         }
       }
     }`;
@@ -117,7 +136,7 @@ class LansweeperClient {
                                                         {siteId: siteId});
     let allForSite = result;
     if (!result.error) {
-      allForSite = result.site.allInstallations;
+      allForSite = result.site.sources.items;
     }
     this.installationsBySiteId.set(siteId, allForSite);
     return allForSite;

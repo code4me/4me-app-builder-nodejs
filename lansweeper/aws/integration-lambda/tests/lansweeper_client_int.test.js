@@ -145,7 +145,7 @@ describe.skip('integration tests', () => {
 
   it('can get installation names for all sites', async () => {
     const names = await lansweeperClient.getAllInstallationNames();
-    expect(names).toEqual(['Tampa JLerch', 'Widget Belgian HQ']);
+    expect(names).toEqual(['JL Master', 'Widget Belgian HQ', 'Tampa JLerch']);
   });
 
   it('can get all installations', async () => {
@@ -153,17 +153,11 @@ describe.skip('integration tests', () => {
     console.log('%j', response);
 
     expect(response.length).toEqual(2);
-    expect(response.find(i => i.siteId === siteId1 && i.syncServerStatus === 'Down')).toMatchObject(
+    expect(response.find(i => i.siteId === siteId1 && i.displayName === 'Tampa JLerch')).toMatchObject(
       {
-        "description": "US Based",
-        "fqdn": "",
         "id": installId,
-        "installationDate": "2022-09-21T15:32:13.099Z",
-        "linkStatus": "Linked",
-        "name": "Tampa JLerch",
+        "displayName": "Tampa JLerch",
         "siteId": siteId1,
-        "syncServer": "jl-master",
-        "syncServerStatus": "Down",
         "type": "IT",
       },
     );
@@ -186,7 +180,7 @@ describe.skip('integration tests', () => {
     console.log('assets:\n%j', results);
     const h = new LansweeperHelper();
     const un = h.extractUserNames(results);
-    expect(results.length).toEqual(55);
+    expect(results.length).toEqual(4);
   });
 
   it('can get assets paged for single installation', async () => {
@@ -201,7 +195,7 @@ describe.skip('integration tests', () => {
 
     const h = new LansweeperHelper();
     const un = h.extractUserNames(results);
-    expect(results.length).toEqual(49);
+    expect(results.length).toEqual(4);
   });
 
   it('can get assets paged for single installation and limited asset types', async () => {

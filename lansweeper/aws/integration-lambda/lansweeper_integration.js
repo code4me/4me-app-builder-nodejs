@@ -63,12 +63,12 @@ class LansweeperIntegration {
         if (installations.error) {
           siteError = installations.error;
         } else {
-          const selectedInstallations = installations.filter(i => installationFilter(i.name));
+          const selectedInstallations = installations.filter(i => installationFilter(i.displayName));
           if (selectedInstallations.length === 0) {
             result.info[siteName] = 'No installations in this site matched selection';
           } else {
             if (selectedInstallations.length > 1) {
-              console.log('Will process the following installations: %j', selectedInstallations.map(i => i.name));
+              console.log('Will process the following installations: %j', selectedInstallations.map(i => i.displayName));
             }
             const resultDownloadFunctions =
               await this.enqueueMutationsForInstallations(selectedInstallations,
@@ -133,18 +133,18 @@ class LansweeperIntegration {
 
   async mergeInstallationResult(result, siteName, installation, installationResult) {
     result.uploadCounts[siteName] = result.uploadCounts[siteName] || {};
-    result.uploadCounts[siteName][installation.name] = installationResult.uploadCount ?? 0;
+    result.uploadCounts[siteName][installation.displayName] = installationResult.uploadCount ?? 0;
     if (installationResult.errors) {
       result.errorCounts[siteName] = result.errorCounts[siteName] || {};
-      result.errorCounts[siteName][installation.name] = installationResult.errors.length;
+      result.errorCounts[siteName][installation.displayName] = installationResult.errors.length;
       result.errors[siteName] = result.errors[siteName] || {};
-      result.errors[siteName][installation.name] = installationResult.errors;
+      result.errors[siteName][installation.displayName] = installationResult.errors;
     }
   }
 
   async enqueueMutationsForInstallation(siteId, networkedAssetsOnly, generateLabels, installation, installationNames, assetTypes) {
     const siteName = await this.lansweeperClient.getSiteName(siteId);
-    const installationName = installation.name;
+    const installationName = installation.displayName;
     console.log(`processing site ${siteName}, installation ${installationName}. NetworkedAssetsOnly: ${networkedAssetsOnly}.${generateLabels ? ' Using asset name as label.' : ''}`);
     const sendResults = await this.startInstallationSync(siteId, networkedAssetsOnly, generateLabels, installation, installationName, installationNames, assetTypes);
     console.log(`Uploaded all assets for site ${siteName}, installation ${installationName}.`);
