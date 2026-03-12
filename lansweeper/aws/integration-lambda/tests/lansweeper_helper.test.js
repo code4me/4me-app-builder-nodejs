@@ -377,12 +377,12 @@ describe('arrayToRegExValue', () => {
   });
 
   it('handles single value', () => {
-    expect(helper.arrayToRegExValue(['Windows'])).toEqual('Windows');
-    expect(helper.arrayToRegExValue(['Wind.ows'])).toEqual('Wind\\\\.ows');
+    expect(helper.arrayToRegExValue(['Windows'])).toEqual('^Windows$');
+    expect(helper.arrayToRegExValue(['Wind.ows'])).toEqual('^Wind\\\\.ows$');
   });
 
   it('handles multiple values', () => {
-    expect(helper.arrayToRegExValue(['foo', 'bar', 'baz'])).toEqual('foo|bar|baz');
-    expect(helper.arrayToRegExValue(['W|h', 'Y.aa\\(b*$+'])).toEqual('W\\\\|h|Y\\\\.aa\\\\\\\\\\(b\\\\*\\\\$\\\\+');
+    expect(helper.arrayToRegExValue(['foo', 'bar', 'baz'])).toEqual('^foo$|^bar$|^baz$');
+    expect(helper.arrayToRegExValue(['W|h', 'Y.aa\\(b*$+'])).toEqual('^W\\\\|h$|^Y\\\\.aa\\\\\\\\\\(b\\\\*\\\\$\\\\+$');
   });
 });

@@ -95,7 +95,7 @@ describe('retrieving installations with error for one site', () => {
           { conjunction: AND
             groups: [
               { conjunction: OR
-                conditions: [ { operator: REGEXP, path: "assetBasicInfo.type", value: "Windows|Windows CE" } ]
+                conditions: [ { operator: REGEXP, path: "assetBasicInfo.type", value: "^Windows$|^Windows CE$" } ]
               },
               { conjunction: OR
                 conditions: [
@@ -134,8 +134,8 @@ describe('retrieving installations with error for one site', () => {
           groups: [
             { conjunction: OR
              conditions: [
-                { operator: REGEXP, path: "assetBasicInfo.type", value: "Automotive|Mobile|Monitor|NAS|Switch|Tablet|Toy|VMware Guest|Virtual Machine|Weather|Webserver|Wifi" },
-                { operator: REGEXP, path: "assetBasicInfo.type", value: "Windows" }
+                { operator: REGEXP, path: "assetBasicInfo.type", value: "^Automotive$|^Mobile$|^Monitor$|^NAS$|^Switch$|^Tablet$|^Toy$|^VMware Guest$|^Virtual Machine$" },
+                { operator: REGEXP, path: "assetBasicInfo.type", value: "^Weather$|^Webserver$|^Wifi$|^Windows$" }
               ]
             },
             { conjunction: OR

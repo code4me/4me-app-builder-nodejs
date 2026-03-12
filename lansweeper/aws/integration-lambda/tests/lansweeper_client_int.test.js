@@ -208,7 +208,7 @@ describe.skip('integration tests', () => {
     const cutOff = new LansweeperIntegration().assetSeenCutOffDate();
     const results = await lansweeperClient.getAssetsPaged(siteId1, cutOff, items => {
       return items;
-    }, true, installId, ['Windows', 'VMware Guest']);
+    }, true, installId, ['VMware Guest', 'Windows', 'Boo']);
 
     console.log('assets:\n%j', results);
     const r = results.filter(a => a.assetBasicInfo.type !== 'Windows' && a.assetBasicInfo.type !== 'VMware Guest');
@@ -221,6 +221,11 @@ describe.skip('integration tests', () => {
     // console.log('all assets:\n%j', allResults);
     const filteredResults = allResults.filter(a => a.assetBasicInfo.type === 'Windows' || a.assetBasicInfo.type === 'VMware Guest');
     expect(filteredResults).toEqual(results);
+
+    const partialAssetTypeResults = await lansweeperClient.getAssetsPaged(siteId1, cutOff, items => {
+      return items;
+    }, true, installId, ['Window', 'Win', 'indows']);
+    expect(partialAssetTypeResults.length).toEqual(0);
   });
 
   it('can get assets paged for single installation and a large list of asset types', async () => {

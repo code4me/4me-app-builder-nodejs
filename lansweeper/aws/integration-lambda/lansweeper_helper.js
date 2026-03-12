@@ -173,7 +173,7 @@ class LansweeperHelper {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
     // to get a single \ in the regex we need to use 4 here
     // GraphQL escaping requires \\ and then JavaScript literal means times 2
-    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&');
+    return '^' + value.replace(/[.*+?^${}()|[\]\\]/g, '\\\\$&') + '$';
   }
 }
 
