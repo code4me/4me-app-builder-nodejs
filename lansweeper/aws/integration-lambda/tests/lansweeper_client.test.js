@@ -13,16 +13,18 @@ describe('retrieving installations with error for one site', () => {
       getGraphQLQuery: async (descr, query, vars) => {
         if (query.includes('authorizedSites')) {
           return {authorizedSites: {sites: [{id: 'a', name: 'site A'}, {id: 'b', name: 'site B'}]}};
-        } else if (query.includes('allInstallations')) {
+        } else if (query.includes('listSources')) {
           if (vars.siteId === 'a') {
             return {error: `Unable to query ${descr}: [{message: 'You are not authorized'}]`};
           } else {
             return {
               site: {
-                allInstallations: [
-                  {id: 'a', name: `install A for ${vars.siteId}`, siteId: vars.siteId},
-                  {id: 'b', name: `install B for ${vars.siteId}`, siteId: vars.siteId},
-                ]
+                sources: {
+                  items: [
+                    {id: 'a', displayName: `install A for ${vars.siteId}`, siteId: vars.siteId},
+                    {id: 'b', displayName: `install B for ${vars.siteId}`, siteId: vars.siteId},
+                  ]
+                },
               }
             };
           }
@@ -52,7 +54,7 @@ describe('retrieving installations with error for one site', () => {
       const client = createClient();
 
       const result = await client.getAllInstallations('b');
-      expect(result).toEqual([{id: "a", name: "install A for b", siteId: "b"}, {id: "b", name: "install B for b", siteId: "b"}]);
+      expect(result).toEqual([{id: "a", displayName: "install A for b", siteId: "b"}, {id: "b", displayName: "install B for b", siteId: "b"}]);
     });
   });
 
